@@ -11,7 +11,7 @@ div[sw-page-number]{font-family:"Courier Prime";}
 
 :root {
     --bg-1:linear-gradient(90deg, rgb(84, 104, 255) 0%, rgb(23, 26, 48) 62.71%);
-    --bg-2:linear-gradient(90deg, #02b888 0%, #2c8da6 62.71%);
+    --bg-2:linear-gradient(180deg, #02b888 0%, #2c8da6 62.71%);
     --white: #fff;
     --black: #000;
     --grey-900: #23263b;
