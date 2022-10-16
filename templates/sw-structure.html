@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Structure</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+
+    </head>
+
+    <body class="relative bg-structure-page c-ablue" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+            <!--Settings-->
+            {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (with features list)-->
+                    {% include 'aside-template1.html' %}
+
+                    <div class="w-full lg:rem-ml-15" sw-page="structure">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+                                <!--Body heading-->
+                                <div class="mb-4 px-16 flex justify-center">
+                                    <div class="font-sans-alt font-semibold tracking-wide fw-300 ft-size25">Structure Guide</div>
+                                </div>
+
+                                <div class="col-12 col-by54-lg flex space-between p-8 mxx-8 my-24">
+                                    
+                                        <div class="row mxx-8 c-bgray font-sans-alt font-semibold" data-action="click-&gt;sidebar-item#toggle" data-controller="sidebar-item">
+                                            <!--Drop down selectionitem-->
+                                            <div class="row px-16 p-8 align-self-c bg-lightash brd-r2rm">
+                                                <div class="leading-tight mx-8">3-ACT STRUCTURE</div>
+                    
+                                                <div class="fill-current">
+                                                    <svg class="size16 c-black"  viewBox="0 0 14 8" xmlns="http://www.w3.org/2000/svg"><path d="M7,8a1,1,0,0,1-.71-.29l-6-6A1,1,0,0,1,1.71.29L7,5.59,12.29.29a1,1,0,1,1,1.42,1.42l-6,6A1,1,0,0,1,7,8Z"></path></svg>
+                                                </div>
+                                            </div>
+                    
+                                            <!--Drop down menu-->
+                                            <div class="absolute">
+                                                <ul class="py-8 px-16 hidden z-50 relative top-35 bg-tp-skyblue" data-action="click-&gt;sidebar-item#stop" data-target="sidebar.submenu sidebar-item.submenu">
+                                                    <li class="pt-8 leading-normal " data-controller="sidebar-sub-item">
+                                                        <div class="">1-ACT STRUCTURE</div>
+                                                    </li>
+                                                    <li class="mt-8 leading-normal" data-controller="sidebar-sub-item">
+                                                        <div>2-ACT STRUCTURE</div>
+                                                    </li>
+                                                    <li class="mt-8 leading-normal " data-controller="sidebar-sub-item">
+                                                        <div>3-ACT STRUCTURE</div>
+                                                    </li>
+                                                    <li class="mt-8 leading-normal" data-controller="sidebar-sub-item">
+                                                        <div>4-ACT STRUCTURE</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    
+                                    <div class="row mxx-8 py-8 uppercase ft-size20">
+                                        <span>Project 1</span>
+                                    </div>
+                                </div>
+
+                                <!--List of pin boards goes here-->
+                                <div class=" text-grey-1000 leading-normal">
+                                    <div class="col-12 row mxx-8">
+                                                
+                                    </div>
+
+                                    <!-- 
+                                    <div class="doping">
+                                        <div class="col-12 bg-three mx-8 my-8 py-24 rounded-lg shadow hover:shadow-md transition-fast-out"></div>
+                                    </div> -->
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index_support-2f9f0242.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index-3afea548.js"></script>
+        <script src="../../cdn/dashboard/js/index-319dcf23.js"></script>
+
+    </body>
+</html>

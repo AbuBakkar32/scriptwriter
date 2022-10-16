@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>User Dashboard</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+    </head>
+
+    <body class="relative bg-four" style="background-color: white;">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+            <!--Settings-->
+            {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'aside-template2.html' %}
+
+                    <div class="w-full lg:rem-ml-15 overflow-x-hidden">
+                        <div class="flex" xclass="md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full" xclass="lg:max-w-648">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt fw-300 tracking-wide ft-size30">Dashboard</div>
+                                    </div>
+                                </div>
+
+                                <div class="leading-normal" style="padding-left: 30px">
+                                    <section class="mb-48 mx-8">
+                                        <div class="mb-4 flex justify-between items-start">
+                                            <div class="text-xs leading-tight">
+                                                <div class="font-sans-alt uppercase font-semibold tracking-wide">Home/dashboard</div>
+                                            </div>
+
+                                            <div class="hidden sm:flex items-center uppercase font-semibold tracking-wide text-grey-500 text-xs leading-tight whitespace-no-wrap font-sans-alt ml-16">
+                                                <span class="block mr-4 w-16 h-16 fill-current">
+                                                    <span class="block p-2">
+                                                        <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22"><path d="M11,22A11,11,0,1,1,22,11,11,11,0,0,1,11,22ZM11,2a9,9,0,1,0,9,9A9,9,0,0,0,11,2Z"></path><path d="M15,14a.93.93,0,0,1-.45-.11l-4-2A1,1,0,0,1,10,11V5a1,1,0,0,1,2,0v5.38l3.45,1.73a1,1,0,0,1,.44,1.34A1,1,0,0,1,15,14Z"></path></svg>
+                                                    </span>
+                                                </span>
+                                                Aug. 18, 2021
+                                            </div>
+                                        </div>
+
+                                        <!--Position for username-->
+                                        <div class="flex justify-between">
+                                            <h1 class="md:text-4xl lg:text-5xl text-3xl leading-tall tracking-tight font-bold hyphenated">
+                                                Welcome back, {{fullName}}!
+                                            </h1>
+                                        </div>
+                                    </section>
+
+
+                                    <!--new script card section-->
+                                    <div class="mt-40 mx-8">
+                                        <h5 class="mb-16 font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">Start New</h5>
+                                        <div class="mb-64 row mxx-8" data-marketing="">
+                                            <div class="">
+                                                <div class="rem-h10 rem-w8 mx-8 my-8 rounded-lg shadow hover:shadow-md transition-fast-out bg-four relative" style="border-left: 5px solid #2c8da6;">
+                                                    <a href="/newscript" class="block py-16">
+                                                        <div class="rem-m3">
+                                                            <div class="flex items-center text-grey-600">
+                                                                <div class="h-32 w-auto">
+                                                                    <svg class="block h-full fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                                                                        <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <h5 class="mx-8 mb-16 font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">Script</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Script work card template-->
+                                    {% include 'script-work-template.html'%}
+
+                                    <!--Big card section-->
+                                    <div class="mt-88 mx-8">
+                                        <h5 class="mb-16 font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">Notes</h5>
+                                        <div class="mb-32 row mxx-8" data-marketing="">
+                                            <!--Render notePad template-->
+                                            {% include 'notepad-template.html'%}
+                                        </div>
+                                    </div>
+
+
+                                    <!--Footer ending-->
+                                    <footer class="mt-48 text-center text-grey-700 text-sm">
+                                        <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                    </footer>
+                                </div>
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--============Flexable Fixed Button=========-->
+            <!--============Flexable Fixed Pop-up=========-->
+        <script src="../../cdn/js/BackgroundColor.js"></script>
+        <script src="../../cdn/js/app.js"></script>
+        <script src="../../cdn/js/CardOption.js"></script>
+
+    </body>
+</html>

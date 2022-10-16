@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Profile</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+            <!--Settings-->
+            {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'aside-template2.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt font-semibold tracking-wide ft-size30">Profile</div>
+                                    </div>
+                                </div>
+                                <!--List of pin boards goes here-->
+                                <div class=" leading-normal">
+                                    <div class="col-12 row mxx-8">
+                                        <div class="col-12 row mxx-8 my-32">
+                                            <div class="col-12 col-2-lg bold ft-size20">Information</div>
+                                            <form class="col-12 col-10-lg" method="post" action="/client-profile" sw-update-form="profile">
+                                                {% csrf_token %}
+                                                <div class="row mxx-8">
+                                                    <div class="col-12 col-by47-lg  m-4 ">
+                                                        <label>First Name: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="First Name" value="{{firstName}}">
+                                                    </div>
+                                                    <div class="col-12 col-by47-lg m-4">
+                                                        <label>Last Name: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="Last Name" value="{{lastName}}">
+                                                    </div>
+                                                    <div class="col-12 col-by47-lg m-4 ">
+                                                        <label>Email Address: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="Email Address" value="{{email}}">
+                                                    </div>
+                                                    <div class="col-12 col-by47-lg m-4">
+                                                        <label>Password: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" name="password" placeholder="Password" value="{{password}}">
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end col-12 col-by94-lg my-16 mxx-8">
+                                                    <button class="bg-evergreen btn-jump c-white p-8 shadow hover:shadow-md transition-fast-out brd-r1rm">Change Password</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 col-12-lg row mxx-8 my-32">
+                                            <div class="col-12 col-3-lg bold ft-size20">Writer Reminders</div>
+                                            <div class="col-12 col-9-lg">
+                                                <div class="row mxx-8">
+                                                    <div class="col-2 m-4 text-grey-700 bg-green brd-r2rm text-center p-8 w-100 rem-h2-5">Mon</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Tue</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Wen</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Thu</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Fri</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Sat</div>
+                                                    <div class="col-2 m-4 text-grey-700 bg-three brd-r2rm text-center p-8 w-100 rem-h2-5">Sun</div>
+                                                </div>
+                                                <div class="flex justify-end col-12 col-by94-lg my-16 mxx-8">
+                                                    <button class="bg-evergreen btn-jump c-white p-8 shadow hover:shadow-md transition-fast-out brd-r1rm">Set Reminder</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-12-lg row mxx-8 my-32" >
+                                            <div class="col-3-lg bold ft-size20">
+                                                <span class="flex">Software Version</span>
+                                                <span class="ft-size11">Upgrade Plan</span>
+                                            </div>
+                                            <div class="col-7-lg mx-16">
+                                                <span class="flex">Version 1</span>
+                                                <span class="ft-size11">Basic Plan</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 
+                                    <div class="doping">
+                                        <div class="col-12 bg-three mx-8 my-8 py-24 rounded-lg shadow hover:shadow-md transition-fast-out"></div>
+                                    </div> -->
+
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+
+        <script>
+            // The profile Form Element
+            const updateProfileForm = document.querySelector(`[sw-update-form="profile"]`);
+
+            const updateProfile = () => {
+                // get crsf token
+                const crsftokenValue = document.querySelector(`input[name="csrfmiddlewaretoken"]`);
+                // get the password
+                const passwordElement = updateProfileForm.querySelector(`input[name="password"]`);
+
+                if (!crsftokenValue && !passwordElement) return;
+                // create form and supply the inputs
+                const formData = new FormData();
+                formData.append('password', passwordElement.value)
+                formData.append('csrfmiddlewaretoken', crsftokenValue.value);
+
+                // Send the data to store
+                fetch('/profile', { method: 'POST', body: formData,})
+                .then(response => response.json())
+                .then(data => {
+                    if(data.result === 'success') alert(data.message);
+                    else alert(data.message);
+                })
+                .catch((error) => {
+                    console.log('Error:', error);
+                    alert('Content failed!!!');
+                });
+            };
+
+            // Add submit form eventlistener
+            updateProfileForm.addEventListener('submit', (e) => { 
+                e.preventDefault();
+
+                // Submit the form
+                updateProfile(); 
+            });
+        </script>
+
+    </body>
+</html>

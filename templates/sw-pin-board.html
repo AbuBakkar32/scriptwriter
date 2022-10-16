@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Pin Board</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+             <!--Settings-->
+             {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (with features list)-->
+                    {% include 'aside-template1.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four" sw-page="pin-board">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+
+                                <!--List of pin boards goes here-->
+                                <div class=" text-grey-1000 leading-normal">
+                                    <div class="col-12 row mxx-8">
+
+                                        <div class="col-by28-md m-16 rounded-lg shadow hover:shadow-md transition-fast-out overflow-hidden 
+                                        relative bg-yellow rem-h16" sw-data="character-option">
+                                            <div class="py-16 text-grey-500">
+                                                <span class="px-8 font-sans-alt font-semibold">Note Pad</span>                                                    
+                                                <div class="h-8 w-auto fill-current fot-r mx-8 cus-pointer" sw-data="menu-hello">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="fill-current size24" viewBox="0 0 24 24"><path d="M0 9h24v6h-24z"/></svg>
+                                                </div>
+                                            </div>
+                                            <div class="col font-sans-alt text-grey-700 m-8 overflow-y-auto rem-h10 text-cursive">
+                                                <p class="m-4 pb-16">hello i am george leo. a task of the developer can be challenging and frustrating sometimes.
+                                                    Just to be happy with self.
+                                                </p>
+                                            </div>
+                                            <!--Arrow up and Arrow down-->
+                                            <div class="col font-sans-alt text-grey-700 m-8 text-cursive flex end">
+                                                <!--Down-->
+                                                <svg class="fill-current size24 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
+                                                <!--Up-->
+                                                <svg class="fill-current size24 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg>
+                                            </div>
+
+                                            <div class="bg-three z-50 menutype1 brd-r20 p-rem1 shadow hidden" sw-data="menu-hi">
+                                                <ul>
+                                                    <li class="flex space-between py-2 cus-pointer">                                                    
+                                                        <span><svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z"/></svg></span>
+                                                        <span class="font-sans-alt">Rename</span>
+                                                    </li>
+                                                    <li class="flex space-between py-2 cus-pointer">                                                    
+                                                        <span><svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"/></svg></span>
+                                                        <span class="font-sans-alt">Add Note</span>
+                                                    </li>
+                                                    <li class="flex space-between py-2 cus-pointer">                                                    
+                                                        <span><svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/></svg></span>
+                                                        <span class="font-sans-alt">Delete</span>
+                                                    </li>
+                                                    <li class="flex space-between py-2 cus-pointer">                                                    
+                                                        <span><svg class="size18 bg-yellow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg></span>
+                                                        <span class="font-sans-alt">Color</span>
+                                                    </li>
+                                                </ul>
+                                                    <li class="flex py-2">                                                    
+                                                        <div class="row px-8 z-100">
+                                                            <svg class="size18 bg-blue m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                            <svg class="size18 bg-green m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                            <svg class="size18 bg-pink m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                            <svg class="size18 bg-purple m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                            <svg class="size18 bg-orange m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                            <svg class="size18 bg-yellow m-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                                
+                                    </div>
+
+                                    <!-- 
+                                    <div class="doping">
+                                        <div class="col-12 bg-three mx-8 my-8 py-24 rounded-lg shadow hover:shadow-md transition-fast-out"></div>
+                                    </div> -->
+
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index_support-2f9f0242.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index-3afea548.js"></script>
+        <script src="../../cdn/dashboard/js/index-319dcf23.js"></script>
+
+    </body>
+</html>

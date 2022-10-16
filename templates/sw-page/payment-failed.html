@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Transaction Completed</title>
+        {% include 'head.html' %}
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+            <!--Settings-->
+            {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'aside-template2.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt font-semibold tracking-wide ft-size30">Transaction Failed</div>
+                                    </div>
+                                </div>
+                                <!--List of pin boards goes here-->
+                                <div class=" leading-normal">
+                                    <div class="col-12 flex-cnt">
+                                        <div class="mb-16">
+                                            <svg style="fill: tomato !important;" xmlns="http://www.w3.org/2000/svg" width="224" height="224" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.5 16.084l-1.403 1.416-4.09-4.096-4.102 4.096-1.405-1.405 4.093-4.092-4.093-4.098 1.405-1.405 4.088 4.089 4.091-4.089 1.416 1.403-4.092 4.087 4.092 4.094z"/></svg>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+
+    </body>
+</html>

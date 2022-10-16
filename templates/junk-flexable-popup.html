@@ -1,0 +1,73 @@
+<!--============Flexable Fixed Button=========-->
+            <!-- <a class="fixed xxl:block hidden right-0 bottom-0 group mr-32 py-8 px-16 mb-24 btn-skeuomorphic rounded font-sans-alt transition-fast-out z-20"
+                data-segment-message="Clicked Need Help" data-segment="need-help" href="#">
+                <span class="flex items-center py-2">
+                    <span class="text-grey-700 group-hover:text-grey-800 mt-4">Example Assistant</span>
+                </span>
+            </a> -->
+
+<!--============Flexable Fixed Pop-up=========-->
+<div class="fixed xxl:hidden block min-w-136 right-0 bottom-0 mr-32 mb-24 z-20">
+    <div class="flex w-full flex-col-reverse" data-controller="language-switcher">
+        <div class="h-48 flex items-center bg-y-gradient-white-grey-200 font-sans-alt text-grey-800 font-semibold shadow cursor-pointer 
+            transition-fast-out rounded hover:shadow-md py-8 px-16 text-grey-1000 cursor-pointer" 
+            data-action="click@window-&gt;language-switcher#hide click-&gt;language-switcher#toggle">
+            <div class="w-full" data-target="language-switcher.item">
+                <div class="flex items-center">
+                    <div class="flex items-center flex-grow-0 flex-shrink-0 w-16 h-16 justify-center mr-8 fill-current text-js">
+                        <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.62 14.72">
+                            <path d="M7.8,6.5h0a3.35,3.35,0,0,0,1-.19l.58,1,.39.7a.6.6,0,0,0,.52.31.65.65,0,0,0,.31-.08.61.61,0,0,0,.21-.84l-.39-.7-.58-1A3.3,3.3,0,0,0,11,3.24,3.2,3.2,0,0,0,7.82,0,3.22,3.22,0,0,0,4.64,3.26,3.2,3.2,0,0,0,7.8,6.5Zm0-5.27a2,2,0,1,1-2,2A2,2,0,0,1,7.8,1.23Z"></path>
+                            <path fill="#000000" d="M12.45,8.23h0a3.21,3.21,0,0,0-3.11,2.63H7.42a.61.61,0,0,0-.59.61.6.6,0,0,0,.59.6H9.34a3.18,3.18,0,1,0,3.11-3.84Zm0,5.26a2,2,0,1,1,2-2A2,2,0,0,1,12.45,13.49Z"></path>
+                            <path fill="#000000" d="M5.82,8l.4-.7A.64.64,0,0,0,6,6.48H6a.61.61,0,0,0-.83.22l-.39.7-.57,1a3.26,3.26,0,0,0-1-.18,3.25,3.25,0,0,0,0,6.49A3.26,3.26,0,0,0,5.25,9ZM3.16,13.49a2,2,0,0,1,0-4,2,2,0,0,1,2,2v0A2,2,0,0,1,3.16,13.49Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex items-center flex-grow ml-4 mr-8">
+                        <span class="inline-block mr-8 text-sm mr-8 mt-2">Floating Block</span>
+                        <span class="inline-block bg-nebula-500-opacity-20 text-nebula-600 py-2 px-4 text-xs rounded font-bold leading-none tracking-wide">v4</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex-grow-0 flex-shrink-0 h-4 text-grey-800 opacity-75 fill-current">
+                            <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path d="M7,8a1,1,0,0,1-.71-.29l-6-6A1,1,0,0,1,1.71.29L7,5.59,12.29.29a1,1,0,1,1,1.42,1.42l-6,6A1,1,0,0,1,7,8Z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-y-gradient-white-grey-200 shadow rounded my-32 py-8 cursor-pointer hidden" data-target="language-switcher.list">
+            <a class="block py-8 px-16 hover:bg-grey-400-opacity-20 transition-fast-out text-grey-1000" href="#">
+                <div class="android" data-action="click-&gt;language-switcher#flavor" data-language="android" data-target="language-switcher.item">
+                    <div class="flex items-center">
+                        <div class="flex items-center flex-grow-0 flex-shrink-0 w-16 h-16 justify-center mr-8 fill-current text-android">
+                            <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.62 14.72">
+                                <path d="M7.8,6.5h0a3.35,3.35,0,0,0,1-.19l.58,1,.39.7a.6.6,0,0,0,.52.31.65.65,0,0,0,.31-.08.61.61,0,0,0,.21-.84l-.39-.7-.58-1A3.3,3.3,0,0,0,11,3.24,3.2,3.2,0,0,0,7.82,0,3.22,3.22,0,0,0,4.64,3.26,3.2,3.2,0,0,0,7.8,6.5Zm0-5.27a2,2,0,1,1-2,2A2,2,0,0,1,7.8,1.23Z"></path>
+                                <path fill="#000000" d="M12.45,8.23h0a3.21,3.21,0,0,0-3.11,2.63H7.42a.61.61,0,0,0-.59.61.6.6,0,0,0,.59.6H9.34a3.18,3.18,0,1,0,3.11-3.84Zm0,5.26a2,2,0,1,1,2-2A2,2,0,0,1,12.45,13.49Z"></path>
+                                <path fill="#000000" d="M5.82,8l.4-.7A.64.64,0,0,0,6,6.48H6a.61.61,0,0,0-.83.22l-.39.7-.57,1a3.26,3.26,0,0,0-1-.18,3.25,3.25,0,0,0,0,6.49A3.26,3.26,0,0,0,5.25,9ZM3.16,13.49a2,2,0,0,1,0-4,2,2,0,0,1,2,2v0A2,2,0,0,1,3.16,13.49Z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-center flex-grow ml-4">
+                            <span class="inline-block mr-8 text-sm mr-8">Floating Block Example 1</span>
+                            <span class="inline-block bg-nebula-500-opacity-20 text-nebula-600 py-2 px-4 text-xs rounded font-bold leading-none tracking-wide">v2</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a class="block py-8 px-16 hover:bg-grey-400-opacity-20 transition-fast-out text-grey-1000" href="#">
+                <div class="angular" data-action="click-&gt;language-switcher#flavor" data-language="angular" data-target="language-switcher.item">
+                    <div class="flex items-center">
+                        <div class="flex items-center flex-grow-0 flex-shrink-0 w-16 h-16 justify-center mr-8 fill-current text-angular">
+                            <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.62 14.72">
+                                <path d="M7.8,6.5h0a3.35,3.35,0,0,0,1-.19l.58,1,.39.7a.6.6,0,0,0,.52.31.65.65,0,0,0,.31-.08.61.61,0,0,0,.21-.84l-.39-.7-.58-1A3.3,3.3,0,0,0,11,3.24,3.2,3.2,0,0,0,7.82,0,3.22,3.22,0,0,0,4.64,3.26,3.2,3.2,0,0,0,7.8,6.5Zm0-5.27a2,2,0,1,1-2,2A2,2,0,0,1,7.8,1.23Z"></path>
+                                <path fill="#000000" d="M12.45,8.23h0a3.21,3.21,0,0,0-3.11,2.63H7.42a.61.61,0,0,0-.59.61.6.6,0,0,0,.59.6H9.34a3.18,3.18,0,1,0,3.11-3.84Zm0,5.26a2,2,0,1,1,2-2A2,2,0,0,1,12.45,13.49Z"></path>
+                                <path fill="#000000" d="M5.82,8l.4-.7A.64.64,0,0,0,6,6.48H6a.61.61,0,0,0-.83.22l-.39.7-.57,1a3.26,3.26,0,0,0-1-.18,3.25,3.25,0,0,0,0,6.49A3.26,3.26,0,0,0,5.25,9ZM3.16,13.49a2,2,0,0,1,0-4,2,2,0,0,1,2,2v0A2,2,0,0,1,3.16,13.49Z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex justify-between items-center flex-grow ml-4">
+                            <span class="inline-block mr-8 text-sm mr-8">Floating Block Example 2</span>
+                            <span class="inline-block bg-nebula-500-opacity-20 text-nebula-600 py-2 px-4 text-xs rounded font-bold leading-none tracking-wide">v3</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>    
+</div>

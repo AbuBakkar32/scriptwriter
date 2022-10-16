@@ -1,0 +1,146 @@
+<!--Recent Script Work card section-->
+{% if RecentScriptWork %}
+<div class="mt-40 mx-8">
+    <h5 class="font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">Recent</h5>
+    <div class="mb-64 row mxx-8" data-marketing="">
+    {% for sw in RecentScriptWork%}
+        <div class="mx-8 relative" sw-card-option="card">
+            <div class="rounded-lg" sw-card-option="border-left"
+                {% if sw.color == 'bg-blue' %}
+                style="border-left: 8px solid #e2f1ff;"
+                {% elif sw.color == 'bg-green' %}
+                style="border-left: 8px solid #cdf6ce;"
+                {% elif sw.color == 'bg-yellow' %}
+                style="border-left: 8px solid #f9f6d7;"
+                {% elif sw.color == 'bg-pink' %}
+                style="border-left: 8px solid #f6cdf2;"
+                {% elif sw.color == 'bg-orange' %}
+                style="border-left: 8px solid #f6decd;"
+                {% elif sw.color == 'bg-purple' %}
+                style="border-left: 8px solid #f2e8f5;"
+                {% elif sw.color == 'bg-red' %}
+                style="border-left: 8px solid #f86e7e;;"
+                {% elif sw.color == 'bg-green-lit' %}
+                style="border-left: 8px solid #eef8ee;"
+                {% endif %}
+            >
+                <div class="rem-h10 rem-w8 shadow hover:shadow-md transition-fast-out bg-four" sw-card-option="option-menu-btn">
+                    <a href="/scriptwork/{{sw.scriptID}}">
+                        <div class="rem-m3"><div class="flex items-center text-grey-600"></div></div>
+                    </a>
+                </div>
+            </div>
+            <span class="hide" sw-card-option="card-id">{{sw.scriptID}}</span>
+            {% if sw.title %}
+            <h5 class="mx-8 mb-16 rem-w8 font-sans-alt font-semibold tracking-wide text-grey-500" sw-card-option="title">{{sw.title}}</h5>
+            {% else %}
+            <h5 class="mx-8 mb-16 rem-w8 font-sans-alt font-semibold tracking-wide text-grey-500" sw-card-option="title">{{sw.scriptID}}</h5>
+            {% endif %}
+
+            <!-- Menu-->
+            <div class="bg-three z-50 menutype5 brd-r20 p-rem1 shadow hide" sw-card-option="option-wrap">
+                <div class="flex space-between py-2 cus-pointer" sw-card-option="open-option">
+                    <svg class="fill-current size16 cus-pointer" style="transform: rotate(90deg);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>                                              
+                    <span class="font-sans-alt">Open Script</span>
+                </div>
+                <div class="flex space-between py-2 cus-pointer" sw-card-option="rename-option">                                                    
+                    <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z"/></svg>
+                    <span class="font-sans-alt">Rename</span>
+                </div>
+                <div class="flex space-between py-2 cus-pointer" sw-card-option="delete-option">                                                    
+                    <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/></svg>
+                    <span class="font-sans-alt">Delete</span>
+                </div>
+                <div class="flex space-between py-2 cus-pointer" sw-card-option="color-option">                                                    
+                    <svg class="size18 {{sw.color}} rounded-circle" bg-value="{{sw.color}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <span class="font-sans-alt">Color</span>
+                </div>
+            
+                <div class="row py-2 px-8 z-100" sw-card-option="color-wrap">
+                    <svg class="size18 bg-blue m-2 rounded-circle cus-pointer" bg-value="bg-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <svg class="size18 bg-green m-2 rounded-circle cus-pointer" bg-value="bg-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <svg class="size18 bg-pink m-2 rounded-circle cus-pointer" bg-value="bg-pink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <svg class="size18 bg-purple m-2 rounded-circle cus-pointer" bg-value="bg-purple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <svg class="size18 bg-orange m-2 rounded-circle cus-pointer" bg-value="bg-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                    <svg class="size18 bg-yellow m-2 rounded-circle cus-pointer" bg-value="bg-yellow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<!--Authored Script Work card section-->
+{% if AuthoredScriptWork %}
+<div class="mt-40 mx-8">
+    <h5 class="font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">Invited Script</h5>
+    <div class="mb-64 row mxx-8 ">
+
+    {% for sw in AuthoredScriptWork%}
+    <a class="mx-8 relative" href="/author-script/{{sw.scriptID}}">
+        <div class="rounded-lg" sw-card-option="border-left"
+            {% if sw.color == 'bg-blue' %}
+            style="border-left: 8px solid #e2f1ff;"
+            {% elif sw.color == 'bg-green' %}
+            style="border-left: 8px solid #cdf6ce;"
+            {% elif sw.color == 'bg-yellow' %}
+            style="border-left: 8px solid #f9f6d7;"
+            {% elif sw.color == 'bg-pink' %}
+            style="border-left: 8px solid #f6cdf2;"
+            {% elif sw.color == 'bg-orange' %}
+            style="border-left: 8px solid #f6decd;"
+            {% elif sw.color == 'bg-purple' %}
+            style="border-left: 8px solid #f2e8f5;"
+            {% elif sw.color == 'bg-red' %}
+            style="border-left: 8px solid #f86e7e;;"
+            {% elif sw.color == 'bg-green-lit' %}
+            style="border-left: 8px solid #eef8ee;"
+            {% endif %}
+        >
+            <div class="rem-h10 rem-w8 shadow hover:shadow-md transition-fast-out bg-four"></div>
+        </div>
+        <span class="hide" sw-card-option="card-id">{{sw.scriptID}}</span>
+        {% if sw.title %}
+        <h5 class="mx-8 mb-16 rem-w8 font-sans-alt font-semibold tracking-wide text-grey-500" sw-card-option="title">{{sw.title}}</h5>
+        {% else %}
+        <h5 class="mx-8 mb-16 rem-w8 font-sans-alt font-semibold tracking-wide text-grey-500" sw-card-option="title">{{sw.scriptID}}</h5>
+        {% endif %}
+
+        <!-- Menu-->
+        <div class="bg-three z-50 menutype5 brd-r20 p-rem1 shadow hide" sw-card-option="option-wrap">
+            <div class="flex space-between py-2 cus-pointer" sw-card-option="open-option">
+                <svg class="fill-current size16 cus-pointer" style="transform: rotate(90deg);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>                                              
+                <span class="font-sans-alt">Open Script</span>
+            </div>
+            <div class="flex space-between py-2 cus-pointer" sw-card-option="rename-option">                                                    
+                <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z"/></svg>
+                <span class="font-sans-alt">Rename</span>
+            </div>
+            <div class="flex space-between py-2 cus-pointer" sw-card-option="delete-option">                                                    
+                <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/></svg>
+                <span class="font-sans-alt">Delete</span>
+            </div>
+            <div class="flex space-between py-2 cus-pointer" sw-card-option="color-option">                                                    
+                <svg class="size18 {{sw.color}} rounded-circle" bg-value="{{sw.color}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <span class="font-sans-alt">Color</span>
+            </div>
+        
+            <div class="row py-2 px-8 z-100" sw-card-option="color-wrap">
+                <svg class="size18 bg-blue m-2 rounded-circle cus-pointer" bg-value="bg-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <svg class="size18 bg-green m-2 rounded-circle cus-pointer" bg-value="bg-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <svg class="size18 bg-pink m-2 rounded-circle cus-pointer" bg-value="bg-pink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <svg class="size18 bg-purple m-2 rounded-circle cus-pointer" bg-value="bg-purple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <svg class="size18 bg-orange m-2 rounded-circle cus-pointer" bg-value="bg-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+                <svg class="size18 bg-yellow m-2 rounded-circle cus-pointer" bg-value="bg-yellow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.623 0-12 5.377-12 12s5.377 12 12 12 12-5.377 12-12-5.377-12-12-12zm0 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 5.52 0 10 4.481 10 10 0 5.52-4.48 10-10 10z"/></svg>
+            </div>
+            
+        </div>
+    </a>
+    {% endfor %}
+
+    </div>
+</div>
+{% endif %}

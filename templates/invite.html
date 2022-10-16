@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{name}} invite you to contribute - Signup - Scriptovate</title>
+        {% include 'page-head.html' %}
+    </head>
+
+    <body>
+        <div class="stl-flex" id="wrapper">
+            <section class="stl-w-full stl-flex stl-justify-center stl-min-h-screen stl-p-6 stl-bg-grey-50" style="background:var(--bg-2); color: #fff;">
+                <div class="stl-w-128 stl-flex stl-flex-col stl-justify-center stl-items-center stl-relative">
+                    <a class="stl-mb-12 logo-text c-white" href="/"> Scriptovate
+                        <!--<img height="40"  src="lo.png" >--><!-- class="stl-h-10 stl-my-10" src="lo.png">  -->
+                    </a>
+                    <p class="stl-display-large stl-mb-6 stl-w-full stl-flex stl-items-center stl-justify-between">
+                        {{name}}, invite you to contribute to the script "{{invitetitle}}." 
+                    </p>
+
+                    
+                    <div class="stl-w-full" style="margin-bottom: 40px;">
+                        <h1 class="stl-display-large stl-mb-6 stl-w-full stl-flex stl-items-center stl-justify-between">
+                            Log in
+                        </h1>
+                        <form class="simple_form Bizible-Exclude" action="#" method="post">
+                            {% csrf_token %}
+                            <div class="{{err.1}}" style="{{err.2}}">{{err.0}}</div>
+                            <div class="form-group email optional user_email">
+                                <div class="input-group">
+                                    <input class="string email required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" placeholder="Email" type="email" name="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group password optional user_password">
+                                <div class="input-group">
+                                    <input class="password required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" placeholder="Password" type="password" name="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group username optional first_name hide">
+                                <div class="input-group">
+                                    <input value="first_name" placeholder="Firstname" type="Firstname" name="firstname">
+                                </div>
+                            </div>
+
+                            <div class="form-group username optional last_name hide">
+                                <div class="input-group">
+                                    <input value="last_name" placeholder="Lastname" type="Lastname" name="lastname">
+                                </div>
+                            </div>
+
+                            <button name="button" type="submit" 
+                                class="stl-btn stl-btn-neutral stl-flex stl-justify-center stl-items-center stl-px-4 
+                                stl-typo-display-body stl-h-10 stl-block stl-w-full stl-btn-primary submit-button">
+                                Join
+                            </button>
+                            
+                            <input type="hidden" name="csrfmiddlewaretoken" disabled="">
+                            <input type="hidden" name="page" value="registerpage">
+                        </form>
+                    </div>
+
+
+                    <div class="stl-w-full">
+                        <h1 class="stl-display-large stl-mb-6 stl-w-full stl-flex stl-items-center stl-justify-between">
+                            SignUp
+                        </h1>
+                        <form class="simple_form Bizible-Exclude" id="new_user" action="#" method="post">
+                            {% csrf_token %}
+                            <div class="{{err.1}}" style="{{err.2}}">{{err.0}}</div>
+                            <div class="form-group username optional first_name">
+                                <div class="input-group">
+                                    <input autofocus="autofocus" 
+                                        class="string username required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-2 c-black" 
+                                        required="required" aria-required="true" placeholder="Firstname" type="Firstname" name="firstname">
+                                </div>
+                            </div>
+
+                            <div class="form-group username optional last_name">
+                                <div class="input-group">
+                                    <input autofocus="autofocus" 
+                                        class="string username required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" placeholder="Lastname" type="Lastname" name="lastname">
+                                </div>
+                            </div>
+
+                            <div class="form-group email optional user_email">
+                                <div class="input-group">
+                                    <input autofocus="autofocus" 
+                                        class="string email required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" placeholder="Email" type="email" name="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group password optional user_password">
+                                <div class="input-group">
+                                    <input class="password required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" placeholder="Password" type="password" name="password">
+                                </div>
+                            </div>
+
+                            <button name="button" type="submit" 
+                                class="stl-btn stl-btn-neutral stl-flex stl-justify-center stl-items-center stl-px-4 
+                                stl-typo-display-body stl-h-10 stl-block stl-w-full stl-btn-primary submit-button">
+                                Join
+                            </button>
+                            
+                            <input type="hidden" name="csrfmiddlewaretoken" disabled="">
+                            <input type="hidden" name="page" value="registerpage">
+                        </form>
+
+                        <script>
+                            const forms = document.querySelectorAll('form');
+                            forms.forEach((form) => {form.action = window.location.href;});
+                        </script>
+                    </div>
+                    
+                </div>
+            </section>
+        </div>
+    </body>
+</html> 

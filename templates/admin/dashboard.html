@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Admin Dashboard</title>
+        {% include 'head.html' %}
+    </head>
+
+    <body class="relative bg-four" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+            <!--============ Header =========-->
+            {% include 'admin/header-template.html' %}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'admin/sidebar-template.html' %}
+
+                    <div class="w-full lg:rem-ml-15 overflow-x-hidden">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full" xclass="lg:max-w-648">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt fw-300 tracking-wide ft-size30">Dashboard</div>
+                                    </div>
+                                </div>
+
+                                <div class="leading-normal">
+                                    <div class="">
+                                        <section class="mb-48 mxx-8">
+                                            <div class="mb-4 flex justify-between items-start">
+                                                <div class="text-xs leading-tight">
+                                                    <div class="font-sans-alt uppercase font-semibold tracking-wide">Home/dashboard</div>
+                                                </div>
+
+                                                <div class="hidden sm:flex items-center uppercase font-semibold tracking-wide text-grey-500 text-xs leading-tight whitespace-no-wrap font-sans-alt ml-16">
+                                                    <span class="block mr-4 w-16 h-16 fill-current">
+                                                        <span class="block p-2">
+                                                            <svg class="block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22"><path d="M11,22A11,11,0,1,1,22,11,11,11,0,0,1,11,22ZM11,2a9,9,0,1,0,9,9A9,9,0,0,0,11,2Z"></path><path d="M15,14a.93.93,0,0,1-.45-.11l-4-2A1,1,0,0,1,10,11V5a1,1,0,0,1,2,0v5.38l3.45,1.73a1,1,0,0,1,.44,1.34A1,1,0,0,1,15,14Z"></path></svg>
+                                                        </span>
+                                                    </span>
+                                                    Feb. 28, 2022
+                                                </div>
+                                            </div>
+
+                                            <!--Position for username-->
+                                            <div class="flex justify-between">
+                                                <h1 class="md:text-4xl lg:text-5xl text-3xl leading-tall tracking-tight font-bold hyphenated">
+                                                    Welcome back, {{QuerySet.0.2}}!
+                                                </h1>
+                                                <div class="mt-16 ml-16 relative">
+                                                    <a class="absolute top-0 right-0 edit-link w-24 h-24 items-center justify-center bg-grey-400-opacity-40 
+                                                        hover:bg-grey-400-opacity-60 rounded-full transition-fast-out hidden"
+                                                        href="#" rel="nofollow noopener" target="_blank">
+                                                        <span class="flex items-center justify-center w-16 h-16 text-grey-700 fill-current">
+                                                            <svg class="h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.58 31.77">
+                                                                <path d="M16.29,0a16.29,16.29,0,0,0-5.15,31.75c.82.15,1.11-.36,1.11-.79s0-1.41,0-2.77C7.7,29.18,6.74,26,6.74,26a4.36,4.36,0,0,0-1.81-2.39c-1.47-1,.12-1,.12-1a3.43,3.43,0,0,1,2.49,1.68,3.48,3.48,0,0,0,4.74,1.36,3.46,3.46,0,0,1,1-2.18c-3.62-.41-7.42-1.81-7.42-8a6.3,6.3,0,0,1,1.67-4.37,5.94,5.94,0,0,1,.16-4.31s1.37-.44,4.48,1.67a15.41,15.41,0,0,1,8.16,0c3.11-2.11,4.47-1.67,4.47-1.67A5.91,5.91,0,0,1,25,11.07a6.3,6.3,0,0,1,1.67,4.37c0,6.26-3.81,7.63-7.44,8a3.85,3.85,0,0,1,1.11,3c0,2.18,0,3.94,0,4.47s.29.94,1.12.78A16.29,16.29,0,0,0,16.29,0Z"></path>
+                                                            </svg>
+                                                            <span aria-hidden="true" class="hidden">Edit this guide</span>
+                                                        </span>
+                                                    </a>
+                                
+                                                    <a class="unstyled-link text-base absolute top-0 right-0 edit-link w-24 h-24 items-center justify-center 
+                                                        bg-grey-400-opacity-40 hover:bg-grey-400-opacity-60 rounded-full transition-fast-out hidden mr-32"
+                                                        href="#" rel="nofollow noopener" target="_blank" title="Edit this guide">
+                                                        <span class="flex items-center justify-center w-16 h-16 text-grey-700 fill-current font-bold">
+                                                            A<span aria-hidden="true" class="hidden">Edit this guide</span>
+                                                        </span>
+                                                    </a>
+                                
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                    <!--Middle Body Section to add more content-->
+                                    <div class="content mb-32" data-controller="report-link" data-main=""></div>
+
+
+
+                                    <!--Footer ending-->
+                                    <footer class="mt-48 text-center text-grey-700 text-sm">
+                                        <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                    </footer>
+                                </div>
+                                <div data-search-results=""></div>
+                            </main>
+
+                            <!--============Right side bar=========-->
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--============Flexable Fixed Button=========-->
+            <!--============Flexable Fixed Pop-up=========-->
+            
+        <script src="../../cdn/js/app.js"></script>
+
+    </body>
+</html>

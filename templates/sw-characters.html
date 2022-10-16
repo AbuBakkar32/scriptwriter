@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Character</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template3.html' %}
+
+            <!--Settings-->
+            {% include 'settings-template.html'%}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (with features list)-->
+                    {% include 'aside-template1.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four" sw-page="character">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+                                <!--Body heading-->
+                                <div class="mb-4 px-16 flex justify-center">
+                                    <div class="font-sans-alt font-semibold tracking-wide ft-size25">Characters</div>
+                                </div>
+
+                                <div class="row p-8 mxx-8 mb-24">
+                                    <div class="row mxx-8 bg-three py-8 shadow hover:shadow-md transition-fast-out cus-pointer">
+                                        <span>Add New</span>
+                                        <svg class="mx-8 size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"/></svg>
+                                    </div>
+                                    <div class="row mxx-8 bg-three py-8 shadow hover:shadow-md transition-fast-out cus-pointer">
+                                        <span>Auto Generate</span>
+                                        <svg class="mx-8 size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1.615 11.375l-1.535-.986 5.399-.618 1.924 5.023-1.518-.961c-1.482 2.402-2.843 5.215-1.979 7.896-2.503-2.122-3.906-3.753-3.906-5.723 0-1.422.924-3.339 1.615-4.631zm4.057 5.625c-.763.931-1.002 2.887-.753 4.071.114.542.592.929 1.147.929h4.934v-5h-5.328zm10.706 5.176v1.824l-3.37-4.263 3.37-4.282v1.797c2.823-.005 5.798-.333 7.622-2.479-.484 3.246-1.131 5.298-2.805 6.336-1.209.748-3.354.973-4.817 1.067zm2.672-6.413c1.193.158 2.982-.669 3.857-1.505.401-.383.478-.993.186-1.464l-2.6-4.192-4.25 2.634 2.807 4.527zm-.937-11.561l1.61-.859-2.097 5.014-5.323-.772 1.579-.856c-1.372-2.467-3.162-5.028-5.925-5.583 1.904-.711 3.438-1.146 4.737-1.146 2.238 0 3.54 1.265 5.419 4.202zm-6.889.795c-.44-1.12-2.031-2.285-3.186-2.645-.529-.165-1.1.063-1.371.547l-2.408 4.307 4.364 2.441 2.601-4.65z"/></svg>
+                                    </div>
+                                </div>
+
+                                <!--List of pin boards goes here-->
+                                <div class="text-grey-1000 leading-normal">
+                                    <div class="col-12 row mxx-8">
+                                        <div class="col-1"></div>
+                                        <div class="col-2">Names</div>
+                                        <div class="col-2">Archetype</div>
+                                        <div class="col-2">Possession</div>
+                                        <div class="col-3">Need</div>
+                                        <div class="col-2">Traits</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-12 bg-three mx-8 my-8 pt-16 shadow hover:shadow-md transition-fast-out relative" sw-data="lines-option"> 
+                                            <div class="col-12 row mxx-8 pb-16">
+                                                <div class="col-1">1.</div>
+                                                <div class="col-2">JOHN WIKER</div>
+                                                <div class="col-2">Hero</div>
+                                                <div class="col-2">100%</div>
+                                                <div class="col-3">To be loved.</div>
+                                                <div class="col-2">Shy, Couragous.</div>
+                                            </div>
+
+                                            <hr class="bg-orange w-40 m-2 p-2"/>
+
+                                            <div class="col-12 my-8 py-16 hidden" sw-data="lines-tag">
+                                                <div class="row mxx-8">
+                                                    <div class="col-12 col-4-lg m-4">
+                                                        <div class="">
+                                                            <div class="mt-16 px-16 mb-16 shadow hover:shadow-md brd-r3">
+                                                                <!--Profile Pics-->
+                                                                <div class="col-12 col-12-lg p-8 flex justify-center">
+                                                                    <img class="rounded-circle img75" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2275%22%20height%3D%2275%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2075%2075%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c312c626f%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c312c626f%22%3E%3Crect%20width%3D%2275%22%20height%3D%2275%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2219.3359375%22%20y%3D%2242%22%3E75x75%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+                                                                </div>
+                                                                <!--Name-->
+                                                                <div class="col-12 col-12-lg p-8 flex justify-center">
+                                                                    <div class="text-grey-700 bold">Ebili George</div>
+                                                                </div>
+                    
+                                                                <div class="col-12">
+                                                                    <div class="row p-8">
+                                                                        <div style="text-align: start;">Want:</div>
+                                                                        <div class="col" style="text-align: end;">To be loved</div>
+                                                                    </div>
+                        
+                                                                    <div class="row p-8">
+                                                                        <div style="text-align: start;">Trait:</div>
+                                                                        <div class="col" style="text-align: end;">Shy, Couragous</div>
+                                                                    </div>
+
+                                                                    <div class="row p-8">
+                                                                        <div style="text-align: start;">Occupation:</div>
+                                                                        <div class="col" style="text-align: end;">Work In a Garage</div>
+                                                                    </div>
+                        
+                                                                    <div class="col p-8">
+                                                                        <ul style="list-style: disc;">
+                                                                            <li class="pb-8">the flow is to stay committed</li>
+                                                                            <li class="pb-8">brave hair like willson mark</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        
+                                                        <div class=""></div>
+                                                    </div>
+
+                                                    <div class="col-12 col-7-lg m-4">
+                                                        <div class="col-12 col-12-lg row mxx-8 shadow-darker">
+                                                            <div class="col-12 col-by47-lg p-8 m-4 shadow">
+                                                                <div class="font-sans-alt text-grey-700 text-cursive">
+                                                                    <div class="ft-size16">Character Want</div>
+                                                                    <p class="pb-16">hello i am george leo. a task of the
+                                                                         developer can be challenging and frustrating sometimes.
+                                                                        Just to be happy with self.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-by47-lg p-8 m-4 shadow">
+                                                                <div class="font-sans-alt text-grey-700 text-cursive">
+                                                                    <div class="ft-size16">Character Need</div>
+                                                                    <p class="pb-16">hello i am george leo. a task of the
+                                                                         developer can be challenging and frustrating sometimes.
+                                                                        Just to be happy with self.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-by47-lg p-8 m-4 shadow">
+                                                                <div class="font-sans-alt text-grey-700 text-cursive">
+                                                                    <div class="ft-size16">Obstacle</div>
+                                                                    <p class="pb-16">hello i am george leo. a task of the
+                                                                         developer can be challenging and frustrating sometimes.
+                                                                        Just to be happy with self.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-by47-lg p-8 m-4 shadow">
+                                                                <div class="font-sans-alt text-grey-700 text-cursive">
+                                                                    <div class="ft-size16">Resolving Obstacle</div>
+                                                                    <p class="pb-16">hello i am george leo. a task of the
+                                                                         developer can be challenging and frustrating sometimes.
+                                                                        Just to be happy with self.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-by94-lg p-8 m-4 shadow">
+                                                                <div class="font-sans-alt text-grey-700 text-cursive">
+                                                                    <div class="ft-size16">Character Synopsis</div>
+                                                                    <p class="pb-16">hello i am george leo. a task of the
+                                                                         developer can be challenging and frustrating sometimes.
+                                                                        Just to be happy with self.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col col-12-lg mt-24">
+                                                            <div class="mb-16 px-16 flex justify-center">
+                                                                <div class="font-sans-alt font-semibold tracking-wide ft-size25">Characters</div>
+                                                            </div>
+                                                            <div class="row mxx-8 mb-8">
+                                                                <div class="col-2">Order</div>
+                                                                <div class="col-7">Scene heading</div>
+                                                                <div class="col-2">Pages</div>
+                                                            </div>
+                                                            <div class="overflow-y-auto rem-h15 shadow-darker">
+                                                                <div class="col-12 row mxx-8 p-8 m-8 shadow">
+                                                                    <div class="col-2">1.</div>
+                                                                    <div class="col-7">EXT. TRAIN STATION - MORNING</div>
+                                                                    <div class="col-2 ml-8">4</div>
+                                                                </div>
+                                                                <div class="col-12 row mxx-8 py-8 my-8 shadow">
+                                                                    <div class="col-2">2.</div>
+                                                                    <div class="col-7">EXT. TRAIN STATION - MORNING</div>
+                                                                    <div class="col-2 ml-8">2</div>
+                                                                </div>
+                                                                <div class="col-12 row mxx-8 py-8 my-8 shadow">
+                                                                    <div class="col-2">2.</div>
+                                                                    <div class="col-7">EXT. TRAIN STATION - MORNING</div>
+                                                                    <div class="col-2 ml-8">3</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index_support-2f9f0242.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index-3afea548.js"></script>
+        <script src="../../cdn/dashboard/js/index-319dcf23.js"></script>
+
+    </body>
+</html>

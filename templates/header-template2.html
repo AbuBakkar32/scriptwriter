@@ -1,0 +1,216 @@
+<header class="header sticky top-0 lg:z-40 z-20 w-full font-sans-alt" sw-header="header2">
+    <div class="fixed top-0 z-50 flex h-72 w-full pointer-events-none">
+        <div class="header-border absolute right-0 w-half h-full"></div>
+    </div>
+    <div class="flex" xclass="max-w-1440 mx-auto" sw-top-menu="wrapper">
+        <!--header logo-->
+        <div class="header-logo flex-shrink-0 py-24 px-40 xl:d-block hidden lg:w-15 bg-two">
+            <a class="block h-24 logo-text-xxl c-white" href="/client-home">
+                Scriptovate
+            </a>
+        </div>
+
+        <!--Navigation Bar-->
+        <nav class="header-nav z-30 flex flex-grow justify-between items-center bg-white px-16 whitespace-no-wrap lg:h-auto h-72 min-w-0">
+            <div class="flex xl:d-hidden">
+                <div xclass="h-24 w-24 mr-24 ml-8 md:ml-40">
+                    <!--header logo for mobile -->
+                    <a class="block h-full w-full text-nebula-500 fill-current" href="/client-home">
+                        <!--Image or icon logo-->
+                    </a>
+                </div>
+                <button class="mr-4 text-grey-1000 hover:text-grey-1000 fill-current" sw-trigger="open">
+                    <div class="flex-center mb-4">
+                        <svg class="block h-full size24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
+                            <path d="M19,8H1A1,1,0,0,1,1,6H19a1,1,0,0,1,0,2Z"></path>
+                            <path d="M19,2H1A1,1,0,0,1,1,0H19a1,1,0,0,1,0,2Z"></path>
+                            <path d="M19,14H1a1,1,0,0,1,0-2H19a1,1,0,0,1,0,2Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-grow-0 flex-shrink-0 text-sm uppercase text-grey-700">Menu</div>
+                </button>
+            </div>
+
+            {% if not anAuthor %}
+            <!--Drop down for scene heading-->
+            <div class="header-search hidden lg:block" id="docsearch" sw-top-menu="formate-wrap">
+                <div class="flex items-center w-full h-48 px-16 cus-pointer relative" sw-select-item="container" style="border-bottom: 2px solid gray;">
+                    <div class="">
+                        <div class="text-grey-700">
+                            <span class="fot-l text-grey-700" sw-select-item="set">Scene Heading</span>
+                            <span class="fot-r ml-24" xclass="rotate-270">
+                                <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path d="M7,8a1,1,0,0,1-.71-.29l-6-6A1,1,0,0,1,1.71.29L7,5.59,12.29.29a1,1,0,1,1,1.42,1.42l-6,6A1,1,0,0,1,7,8Z"></path></svg>
+                            </span>
+                        </div>
+                        <ul class="mt-8 py-8 px-16 hidden bg-three" sw-select-item="get" style="position: absolute; top: 60px">
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Action</li>
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Scene Heading</li>
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Character</li>
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Parathentical</li>
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Dialogue</li>
+                            <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Transition</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--Icons for document editing-->
+            <ul class="h-full uppercase leading-tight text-sm font-semibold tracking-wide lg:flex flex hidden" sw-top-menu="tools-wrap">
+                <li class="flex items-center h-full mr-2" sw-btn="bold" title="bold">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.287 11.121c1.588-1.121 2.713-3.018 2.713-5.093 0-2.946-1.918-5.951-7.093-6.028h-11.907v2.042c1.996 0 3 .751 3 2.683v14.667c0 1.689-.558 2.608-3 2.608v2h11.123c6.334 0 8.877-3.599 8.877-7.038 0-2.538-1.417-4.67-3.713-5.841zm-8.287-8.121h2.094c2.357 0 4.126 1.063 4.126 3.375 0 2.035-1.452 3.625-3.513 3.625h-2.707v-7zm2.701 18h-2.701v-8h2.781c2.26.024 3.927 1.636 3.927 3.667 0 2.008-1.226 4.333-4.007 4.333z"/></svg>
+                    </button>
+                </li>
+                <li class="flex items-center h-full mr-2" sw-btn="italic" title="italic">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.565 20.827c-.361.732-.068 1.173.655 1.173h1.78v2h-9v-2h.897c1.356 0 1.673-.916 2.157-1.773l8.349-16.89c.403-.852-.149-1.337-.855-1.337h-1.548v-2h9v2h-.84c-1.169 0-1.596.646-2.06 1.516l-8.535 17.311z"/></svg>
+                    </button>
+                </li>
+                <li class="flex items-center h-full mr-2" sw-btn="underline" title="underline">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 24h-16v-2h16v2zm-5-24v1.973c1.619 0 2 .926 2 1.497v9.056c0 2.822-2.161 4.507-5 4.507s-5-1.685-5-4.507v-9.056c0-.571.381-1.497 2-1.497v-1.973h-7v1.973c1.66 0 2 .575 2 1.497v8.828c0 5.175 3.096 7.702 8 7.702 4.899 0 8-2.527 8-7.702v-8.828c0-.922.34-1.497 2-1.497v-1.973h-7z"/></svg>
+                    </button>
+                </li>
+                <li class="grid al-cont-c mr-2" sw-btn="penPaint" title="Highlight">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.333 8.701l-7.837 4.262s-1.339 5.254-3.497 8.604l2.419 2.433c3.314-2.133 8.604-3.511 8.604-3.511l4.263-7.837-3.952-3.951zm-1.664 10.091c-1.241.365-3.64 1.131-5.915 2.207l1.806-1.806c.348-.349.8-.569 1.288-.63.647-.081 1.113-.63 1.113-1.263 0-.703-.569-1.275-1.275-1.275-.637 0-1.183.471-1.263 1.113-.06.487-.281.94-.629 1.288l-1.779 1.779c1.072-2.274 1.825-4.652 2.184-5.891l5.778-3.143 1.838 1.837-3.146 5.784zm2.345-12.252s2.148-3.969 3.475-6.54l8.511 8.511c-2.582 1.321-6.556 3.459-6.556 3.459l-5.43-5.43z"/></svg>
+                    </button>
+                    <input type="color" render-color="highlight" class="color-btn cus-pointer" value="#c8d185">
+                </li>
+                <li class="grid al-cont-c mr-2" sw-btn="textColor" title="Text Color">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.874 21.874"><path d="M20.607,21.874h-3.114c-0.25,0-0.475-0.153-0.564-0.386l-2.262-5.873H6.864l-2.125,5.861c-0.086,0.239-0.313,0.398-0.568,0.398H1.267c-0.199,0-0.385-0.098-0.499-0.262c-0.112-0.164-0.137-0.373-0.065-0.559L8.639,0.387C8.728,0.153,8.953,0,9.203,0h2.947c0.245,0,0.466,0.148,0.559,0.375l8.458,20.665c0.077,0.187,0.055,0.399-0.057,0.566C20.997,21.773,20.809,21.874,20.607,21.874z M8.102,12.179h5.261l-1.849-4.906c-0.31-0.819-0.584-1.574-0.821-2.262C10.509,5.655,10.3,6.295,10.066,6.93L8.102,12.179z"/></svg>
+                    </button>
+                    <input type="color" render-color="textColor" class="color-btn cus-pointer" value="#207a1f">
+                </li>
+                <!-- <li class="flex items-center h-full mr-2" sw-btn="voiceRecord" title="voice record">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>
+                    </button>
+                </li>
+                <li class="flex items-center h-full px-8" sw-btn="audioPlayReader">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1 13h-1v-1h1v1zm22-1h-1v1h1v-1zm-20-1h-1v3h1v-3zm18 0h-1v3h1v-3zm-14 0h-1v3h1v-3zm10-1h-1v5h1v-5zm-12 0h-1v5h1v-5zm14-1h-1v7h1v-7zm-10 0h-1v7h1v-7zm2-2h-1v10h1v-10zm4 0h-1v10h1v-10zm-2-2h-1v14h1v-14z"/></svg>
+                    </button>
+                </li>
+                 -->
+                <li class="flex items-center h-full mr-2" sw-btn="download" title="download">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
+                    </button>
+                </li>
+                <li class="flex items-center h-full mr-2" sw-btn="share" title="share">
+                    <button class="header-item hover:text-nebula-500 flex items-center h-full cursor-pointer transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"/></svg>
+                    </button>
+                    <div class="row p-8 hide" style="position: absolute; top: 70px;" sw-clickPrevent="true" sw-share="wrap">
+                        <a href="{{href}}" target="_blank" title="instagram">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{href}}&text={{scriptTitle}}" target="_blank" title="twitter">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+                        </a>
+                        <a href="https://www.facebook.com/sharer.php?u={{href}}" target="_blank" title="facebook">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+                        </a>
+                        <a href="{{href}}" target="_blank" title="youtube">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg>
+                        </a>
+                        <a href="{{href}}" target="_blank" title="linkedIn">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"></path></svg>
+                        </a>
+                        <a href="https://api.whatsapp.com/send?&text={{scriptTitle}}%20{{href}}" target="_blank" title="whatsapp">
+                            <svg class="size20 m-4 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path></svg>
+                        </a>
+                    </div>
+                </li>
+                <li class="flex items-center h-full mr-2" sw-btn="save" title="Save">
+                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                        <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.003 3h2.997v5h-2.997v-5zm8.997 1v20h-24v-24h20l4 4zm-19 5h14v-7h-14v7zm16 4h-18v9h18v-9z"/></svg>
+                    </button>
+                </li>
+            </ul>
+            {% endif %}
+            <!--The Search bar-->
+            <div class="hidden lg:block" id="docsearch" sw-search="input-wrapper" sw-top-menu="search-wrap">
+                <span class="flex items-center h-48 focus:shadow-md" style="border-bottom: 2px solid gray;">
+                    <input type="search" class="w-full mt-4 text-grey-700 text-left min-w-0 mx-8 input" 
+                        placeholder="Search document" style="height: 2rem; background: transparent; padding: 2px;">
+                    
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="size24 py-2 text-grey-800 opacity-75 fill-current">
+                        <path d="M19.71,18.29,16,14.61A9,9,0,1,0,14.61,16l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,19.71,18.29ZM2,9a7,7,0,1,1,12,4.93h0s0,0,0,0A7,7,0,0,1,2,9Z"></path>
+                    </svg>
+                </span>
+
+                <div class="flex justify-between font-sans-alt text-grey-700 p-8 text-cursive hidden" sw-search="result-wrapper">
+                    <div class="row">
+                        <!--x button-->
+                        <svg class="size13 m-2 cus-pointer" sw-search="close-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="var(--red-900)" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg>
+                        Found: <span sw-search="resultno">0</span>
+                    </div>
+                    <div class="row">
+                        <!--Down-->
+                        <button sw-search="down-btn" class="mr-4">
+                            <svg class="fill-current size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
+                        </button>
+                        <!--Up-->
+                        <button sw-search="up-btn">
+                            <svg class="fill-current size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formate Icon shortcut-->
+            <div class="flex lg:hidden z-100 bg-three p-4" sw-top-menu="formate-btn">
+                <button class="text-grey-1000 hover:text-grey-1000 fill-current">
+                    <div class="flex-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="block h-full size24" viewBox="0 0 24 24"><path d="M24 20v1h-4v-1h.835c.258 0 .405-.178.321-.422l-.473-1.371h-2.231l-.575-1.59h2.295l-1.362-4.077-1.154 3.451-.879-2.498.921-2.493h2.222l3.033 8.516c.111.315.244.484.578.484h.469zm-6-1h1v2h-7v-2h.532c.459 0 .782-.453.633-.887l-.816-2.113h-6.232l-.815 2.113c-.149.434.174.887.633.887h1.065v2h-7v-2h.43c.593 0 1.123-.375 1.32-.935l5.507-15.065h3.952l5.507 15.065c.197.56.69.935 1.284.935zm-10.886-6h4.238l-2.259-6.199-1.979 6.199z"/></svg>
+                    </div>
+                    <div class="col text-left text-grey-700">
+                        <span class="text-xs uppercase">Headings</span>
+                        <span class="text-xs uppercase hide">Close</span>
+                    </div>
+                </button>
+            </div>
+            <!-- Tools Icon shortcut-->
+            <div class="flex lg:hidden z-100 bg-three p-4" sw-top-menu="tools-btn">
+                <button class="text-grey-1000 hover:text-grey-1000 fill-current">
+                    <div class="flex-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="block h-full size24" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 24 24"><path d="M12 8.666c-1.838 0-3.333 1.496-3.333 3.334s1.495 3.333 3.333 3.333 3.333-1.495 3.333-3.333-1.495-3.334-3.333-3.334m0 7.667c-2.39 0-4.333-1.943-4.333-4.333s1.943-4.334 4.333-4.334 4.333 1.944 4.333 4.334c0 2.39-1.943 4.333-4.333 4.333m-1.193 6.667h2.386c.379-1.104.668-2.451 2.107-3.05 1.496-.617 2.666.196 3.635.672l1.686-1.688c-.508-1.047-1.266-2.199-.669-3.641.567-1.369 1.739-1.663 3.048-2.099v-2.388c-1.235-.421-2.471-.708-3.047-2.098-.572-1.38.057-2.395.669-3.643l-1.687-1.686c-1.117.547-2.221 1.257-3.642.668-1.374-.571-1.656-1.734-2.1-3.047h-2.386c-.424 1.231-.704 2.468-2.099 3.046-.365.153-.718.226-1.077.226-.843 0-1.539-.392-2.566-.893l-1.687 1.686c.574 1.175 1.251 2.237.669 3.643-.571 1.375-1.734 1.654-3.047 2.098v2.388c1.226.418 2.468.705 3.047 2.098.581 1.403-.075 2.432-.669 3.643l1.687 1.687c1.45-.725 2.355-1.204 3.642-.669 1.378.572 1.655 1.738 2.1 3.047m3.094 1h-3.803c-.681-1.918-.785-2.713-1.773-3.123-1.005-.419-1.731.132-3.466.952l-2.689-2.689c.873-1.837 1.367-2.465.953-3.465-.412-.991-1.192-1.087-3.123-1.773v-3.804c1.906-.678 2.712-.782 3.123-1.773.411-.991-.071-1.613-.953-3.466l2.689-2.688c1.741.828 2.466 1.365 3.465.953.992-.412 1.082-1.185 1.775-3.124h3.802c.682 1.918.788 2.714 1.774 3.123 1.001.416 1.709-.119 3.467-.952l2.687 2.688c-.878 1.847-1.361 2.477-.952 3.465.411.992 1.192 1.087 3.123 1.774v3.805c-1.906.677-2.713.782-3.124 1.773-.403.975.044 1.561.954 3.464l-2.688 2.689c-1.728-.82-2.467-1.37-3.456-.955-.988.41-1.08 1.146-1.785 3.126"/></svg>    
+                    </div>
+                    <div class="col text-left text-grey-700">
+                        <span class="text-xs uppercase">Tools</span>
+                        <span class="text-xs uppercase hide">Close</span>
+                    </div>
+                </button>
+            </div>
+            <!-- Search Icon shortcut-->
+            <div class="flex lg:hidden z-100 bg-three p-4" sw-top-menu="search-btn">
+                <button class="text-grey-1000 hover:text-grey-1000 fill-current">
+                    <div class="flex-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="block h-full size24" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 24 24"><path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></svg>
+                    </div>
+                    <div class="col text-left text-grey-700">
+                        <span class="text-xs uppercase">Search</span>
+                        <span class="text-xs uppercase hide">Close</span>
+                    </div>
+                </button>
+            </div>
+        </nav>
+        <!-- Close Icon shortcut-->
+        <div class="flex xl:d-hidden z-100 bg-three p-4 hide" sw-top-menu="hide-btn">
+            <button class="text-grey-1000 hover:text-grey-1000 fill-current">
+                <div class="flex-center mb-4">
+                    <svg class="block h-full size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                        <path d="M8.41,7l5.3-5.29A1,1,0,1,0,12.29.29L7,5.59,1.71.29A1,1,0,0,0,.29,1.71L5.59,7,.29,12.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L7,8.41l5.29,5.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
+                    </svg>
+                </div>
+                <div class="col text-left text-grey-700">
+                    <span class="text-xs uppercase">Close</span>
+                </div>
+            </button>
+        </div>
+
+    </div>
+</header>

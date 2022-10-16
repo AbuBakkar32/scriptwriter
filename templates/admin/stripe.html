@@ -1,0 +1,86 @@
+<!-- Front end -->
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script type="text/javascript">
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe("{{MarketPlace.33|safe}}"); // public key here
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+	$('#spinner-loader-section').show(); // Show spinner loader
+	$('#cartlog-section').hide(); // Hide the section containing CartLog section
+	$.ajax({
+        url: "/create-checkout-session",
+        type: 'POST',
+		enctype:"multipart/form-data",
+        data: new FormData($('form')[2]),
+		contentType: false,
+        cache: false,
+        processData: false,
+        //dataType: 'json', // added data type
+        success: function(res) {
+			$('#spinner-loader-section').hide(); // Hide spinner loader
+            return stripe.redirectToCheckout({ sessionId: res.id });
+			},
+        error: function(xhr, status, error) {
+			$('#spinner-loader-section').hide(); // Hide spinner loader
+               alert("error"); // ...
+            }
+		});
+	
+    });
+  </script>
+
+
+<!-- Backend -->
+<script type="text/python">
+    // A success page and cancel page is also need.
+    // make sure stripe is installed
+import stripe
+
+def vendor_create_season_checkout(request):
+    if request.method == "POST":
+        sea = str(request.META.get('CSRF_COOKIE'))+":login"
+        p = Client.objects.filter(season=sea)
+        if str(p) != "<QuerySet []>":
+            datasuit = eval(str(p).replace("<QuerySet" , "{'QuerySet':").replace(
+                "<Client:", "").replace("']>","']").replace(">","}"))["QuerySet"][0]
+            vendor_id = str(request.POST['vendor_id'])
+            mb = eval(str(MarketPlace.objects.filter(vendor_id=vendor_id)).replace("<QuerySet" , "{'QuerySet':").replace(
+                "<MarketPlace:", "").replace("']>","']").replace(">","}"))["QuerySet"][0]
+            
+            all_ids = str(request.POST['total_ids']).split()
+            total_amt = 0
+            vendor_product = []
+            vendor_name = []
+            for i in all_ids:
+                if i.startswith("ITM") == True:
+                    get_menu = Menu.objects.get(unique_id=i)
+                    total_amt+= int(get_menu.item_price)
+                    vendor_name.append(get_menu.vendor_name)
+
+            stripe.api_key = str(mb[34]) # Vendor Secret Key
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                    'price_data': {
+                        'currency': 'gbp',
+                        'unit_amount': total_amt*100,
+                        'product_data': {
+                            'name': vendor_name[0]+" - Powered by ActiveOrder",
+                            'images': ['https://i.imgur.com/EHyR2nP.png'],
+                            },
+                        },
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url= MY_URL + '/success.html',
+                cancel_url= MY_URL + '/cancel.html',
+            )
+            return JsonResponse({'id': checkout_session.id})
+        else:
+            JsonResponse({"data":"notlogin"})
+         
+</script>

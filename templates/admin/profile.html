@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Admin Profile</title>
+        {% include 'head.html' %}
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'admin/header-template.html' %}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'admin/sidebar-template.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt font-semibold tracking-wide ft-size30">Admin Profile</div>
+                                    </div>
+                                </div>
+                                <!--List of pin boards goes here-->
+                                <div class=" leading-normal">
+                                    <div class="col-12 row mxx-8">
+                                        <div class="col-12 row mxx-8 my-32">
+                                            <div class="col-12 col-2-lg bold ft-size20">Information</div>
+                                            <form class="col-12 col-10-lg" method="post" action="/app-profile" sw-update-form="profile">
+                                                {% csrf_token %}
+                                                <div class="row mxx-8">
+                                                    <div class="col-12 col-by94-lg  m-4 ">
+                                                        <label>Name: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="Name" name="name" value="{{name}}">
+                                                    </div>
+                                                    <div class="col-12 col-by47-lg m-4 ">
+                                                        <label>Username: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="Username" name="username" value="{{username}}">
+                                                    </div>
+                                                    <div class="col-12 col-by47-lg m-4">
+                                                        <label>Password: </label>
+                                                        <input class="text-grey-700 truncate text-left p-4 w-100 rem-h2-5" placeholder="Password" name="password" value="{{password}}">
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-end col-12 col-by94-lg my-16 mxx-8">
+                                                    <button class="bg-evergreen btn-jump c-white p-8 shadow hover:shadow-md transition-fast-out brd-r1rm" type="submit">Update</button>
+                                                </div>
+                                                <!-- <input type="hidden" name="csrfmiddlewaretoken" disabled="">
+                                                <input type="hidden" name="page" value="updateprofile"> -->
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+        
+        <script>
+            // The profile Form Element
+            const updateProfileForm = document.querySelector(`[sw-update-form="profile"]`);
+
+            const updateProfile = () => {
+                // get crsf token
+                const crsftokenValue = document.querySelector(`input[name="csrfmiddlewaretoken"]`);
+                // get the username
+                const usernameElement = updateProfileForm.querySelector(`input[name="username"]`);
+                // get the password
+                const passwordElement = updateProfileForm.querySelector(`input[name="password"]`);
+                // get the name
+                const nameElement = updateProfileForm.querySelector(`input[name="name"]`);
+
+                if (!crsftokenValue && !usernameElement && !passwordElement && !nameElement) return;
+                // create form and supply the inputs
+                const formData = new FormData();
+                formData.append('username', usernameElement.value);
+                formData.append('password', passwordElement.value)
+                formData.append('name', nameElement.value);
+                formData.append('csrfmiddlewaretoken', crsftokenValue.value);
+
+                // Send the data to store
+                fetch('/app-profile', { method: 'POST', body: formData,})
+                .then(response => response.json())
+                .then(data => {
+                    if(data.result === 'success') alert(data.message);
+                    else alert(data.message);
+                })
+                .catch((error) => {
+                    console.log('Error:', error);
+                    alert('Content failed!!!');
+                });
+            };
+
+            // Add submit form eventlistener
+            updateProfileForm.addEventListener('submit', (e) => { 
+                e.preventDefault();
+
+                // Submit the form
+                updateProfile(); 
+            });
+        </script>
+
+    </body>
+</html>

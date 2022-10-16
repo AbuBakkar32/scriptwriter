@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>App Subscribers</title>
+        {% include 'head.html' %}
+    </head>
+
+    <body class="relative bg-four" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+            <!--============ Header =========-->
+            {% include 'admin/header-template.html' %}
+
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+
+                    <!--Sider Bar At left side (without features list)-->
+                    {% include 'admin/sidebar-template.html' %}
+
+                    <div class="w-full lg:rem-ml-15 overflow-x-hidden">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full" xclass="lg:max-w-648">
+                                <div class="my-32">
+                                    <div class="mb-16 px-16 flex justify-center">
+                                        <div class="font-sans-alt fw-300 tracking-wide ft-size30">Subscribers</div>
+                                        <!-- Fetch Token-->
+                                        {% csrf_token %}
+                                    </div>
+                                </div>
+
+                                <div class="mxx-8 p-32 m-8 font-sans-alt text-grey-700">
+                                    <div class="col-12 col-8-lg mlmr-auto">
+                                        <div class="mb-16 p-8 relative bg-three" sw-g="item">
+                                            <div class="ft-size16 input bold" sw-glossary="title" data-placeholder="title here">my title</div>
+                                            <div class="input overflow-y-auto ft-initial break-space" data-placeholder="content here">hello test test</div>
+                                            
+                                            <div class="hide" sw-glossary="dummy-template"></div>
+                                            <div class="hide" sw-glossary="id"></div>
+
+                                            <div class="flex justify-between">
+                                                <svg class="size20 fill-current cus-pointer" sw-glossary="menu-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 12c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm9 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/></svg>
+                                                <!--Arrow up and Arrow down-->
+                                                <span class="col font-sans-alt text-grey-700 text-cursive flex end">
+                                                    <!--Down-->
+                                                    <svg class="fill-current size20 cus-pointer" sw-glossary="angle-down-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
+                                                    <!--Up-->
+                                                    <svg class="fill-current size20 cus-pointer" sw-glossary="angle-up-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg>
+                                                </span>
+                                            </div>
+
+                                            <hr class="bg-five m-2 p-1"/>
+
+                                            <div class="bg-three z-50 menutype1 brd-r20 p-rem1 shadow hide" sw-glossary="menu">
+                                                <div class="flex space-between py-2 cus-pointer" sw-glossary="edit-option">                                                    
+                                                    <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z"/></svg>
+                                                    <span class="font-sans-alt">Edit</span>
+                                                </div>
+                                                <div class="flex space-between py-2 cus-pointer" sw-glossary="delete-option">                                                    
+                                                    <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 19c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5-17v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712zm-3 4v16h-14v-16h-2v18h18v-18h-2z"/></svg>
+                                                    <span class="font-sans-alt">Delete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </main>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--============Flexable Fixed Button=========-->
+            <!--============Flexable Fixed Pop-up=========-->
+            
+        <script src="../../cdn/js/app.js"></script>
+    </body>
+</html>

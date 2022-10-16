@@ -1,0 +1,157 @@
+
+.scene-heading-type {text-transform: uppercase; font-weight: bold; font-size: 16px; margin-top: 0.5rem; padding: 0px;}
+.character-type {padding: 0px; margin-left: 40%; margin-top: 0.25rem; text-transform: uppercase;}
+.parent-article-type {margin-left: 33%;}
+.dialog-type {padding: 0px; margin-bottom: 0.5rem; margin-left: 25%;} /*padding: top right bottom left */
+.action-type {padding: 0px;}
+.transition-type {padding: 0px; text-align: end; text-transform: uppercase;}
+/* Character Styles */
+.character-min-img {width: 100%;}
+.character-max-img {width: 250px; height: 500px;}
+
+.character-part-label {padding: 4px; background-color: rgb(126, 167, 213); margin: -4px;}
+
+/* page number, icon placement */
+div[sw-page-number] { margin-left: 85%;}
+div[sw-icon='left'] {margin-right: 70%;}
+div[sw-icon='right'] {margin-left: 70%;}
+/* div[sw-icon='right'] {margin-left: } */
+
+/* special width style */
+.w80to100 {width: 80%;}
+/* meta-type font text */
+div[meta-type], div[sw-storydos], div[sw-location],
+div[sw-editor-type] {font-size: initial; line-height: 1.2;}
+/* resize note and tip icon */
+.tip-icon-size24to { width: 24px; height: 24px;}
+.row-meta {display: flex; flex-wrap: wrap;}
+
+:root {
+    --bleeding: 1.5cm;
+    --margin: 1cm;
+    /* --bleeding: 0.5in;
+    --margin: 1in; */
+  }
+  
+@page {
+  size: A4;
+  margin: 0;
+}
+  
+.page {
+    display: inline-block;
+    position: relative;
+    min-height: 297mm;
+    width: 210mm;
+    font-size: 12pt;
+    margin: 1em auto;
+    padding: /* calc(var(--bleeding) + var(--margin)); */ 1in 1in 1in 1.5in;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    background: white;
+}
+
+@media (max-width: 1400px){
+    div[sw-icon='left'] {margin-right: 60%;}
+    div[sw-icon='right'] {margin-left: 60%;}
+}
+
+@media (max-width: 1200px){
+    div[sw-icon='left'] {margin-right: 70%;}
+    div[sw-icon='right'] {margin-left: 70%;}
+    
+    .mdx-top-4rem { top: 4rem }
+    .mdx-z-index { z-index: 0; }
+}
+
+@media (max-width: 1100px){
+    div[sw-icon='left'] {margin-right: 75%;}
+    div[sw-icon='right'] {margin-left: 75%;}
+}
+
+@media (max-width: 1000px){
+    div[sw-icon='left'] {margin-right: 70%;}
+    div[sw-icon='right'] {margin-left: 70%;}
+    [sw-bg-audio="audio"] { width: 100%;}
+}
+
+[sw-top-menu="tools-wrap"] { justify-content: space-around; width: 30%;}
+@media (max-width: 992px){
+    .w80to100 {width: 100%;}
+    .character-min-img {width: 50%;}
+    [sw-top-menu="tools-wrap"] { justify-content: space-around; width: 100%;}
+    /* div[sw-page-number] { margin-left: 75%;}
+    div[sw-icon='left'] {margin-right: 75%;}
+    div[sw-icon='right'] {margin-left: 78%;} */
+}
+
+@media (max-width: 880px){
+    div[sw-icon='left'] {margin-right: 80%;}
+    div[sw-icon='right'] {margin-left: 80%;}
+}
+
+@media (max-width: 768px){
+    div[sw-page-number] { margin-left: 89%;}
+    div[sw-icon='left'] {margin-right: 90%;}
+    div[sw-icon='right'] {margin-left: 90%;}
+    .page {
+        margin: 0.4em;
+        margin-left: 0.5em;
+        margin-right: 1.5em;
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+    .character-min-img {width: 60%;}
+    .character-max-img {width: 200px; height: 400px;}
+    /* div[meta-type], div[sw-content-type="storydos"], div[sw-content-type="location"],
+    div[sw-editor-type]  {font-size: 14px; line-height: 1;} */
+}
+
+@media (max-width: 576px){ 
+    .tip-icon-size24to { width: 16px; height: 16px;}
+    .page {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+    .character-min-img {width: 70%;}
+    .character-max-img {width: 150px; height: 300px;}
+    /* div[meta-type], div[sw-content-type="storydos"], div[sw-content-type="location"],
+    div[sw-editor-type] {font-size: 12px; } */
+}
+
+@media (max-width: 480px){ 
+    .page {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    .character-min-img {width: 80%;}
+    .character-max-img {width: 100px; height: 200px;}
+    /* div[meta-type] {font-size: 11px;} */
+}
+
+@media (max-width: 380px){ 
+    .character-min-img {width: 100%;}
+}
+  
+/*   @media screen {
+    .page::after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: calc(100% - var(--bleeding) * 2);
+      height: calc(100% - var(--bleeding) * 2);
+      margin: var(--bleeding);
+      outline: thin dashed black;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  }
+  
+  @media print {
+    .page {
+      margin: 0;
+      overflow: hidden;
+    }
+  } */
+
+

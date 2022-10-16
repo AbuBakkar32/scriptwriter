@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Story Docs</title>
+        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+        <meta content="ie=edge" http-equiv="X-UA-Compatible">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+        <!--<link href="img.ico" rel="shortcut icon">-->
+        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+
+    </head>
+
+    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+        <div class="flex flex-col min-h-screen text-base font-sans">
+
+            <!--============ Header =========-->
+            {% include 'header-template2.html' %}
+
+             <!--Settings-->
+             {% include 'settings-template.html'%}
+            
+            <div class="flex-1 mx-auto w-full">
+                <div class="flex h-full">
+                    
+                    <!--Sider Bar At left side (with features list)-->
+                    {% include 'aside-template1.html' %}
+
+                    <div class="w-full lg:rem-ml-15 bg-four" sw-page="story-docs">
+                        <div class="flex md:px-56">
+                            <!--============MAIN BODY=========-->
+                            <main class="w-full min-h-full">
+
+                                <!--List of pin boards goes here-->
+                                <div class=" text-grey-1000 leading-normal">
+                                    <div class="col-12 row mxx-8">
+                                                
+                                    </div>
+
+                                    <!-- 
+                                    <div class="doping">
+                                        <div class="col-12 bg-three mx-8 my-8 py-24 rounded-lg shadow hover:shadow-md transition-fast-out"></div>
+                                    </div> -->
+
+                                </div> 
+
+                                <!--Footer ending-->
+                                <footer class="mt-48 text-center text-grey-700 text-sm">
+                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                                </footer>    
+                            </main>
+
+                            <!--============Right side bar=========-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        
+        </div>    
+
+        <script src="../../cdn/js/app.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index_support-2f9f0242.js"></script>
+        <script src="../../cdn/dashboard/js/vendors_index-3afea548.js"></script>
+        <script src="../../cdn/dashboard/js/index-319dcf23.js"></script>
+
+    </body>
+</html>

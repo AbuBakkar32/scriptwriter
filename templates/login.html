@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        {% include 'page-head.html' %}
+    </head>
+
+    <body>
+        <div class="stl-flex" id="wrapper">
+            <section class="stl-w-full stl-flex stl-justify-center stl-min-h-screen stl-p-6 stl-bg-grey-50" style="background:var(--bg-1); color: #fff; font-family: Open Sans;">
+                <div class="stl-w-128 stl-flex stl-flex-col stl-justify-center stl-items-center stl-relative">
+                    <a class="stl-mb-12 logo-text" href="/" > Scriptovate
+                        <!-- class="stl-h-10 stl-my-10" src="lo.png">  -->
+                        <!-- <img height="30" class="stl-h-10 stl-my-10" src="affa79a54.svg"> -->
+                    </a>
+                    <h1 class="stl-display-large stl-mb-6 stl-w-full stl-flex stl-items-center stl-justify-between">
+                        Log in
+                        <a class="stl-display-subheading stl-uppercase" href="/signup">NO ACCOUNT YET</a>
+                    </h1>
+                    <div class="stl-w-full">
+                        <form class="simple_form Bizible-Exclude" action="/login" method="post">
+                            {% csrf_token %}
+                            <div class="{{err.1}}" style="{{err.2}}">{{err.0}}</div>
+                            <div class="form-group email optional user_email">
+                                <div class="input-group">
+                                    <input class="string email required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" autocomplete="email" placeholder="Email" type="email" name="email">
+                                </div>
+                            </div>
+
+                            <div class="form-group password optional user_password">
+                                <div class="input-group">
+                                    <input class="password required stl-input stl-input-large stl-px-4 stl-w-full stl-mb-4 c-black" 
+                                        required="required" aria-required="true" autocomplete="current-password" placeholder="Password" type="password" name="password">
+                                </div>
+                            </div>
+
+                            <div class="stl-flex stl-justify-between stl-items-center stl-mb-6 stl-typo-subdued">
+                                <div class="form-group boolean optional user_remember_me">
+                                    <input value="0" type="hidden" name="user[remember_me]">
+                                    <label class="c-white">
+                                        <input class="form-control boolean optional" type="checkbox" value="1" name="remember_me">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <small><a href="/forget-password">Forgot Password?</a></small>
+                            </div>
+
+                            <button name="button" type="submit" 
+                                class="stl-btn stl-btn-neutral stl-flex stl-justify-center stl-items-center stl-px-4 
+                                stl-typo-display-body stl-h-10 stl-block stl-w-full stl-btn-primary submit-button">
+                                Log in
+                            </button>
+                            
+                            <input type="hidden" name="csrfmiddlewaretoken" disabled="">
+                            <input type="hidden" name="page" value="loginpage" >
+                        </form>
+                        
+                        <!-- <div class="stl-flex stl-items-center stl-my-10">
+                            <hr class="stl-border-t stl-flex-grow stl-border-grey-100">
+                            <p class="stl-typo-display-body stl-mx-3 stl-text-grey-400">Or log in with</p>
+                            <hr class="stl-border-t stl-flex-grow stl-border-grey-100">
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+</body>
+</html> 
