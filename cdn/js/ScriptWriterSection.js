@@ -11,7 +11,7 @@ class ScriptWriterSection {
     outlineBtn;
     pinBoardBtn;
     structureBtn;
-    
+
     constructor() {
         //Pages
         this.characterSection = document.querySelector(`[sw-section="character"]`);
@@ -35,7 +35,7 @@ class ScriptWriterSection {
     }
 
     hideOrShowSectionExcept(exceptMe) { /* parameter are  charater, location, outline, pinBoard, storyDocs, structure */
-        if (exceptMe !== 'charater' && this.characterSection) this.characterSection.classList.add('hidden') ;
+        if (exceptMe !== 'charater' && this.characterSection) this.characterSection.classList.add('hidden');
         if (exceptMe !== 'note' && this.noteSection) this.noteSection.classList.add('hidden');
         if (exceptMe !== 'outline' && this.outlineSection) this.outlineSection.classList.add('hidden');
         if (exceptMe !== 'pin-board' && this.pinBoardSection) this.pinBoardSection.classList.add('hidden');
@@ -48,12 +48,12 @@ class ScriptWriterSection {
         if (exceptMe === 'structure' && this.structureSection) this.structureSection.classList.remove('hidden');
     }
 
-    listener(){
+    listener() {
         //Click event for the various buttons
         this.characterBtn?.addEventListener('click', () => {
             this.hideOrShowSectionExcept('character');
             window.Watcher.siderBarAwait();
-            setTimeout(async() => {
+            setTimeout(async () => {
                 await window.MapAndReactOnContent?.mapreact();
                 await window.Watcher.siderBarAwait(false);
             }, 1);
@@ -66,10 +66,10 @@ class ScriptWriterSection {
         this.outlineBtn?.addEventListener('click', () => {
             this.hideOrShowSectionExcept('outline');
             window.Watcher.siderBarAwait();
-            setTimeout(async() => {
+            setTimeout(async () => {
                 await window.MapAndReactOnContent?.mapreact();
                 await window.Watcher.siderBarAwait(false);
-            },1);
+            }, 1);
         });
 
         this.pinBoardBtn?.addEventListener('click', () => {
@@ -82,6 +82,6 @@ class ScriptWriterSection {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.ScriptWriterSection = new ScriptWriterSection();
 });
