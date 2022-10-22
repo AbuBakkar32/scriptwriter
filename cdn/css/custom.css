@@ -982,10 +982,10 @@ input:checked + .toggle__bg .toggle__sphere-bg { transform: rotateY(180deg); }
 	top:0; left:0; width:100vw; height:100vh; background-color:rgb(50 164 154 / 68%); z-index:6000; overflow:scroll;}
 */
 .m_g_8c4ed{
-    position:fixed; padding:24px; top:0; left:0; width:100vw; height:100vh; 
+    position:fixed; padding:24px; top:0; left:0; width:100vw; height:100vh;
     background-color:rgb(50 164 154 / 68%); z-index:6000;
 }
-.m_g_9e032{ position: relative; /* top: 50px; width:100%; */ /*position:fixed;*/} 
+.m_g_9e032{ position: relative; /* top: 50px; width:100%; */ /*position:fixed;*/}
 .m_g_78c7c{ overflow:hidden; height:0; } 
 .m_g_64f17{ max-width:100%; }
 .m_g_29dee{ position:relative; color:hsla(0,0%,100%,.7); }
