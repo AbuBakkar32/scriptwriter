@@ -177,6 +177,7 @@ class EditorMode {
 
     watcher() {
         // make sure lines are well arranged
+        console.log('watcher', this.watcherStatus);
         const rangeLinesWaiter = new Promise((resolve, reject)=>{ resolve(1) });
         rangeLinesWaiter.then(async ()=>{
             await this.rangeLines();
