@@ -71,7 +71,6 @@ class ClientDashboard(object):
         if request.method == "GET":
             sea = str(request.META.get('CSRF_COOKIE'))
             user = Client.objects.filter(season=sea)
-            print(user)
             if user.exists():
                 # Returns a dict of Client
                 datasuit = arrayDBData(user, "Client")

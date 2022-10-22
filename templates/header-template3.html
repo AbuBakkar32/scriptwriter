@@ -8,24 +8,23 @@
         </div>
 
         <!--Navigation Bar-->
-        <nav class="header-nav z-30 flex flex-grow justify-between items-center px-16 lg:h-auto h-72">
-            <div class="flex xl:d-hidden">
+        <nav class="header-nav z-30 flex flex-grow justify-between items-center px-16 lg:h-auto h-72 fixed-top">
+            <div class="flex xl:d-hidden" style="margin-left:180px;">
                 <div xclass="h-24 w-24 mr-24 ml-8 md:ml-40">
                     <!--header logo for mobile -->
-                    <a class="block h-full w-full text-nebula-500 fill-current" href="/client-home">
-                        <!--Image or icon logo-->
-                    </a>
+<!--                    <a class="block h-full w-full text-nebula-500 fill-current" href="/client-home">-->
+<!--                        &lt;!&ndash;Image or icon logo&ndash;&gt;-->
+<!--                    </a>-->
                 </div>
 
-                <button class="flex items-center mr-8 text-grey-1000 hover:text-grey-1000 fill-current focus:outline-none focus:shadow-outline" sw-trigger="open">
-                    <div class="flex items-center h-24 w-32 mr-8 p-2 flex-grow-0 flex-shrink-0">
-                        <svg class="h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
+                <button class="mr-4 text-grey-1000 hover:text-grey-1000 fill-current" sw-trigger="open">
+                    <div class="flex-center mb-4">
+                        <svg class="block h-full size24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
                             <path d="M19,8H1A1,1,0,0,1,1,6H19a1,1,0,0,1,0,2Z"></path>
                             <path d="M19,2H1A1,1,0,0,1,1,0H19a1,1,0,0,1,0,2Z"></path>
                             <path d="M19,14H1a1,1,0,0,1,0-2H19a1,1,0,0,1,0,2Z"></path>
                         </svg>
                     </div>
-                    {% comment %} <span class="block flex-grow-0 flex-shrink-0 text-sm uppercase text-grey-700">Menu</span> {% endcomment %}
                 </button>
             </div>
         </nav>
