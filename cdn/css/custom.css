@@ -1058,19 +1058,37 @@ input:checked + .toggle__bg .toggle__sphere-bg { transform: rotateY(180deg); }
 
 }
 
+@media screen and (min-width: 1440px) {
+   .treedot {
+    margin-left: 180px !important;
+  }
+}
+
 @media screen and (min-width: 1024px){
   .treedot {
     margin-left: 180px !important;
   }
 }
 
-@media (max-width: 768px){
+@media screen and (max-width: 768px){
     .treedot {
-        margin-left: 00px;
+        margin-left: 00px !important;
     }
 }
-@media (max-width: 576px){
+@media screen and(max-width: 576px){
     .treedot {
-        margin-left: 00px;
+        margin-left: 00px !important;
+    }
+}
+
+@media (max-width: 480px){
+.treedot {
+        margin-left: 00px !important;
+    }
+}
+
+@media (max-width: 380px){
+.treedot {
+        margin-left: 00px !important;
     }
 }
