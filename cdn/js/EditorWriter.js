@@ -67,7 +67,6 @@ class EditorWriter {
         }); */
 
         this.editorList.addEventListener('input', (e)=> {
-            alert('input');
             e.stopImmediatePropagation();
             e.stopPropagation();
             
