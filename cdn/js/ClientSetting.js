@@ -5,14 +5,20 @@ class ClientSetting {
     nightModeInput = document.querySelector(`[sw-settings="dark-mode"]`);
     //Seeting Opacity
     opacity = document.querySelector(`[sw-settings="opacity"]`);
+    //setting Display
+    display = document.querySelector('[sw-settings="display-name"]');
     // Settings Status
     nightModeStatus;
     //opacity
     waterMarkDisplayOpacity;
+    //Display Name
+    waterMarkDisplayText;
 
     constructor() {
         // Load settings from web db
         const loadSettings = this.loadSetting();
+        // this.waterMarkDisplayOpacity = this.opacity.value;
+        // this.waterMarkDisplayText = this.display.value;
         loadSettings.then(res => {
             // Set night mode status
             if (res.nightMode) {
@@ -25,9 +31,12 @@ class ClientSetting {
             }
             res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 1.0;
             var opacity = document.querySelector('.opacity-range');
-            opacity.style.opacity =res.waterMarkDisplayOpacity
-            //Event listeners for setting Inputs
+            opacity.style.opacity = res.waterMarkDisplayOpacity
+            res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
+
             this.listener();
+            this.displayListener();
+            this.opacityListener();
         });
 
     }
@@ -44,11 +53,27 @@ class ClientSetting {
             //Save Settings
             this.saveSetting();
         });
+    }
 
+       /* Listening for a change in the night mode input. */
+    opacityListener() {
         //Opacity Input
         this.opacity.addEventListener('change', () => {
             // Update the status
             this.waterMarkDisplayOpacity = this.opacity.value;
+            //Save Settings
+            this.waterMarkDisplayText = this.display.value;
+            this.saveSetting();
+        });
+    }
+
+    /* Listening for a change the display Name */
+    displayListener() {
+        //Display Input
+        this.display.addEventListener('keyup', () => {
+            // Update the status
+            this.waterMarkDisplayOpacity = this.opacity.value;
+            this.waterMarkDisplayText = this.display.value;
             //Save Settings
             this.saveSetting();
         });
@@ -87,6 +112,7 @@ class ClientSetting {
         formData.append('nightMode', this.nightModeStatus);
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('waterMarkDisplayOpacity', this.waterMarkDisplayOpacity / 100);
+        formData.append('waterMarkDisplayText', this.waterMarkDisplayText);
         if (this.accountTypeInput) {
             if (this.accountTypeStatus) formData.append('accountType', 'pro')
             else formData.append('accountType', 'free')
@@ -102,7 +128,6 @@ class ClientSetting {
 
     async loadSetting() {
         const res = await fetch(location.protocol + "//" + location.host + '/clientsetting', {method: 'GET'})
-        console.log(res);
         return res.json();
     }
 }
@@ -111,8 +136,6 @@ class ClientSetting {
 async function slider() {
     var slider = document.querySelector('#myRange');
     var opacity = document.querySelector('.opacity-range');
-    // var output = document.querySelector('#demo');
-    // output.innerHTML = slider.value / 100;
 
     slider.oninput = function () {
         waterMarkDisplayOpacity = this.value / 100;
@@ -122,6 +145,3 @@ async function slider() {
 
 window.ClientSetting = new ClientSetting();
 slider();
-//document.addEventListener("DOMContentLoaded", function(){
-
-//})
