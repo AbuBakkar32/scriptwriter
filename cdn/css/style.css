@@ -136,3 +136,13 @@
   background: #04AA6D;
   cursor: pointer;
 }
+
+li a:hover {
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+li span:hover {
+    text-decoration: none;
+    opacity: 0.7;
+}
