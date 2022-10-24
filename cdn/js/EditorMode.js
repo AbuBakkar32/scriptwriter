@@ -73,6 +73,12 @@ class EditorMode {
         rightIcon?.remove();
 
         this.editorModeList.addEventListener('input', async(e)=> {
+            // if adding note, do not add text to the page
+            const target = e.target;
+            const targetClass = target.className;
+            if (targetClass.includes('noteInput')) {
+                return;
+            }
             e.stopImmediatePropagation();
             e.stopPropagation();
             const currentTextLength = this.editorModeList.innerText.replace(/\n/g, '').length;
@@ -176,8 +182,13 @@ class EditorMode {
     }
 
     watcher() {
+        // if writing script, remove the note
+        document.querySelectorAll('.sw_editor_class').forEach((el) => {
+            el.remove();
+        });
+
+
         // make sure lines are well arranged
-        console.log('watcher', this.watcherStatus);
         const rangeLinesWaiter = new Promise((resolve, reject)=>{ resolve(1) });
         rangeLinesWaiter.then(async ()=>{
             await this.rangeLines();

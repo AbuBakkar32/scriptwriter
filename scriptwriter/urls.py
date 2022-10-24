@@ -81,6 +81,9 @@ urlpatterns = [
     path('app-audio/create', views.appCreateAudio),
     path('app-audio/update/<slug:audioID>', views.appUpdateAudio),
     path('app-audio/delete/<slug:audioID>', views.appDeleteAudio),
+    # Comment section
+    path('add-comment', views.addComment),
+    path('get-comments/<slug:scriptID>', views.getComments),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.CDN_URL, document_root=settings.CDN_ROOT)
