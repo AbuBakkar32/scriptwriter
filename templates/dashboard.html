@@ -24,7 +24,7 @@
     {% endif %}
 </head>
 
-<body class="relative bg-four" style="background-color: white;">
+<body class="relative bg-four opacity-range" style="background-color: white;">
 <div class="flex flex-col min-h-screen text-base font-sans">
     <!--============ Header =========-->
     {% include 'header-template3.html' %}
@@ -135,6 +135,9 @@
     </div>
 </div>
 
+{% if log %}
+
+{% else %}
 <!-- Modal HTML -->
 <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-login">
@@ -173,8 +176,10 @@
         </div>
     </div>
 </div>
+{% endif %}
 <!--============Flexable Fixed Button=========-->
 <!--============Flexable Fixed Pop-up=========-->
+<script src="../../cdn/js/ClientSetting.js"></script>
 <script src="../../cdn/js/BackgroundColor.js"></script>
 <script src="../../cdn/js/app.js"></script>
 <script src="../../cdn/js/CardOption.js"></script>

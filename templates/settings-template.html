@@ -1,8 +1,9 @@
-<div class="m_g_8c4ed text-white settings-popup">
+<div class="m_g_8c4ed text-white settings-popup opacity-range">
     <div class="m_g_9e032">
         <div class="col-12 col-5-md mlmr-auto bg-three font-sans-alt font-semibold c-black fw-300 p-8">
             <span class="m_g_29dee cus-pointer" sw-action="close-settings">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size20" viewBox="0 0 24 24"><path fill="gray" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="size20" viewBox="0 0 24 24"><path fill="gray"
+                                                                                                 d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
             </span>
             <div class="col-12">
                 <div class="col bold ft-size20 flex-cnt pt-16 pb-32">Settings</div>
@@ -12,28 +13,11 @@
                         <div class="flex-cnt">
                             <div>
                                 <label class="toggle">
-                                    <input class="toggle-input" type="checkbox" sw-settings="dark-mode" />
+                                    <input class="toggle-input" type="checkbox" sw-settings="dark-mode"/>
                                     <div class="toggle__bg">
                                         <div class="toggle__sphere">
-                                            <div class="toggle__sphere-bg"></div><div class="toggle__sphere-overlay"></div>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row col-12 mxx-8 mb-16">
-                    <div class="col-6 ft-size16 text-center">1-Page writing</div>
-                    <div class="col-6">
-                        <div class="flex-cnt">
-                            <div>
-                                <label class="toggle">
-                                    <input class="toggle-input" type="checkbox" />
-                                    <div class="toggle__bg">
-                                        <div class="toggle__sphere">
-                                            <div class="toggle__sphere-bg"></div><div class="toggle__sphere-overlay"></div>
+                                            <div class="toggle__sphere-bg"></div>
+                                            <div class="toggle__sphere-overlay"></div>
                                         </div>
                                     </div>
                                 </label>
@@ -42,17 +26,76 @@
                     </div>
                 </div>
 
+                <div class="row col-12 mxx-8 mb-16">
+                    <div class="col-6 ft-size16 text-center">1-Page writing</div>
+                    <div class="col-6">
+                        <div class="flex-cnt">
+                            <div>
+                                <label class="toggle">
+                                    <input class="toggle-input" type="checkbox"/>
+                                    <div class="toggle__bg">
+                                        <div class="toggle__sphere">
+                                            <div class="toggle__sphere-bg"></div>
+                                            <div class="toggle__sphere-overlay"></div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-12 mxx-8 mb-16">
+                    <div class="col-6 ft-size16 text-center">Auto Save</div>
+                    <div class="col-6">
+                        <div class="flex-cnt">
+                            <div>
+                                Every <select style="background: RGB(116, 206, 182, 0.5);">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select> Minutes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-12 mxx-8 mb-16">
+                    <div class="col-6 ft-size16 text-center">Save Location</div>
+                    <div class="col-6">
+                        <div class="flex-cnt">
+                            <div>
+                                <input type="file" name="file" style="background: RGB(116, 206, 182, 0.5);" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col bold ft-size20 flex-cnt my-24">Exports</div>
+
+                <div class="row col-12 mxx-8 mb-16">
+                    <div class="col-6 ft-size16 text-center">Save Location</div>
+                    <div class="col-6">
+                        <div class="flex-cnt">
+                            <div>
+                                <input type="file" name="file" style="background: RGB(116, 206, 182, 0.5);" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row col-12 mxx-8 mb-16">
                     <div class="col-6 ft-size16 text-center">Watermark</div>
                     <div class="col-6">
                         <div class="flex-cnt">
                             <div>
                                 <label class="toggle">
-                                    <input class="toggle-input" type="checkbox" />
+                                    <input class="toggle-input" type="checkbox"/>
                                     <div class="toggle__bg">
                                         <div class="toggle__sphere">
-                                            <div class="toggle__sphere-bg"></div><div class="toggle__sphere-overlay"></div>
+                                            <div class="toggle__sphere-bg"></div>
+                                            <div class="toggle__sphere-overlay"></div>
                                         </div>
                                     </div>
                                 </label>
@@ -63,7 +106,19 @@
                 <div class="row col-12 mxx-8 mb-16">
                     <div class="col-6 ft-size16 text-center">Display</div>
                     <div class="col-6 flex-cnt">
-                        <input class="p-4 input ft-size16" style="background: rgb(50 164 154 / 68%); color: #fff; width:95%; height: 2.5rem;">
+                        <input class="p-4 input ft-size16"
+                               style="background: rgb(50 164 154 / 68%); color: #fff; width:95%; height: 2.5rem;">
+                    </div>
+                </div>
+                <div class="row col-12 mxx-8 mb-16 pb-24">
+                    <div class="col-6 ft-size16 text-center">Opacity</div>
+                    <div class="col-6">
+                        <div class="flex-cnt">
+                            <div>
+                                <input type="range" sw-settings="opacity" data-toggle="tooltip" data-placement="top" value="20" min="1" max="100" class="slider" id="myRange"/>
+                            </div>
+<!--                            <span id="demo" style="padding-left: 10px; font-weight: bold"></span>-->
+                        </div>
                     </div>
                 </div>
             </div>

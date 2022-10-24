@@ -1,11 +1,11 @@
 /**
  * If className select-feature-menu is added to the first element
  * of the <li>, displays the selection.
-*/
+ */
 function customControlMenuPopUp() {
     const openBtns = document.querySelectorAll(`[sw-trigger="open"]`);
     openBtns.forEach((btn) => {
-        btn.addEventListener('click', ()=> {
+        btn.addEventListener('click', () => {
             document.querySelector('body').classList.add('overflow-hidden');
 
             document.querySelectorAll('aside').forEach((asd) => {
@@ -18,7 +18,7 @@ function customControlMenuPopUp() {
 
     const closeBtns = document.querySelectorAll(`[sw-trigger="close"]`);
     closeBtns.forEach((btn) => {
-        btn.addEventListener('click', ()=> {
+        btn.addEventListener('click', () => {
             document.querySelector('body').classList.remove('overflow-hidden');
 
             document.querySelectorAll('aside').forEach((asd) => {
@@ -38,7 +38,7 @@ function swSelectOptionApply() {
         const liList = ele.querySelectorAll(`[sw-data="option"]`);
         // Listen for click event within the ul element.
         liList.forEach((eleli) => {
-            eleli.addEventListener('click', function(){
+            eleli.addEventListener('click', function () {
                 if (!this.firstElementChild.classList.contains('select-feature-menu')) {
                     // Remove the select option from other li element
                     liList.forEach((sli) => {
@@ -63,46 +63,50 @@ function hideAndShowDropable(eleName, NodeListName) {
     characterOption.forEach((ele) => {
         //ele.setAttribute('tabindex', '1');
         //let featureSwitch = true;
-        ele.addEventListener('click', function(){
+        ele.addEventListener('click', function () {
             // query the feature wrapper xter-down
-            const featureWrapper = this.querySelector('.'+eleName) || this.querySelector(`[sw-action="${eleName}"]`); //hideable-part
+            const featureWrapper = this.querySelector('.' + eleName) || this.querySelector(`[sw-action="${eleName}"]`); //hideable-part
             featureWrapper.style.display = 'block';
         });
 
-        ele.addEventListener('mousemove', ()=> {
+        ele.addEventListener('mousemove', () => {
             if (ele.querySelector(`[sw-action="off-part"]`)) {
                 ele.querySelector(`[sw-action="off-part"]`).style.display = 'block';
             }
         });
 
-        ele.addEventListener('mouseout', ()=> {
+        ele.addEventListener('mouseout', () => {
             if (ele.querySelector(`[sw-action="off-part"]`)) {
                 ele.querySelector(`[sw-action="off-part"]`).style.display = '';
             }
         });
 
         if (ele.querySelector(`[sw-action="off-part"]`)) {
-            ele.querySelector(`[sw-action="off-part"]`).addEventListener('click', (e)=> {
+            ele.querySelector(`[sw-action="off-part"]`).addEventListener('click', (e) => {
                 e.stopImmediatePropagation();
                 e.stopPropagation();
                 // query the feature wrapper xter-down
-                const featureWrapper = ele.querySelector('.'+eleName) || ele.querySelector(`[sw-action="${eleName}"]`); //hideable-part
+                const featureWrapper = ele.querySelector('.' + eleName) || ele.querySelector(`[sw-action="${eleName}"]`); //hideable-part
                 featureWrapper.style.display = 'none';
             });
         }
     });
 }
 
-function quickID() {return Math.random().toString(36).substring(2)}
+function quickID() {
+    return Math.random().toString(36).substring(2)
+}
 
-function uniqueID() { return  Math.random().toString(14).substring(2); }
+function uniqueID() {
+    return Math.random().toString(14).substring(2);
+}
 
 function menuOptionPopup() {
     const menuHello = document.querySelectorAll(`[sw-display="menu-hello"]`);
 
     // Listen to click event
     menuHello.forEach((ele) => {
-        ele.addEventListener('click', function(e){
+        ele.addEventListener('click', function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
             //e.preventDefault();
@@ -128,10 +132,10 @@ function swSelectItem() {
 
         //wrapper for get items
         const getItems = itm.querySelector(`[sw-select-item="get"]`);
-        
+
         //Add click event listener to get children
         Array.prototype.slice.call(getItems.children).forEach((sel) => {
-            sel.addEventListener('click', function() {
+            sel.addEventListener('click', function () {
                 if (useImage) {
                     setItem.innerHTML = sel.querySelector('img').outerHTML;
                     setItem.querySelector('img').classList.replace('img30', 'img40');
@@ -161,14 +165,14 @@ function swSelectItem() {
         itm.setAttribute('tabindex', '1');
 
         // If focus is lost within the wrapper then hide
-        itm.addEventListener('focusout', ()=> { 
+        itm.addEventListener('focusout', () => {
             getItems.style.display = '';
             checkerStatus = true;
         });
     });
 }
 
-function getEleId(ele, nodeList){
+function getEleId(ele, nodeList) {
     const arr = Array.prototype.slice.call(nodeList); // Now it's an Array.
     return arr.indexOf(ele);
 }
@@ -177,12 +181,12 @@ function popUpSettings() {
     // Wrapper for settings content. (display is none by default)
     const settingsPopup = document.querySelector('.settings-popup');
     if (settingsPopup) {
-        document.querySelector(`[sw-action="settings-open"]`).addEventListener('click', ()=> {
+        document.querySelector(`[sw-action="settings-open"]`).addEventListener('click', () => {
             //show settings wrapper
             settingsPopup.style.display = 'block';
         });
-    
-        document.querySelector(`[sw-action="close-settings"]`).addEventListener('click', ()=> {
+
+        document.querySelector(`[sw-action="close-settings"]`).addEventListener('click', () => {
             //show settings wrapper
             settingsPopup.style.display = 'none';
         });
@@ -220,7 +224,7 @@ function tabAction() {
         });
         // Add click event listener to all the options
         allTabOptions.forEach((option) => {
-            option.addEventListener('click', ()=> {
+            option.addEventListener('click', () => {
                 // Remove the tab option click indicator
                 tabOptionWrap.querySelector('.tab-shade')?.classList.remove('tab-shade');
                 // Add the tab option click indicator to the current clicked option
@@ -238,7 +242,7 @@ function tabAction() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Call this function
     customControlMenuPopUp();
 
@@ -256,4 +260,5 @@ document.addEventListener("DOMContentLoaded", function() {
     clickBlock();
     // Tab function
     tabAction()
+
 });
