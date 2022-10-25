@@ -12,26 +12,24 @@ class Comment(object):
             comment = request.POST.get('noteDescription')
             scriptId = request.POST.get('scriptId')
             swEditorId = request.POST.get('sw_editor_id')
-            
             sea = str(request.META.get('CSRF_COOKIE'))
             user = Client.objects.filter(season=sea)
             if not user.exists():
                 return JsonResponse({'data': 'failed', 'message': 'Failed to authenticate login'})
             userID = user[0].userID
-            
             script = Script.objects.get(uniqueID=scriptId)
             if not script:
                 return JsonResponse({'data': 'failed', 'message': 'Failed to find script'})
-
-            comment = CommentModel(title=title, comment=comment, scriptID=scriptId, sw_editor_id=swEditorId, createdon=datetime.now(), userID=userID)
+            comment = CommentModel(title=title, comment=comment, scriptID=scriptId, sw_editor_id=swEditorId,
+                                   createdon=datetime.now(), userID=userID)
             comment.save()
-
             user_fullname = user[0].fullName
             # time formate: 24 Oct, 2022
             createdon = comment.createdon.strftime('%d %b, %Y')
+            return JsonResponse(
+                {'data': 'success', 'message': 'Comment added successfully', 'user_fullname': user_fullname,
+                 'createdon': createdon})
 
-            return JsonResponse({'data': 'success', 'message': 'Comment added successfully', 'user_fullname': user_fullname, 'createdon': createdon})
-    
     def getComments(self, scriptId):
         comments = CommentModel.objects.filter(scriptID=scriptId)
         if not comments.exists():

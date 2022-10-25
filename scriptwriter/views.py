@@ -181,6 +181,13 @@ def appUpdateGlossary(request, glossaryID): return GlossaryApp(request).adminUpd
 def appDeleteGlossary(request, glossaryID): return GlossaryApp(request).adminDelete(glossaryID)
 
 
+# Comment Section
+def addComment(request): return Comment(request).addComment()
+
+
+def getComments(request, scriptID): return Comment(request).getComments(scriptID)
+
+
 # Audio Section
 def appAudio(request): return HandleAudioLibrary(request).page()
 
