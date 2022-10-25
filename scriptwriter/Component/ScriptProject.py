@@ -6,13 +6,14 @@ Created on Fri Oct  1 15:06:44 2021
 
 For managing all Script Project
 """
+import json
 
 from fpdf import FPDF
 
 from .Assembler import (replaceTOHtmlCharacter, reverseReplaceTOHtmlCharacter,
                         render, HttpResponseRedirect, arrayDBData, Client, Script, generateid,
                         time, JsonResponse, os, MAIN_DIR, getDictKey, MiniScript, HttpResponse,
-                        uploadFileHandler, AudioStore, listDBData
+                        uploadFileHandler, AudioStore, listDBData, convertDBDataTOList
                         )
 
 from .ClientSignup import ClientSignUp
@@ -108,12 +109,11 @@ class ScriptProject(object):
             if user.exists():
                 # Returns a dict of Client
                 script = Script.objects.filter(userID=userID)
-                # set data
-                data = {
-                    'uniqueId': script,
-                }
-                # Render Datas to page
-                return JsonResponse(data)
+                unique_id = []
+                if script.exists():
+                    for i in script:
+                        unique_id.append(i.uniqueID)
+                return JsonResponse(unique_id, safe=False)
             elif str(user) == "<QuerySet []>":
                 return JsonResponse({'status': 'Out off service'})
 
