@@ -163,6 +163,8 @@ class ClientDashboard(object):
                     'accountType': datasuit["accountType"],
                     'waterMarkDisplayOpacity': datasuit["waterMarkDisplayOpacity"],
                     'waterMarkDisplayText': datasuit["waterMarkDisplayText"],
+                    'autoSaveTimeOut': datasuit["autoSaveTimeOut"],
+                    'userID': user[0].userID,
                 }
                 # Render Datas to page
                 return JsonResponse(data)
@@ -176,9 +178,11 @@ class ClientDashboard(object):
                 night = str(request.POST['nightMode']).capitalize()
                 opacity = request.POST['waterMarkDisplayOpacity']
                 waterMarkDisplayText = str(request.POST['waterMarkDisplayText'])
+                autoSaveTimeOut = request.POST['autoSaveTimeOut']
 
                 pGet.waterMarkDisplayOpacity = opacity
                 pGet.waterMarkDisplayText = waterMarkDisplayText
+                pGet.autoSaveTimeOut = autoSaveTimeOut
                 # get all posted data key
                 # listOfPostedDataKey = getDictKey(request.POST)
 
