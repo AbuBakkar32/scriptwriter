@@ -187,16 +187,23 @@
                 const note = sw_editor_id_container.querySelector('.relative');
                 note.classList.toggle('hidden');
 
-                document.querySelectorAll('.commentRelative').forEach(function(item){
+                /*document.querySelectorAll('.commentRelative').forEach(function(item){
                     // remove attribute sw-focused='true'
                     item.removeAttribute('sw-focused');
-                });
+                });*/
             }
 
             function hideNoteContainer(){
                 const thisElement = event.srcElement;
                 const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode;
                 sw_editor_id_container.remove();
+            }
+            function hideNoteContainer2(){
+                const thisElement = event.srcElement;
+                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode
+                sw_editor_id_container.classList.toggle('show');
+                const note = sw_editor_id_container.querySelector('.relative');
+                note.classList.toggle('hidden');
             }
 
             function getCookie(name) {
@@ -303,7 +310,7 @@
                                         </div>
                                     </div>
                                     </div>`
-                                let abs = `<div id="sw-editor-id-${sw_editor_id}" class="absolute " style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
+                                let abs = `<div id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class2" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
                                 html_sw_editor_id.insertAdjacentHTML('afterend', abs);
                             }
 

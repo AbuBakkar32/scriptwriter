@@ -186,6 +186,9 @@ class EditorMode {
         document.querySelectorAll('.sw_editor_class').forEach((el) => {
             el.remove();
         });
+        document.querySelectorAll('.sw_editor_class2').forEach((el) => {
+            el.remove();
+        });
 
 
         // make sure lines are well arranged
