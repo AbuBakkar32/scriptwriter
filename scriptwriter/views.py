@@ -22,6 +22,7 @@ from scriptwriter.Component.NotePadApp import NotePadApp
 from scriptwriter.Component.Payment import Payment
 from scriptwriter.Component.ScriptAuthors import ScriptAuthors
 from scriptwriter.Component.ScriptProject import ScriptProject
+from scriptwriter.Component.Comment import Comment
 
 
 def editor(request):
@@ -192,6 +193,9 @@ def appUpdateAudio(request, audioID): return HandleAudioLibrary(request).update(
 
 def appDeleteAudio(request, audioID): return HandleAudioLibrary(request).delete(audioID)
 
+# Comment Section
+def addComment(request): return Comment(request).addComment()
+def getComments(request, scriptID): return Comment(request).getComments(scriptID)
 
 """
 # Time stamp

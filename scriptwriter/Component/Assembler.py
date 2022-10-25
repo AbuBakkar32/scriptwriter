@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, FileResponse
 from scriptwriter.models import ( Client, Script, App, NotePad,
     Glossary, Transaction, MiniScript, MiniClient, Subscription,
-    CharacterStore, StructureSampleStore, AudioStore, IDManager
+    CharacterStore, StructureSampleStore, AudioStore, IDManager, Comment
 )
 import os
 MAIN_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
