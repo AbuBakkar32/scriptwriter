@@ -112,6 +112,9 @@ def authorScriptDashboard(request, slug1): return ScriptAuthors(request).scriptA
 def authorSaveCommentOrNote(request, slug1): return ScriptAuthors(request).saveCommentAndNote(slug1)
 
 
+def getAuthorAllScripts(request, slug1): return ScriptProject(request).getAllScriptJson(slug1)
+
+
 # Notepad views
 def createNote(request): return NotePadApp(request).userCreateNote()
 

@@ -7,18 +7,20 @@ class ClientSetting {
     opacity = document.querySelector(`[sw-settings="opacity"]`);
     //setting Display
     display = document.querySelector('[sw-settings="display-name"]');
+    //autoSaveTimeOut
+    autoSave = document.querySelector(`[sw-settings="auto-save"]`);
     // Settings Status
     nightModeStatus;
     //opacity
     waterMarkDisplayOpacity;
     //Display Name
     waterMarkDisplayText;
+    //autoSaveTimeOut
+    autoSaveTimeOut;
 
     constructor() {
         // Load settings from web db
         const loadSettings = this.loadSetting();
-        // this.waterMarkDisplayOpacity = this.opacity.value;
-        // this.waterMarkDisplayText = this.display.value;
         loadSettings.then(res => {
             // Set night mode status
             if (res.nightMode) {
@@ -33,12 +35,19 @@ class ClientSetting {
             var opacity = document.querySelector('.opacity-range');
             opacity.style.opacity = res.waterMarkDisplayOpacity
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
+            res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
 
             this.listener();
             this.displayListener();
             this.opacityListener();
+            this.autoSaveListener();
+            setInterval(this.showTime, 1000);
         });
+    }
 
+    showTime() {
+        var d = new Date();
+        var t = d.toLocaleTimeString();
     }
 
     /* Listening for a change in the night mode input. */
@@ -55,14 +64,15 @@ class ClientSetting {
         });
     }
 
-       /* Listening for a change in the night mode input. */
+    /* Listening for a change in the night mode input. */
     opacityListener() {
         //Opacity Input
         this.opacity.addEventListener('change', () => {
             // Update the status
             this.waterMarkDisplayOpacity = this.opacity.value;
-            //Save Settings
             this.waterMarkDisplayText = this.display.value;
+            this.autoSaveTimeOut = this.autoSave.value;
+            //Save Settings
             this.saveSetting();
         });
     }
@@ -72,12 +82,26 @@ class ClientSetting {
         //Display Input
         this.display.addEventListener('keyup', () => {
             // Update the status
+            this.autoSaveTimeOut = this.autoSave.value;
             this.waterMarkDisplayOpacity = this.opacity.value;
             this.waterMarkDisplayText = this.display.value;
             //Save Settings
             this.saveSetting();
         });
 
+    }
+
+    /* Auto Save settings to web db */
+    autoSaveListener() {
+        this.autoSave.addEventListener('change', () => {
+            // Update the status
+            this.autoSaveTimeOut = this.autoSave.value;
+            this.waterMarkDisplayOpacity = this.opacity.value;
+            this.waterMarkDisplayText = this.display.value;
+            console.log(this.autoSaveTimeOut);
+            //Save Settings
+            this.saveSetting();
+        });
     }
 
     darkModeStyle() {
@@ -113,6 +137,7 @@ class ClientSetting {
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('waterMarkDisplayOpacity', this.waterMarkDisplayOpacity / 100);
         formData.append('waterMarkDisplayText', this.waterMarkDisplayText);
+        formData.append('autoSaveTimeOut', this.autoSaveTimeOut);
         if (this.accountTypeInput) {
             if (this.accountTypeStatus) formData.append('accountType', 'pro')
             else formData.append('accountType', 'free')
