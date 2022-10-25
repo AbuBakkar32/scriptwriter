@@ -200,6 +200,9 @@ def appUpdateAudio(request, audioID): return HandleAudioLibrary(request).update(
 
 def appDeleteAudio(request, audioID): return HandleAudioLibrary(request).delete(audioID)
 
+# Comment Section
+def addComment(request): return Comment(request).addComment()
+def getComments(request, scriptID): return Comment(request).getComments(scriptID)
 
 """
 # Time stamp

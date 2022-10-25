@@ -73,6 +73,12 @@ class EditorMode {
         rightIcon?.remove();
 
         this.editorModeList.addEventListener('input', async(e)=> {
+            // if adding note, do not add text to the page
+            const target = e.target;
+            const targetClass = target.className;
+            if (targetClass.includes('noteInput')) {
+                return;
+            }
             e.stopImmediatePropagation();
             e.stopPropagation();
             const currentTextLength = this.editorModeList.innerText.replace(/\n/g, '').length;

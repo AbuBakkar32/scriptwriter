@@ -56,6 +56,7 @@
                                             
                                             <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list" sw-search="wrapper" contenteditable="true">
                                                 <div sw-editor="item" class="relative page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out">
+
                                                     <div style="z-index:1" class="action-type input commentRelative relative" sw-editor-type="action" tabindex="1" sw-editor-color=""
                                                         sw-editor-id="00" contenteditable="true"><br>
                                                     </div>
@@ -100,7 +101,6 @@
             </script>
         {% endif %}
 
-
         <script src="../../cdn/js/app.js"></script>
         <script src="../../cdn/js/BackgroundColor.js"></script>
         <script src="../../cdn/js/CharacterHandle.js"></script>
@@ -137,7 +137,6 @@
                 </div>`
 
 
-
             setTimeout(function(){
                 const commentRelative = document.querySelectorAll('.commentRelative');
                 commentRelative.forEach(function(item){
@@ -163,8 +162,6 @@
                       });
                 });
             }, 1000);
-
-
 
             function hideElement(id){
                 const abs = document.querySelector(`#${id}`);
@@ -264,7 +261,6 @@
                     }
                 })
 
-
             }
 
             function getComments(){
@@ -275,23 +271,20 @@
                 .then(data => {
                     console.log(data);
                     if (data.data === 'success'){
-
                         const comments = data.comments;
                         comments.forEach(comment => {
                             const sw_editor_id = comment.sw_editor_id;
                             const html_sw_editor_id = document.querySelector(`[sw-editor-id="${sw_editor_id}"]`)
-
-
                             const commentHtml = `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${comment.title}</div>
                             <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
                             ${comment.comment}
+
                             </div>
                             <div style="border-bottom: 1px solid gray; display: flex; font-size: 12px; margin-top: 8px; font-weight: bold; align-items: center; padding-bottom: 4px">
                                 <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">${comment.user_fullname[0].toUpperCase()}</div>
                                 <div style="margin-right: 8px;">${comment.user_fullname}</div>
                                 <div>${comment.createdon}</div>
                             </div>`
-
                             // check if id=sw-editor-id-${sw_editor_id} exists
                             if (document.getElementById(`sw-editor-id-${sw_editor_id}`)) {
                                 const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`)
@@ -302,7 +295,6 @@
                                     <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
                                         <div onclick="hideNoteContainer2()" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
                                         <div class="noteContainer">${commentHtml}</div>
-
                                         <div style="color: black;">
                                             <input id="noteTitle" class="noteInput" type="text" placeholder="Title here..." style="padding: 8px; border: none; outline: none; background-color: inherit; font-weight: bold; font-size: 13px; color: black;"/>
                                             <textarea id="noteDescription" class="noteInput" rows="2" placeholder="Note here..." style="padding: 8px; border: none; outline: none; margin-bottom: 8px; background-color: inherit; font-weight: bold; width: 90%; color: black; font-size: 12px"></textarea>
@@ -314,15 +306,11 @@
                                 html_sw_editor_id.insertAdjacentHTML('afterend', abs);
                             }
 
-
-
                         });
                     }
                 })
             }
             getComments();
-
-
         </script>
         </div>
     </body>
