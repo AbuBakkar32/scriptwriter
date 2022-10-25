@@ -197,3 +197,18 @@ class StructureSampleStore(models.Model):
     def __str__(self):
         return "{'uniqueID':'''%s''' , 'name':'''%s''',  'data':'''%s'''}" % (
             self.uniqueID, self.name, self.data)
+
+
+class Comment(models.Model):
+    uniqueID = models.TextField(default="")  # 0
+    scriptID = models.TextField(default="")  # 1
+    sw_editor_id = models.TextField(default="")  # 2
+    userID = models.TextField(default="")  # 3
+    title = models.TextField(default="")  # 4
+    comment = models.TextField(default="")  # 5
+    createdon = models.TextField(default="")  # 6
+
+    def __str__(self):
+        return "{'uniqueID':'''%s''' , 'scriptID':'''%s''', 'userID':'''%s''', 'title':'''%s''',\
+            'comment':'''%s''', 'createdon':'''%s''', 'sw_editor_id':'''%s'''}" % (
+            self.uniqueID, self.scriptID, self.userID, self.title, self.comment, self.createdon, self.sw_editor_id)

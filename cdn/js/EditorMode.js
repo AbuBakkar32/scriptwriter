@@ -176,6 +176,15 @@ class EditorMode {
     }
 
     watcher() {
+        // if writing script, remove the note
+        document.querySelectorAll('.sw_editor_class').forEach((el) => {
+            el.remove();
+        });
+        document.querySelectorAll('.sw_editor_class2').forEach((el) => {
+            el.remove();
+        });
+
+
         // make sure lines are well arranged
         const rangeLinesWaiter = new Promise((resolve, reject)=>{ resolve(1) });
         rangeLinesWaiter.then(async ()=>{

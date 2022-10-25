@@ -55,15 +55,16 @@
                                             </div>
                                             
                                             <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list" sw-search="wrapper" contenteditable="true">
-                                                <div sw-editor="item" class="page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out overflow-hidden"> 
-                                                    <div class="action-type input" sw-editor-type="action" tabindex="1" sw-editor-color=""
-                                                        sw-editor-id="00" contenteditable="true"><br></div>
+                                                <div sw-editor="item" class="relative page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out">
+                                                    <div style="z-index:1" class="action-type input commentRelative relative" sw-editor-type="action" tabindex="1" sw-editor-color=""
+                                                        sw-editor-id="00" contenteditable="true"><br>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
 
-                                    <!--Footer goes here-->  
+                                    <!--Footer goes here-->
                                 </div>
                             </main>
 
@@ -83,22 +84,23 @@
                         <!--Page for pin-board-->
                         {% include 'sw-page/pin-board.html' %}
                     {% endif %}
-                    
+
                     <!--Page for story-docs-->
                     {% include 'sw-page/story-docs.html' %}
                     <!--Page for structure-->
                     {% include 'sw-page/structure.html' %}
-                    
+
                 </div>
             </div>
-            
+
 
         {% if ScriptContent %}
             <script>
                 window.ScriptDataStore = {{ScriptContent|safe}};
             </script>
         {% endif %}
-        
+
+
         <script src="../../cdn/js/app.js"></script>
         <script src="../../cdn/js/BackgroundColor.js"></script>
         <script src="../../cdn/js/CharacterHandle.js"></script>
@@ -117,5 +119,211 @@
         <script src="../../cdn/js/EditorMode.js"></script>
         <script src="../../cdn/js/EditorWriter.js"></script>
         <script src="../../cdn/js/ScriptAdapter.js"></script>
+
+
+        <script>
+            const commentIcon = '<img onclick="showNoteContainer()" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAD3ElEQVRoge3a2WudRRjH8U+apaatTVp6o7hGLdEalyKKpVQF8Q9wr3pvsUoQoS6I6I1XXqh4I4J4oYiI+0rrhm3d21pjtVEi7i1KQEujbSU5Xjzzek7qOT3be05ykS+8DGeWZ37zzjszz8wc5pijJXTkaOs4XIjzcCpORh8WpfT9+BPfYQyf4kP8kqOGhjkF9+ELFCo8f6SnUvrnuBcDbdYOVuN1TJYI2o4HsRYr0V+mXH9KW4uHsKOk/CReFb3acgbwSknlY9iAE5uweRLuEJ9cZvfFFJ87HRjGRKpoN67CvBzrmIdrMZrq2I/1Odq3EM8k43/hdnTlWcFhdOMu/J3qfDppaIolYmbJeuGMZg3WwRC+SXVvVX7M1cQifJYMvYPFeairkz68lzR8ooGe6RQzSAFv4qg81dVJLzYlLS+rc1zemQruwNG5S6ufxdgpNG2otdBZOIR9YsGbLZwmZrKDWFFLgY2i5etaKKpRbhba3qiWcU3KOCLGyWyjC7uExtVHyvhsynRdFYObVfadmn02V6n7BsX1pSyLxdjYi54ZbMj7Veqej99wQNGznsaVydBjVQzNBh4XWi/PIkrn5FUp3NRORQ2yMYWZ5mkNGUrhzrbJaZxM41C5xK9Fd3W3TU7j9AitX2URpT3SJ9z0f8oUzGtwl5uRqtkuV+aQ8MT7yjVkSr77i3IU2lFmJBWaSQexVo74ae1N4fHtVNQgmQ/4UxZR2pBtKTy/bXIa55wUjmQRpQ35OIUXtU1O41yWwq3lEhcKN3nczLoo1Xyt+fhd7On/c1FKe2QCL2EprqhirJVUm6WuxjI8L158WVaKaXi32enGdysu3Kuq5PVCynhLi0U1wrDQ9lotmQdEl01geQtF1cug0HQAp9daaL3iTrGvSt520I8vhabb6inYgScUz7R6c5dWOwuShoL47Ot2o3rwVjKwRcxm7aZf7BgL4sRzQaOGehVP30dxbh7qauRsfKu4tjR90tmNR5LBg1p/TNSNu8WgLuBJTfREOa5Jhn/O02gJnbhesRf24cZWVHRsquCDnO0OiGuEH5L9KTyHE+oxUs89x5oUbquQvk6sO7vEnvp7cflZuuNcKoQP4gLhoGb77knhIt0vTt5bRnY6f+lh8V3iPrCSEzghGlQpfTvu0eRVW63X08fgR/wqrp2nUvxyPIqLxcZsOAk6M+Vbkp7O1KBx0VNj4q1/hD3NNKBeHhZv76b0exkeELNYQThyg+0U1AgrhOAJ3Crc52xqLOApFY4uZxtv+/93PYV3cckM6ppGLbPWHrF2jItve4v4s8BoC3XNMcds4V/d6V223MWyRgAAAABJRU5ErkJggg==">'
+            const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
+                <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
+                    <div onclick="hideNoteContainer()" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
+                    <div class="noteContainer"></div>
+
+                    <div style="color: black;">
+                        <input id="noteTitle" class="noteInput" type="text" placeholder="Title here..." style="padding: 8px; border: none; outline: none; background-color: inherit; font-weight: bold; font-size: 13px; color: black;"/>
+                        <textarea id="noteDescription" class="noteInput" rows="2" placeholder="Note here..." style="padding: 8px; border: none; outline: none; margin-bottom: 8px; background-color: inherit; font-weight: bold; width: 90%; color: black; font-size: 12px"></textarea>
+                        <button onclick="addComment()" style="background-color: rgb(0, 0, 226); color: white; border: none; padding: 0 8px; font-size: 12px;">Add Note</button>
+                    </div>
+                </div>
+                </div>`
+
+
+
+            setTimeout(function(){
+                const commentRelative = document.querySelectorAll('.commentRelative');
+                commentRelative.forEach(function(item){
+                    const sw_editor_id = item.getAttribute('sw-editor-id');
+                    const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
+                    item.addEventListener('mouseover', function(){
+                        // add to next sibling
+                        item.insertAdjacentHTML('afterend', abs);
+                    });
+
+                    item.addEventListener('mouseout', function(){
+                        // remove from next sibling
+                        const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
+                        const is_show = abs.classList.contains('show');
+                        // if mouse out then remove
+                        if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
+                            abs.remove();
+                        }
+                    });
+
+                    item.addEventListener("input", (e) => {
+                        console.log(e.target.innerText);
+                      });
+                });
+            }, 1000);
+
+
+
+            function hideElement(id){
+                const abs = document.querySelector(`#${id}`);
+                const is_show = abs.classList.contains('show');
+                if (event.relatedTarget.parentNode.id != id && !is_show) {
+                    abs.remove();
+                }
+            }
+
+            function showNoteContainer(){
+                const sw_editor_class = document.getElementsByClassName("sw_editor_class")
+                for (let i = 0; i < sw_editor_class.length; i++) {
+                    const element = sw_editor_class[i];
+                    element.classList.remove('show');
+                    element.querySelector('.relative').classList.add('hidden');
+                }
+                const thisElement = event.srcElement;
+                const sw_editor_id_container = thisElement.parentNode
+                sw_editor_id_container.classList.toggle('show');
+                const note = sw_editor_id_container.querySelector('.relative');
+                note.classList.toggle('hidden');
+
+                /*document.querySelectorAll('.commentRelative').forEach(function(item){
+                    // remove attribute sw-focused='true'
+                    item.removeAttribute('sw-focused');
+                });*/
+            }
+
+            function hideNoteContainer(){
+                const thisElement = event.srcElement;
+                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode;
+                sw_editor_id_container.remove();
+            }
+            function hideNoteContainer2(){
+                const thisElement = event.srcElement;
+                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode
+                sw_editor_id_container.classList.toggle('show');
+                const note = sw_editor_id_container.querySelector('.relative');
+                note.classList.toggle('hidden');
+            }
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+            function addComment(){
+                const thisElement = event.srcElement;
+                const noteTitle = thisElement.parentNode.querySelector('#noteTitle').value;
+                const noteDescription = thisElement.parentNode.querySelector('#noteDescription').value;
+                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode.parentNode;
+                let sw_editor_id = sw_editor_id_container.getAttribute('id');
+                console.log(sw_editor_id);
+                sw_editor_id = sw_editor_id.split('-')[3]
+                const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+
+                let formData = new FormData();
+                formData.append('csrfmiddlewaretoken', csrftoken);
+                formData.append('noteTitle', noteTitle);
+                formData.append('noteDescription', noteDescription);
+                formData.append('sw_editor_id', sw_editor_id);
+                formData.append('scriptId', scriptId);
+
+                fetch('/add-comment', {
+                    method: 'POST',
+                    body: formData
+                }).then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.data === 'success') {
+                        const noteContainer = thisElement.parentNode.parentNode.querySelector('.noteContainer');
+                        const comment = `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${noteTitle}</div>
+                        <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
+                        ${noteDescription}
+                        </div>
+                        <div style="border-bottom: 1px solid gray; display: flex; font-size: 12px; margin-top: 8px; font-weight: bold; align-items: center; padding-bottom: 4px">
+                            <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">${data.user_fullname[0].toUpperCase()}</div>
+                            <div style="margin-right: 8px;">${data.user_fullname}</div>
+                            <div>${data.createdon}</div>
+                        </div>`
+                        // add the comment at the end of the noteContainer
+                        noteContainer.insertAdjacentHTML('beforeend', comment);
+                        thisElement.parentNode.querySelector('#noteTitle').value = '';
+                        thisElement.parentNode.querySelector('#noteDescription').value = '';
+                    }
+                })
+
+
+            }
+
+            function getComments(){
+                const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+                const url = '/get-comments/' + scriptId;
+                fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.data === 'success'){
+
+                        const comments = data.comments;
+                        comments.forEach(comment => {
+                            const sw_editor_id = comment.sw_editor_id;
+                            const html_sw_editor_id = document.querySelector(`[sw-editor-id="${sw_editor_id}"]`)
+
+
+                            const commentHtml = `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${comment.title}</div>
+                            <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
+                            ${comment.comment}
+                            </div>
+                            <div style="border-bottom: 1px solid gray; display: flex; font-size: 12px; margin-top: 8px; font-weight: bold; align-items: center; padding-bottom: 4px">
+                                <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">${comment.user_fullname[0].toUpperCase()}</div>
+                                <div style="margin-right: 8px;">${comment.user_fullname}</div>
+                                <div>${comment.createdon}</div>
+                            </div>`
+
+                            // check if id=sw-editor-id-${sw_editor_id} exists
+                            if (document.getElementById(`sw-editor-id-${sw_editor_id}`)) {
+                                const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`)
+                                const noteContainer = abs.querySelector('.noteContainer');
+                                noteContainer.insertAdjacentHTML('beforeend', commentHtml);
+                            } else {
+                                const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
+                                    <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
+                                        <div onclick="hideNoteContainer2()" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
+                                        <div class="noteContainer">${commentHtml}</div>
+
+                                        <div style="color: black;">
+                                            <input id="noteTitle" class="noteInput" type="text" placeholder="Title here..." style="padding: 8px; border: none; outline: none; background-color: inherit; font-weight: bold; font-size: 13px; color: black;"/>
+                                            <textarea id="noteDescription" class="noteInput" rows="2" placeholder="Note here..." style="padding: 8px; border: none; outline: none; margin-bottom: 8px; background-color: inherit; font-weight: bold; width: 90%; color: black; font-size: 12px"></textarea>
+                                            <button onclick="addComment()" style="background-color: rgb(0, 0, 226); color: white; border: none; padding: 0 8px; font-size: 12px;">Add Note</button>
+                                        </div>
+                                    </div>
+                                    </div>`
+                                let abs = `<div id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class2" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
+                                html_sw_editor_id.insertAdjacentHTML('afterend', abs);
+                            }
+
+
+
+                        });
+                    }
+                })
+            }
+            getComments();
+
+
+        </script>
+        </div>
     </body>
 </html>

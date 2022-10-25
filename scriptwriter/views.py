@@ -22,6 +22,7 @@ from scriptwriter.Component.NotePadApp import NotePadApp
 from scriptwriter.Component.Payment import Payment
 from scriptwriter.Component.ScriptAuthors import ScriptAuthors
 from scriptwriter.Component.ScriptProject import ScriptProject
+from scriptwriter.Component.Comment import Comment
 
 
 def editor(request):
@@ -178,6 +179,13 @@ def appUpdateGlossary(request, glossaryID): return GlossaryApp(request).adminUpd
 
 
 def appDeleteGlossary(request, glossaryID): return GlossaryApp(request).adminDelete(glossaryID)
+
+
+# Comment Section
+def addComment(request): return Comment(request).addComment()
+
+
+def getComments(request, scriptID): return Comment(request).getComments(scriptID)
 
 
 # Audio Section
