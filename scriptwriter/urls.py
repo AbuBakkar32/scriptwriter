@@ -53,6 +53,7 @@ urlpatterns = [
     path('clientsetting', views.clientSettingData),
     path('author-script/<slug:slug1>', views.authorScriptDashboard),
     path('author-script/<slug:slug1>/save-tip', views.authorSaveCommentOrNote),
+    path('get-all-script/<slug:slug1>/', views.getAuthorAllScripts),
     # notepade urls
     path('note-create', views.createNote),
     path('note-delete/<slug:noteid>', views.deleteNote),

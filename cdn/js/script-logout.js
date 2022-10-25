@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#myModal').modal('hidden');
+    $('#myModal').modal('show');
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })

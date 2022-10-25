@@ -100,6 +100,23 @@ class ScriptProject(object):
 
                 return HttpResponseRedirect("/scriptwork/" + ID)
 
+    def getAllScriptJson(self, userID):
+        request = self.request
+        sea = str(request.META.get('CSRF_COOKIE'))
+        user = Client.objects.filter(season=sea)
+        if request.method == "GET":
+            if user.exists():
+                # Returns a dict of Client
+                script = Script.objects.filter(userID=userID)
+                # set data
+                data = {
+                    'uniqueId': script,
+                }
+                # Render Datas to page
+                return JsonResponse(data)
+            elif str(user) == "<QuerySet []>":
+                return JsonResponse({'status': 'Out off service'})
+
     def getAuthorsDetail(self, listOfAuthorIds):
         profiles = []
 
@@ -143,7 +160,7 @@ class ScriptProject(object):
                 datasuit["href"] = request.build_absolute_uri() + "/invite"
                 datasuit["scriptTitle"] = scriptSuit["title"]
 
-                # Ensuring that the script is been accessed by the rightful owner
+                # Ensuring that the script is being accessed by the rightful owner
                 if scriptSuit["userID"] == accountID:
                     return render(request, "script-page.html", datasuit)  # render(request, "newproject.html", datasuit)
                 return HttpResponseRedirect("/client-home")
