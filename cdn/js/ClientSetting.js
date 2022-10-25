@@ -17,6 +17,8 @@ class ClientSetting {
     waterMarkDisplayText;
     //autoSaveTimeOut
     autoSaveTimeOut;
+    //List Unique ID
+    unique_script_id;
 
     constructor() {
         // Load settings from web db
@@ -31,6 +33,7 @@ class ClientSetting {
                 }
                 this.nightModeStatus = this.nightModeInput.checked;
             }
+
             res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 1.0;
             var opacity = document.querySelector('.opacity-range');
             opacity.style.opacity = res.waterMarkDisplayOpacity
@@ -41,14 +44,29 @@ class ClientSetting {
             this.displayListener();
             this.opacityListener();
             this.autoSaveListener();
-            setInterval(this.showTime, 1000);
+            let timeOut = res.autoSaveTimeOut * 1000 * 60;
+            const loadScript = this.loadScript(res.userID);
+            loadScript.then(res => {
+                setInterval(this.runScriptDownload, timeOut, res);
+            });
         });
     }
 
-    showTime() {
+    runScriptDownload(unique_data) {
         var d = new Date();
         var t = d.toLocaleTimeString();
+        for (var i = 0; i < unique_data.length; i++) {
+            this.downloadScript(unique_data[i]);
+        }
     }
+
+    // showTimeDate() {
+    //     var d = new Date();
+    //     var t = d.toLocaleTimeString();
+    //     console.log(t);
+    //     //document.getElementById("time").innerHTML = t;
+    // }
+
 
     /* Listening for a change in the night mode input. */
     listener() {
@@ -98,7 +116,6 @@ class ClientSetting {
             this.autoSaveTimeOut = this.autoSave.value;
             this.waterMarkDisplayOpacity = this.opacity.value;
             this.waterMarkDisplayText = this.display.value;
-            console.log(this.autoSaveTimeOut);
             //Save Settings
             this.saveSetting();
         });
@@ -155,6 +172,16 @@ class ClientSetting {
         const res = await fetch(location.protocol + "//" + location.host + '/clientsetting', {method: 'GET'})
         return res.json();
     }
+
+    async loadScript(userID) {
+        const res = await fetch(location.protocol + "//" + location.host + '/get-all-script/' + userID, {method: 'GET'})
+        return res.json();
+    }
+
+    async downloadScript(uniqueId) {
+        const res = await fetch(location.protocol + "//" + location.host + '/scriptwork/' + uniqueId + '/download', {method: 'GET'})
+        return res.json();
+    }
 }
 
 /* A function that is used to change the value of the slider. */
@@ -170,3 +197,5 @@ async function slider() {
 
 window.ClientSetting = new ClientSetting();
 slider();
+
+
