@@ -194,7 +194,7 @@
             }
 
             function hideNoteContainer(){
-                const thisElement = event;
+                const thisElement = event.srcElement;
                 const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode;
                 sw_editor_id_container.remove();
             }
