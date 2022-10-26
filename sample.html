@@ -10,12 +10,15 @@
     <script type="text/javascript" src="../../cdn/js/jquery-weekdays.js"></script>
     <link href="../../cdn/css/jquery-weekdays.css" rel="stylesheet"/>
     <style>
-        .itemClass {
+        .weekdays-list {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
-            background:red;
+        }
+        .weekdays-day {
+            border: 2px solid green;
+
         }
     </style>
 </head>
@@ -24,6 +27,30 @@
 </body>
 <script type="text/javascript">
     $(function () {
+<!--    for ( var i = 0; i < li.length; i++ ) {-->
+<!--    li[i].onmouseover = function() {-->
+<!--        this.style.backgroundColor = 'lime';-->
+<!--        this.style.borderLeft='5px solid red';-->
+<!--        this.style.listStyle = 'square';-->
+<!--    };-->
+<!--    li[i].onmouseout = function() {-->
+<!--        this.style.backgroundColor = 'white';-->
+<!--        this.style.borderLeft='';-->
+<!--        this.style.listStyle = 'disc';-->
+<!--    };-->
+<!--}-->
+            setTimeout(function () {
+                var li = document.getElementsByTagName("li");
+                for ( var i = 0; i < li.length; i++ ) {
+                    li[i].style.color = 'black';
+                    li[i].style.background = '';
+                    li[i].style.padding = '1.5rem 2.75rem';
+                    li[i].style.borderRadius = '25px';
+                    li[i].style.lineHeight = '0.25';
+                    li[i].style.marginLeft = '5px';
+                }
+
+            }, 200);
 <!--        setTimeout(function () {-->
 <!--            var a = $('#weekdays').selectedDays();-->
 <!--            for (var i = 0; i < a.length; i++) {-->
