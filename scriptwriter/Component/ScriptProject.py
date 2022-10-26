@@ -302,6 +302,7 @@ class ScriptProject(object):
                         }
                     """
                     scriptLine = scriptData[key]
+                    print(scriptLine)
 
                     # Add the content base
                     if scriptLine['type'] == "scene-heading":
@@ -326,7 +327,10 @@ class ScriptProject(object):
 
                     elif scriptLine['type'] == "action":
                         pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(200, 10, txt=scriptLine['body'], align='L')
+                        try:
+                            pdf.multi_cell(200, 10, txt=scriptLine['content'], align='L')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
                 # PDF output
                 outFile = os.path.join(storePdfLocation, scriptID + '.pdf')

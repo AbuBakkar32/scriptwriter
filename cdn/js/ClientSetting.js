@@ -47,19 +47,13 @@ class ClientSetting {
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
             loadScript.then(res => {
-                setInterval(this.runScriptDownload, timeOut, res);
+                for (let i = 0; i < res.length; i++) {
+                    setInterval(this.downloadScript, timeOut, res[i]);
+                }
             });
         });
     }
-
-    runScriptDownload(unique_data) {
-        var d = new Date();
-        var t = d.toLocaleTimeString();
-        for (var i = 0; i < unique_data.length; i++) {
-            this.downloadScript(unique_data[i]);
-        }
-    }
-
+    
     // showTimeDate() {
     //     var d = new Date();
     //     var t = d.toLocaleTimeString();
