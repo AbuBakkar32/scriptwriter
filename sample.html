@@ -1,0 +1,29 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="src/jquery-weekdays.js"></script>
+    <link href="src/jquery-weekdays.css" rel="stylesheet"/>
+</head>
+<body class="">
+<div id="weekdays"></div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        console.log($('#weekdays').selectedIndexes());
+        $('#weekdays').weekdays({
+            selectedIndexes: [0, 2, 4, 6],
+        });
+
+        var a = document.querySelector('#weekdays');
+        a.addEventListener('click', function (e) {
+            console.log($('#weekdays').selectedIndexes());
+        });
+    });
+</script>
+</html>

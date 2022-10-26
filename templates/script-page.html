@@ -27,13 +27,13 @@
                             <!--============MAIN BODY=========-->
                             <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
                                 <div class="text-grey-1000 leading-normal">
-                                    
+
                                     <!--Title of the script content-->
                                     <div class="flex-cnt input w80to100 relative mlmr-auto mt-16">
-                                        <div class="p-8 ft-size20 bg-three shadow hover:shadow-md 
-                                            transition-fast-out overflow-hidden title-input" sw-data-type="title" 
+                                        <div class="p-8 ft-size20 bg-three shadow hover:shadow-md
+                                            transition-fast-out overflow-hidden title-input" sw-data-type="title"
                                             contenteditable="true" style="min-height: 2rem; text-align: center; width: 210mm;
-                                            margin-left: 0.5em; margin-right: 1em;" 
+                                            margin-left: 0.5em; margin-right: 1em;"
                                             data-placeholder="Script Title"></div>
                                     </div>
 
@@ -53,7 +53,7 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list" sw-search="wrapper" contenteditable="true">
                                                 <div sw-editor="item" class="relative page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out">
                                                     <div style="z-index:1" class="action-type input commentRelative relative" sw-editor-type="action" tabindex="1" sw-editor-color=""
@@ -119,6 +119,7 @@
         <script src="../../cdn/js/SearchDocument.js"></script>
         <script src="../../cdn/js/EditorMode.js"></script>
         <script src="../../cdn/js/EditorWriter.js"></script>
+
         <script src="../../cdn/js/ScriptAdapter.js"></script>
 
 
@@ -158,10 +159,6 @@
                             abs.remove();
                         }
                     });
-
-                    item.addEventListener("input", (e) => {
-                        console.log(e.target.innerText);
-                      });
                 });
             }, 1000);
 

@@ -148,7 +148,6 @@ class ScriptProject(object):
                 scriptSuit = arrayDBData(scDB, "Script")
                 # Get profile of the authors
                 datasuit["AuthorsProfiles"] = self.getAuthorsDetail(eval(scriptSuit['authorsID']))
-                # print(datasuit['AuthorsProfiles'])
                 # Get the main script content array
                 datasuit["ScriptContent"] = reverseReplaceTOHtmlCharacter(scriptSuit["body"])
 
@@ -302,7 +301,6 @@ class ScriptProject(object):
                         }
                     """
                     scriptLine = scriptData[key]
-                    print(scriptLine)
 
                     # Add the content base
                     if scriptLine['type'] == "scene-heading":

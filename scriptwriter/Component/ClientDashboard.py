@@ -122,12 +122,18 @@ class ClientDashboard(object):
             else:
                 return HttpResponseRedirect("/client-home")
         elif request.method == "POST":
+            firstName = replaceTOHtmlCharacter(request.POST['firstName'])
+            lastName = replaceTOHtmlCharacter(request.POST['lastName'])
+            fullName = firstName + " " + lastName
             password = replaceTOHtmlCharacter(request.POST['password'])
+            email = replaceTOHtmlCharacter(request.POST['email'])
             sea = str(request.META.get('CSRF_COOKIE'))
             user = Client.objects.filter(season=sea)
             if user.exists():
                 clt = Client.objects.get(season=sea)
+                clt.fullName = fullName
                 clt.password = password
+                clt.email = email
                 clt.save()
                 return JsonResponse({'result': 'success',
                                      'message': 'profile data updated successfully'})  # HttpResponseRedirect("/app-profile")
