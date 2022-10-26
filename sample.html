@@ -7,22 +7,25 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
-    <script type="text/javascript" src="src/jquery-weekdays.js"></script>
-    <link href="src/jquery-weekdays.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../../cdn/js/jquery-weekdays.js"></script>
+    <link href="../../cdn/css/jquery-weekdays.css" rel="stylesheet"/>
 </head>
 <body class="">
 <div id="weekdays"></div>
 </body>
 <script type="text/javascript">
     $(function () {
-        console.log($('#weekdays').selectedIndexes());
+        setTimeout(function () {
+            console.log($('#weekdays').selectedDays());
+        }, 500);
+
         $('#weekdays').weekdays({
-            selectedIndexes: [0, 2, 4, 6],
+            selectedIndexes: [0, 3, 5],
         });
 
         var a = document.querySelector('#weekdays');
         a.addEventListener('click', function (e) {
-            console.log($('#weekdays').selectedIndexes());
+            console.log($('#weekdays').selectedDays());
         });
     });
 </script>
