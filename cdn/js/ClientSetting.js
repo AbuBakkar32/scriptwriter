@@ -53,7 +53,7 @@ class ClientSetting {
             });
         });
     }
-
+    
     // showTimeDate() {
     //     var d = new Date();
     //     var t = d.toLocaleTimeString();
@@ -175,7 +175,6 @@ class ClientSetting {
     async downloadScript(uniqueId) {
         const res = await fetch(location.protocol + "//" + location.host + '/scriptwork/' + uniqueId + '/download', {method: 'GET'})
         return res.json();
-
     }
 }
 
