@@ -53,14 +53,6 @@ class ClientSetting {
             });
         });
     }
-    
-    // showTimeDate() {
-    //     var d = new Date();
-    //     var t = d.toLocaleTimeString();
-    //     console.log(t);
-    //     //document.getElementById("time").innerHTML = t;
-    // }
-
 
     /* Listening for a change in the night mode input. */
     listener() {
