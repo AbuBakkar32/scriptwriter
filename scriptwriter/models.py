@@ -143,6 +143,8 @@ class Client(models.Model):
     # Current Subscription
     subscriptionMode = models.TextField(default="")  # 19 month | year | free
     subscriptionID = models.TextField(default="")  # 20
+    # Author Reminders
+    authorReminders = models.TextField(default="")  # 21 true | false
 
     def __str__(self):
         return "{'fullName':'''%s''','email':'''%s''','password':'''%s''','country':'''%s''',\
@@ -150,12 +152,14 @@ class Client(models.Model):
             'resetPasswordValue':'''%s''', 'createdon':'''%s''', 'season':'''%s''', 'state':'''%s''',\
             'authoredScript':'''%s''', 'accountType':'''%s''', 'nightMode':'''%s''', 'onePageWriting':'''%s''',\
             'autoSaveTimeOut':'''%s''', 'waterMarkStatus':'''%s''', 'waterMarkDisplayText':'''%s''',\
-            'waterMarkDisplayOpacity':'''%s''', 'subscriptionMode':'''%s''', 'subscriptionID':'''%s'''}" % (
+            'waterMarkDisplayOpacity':'''%s''', 'subscriptionMode':'''%s''', 'subscriptionID':'''%s''',\
+             'authorReminders':'''%s'''}" % (
             self.fullName, self.email, self.password, self.country, self.userID, self.emailVerification,
             self.emailVerificationValue, self.resetPasswordValue, self.createdon, self.season, self.state,
             self.authoredScript,
             self.accountType, self.nightMode, self.onePageWriting, self.autoSaveTimeOut, self.waterMarkStatus,
-            self.waterMarkDisplayText, self.waterMarkDisplayOpacity, self.subscriptionMode, self.subscriptionID)
+            self.waterMarkDisplayText, self.waterMarkDisplayOpacity, self.subscriptionMode, self.subscriptionID,
+            self.authorReminders)
 
 
 class App(models.Model):
