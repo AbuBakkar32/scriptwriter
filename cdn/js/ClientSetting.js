@@ -21,6 +21,8 @@ class ClientSetting {
     unique_script_id;
 
     constructor() {
+        //load Time and Date
+        setInterval(this.showTimeDate, 1000);
         // Load settings from web db
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
@@ -39,7 +41,6 @@ class ClientSetting {
             opacity.style.opacity = res.waterMarkDisplayOpacity
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
-
             this.listener();
             this.displayListener();
             this.opacityListener();
@@ -52,6 +53,13 @@ class ClientSetting {
                 }
             });
         });
+    }
+
+    showTimeDate() {
+        var d = new Date();
+        var date = d.toLocaleDateString();
+        var time = d.toLocaleTimeString();
+        document.getElementById("time").innerHTML = time + " " + date;
     }
 
     /* Listening for a change in the night mode input. */
