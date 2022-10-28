@@ -127,6 +127,8 @@ class ClientDashboard(object):
             fullName = firstName + " " + lastName
             password = replaceTOHtmlCharacter(request.POST['password'])
             email = replaceTOHtmlCharacter(request.POST['email'])
+            authorReminders = request.POST['authorReminders']
+            print(request.POST)
             sea = str(request.META.get('CSRF_COOKIE'))
             user = Client.objects.filter(season=sea)
             if user.exists():
@@ -134,6 +136,7 @@ class ClientDashboard(object):
                 clt.fullName = fullName
                 clt.password = password
                 clt.email = email
+                clt.authorReminders = authorReminders
                 clt.save()
                 return JsonResponse({'result': 'success',
                                      'message': 'profile data updated successfully'})  # HttpResponseRedirect("/app-profile")
@@ -171,6 +174,7 @@ class ClientDashboard(object):
                     'waterMarkDisplayText': datasuit["waterMarkDisplayText"],
                     'autoSaveTimeOut': datasuit["autoSaveTimeOut"],
                     'userID': user[0].userID,
+                    'authorReminders': user[0].authorReminders,
                 }
                 # Render Datas to page
                 return JsonResponse(data)
@@ -185,7 +189,6 @@ class ClientDashboard(object):
                 opacity = request.POST['waterMarkDisplayOpacity']
                 waterMarkDisplayText = str(request.POST['waterMarkDisplayText'])
                 autoSaveTimeOut = request.POST['autoSaveTimeOut']
-
                 pGet.waterMarkDisplayOpacity = opacity
                 pGet.waterMarkDisplayText = waterMarkDisplayText
                 pGet.autoSaveTimeOut = autoSaveTimeOut
