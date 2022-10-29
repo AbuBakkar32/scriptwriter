@@ -184,10 +184,14 @@ class EditorMode {
     watcher() {
         // if writing script, remove the note
         document.querySelectorAll('.sw_editor_class').forEach((el) => {
-            el.remove();
+            if (el.querySelector('.relative')){
+                el.querySelector('.relative').remove();
+            }
         });
         document.querySelectorAll('.sw_editor_class2').forEach((el) => {
-            el.remove();
+            if (el.querySelector('.relative')){
+                el.querySelector('.relative').remove();
+            }
         });
 
 
@@ -219,6 +223,61 @@ class EditorMode {
                         newCreatedElement.setAttribute(this.cons.editColor, color);
 
                         newCreatedElement.textContent = "";
+
+                        setTimeout(()=>{
+                            // get the last child of the element which attribute is sw-editor="item"
+                            const lastChild = document.querySelector(`[sw-editor="item"]`).lastElementChild;
+                            let sw_editor_id = lastChild.getAttribute('sw-editor-id');
+                            console.log(sw_editor_id);
+                            if (!sw_editor_id){
+                                let myId = lastChild.getAttribute('id');// sw-editor-id-0256
+                                myId = myId.split('-')[3];
+                                // add one to the id
+                                myId = String(Number(myId) + 1);
+                                console.log(myId);
+                                // add leading zero
+                                sw_editor_id = '0' + myId;
+
+                                console.log(sw_editor_id);
+                            }
+
+                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAD3ElEQVRoge3a2WudRRjH8U+apaatTVp6o7hGLdEalyKKpVQF8Q9wr3pvsUoQoS6I6I1XXqh4I4J4oYiI+0rrhm3d21pjtVEi7i1KQEujbSU5Xjzzek7qOT3be05ykS+8DGeWZ37zzjszz8wc5pijJXTkaOs4XIjzcCpORh8WpfT9+BPfYQyf4kP8kqOGhjkF9+ELFCo8f6SnUvrnuBcDbdYOVuN1TJYI2o4HsRYr0V+mXH9KW4uHsKOk/CReFb3acgbwSknlY9iAE5uweRLuEJ9cZvfFFJ87HRjGRKpoN67CvBzrmIdrMZrq2I/1Odq3EM8k43/hdnTlWcFhdOMu/J3qfDppaIolYmbJeuGMZg3WwRC+SXVvVX7M1cQifJYMvYPFeairkz68lzR8ooGe6RQzSAFv4qg81dVJLzYlLS+rc1zemQruwNG5S6ufxdgpNG2otdBZOIR9YsGbLZwmZrKDWFFLgY2i5etaKKpRbhba3qiWcU3KOCLGyWyjC7uExtVHyvhsynRdFYObVfadmn02V6n7BsX1pSyLxdjYi54ZbMj7Veqej99wQNGznsaVydBjVQzNBh4XWi/PIkrn5FUp3NRORQ2yMYWZ5mkNGUrhzrbJaZxM41C5xK9Fd3W3TU7j9AitX2URpT3SJ9z0f8oUzGtwl5uRqtkuV+aQ8MT7yjVkSr77i3IU2lFmJBWaSQexVo74ae1N4fHtVNQgmQ/4UxZR2pBtKTy/bXIa55wUjmQRpQ35OIUXtU1O41yWwq3lEhcKN3nczLoo1Xyt+fhd7On/c1FKe2QCL2EprqhirJVUm6WuxjI8L158WVaKaXi32enGdysu3Kuq5PVCynhLi0U1wrDQ9lotmQdEl01geQtF1cug0HQAp9daaL3iTrGvSt520I8vhabb6inYgScUz7R6c5dWOwuShoL47Ot2o3rwVjKwRcxm7aZf7BgL4sRzQaOGehVP30dxbh7qauRsfKu4tjR90tmNR5LBg1p/TNSNu8WgLuBJTfREOa5Jhn/O02gJnbhesRf24cZWVHRsquCDnO0OiGuEH5L9KTyHE+oxUs89x5oUbquQvk6sO7vEnvp7cflZuuNcKoQP4gLhoGb77knhIt0vTt5bRnY6f+lh8V3iPrCSEzghGlQpfTvu0eRVW63X08fgR/wqrp2nUvxyPIqLxcZsOAk6M+Vbkp7O1KBx0VNj4q1/hD3NNKBeHhZv76b0exkeELNYQThyg+0U1AgrhOAJ3Crc52xqLOApFY4uZxtv+/93PYV3cckM6ppGLbPWHrF2jItve4v4s8BoC3XNMcds4V/d6V223MWyRgAAAABJRU5ErkJggg==">'
+                            const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
+                                <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
+                                    <div onclick="hideNoteContainer(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
+                                    <div class="noteContainer"></div>
+
+                                    <div style="color: black;">
+                                        <input id="noteTitle" class="noteInput" type="text" placeholder="Title here..." style="padding: 8px; border: none; outline: none; background-color: inherit; font-weight: bold; font-size: 13px; color: black;"/>
+                                        <textarea id="noteDescription" class="noteInput" rows="2" placeholder="Note here..." style="padding: 8px; border: none; outline: none; margin-bottom: 8px; background-color: inherit; font-weight: bold; width: 90%; color: black; font-size: 12px"></textarea>
+                                        <button onclick="addComment(this)" style="background-color: rgb(0, 0, 226); color: white; border: none; padding: 0 8px; font-size: 12px;">Add Note</button>
+                                    </div>
+
+                                    <div style="position: sticky; bottom: 0; right: 0; width: 30px; height: 100px; padding: 10px; float: right;">
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: yellow; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: red; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: green; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: blue; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: orange; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                    </div>
+                                </div>
+                                </div>`
+
+                            const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
+                            lastChild.addEventListener('mouseover', function(){
+                                // add to next sibling
+                                lastChild.insertAdjacentHTML('afterend', abs);
+                            });
+
+                            lastChild.addEventListener('mouseout', function(){
+                                // remove from next sibling
+                                const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
+                                const is_show = abs.classList.contains('show');
+                                if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
+                                    abs.remove();
+                                }
+                            });
+                        }, 1000);
         
                         // formate new line
                         this.formatContentLine(newCreatedElement);
