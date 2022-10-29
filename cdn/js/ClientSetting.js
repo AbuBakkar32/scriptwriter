@@ -68,6 +68,13 @@ class ClientSetting {
         this.nightModeInput.addEventListener('change', () => {
             // Update the status
             this.nightModeStatus = this.nightModeInput.checked;
+            this.autoSaveTimeOut = this.autoSave.value;
+            this.waterMarkDisplayOpacity = this.opacity.value;
+            this.waterMarkDisplayText = this.display.value;
+
+            console.log(this.autoSaveTimeOut);
+            console.log(this.waterMarkDisplayOpacity);
+            console.log(this.waterMarkDisplayText);
             // Set or Remove dark mode
             if (this.nightModeStatus) this.darkModeStyleElement.innerText = this.darkModeStyle();
             else this.darkModeStyleElement.innerText = "";
