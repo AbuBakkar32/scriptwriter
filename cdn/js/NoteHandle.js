@@ -10,7 +10,6 @@ class NoteHandle {
         }
         this.noteList = document.querySelector(this.vars.list);
         this.item = document.querySelector(this.vars.item)?.cloneNode(true);
-        
         this.clear();
     }
 
