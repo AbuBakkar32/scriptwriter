@@ -59,7 +59,9 @@ class ClientSetting {
         var d = new Date();
         var date = d.toLocaleDateString();
         var time = d.toLocaleTimeString();
-        document.getElementById("time").innerHTML = time + " " + date;
+        try{document.getElementById("time").innerHTML = time + " " + date;}
+        catch (e) {
+        }
     }
 
     /* Listening for a change in the night mode input. */
