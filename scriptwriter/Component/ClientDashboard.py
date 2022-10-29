@@ -128,7 +128,6 @@ class ClientDashboard(object):
             password = replaceTOHtmlCharacter(request.POST['password'])
             email = replaceTOHtmlCharacter(request.POST['email'])
             authorReminders = request.POST['authorReminders']
-            print(request.POST)
             sea = str(request.META.get('CSRF_COOKIE'))
             user = Client.objects.filter(season=sea)
             if user.exists():

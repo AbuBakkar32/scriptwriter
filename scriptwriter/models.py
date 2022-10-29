@@ -211,8 +211,9 @@ class Comment(models.Model):
     title = models.TextField(default="")  # 4
     comment = models.TextField(default="")  # 5
     createdon = models.TextField(default="")  # 6
+    bg_color = models.TextField(default="yellow")  # 7
 
-    def __str__(self):
+    def _str_(self):
         return "{'uniqueID':'''%s''' , 'scriptID':'''%s''', 'userID':'''%s''', 'title':'''%s''',\
             'comment':'''%s''', 'createdon':'''%s''', 'sw_editor_id':'''%s'''}" % (
             self.uniqueID, self.scriptID, self.userID, self.title, self.comment, self.createdon, self.sw_editor_id)

@@ -85,6 +85,9 @@ urlpatterns = [
     # Comment section
     path('add-comment', views.addComment),
     path('get-comments/<slug:scriptID>', views.getComments),
+    path('get-line-comments/<slug:scriptID>/<slug:lineID>', views.getLineComments),
+    path('change-bg-color/<slug:scriptID>/<slug:lineID>/<slug:color>', views.changeBGColor),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.CDN_URL, document_root=settings.CDN_ROOT)
