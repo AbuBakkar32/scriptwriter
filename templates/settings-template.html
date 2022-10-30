@@ -1,4 +1,4 @@
-<div class="m_g_8c4ed text-white settings-popup opacity-range">
+<div class="m_g_8c4ed text-white settings-popup">
     <div class="m_g_9e032">
         <div class="col-12 col-5-md mlmr-auto bg-three font-sans-alt font-semibold c-black fw-300 p-8">
             <span class="m_g_29dee cus-pointer" sw-action="close-settings">
@@ -32,7 +32,7 @@
                         <div class="flex-cnt">
                             <div>
                                 <label class="toggle">
-                                    <input class="toggle-input" type="checkbox"/>
+                                    <input class="toggle-input" type="checkbox" sw-settings="one-page-writing"/>
                                     <div class="toggle__bg">
                                         <div class="toggle__sphere">
                                             <div class="toggle__sphere-bg"></div>
@@ -66,7 +66,7 @@
                     <div class="col-6">
                         <div class="flex-cnt">
                             <div>
-                                <input type="file" name="file" style="background: RGB(116, 206, 182, 0.5); border: 2px solid #1DBF73;border-radius: 5px" />
+                                <input type="file" name="file" webkitdirectory multiple sw-settings="get-dir" style="background: RGB(116, 206, 182, 0.5); border: 2px solid #1DBF73;border-radius: 5px" />
                             </div>
                         </div>
                     </div>
@@ -79,19 +79,19 @@
                     <div class="col-6">
                         <div class="flex-cnt">
                             <div>
-                                <input type="file" name="file" style="background: RGB(116, 206, 182, 0.5); border: 2px solid #1DBF73;border-radius: 5px" />
+                                <input type="file" name="file" webkitdirectory multiple style="background: RGB(116, 206, 182, 0.5); border: 2px solid #1DBF73;border-radius: 5px" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row col-12 mxx-8 mb-16">
+                <div class="row col-12 mxx-8 mb-16" sw-settings="hide-div">
                     <div class="col-6 ft-size16 text-center">Watermark</div>
                     <div class="col-6">
                         <div class="flex-cnt">
                             <div>
                                 <label class="toggle">
-                                    <input class="toggle-input" type="checkbox"/>
+                                    <input class="toggle-input" type="checkbox" sw-settings="water-mark"/>
                                     <div class="toggle__bg">
                                         <div class="toggle__sphere">
                                             <div class="toggle__sphere-bg"></div>

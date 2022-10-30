@@ -3,22 +3,32 @@ class ClientSetting {
     darkModeStyleElement = document.querySelector(`[sw-darkmode="style"]`);
     // Setting Options
     nightModeInput = document.querySelector(`[sw-settings="dark-mode"]`);
+    //one-page-writing
+    onePageWritingInput = document.querySelector(`[sw-settings="one-page-writing"]`);
+    //Watermark
+    waterMarkInput = document.querySelector(`[sw-settings="water-mark"]`);
     //Seeting Opacity
     opacity = document.querySelector(`[sw-settings="opacity"]`);
     //setting Display
     display = document.querySelector('[sw-settings="display-name"]');
     //autoSaveTimeOut
     autoSave = document.querySelector(`[sw-settings="auto-save"]`);
+    //get Directory
+    directory = document.querySelector('input[type="file"]');
     // Settings Status
     nightModeStatus;
+    //onePageWriting status
+    onePageWritingStatus
+    //waterMarkStatus
+    waterMarkStatus
     //opacity
     waterMarkDisplayOpacity;
     //Display Name
     waterMarkDisplayText;
     //autoSaveTimeOut
     autoSaveTimeOut;
-    //List Unique ID
-    unique_script_id;
+    //List for Display Name
+    displayName;
 
     constructor() {
         //load Time and Date
@@ -35,16 +45,45 @@ class ClientSetting {
                 }
                 this.nightModeStatus = this.nightModeInput.checked;
             }
-            // Set opacity
+
+            if (res.onePageWriting) {
+                if (res.onePageWriting === 'true') {
+                    this.onePageWritingInput.checked = true;
+                }
+                this.onePageWritingStatus = this.onePageWritingInput.checked;
+            }
+
+            if (res.waterMarkStatus) {
+                if (res.waterMarkStatus === 'true') {
+                    this.waterMarkInput.checked = true;
+                }
+                this.waterMarkStatus = this.waterMarkInput.checked;
+            }
             var opacity = document.querySelector('.opacity-range');
             res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
             opacity.style.opacity = res.waterMarkDisplayOpacity
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
+
+            setTimeout(() => {
+                this.displayName = document.querySelector(".water-marks");
+                if (this.waterMarkStatus) {
+                    this.displayName.classList.remove("hidden");
+                } else {
+                    this.displayName.classList.add("hidden");
+                }
+                var opacityValue = document.querySelector('.opacity-range');
+                this.displayName.innerHTML = res.waterMarkDisplayText;
+                opacityValue.style.opacity = res.waterMarkDisplayOpacity
+            }, 100);
+
             this.listener();
+            this.onePageWritingListener();
+            this.waterMarkListener();
             this.displayListener();
             this.opacityListener();
             this.autoSaveListener();
+            //this.selectFileLocation();
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
             loadScript.then(res => {
@@ -55,13 +94,26 @@ class ClientSetting {
         });
     }
 
+    // selectFileLocation() {
+    //     this.directory.addEventListener('change', () => {
+    //         console.log(this.directory.files);
+    //     });
+    // }
+
     showTimeDate() {
         var d = new Date();
         var date = d.toLocaleDateString();
         var time = d.toLocaleTimeString();
-        try{document.getElementById("time").innerHTML = time + " " + date;}
-        catch (e) {
+        try {
+            document.getElementById("time").innerHTML = time + " " + date;
+        } catch (e) {
         }
+    }
+
+    getCommomFields() {
+        this.autoSaveTimeOut = this.autoSave.value;
+        this.waterMarkDisplayOpacity = this.opacity.value;
+        this.waterMarkDisplayText = this.display.value;
     }
 
     /* Listening for a change in the night mode input. */
@@ -70,13 +122,7 @@ class ClientSetting {
         this.nightModeInput.addEventListener('change', () => {
             // Update the status
             this.nightModeStatus = this.nightModeInput.checked;
-            this.autoSaveTimeOut = this.autoSave.value;
-            this.waterMarkDisplayOpacity = this.opacity.value;
-            this.waterMarkDisplayText = this.display.value;
-
-            console.log(this.autoSaveTimeOut);
-            console.log(this.waterMarkDisplayOpacity);
-            console.log(this.waterMarkDisplayText);
+            this.getCommomFields();
             // Set or Remove dark mode
             if (this.nightModeStatus) this.darkModeStyleElement.innerText = this.darkModeStyle();
             else this.darkModeStyleElement.innerText = "";
@@ -85,14 +131,40 @@ class ClientSetting {
         });
     }
 
-    /* Listening for a change in the night mode input. */
+    /* Listening for a change One Page Writing Mode */
+    onePageWritingListener() {
+        // Night mode Input
+        this.onePageWritingInput.addEventListener('change', () => {
+            // Update the status
+            this.onePageWritingStatus = this.onePageWritingInput.checked;
+            this.getCommomFields();
+            //Save Settings
+            this.saveSetting();
+        });
+    }
+
+    /* Listening for a change Water Mark Mode */
+    waterMarkListener() {
+        this.waterMarkInput.addEventListener('change', () => {
+            // Update the status
+            this.waterMarkStatus = this.waterMarkInput.checked;
+            if (this.waterMarkStatus) {
+                    this.displayName.classList.remove("hidden");
+                } else {
+                    this.displayName.classList.add("hidden");
+                }
+            this.getCommomFields();
+            //Save Settings
+            this.saveSetting();
+        });
+    }
+
+    /* Listening for a change in the opacity. */
     opacityListener() {
         //Opacity Input
         this.opacity.addEventListener('change', () => {
             // Update the status
-            this.waterMarkDisplayOpacity = this.opacity.value;
-            this.waterMarkDisplayText = this.display.value;
-            this.autoSaveTimeOut = this.autoSave.value;
+            this.getCommomFields();
             //Save Settings
             this.saveSetting();
         });
@@ -103,9 +175,7 @@ class ClientSetting {
         //Display Input
         this.display.addEventListener('keyup', () => {
             // Update the status
-            this.autoSaveTimeOut = this.autoSave.value;
-            this.waterMarkDisplayOpacity = this.opacity.value;
-            this.waterMarkDisplayText = this.display.value;
+            this.getCommomFields();
             //Save Settings
             this.saveSetting();
         });
@@ -154,6 +224,8 @@ class ClientSetting {
         // create form and supply the inputs
         const formData = new FormData();
         formData.append('nightMode', this.nightModeStatus);
+        formData.append('onePageWriting', this.onePageWritingStatus);
+        formData.append('waterMarkStatus', this.waterMarkStatus);
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('waterMarkDisplayOpacity', this.waterMarkDisplayOpacity / 100);
         formData.append('waterMarkDisplayText', this.waterMarkDisplayText);
@@ -190,7 +262,10 @@ class ClientSetting {
 /* A function that is used to change the value of the slider. */
 async function slider() {
     var slider = document.querySelector('#myRange');
-    var opacity = document.querySelector('.opacity-range');
+    var opacity;
+    setTimeout(() => {
+        opacity = document.querySelector('.opacity-range');
+    }, 100);
 
     slider.oninput = function () {
         waterMarkDisplayOpacity = this.value / 100;
