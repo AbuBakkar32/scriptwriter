@@ -191,6 +191,8 @@ class EditorMode {
         document.querySelectorAll('.sw_editor_class2').forEach((el) => {
             if (el.querySelector('.relative')){
                 el.querySelector('.relative').remove();
+                el.classList.remove('sw_editor_class2');
+                el.classList.add('sw_editor_class');
             }
         });
 
