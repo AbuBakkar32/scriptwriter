@@ -1,130 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Script Work</title>
-        {% include 'head.html' %}
-    </head>
+<head>
+    <title>Script Work</title>
+    {% include 'head.html' %}
+</head>
 
-    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" >
-        <!-- Loading-->
-        {% include 'loading.html'%}
-        <div class="flex flex-col min-h-screen text-base font-sans">
-            <!--============ Header =========-->
-            {% include 'header-template1.html' %}
-            {% include 'header-template2.html' %}
-            {% include 'header-template3.html' %}
+<body class="relative bg-x-gradient-grey-200-grey-200-50-white-100">
+<!-- Loading-->
+{% include 'loading.html'%}
+<div class="flex flex-col min-h-screen text-base font-sans">
+    <!--============ Header =========-->
+    {% include 'header-template1.html' %}
+    {% include 'header-template2.html' %}
+    {% include 'header-template3.html' %}
 
-            <!--Settings-->
-            {% include 'settings-template.html'%}
-            <div classy="flex-1 mx-auto w-full" xclass="max-w-1440 ">
-                <div classy="flex h-full">
+    <!--Settings-->
+    {% include 'settings-template.html'%}
+    <div classy="flex-1 mx-auto w-full" xclass="max-w-1440 ">
+        <div classy="flex h-full">
 
-                    <!--Sider Bar At left side (with features list)-->
-                    {% include 'aside-template1.html' %}
+            <!--Sider Bar At left side (with features list)-->
+            {% include 'aside-template1.html' %}
 
-                    <div class="xl:rem-ml-15 xl:rem-mr-15 overflow-x-hidden bg-four" sw-page="main">
-                        <div class="row md:px-24 md:pb-24">
-                            <!--============MAIN BODY=========-->
-                            <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
-                                <div class="text-grey-1000 leading-normal">
-                                    <div>
-                                        <!--Title of the script content-->
-                                        <div class="flex-cnt input w80to100 relative mlmr-auto mt-16">
-                                            <div class="p-8 ft-size20 bg-three shadow hover:shadow-md 
-                                                transition-fast-out overflow-hidden title-input" sw-data-type="title" 
-                                                contenteditable="true" style="min-height: 2rem; text-align: center; width: 210mm;
-                                                margin-left: 0.5em; margin-right: 1em;" 
-                                                data-placeholder="Script Title"></div>
+            <div class="xl:rem-ml-15 xl:rem-mr-15 overflow-x-hidden bg-four" sw-page="main">
+                <div class="row md:px-24 md:pb-24">
+                    <!--============MAIN BODY=========-->
+                    <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
+                        <div class="text-grey-1000 leading-normal">
+
+                            <!--Title of the script content-->
+                            <div class="flex-cnt input w80to100 relative mlmr-auto mt-16">
+                                <div class="p-8 ft-size20 bg-three shadow hover:shadow-md
+                                            transition-fast-out overflow-hidden title-input" sw-data-type="title"
+                                     contenteditable="true" style="min-height: 2rem; text-align: center; width: 210mm;
+                                            margin-left: 0.5em; margin-right: 1em;"
+                                     data-placeholder="Script Title"></div>
+                            </div>
+
+                            <!--Editor -For writing and preparing script goes here-->
+                            <div class="mt-8 mb-48">
+                                <div class="doping relative mlmr-auto relative">
+                                    <div class="doping flex w80to100 mlmr-auto relative" sw-element-anywhere="wrap">
+                                        <div class="absolute water-marks opacity-range" style="z-index: 500; margin-left: 43%; margin-top: 36px; font-size: 25px; font-family: Fantasy;font-style: italic"></div>
+                                        <div class="absolute" sw-page-number="item" style="z-index: 500;"
+                                             contenteditable="false">1.
                                         </div>
-
-                                        <!--Editor -For writing and preparing script goes here-->
-                                        <div class="mt-8 mb-48">
-                                            <div class="doping relative mlmr-auto relative">
-                                                <div class="doping flex w80to100 mlmr-auto relative" sw-element-anywhere="wrap">
-                                                    <div class="absolute" sw-page-number="item" style="z-index: 500;" contenteditable="false">1.</div>
-                                                    <div class="absolute hide" sw-icon='left' style="z-index: 500;" contenteditable="false">
-                                                        <svg class="tip-icon-size24to" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                            <path d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625l-1.993 6.368 6.946-3c1.705.439 3.334.641 4.864.641 7.174 0 12.136-4.439 12.136-9.634 0-5.812-5.701-10.007-12-10.007zm0 1c6.065 0 11 4.041 11 9.007 0 4.922-4.787 8.634-11.136 8.634-1.881 0-3.401-.299-4.946-.695l-5.258 2.271 1.505-4.808c-1.308-1.564-2.165-3.128-2.165-5.402 0-4.966 4.935-9.007 11-9.007zm-5 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="absolute hide" sw-icon='right' style="z-index: 500;" contenteditable="false">
-                                                        <svg class="tip-icon-size24to" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                            <path d="M19 6.734c0 4.164-3.75 6.98-3.75 10.266h-1.992c.001-2.079.997-3.826 1.968-5.513.912-1.585 1.774-3.083 1.774-4.753 0-3.108-2.517-4.734-5.004-4.734-2.483 0-4.996 1.626-4.996 4.734 0 1.67.862 3.168 1.774 4.753.971 1.687 1.966 3.434 1.967 5.513h-1.991c0-3.286-3.75-6.103-3.75-10.266 0-4.343 3.498-6.734 6.996-6.734 3.502 0 7.004 2.394 7.004 6.734zm-4 11.766c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm0 2c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm-1.701 3.159c-.19.216-.465.341-.753.341h-1.093c-.288 0-.562-.125-.752-.341l-1.451-1.659h5.5l-1.451 1.659zm-2.182-11.123l3.633-5.536h-2.113l1.05-3.463-3.794 5.463h2.302l-1.078 3.536z"/>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list" sw-search="wrapper" contenteditable="true">
-                                                    <div sw-editor="item" class="relative page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out"> 
-                                                        <div style="z-index:1" class="action-type input commentRelative relative" sw-editor-type="action" tabindex="1" sw-editor-color=""
-                                                            sw-editor-id="00" contenteditable="true"><br>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
+                                        <div class="absolute hide" sw-icon='left' style="z-index: 500;"
+                                             contenteditable="false">
+                                            <svg class="tip-icon-size24to" xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 24 24">
+                                                <path d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625l-1.993 6.368 6.946-3c1.705.439 3.334.641 4.864.641 7.174 0 12.136-4.439 12.136-9.634 0-5.812-5.701-10.007-12-10.007zm0 1c6.065 0 11 4.041 11 9.007 0 4.922-4.787 8.634-11.136 8.634-1.881 0-3.401-.299-4.946-.695l-5.258 2.271 1.505-4.808c-1.308-1.564-2.165-3.128-2.165-5.402 0-4.966 4.935-9.007 11-9.007zm-5 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="absolute hide" sw-icon='right' style="z-index: 500;"
+                                             contenteditable="false">
+                                            <svg class="tip-icon-size24to" xmlns="http://www.w3.org/2000/svg"
+                                                 viewBox="0 0 24 24">
+                                                <path d="M19 6.734c0 4.164-3.75 6.98-3.75 10.266h-1.992c.001-2.079.997-3.826 1.968-5.513.912-1.585 1.774-3.083 1.774-4.753 0-3.108-2.517-4.734-5.004-4.734-2.483 0-4.996 1.626-4.996 4.734 0 1.67.862 3.168 1.774 4.753.971 1.687 1.966 3.434 1.967 5.513h-1.991c0-3.286-3.75-6.103-3.75-10.266 0-4.343 3.498-6.734 6.996-6.734 3.502 0 7.004 2.394 7.004 6.734zm-4 11.766c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm0 2c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm-1.701 3.159c-.19.216-.465.341-.753.341h-1.093c-.288 0-.562-.125-.752-.341l-1.451-1.659h5.5l-1.451 1.659zm-2.182-11.123l3.633-5.536h-2.113l1.05-3.463-3.794 5.463h2.302l-1.078 3.536z"/>
+                                            </svg>
+                                        </div>
                                     </div>
 
-                                    <!--Footer goes here-->  
+                                    <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list"
+                                         sw-search="wrapper" contenteditable="true">
+                                        <div sw-editor="item"
+                                             class="relative page bg-three py-48 ft-initial shadow hover:shadow-md  transition-fast-out">
+                                            <div style="z-index:1" class="action-type input commentRelative relative"
+                                                 sw-editor-type="action" tabindex="1" sw-editor-color=""
+                                                 sw-editor-id="00" contenteditable="true"><br>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </main>
+                            </div>
 
-                            <!--Starting of new Right Bar here-->
-                            {% include 'newproject-right-sider.html' %}
-                            <!--End of new Right Bar here-->
+                            <!--Footer goes here-->
                         </div>
-                    </div>
-                    <!--Page for Character-->
-                    {% include 'sw-page/character.html' %}
-                    <!--Page for loaction-->
-                    {% include 'sw-page/location.html' %}
+                    </main>
 
-                    {% if accountType == 'pro' %}
-                        <!--Page for outline-->
-                        {% include 'sw-page/outline.html' %}
-                        <!--Page for pin-board-->
-                        {% include 'sw-page/pin-board.html' %}
-                    {% endif %}
-                    
-                    <!--Page for story-docs-->
-                    {% include 'sw-page/story-docs.html' %}
-                    <!--Page for structure-->
-                    {% include 'sw-page/structure.html' %}
-                    
+                    <!--Starting of new Right Bar here-->
+                    {% include 'newproject-right-sider.html' %}
+                    <!--End of new Right Bar here-->
                 </div>
             </div>
-            
+            <!--Page for Character-->
+            {% include 'sw-page/character.html' %}
+            <!--Page for loaction-->
+            {% include 'sw-page/location.html' %}
 
-        {% if ScriptContent %}
-            <script>
-                window.ScriptDataStore = {{ScriptContent|safe}};
-            </script>
-        {% endif %}
+            {% if accountType == 'pro' %}
+            <!--Page for outline-->
+            {% include 'sw-page/outline.html' %}
+            <!--Page for pin-board-->
+            {% include 'sw-page/pin-board.html' %}
+            {% endif %}
 
-        <script src="../../cdn/js/ClientSetting.js"></script>
-        <script src="../../cdn/js/app.js"></script>
-        <script src="../../cdn/js/BackgroundColor.js"></script>
-        <script src="../../cdn/js/CharacterHandle.js"></script>
-        <script src="../../cdn/js/NoteHandle.js"></script>
-        {% if accountType == 'pro' %}
-        <script src="../../cdn/js/CardOption.js"></script>
-        <script src="../../cdn/js/PinBoard.js"></script>
-        <script src="../../cdn/js/OutlineHandle.js"></script>
-        {% endif %}
-        <script src="../../cdn/js/Watcher.js"></script>
-        <script src="../../cdn/js/EditorFunction.js"></script>
-        <script src="../../cdn/js/ScriptWriterPage.js"></script>
-        <script src="../../cdn/js/ScriptWriterSection.js"></script>
-        <script src="../../cdn/js/MapAndReactOnContent.js"></script>
-        <script src="../../cdn/js/SearchDocument.js"></script>
-        <script src="../../cdn/js/EditorMode.js"></script>
-        <script src="../../cdn/js/EditorWriter.js"></script>
-        <script src="../../cdn/js/ScriptAdapter.js"></script>
+            <!--Page for story-docs-->
+            {% include 'sw-page/story-docs.html' %}
+            <!--Page for structure-->
+            {% include 'sw-page/structure.html' %}
+
+        </div>
+    </div>
+
+    {% if ScriptContent %}
+    <script>
+        window.ScriptDataStore = {{ScriptContent | safe}};
+    </script>
+    {% endif %}
+    <script src="../../cdn/js/app.js"></script>
+    <script src="../../cdn/js/BackgroundColor.js"></script>
+    <script src="../../cdn/js/CharacterHandle.js"></script>
+    <script src="../../cdn/js/NoteHandle.js"></script>
+    {% if accountType == 'pro' %}
+    <script src="../../cdn/js/CardOption.js"></script>
+    <script src="../../cdn/js/PinBoard.js"></script>
+    <script src="../../cdn/js/OutlineHandle.js"></script>
+    {% endif %}
+    <script src="../../cdn/js/Watcher.js"></script>
+    <script src="../../cdn/js/EditorFunction.js"></script>
+    <script src="../../cdn/js/ScriptWriterPage.js"></script>
+    <script src="../../cdn/js/ScriptWriterSection.js"></script>
+    <script src="../../cdn/js/MapAndReactOnContent.js"></script>
+    <script src="../../cdn/js/SearchDocument.js"></script>
+    <script src="../../cdn/js/EditorMode.js"></script>
+    <script src="../../cdn/js/EditorWriter.js"></script>
+    <script src="../../cdn/js/ScriptAdapter.js"></script>
 
 
-        <script>
-            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer; transform: scaleX(-1);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
-            const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
+    <script>
+        const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer; transform: scaleX(-1);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
+        const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
                 <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
                     <div onclick="hideNoteContainer(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
                     <div class="noteContainer"></div>
@@ -145,91 +151,82 @@
                 </div>
                 </div>`
 
-            
-            function addAbsElement(thisElement){
-                const sw_editor_id = thisElement.getAttribute('sw-editor-id');
+
+        setTimeout(function () {
+            const commentRelative = document.querySelectorAll('.commentRelative');
+            commentRelative.forEach(function (item) {
+                // check if item has mouseover eventListener
+
+
+                const sw_editor_id = item.getAttribute('sw-editor-id');
                 const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
-                thisElement.insertAdjacentHTML('afterend', abs);
-            }
-
-            function removeAbsElement(thisElement){
-                const sw_editor_id = thisElement.getAttribute('sw-editor-id');
-                const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
-                const is_show = abs.classList.contains('show');
-                if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
-                    abs.remove();
-                }
-            }
-            
-            
-            setInterval(function(){
-                const commentRelative = document.querySelectorAll('.commentRelative');
-                commentRelative.forEach(function(item){
-                    // add onmouseover event
-                    item.setAttribute('onmouseover', 'addAbsElement(this)');
-                    // add onmouseout event
-                    item.setAttribute('onmouseout', 'removeAbsElement(this)');
+                item.addEventListener('mouseover', function () {
+                    // add to next sibling
+                    item.insertAdjacentHTML('afterend', abs);
                 });
-            }, 5000);
-            
+
+                item.addEventListener('mouseout', function () {
+                    // remove from next sibling
+                    const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
+                    const is_show = abs.classList.contains('show');
+                    if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
+                        abs.remove();
+                    }
+                });
+            });
+        }, 1000);
 
 
-            function hideElement(id){
-                const abs = document.querySelector(`#${id}`);
-                const is_show = abs.classList.contains('show');
-                if (event.relatedTarget.parentNode.id != id && !is_show) {
-                    abs.remove();
+        function hideElement(id) {
+            const abs = document.querySelector(`#${id}`);
+            const is_show = abs.classList.contains('show');
+            if (event.relatedTarget.parentNode.id != id && !is_show) {
+                abs.remove();
+            }
+        }
+
+        function showNoteContainer(thisElement) {
+            const sw_editor_class = document.getElementsByClassName("sw_editor_class")
+            for (let i = 0; i < sw_editor_class.length; i++) {
+                const element = sw_editor_class[i];
+                element.classList.remove('show');
+                //element.querySelector('.relative').classList.add('hidden');
+                if (element.querySelector('.relative')) {
+                    element.querySelector('.relative').classList.add('hidden');
+                }
+            }
+            const sw_editor_class2 = document.getElementsByClassName("sw_editor_class2")
+            for (let i = 0; i < sw_editor_class2.length; i++) {
+                const element = sw_editor_class2[i];
+                element.classList.remove('show');
+                //element.querySelector('.relative').classList.add('hidden');
+                if (element.querySelector('.relative')) {
+                    element.querySelector('.relative').classList.add('hidden');
                 }
             }
 
-            function showNoteContainer(thisElement){
-                const sw_editor_class = document.getElementsByClassName("sw_editor_class")
-                for (let i = 0; i < sw_editor_class.length; i++) {
-                    const element = sw_editor_class[i];
-                    element.classList.remove('show');
-                    //element.querySelector('.relative').classList.add('hidden');
-                    if (element.querySelector('.relative')){
-                        element.querySelector('.relative').classList.add('hidden');
-                    }
-                }
-                const sw_editor_class2 = document.getElementsByClassName("sw_editor_class2")
-                for (let i = 0; i < sw_editor_class2.length; i++) {
-                    const element = sw_editor_class2[i];
-                    element.classList.remove('show');
-                    //element.querySelector('.relative').classList.add('hidden');
-                    if (element.querySelector('.relative')){
-                        element.querySelector('.relative').classList.add('hidden');
-                    }
-                }
+            const sw_editor_id_container = thisElement.parentNode
+            sw_editor_id_container.classList.toggle('show');
+            const note2 = sw_editor_id_container.querySelector('.relative');
+            if (note2) {
+                note2.classList.toggle('hidden');
+            }
+            if (!sw_editor_id_container.classList.contains('sw_editor_class2') && !sw_editor_id_container.classList.contains('sw_editor_class show')) {
+                const lineNo = sw_editor_id_container.id.split('-')[3];
+                const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+                const url = `/get-line-comments/${scriptId}/${lineNo}`;
 
-                const sw_editor_id_container = thisElement.parentNode
-                sw_editor_id_container.classList.toggle('show');
-                const note2 = sw_editor_id_container.querySelector('.relative');
-                if (note2){
-                    note2.classList.toggle('hidden');
-                } 
-                if (!sw_editor_id_container.classList.contains('sw_editor_class2') && !sw_editor_id_container.classList.contains('sw_editor_class show')){
-                    const lineNo = sw_editor_id_container.id.split('-')[3];
-                    const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
-                    const url = `/get-line-comments/${scriptId}/${lineNo}`;
-                    
-                    fetch(url)
+                fetch(url)
                     .then(response => response.json())
-                    .then(data=>{
+                    .then(data => {
                         console.log(data);
-                        if (data.data === 'success'){
+                        if (data.data === 'success') {
                             const comments = data.comments;
-                            if (comments.length && note2){
+                            if (comments.length) {
                                 note2.remove();
                             }
                             let commentHtml = '';
-                            let bg_color = '';	
-                            comments.forEach(function(comment){
-                                if (comment.bg_color){
-                                    bg_color = comment.bg_color;
-                                } else {
-                                    bg_color = 'yellow';
-                                }
+                            comments.forEach(function (comment) {
                                 commentHtml += `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${comment.title}</div>
                                     <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
                                     ${comment.comment} 
@@ -239,9 +236,9 @@
                                         <div style="margin-right: 8px;">${comment.user_fullname}</div>
                                         <div>${comment.createdon}</div>
                                     </div>`
-                            }); 
+                            });
                             const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
-                                <div style="background-color:${bg_color}; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
+                                <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
                                     <div onclick="hideNoteContainer2(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
                                     <div class="noteContainer">
                                         ${commentHtml}
@@ -267,63 +264,65 @@
                             thisElement.insertAdjacentHTML('afterend', abs);
                         }
                     })
-                }
             }
+        }
 
-            function hideNoteContainer(thisElement){
-                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode;
-                sw_editor_id_container.remove();
-            }
-            function hideNoteContainer2(thisElement){
-                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode
-                sw_editor_id_container.classList.toggle('show');
-                const note = sw_editor_id_container.querySelector('.relative');
-                if (note){
-                    note.classList.toggle('hidden');
-                }
-            }
+        function hideNoteContainer(thisElement) {
+            const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode;
+            sw_editor_id_container.remove();
+        }
 
-            function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
+        function hideNoteContainer2(thisElement) {
+            const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode
+            sw_editor_id_container.classList.toggle('show');
+            const note = sw_editor_id_container.querySelector('.relative');
+            if (note) {
+                note.classList.toggle('hidden');
+            }
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
                     }
                 }
-                return cookieValue;
             }
-            const csrftoken = getCookie('csrftoken');
+            return cookieValue;
+        }
 
-            function addComment(thisElement){
-                const noteTitle = thisElement.parentNode.querySelector('#noteTitle').value;
-                const noteDescription = thisElement.parentNode.querySelector('#noteDescription').value;
-                if (noteTitle === '' || noteDescription === ''){
-                    alert('Please fill in the title and description');
-                    return;
-                }
-                const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode.parentNode;
-                let sw_editor_id = sw_editor_id_container.getAttribute('id');
+        const csrftoken = getCookie('csrftoken');
 
-                sw_editor_id = sw_editor_id.split('-')[3]
-                const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+        function addComment(thisElement) {
+            const noteTitle = thisElement.parentNode.querySelector('#noteTitle').value;
+            const noteDescription = thisElement.parentNode.querySelector('#noteDescription').value;
+            if (noteTitle === '' || noteDescription === '') {
+                alert('Please fill in the title and description');
+                return;
+            }
+            const sw_editor_id_container = thisElement.parentNode.parentNode.parentNode.parentNode.parentNode;
+            let sw_editor_id = sw_editor_id_container.getAttribute('id');
 
-                let formData = new FormData();
-                formData.append('csrfmiddlewaretoken', csrftoken);
-                formData.append('noteTitle', noteTitle);
-                formData.append('noteDescription', noteDescription);
-                formData.append('sw_editor_id', sw_editor_id);
-                formData.append('scriptId', scriptId);
+            sw_editor_id = sw_editor_id.split('-')[3]
+            const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
-                fetch('/add-comment', {
-                    method: 'POST',
-                    body: formData
-                }).then(res => res.json())
+            let formData = new FormData();
+            formData.append('csrfmiddlewaretoken', csrftoken);
+            formData.append('noteTitle', noteTitle);
+            formData.append('noteDescription', noteDescription);
+            formData.append('sw_editor_id', sw_editor_id);
+            formData.append('scriptId', scriptId);
+
+            fetch('/add-comment', {
+                method: 'POST',
+                body: formData
+            }).then(res => res.json())
                 .then(data => {
                     console.log(data);
                     if (data.data === 'success') {
@@ -349,33 +348,33 @@
 
                         noteContainerParentPrev.setAttribute('onclick', 'hideNoteContainer2(this)');
                         // remove event listener 'mouseout' of sw_editor_id_container
-                        sw_editor_id_container.removeEventListener('mouseout', function(){
+                        sw_editor_id_container.removeEventListener('mouseout', function () {
                             console.log('removed mouseout event listener');
                         })
                         // remove event listener 'mouseover' of sw_editor_id_container
-                        sw_editor_id_container.removeEventListener('mouseover', function(){
+                        sw_editor_id_container.removeEventListener('mouseover', function () {
                             console.log('removed mouseover event listener');
                         })
                     }
                 })
 
-                
-            }
 
-            function getComments(){
-                const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
-                const url = '/get-comments/' + scriptId;
-                fetch(url)
+        }
+
+        function getComments() {
+            const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+            const url = '/get-comments/' + scriptId;
+            fetch(url)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.data === 'success'){
-                        
+                    if (data.data === 'success') {
+
                         const comments = data.comments;
                         comments.forEach(comment => {
                             try {
                                 const sw_editor_id = comment.sw_editor_id;
                                 const html_sw_editor_id = document.querySelector(`[sw-editor-id="${sw_editor_id}"]`)
-                            
+
 
                                 const commentHtml = `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${comment.title}</div>
                                 <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
@@ -386,7 +385,7 @@
                                     <div style="margin-right: 8px;">${comment.user_fullname}</div>
                                     <div>${comment.createdon}</div>
                                 </div>`
-                                
+
                                 // check if id=sw-editor-id-${sw_editor_id} exists
                                 if (document.getElementById(`sw-editor-id-${sw_editor_id}`)) {
                                     const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`)
@@ -420,37 +419,39 @@
                                 console.log(error);
                             }
 
-                            
 
                         });
                     }
                 })
-            }
-            getComments();
-            
+        }
 
-            function changeBackgroundColor(thisElement){
-                const parentNode = thisElement.parentNode.parentNode
-                const color = thisElement.style.backgroundColor;
-                parentNode.style.backgroundColor = color;
+        getComments();
 
-                const scriptId = window.location.pathname.split('/')[2];
-                const sw_editor_id = parentNode.parentNode.parentNode.parentNode.id.split('-')[3];
-                const url = `/change-bg-color/${scriptId}/${sw_editor_id}/${color}`;
 
-                fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
+        function changeBackgroundColor(thisElement) {
+            const parentNode = thisElement.parentNode.parentNode
+            const color = thisElement.style.backgroundColor;
+            parentNode.style.backgroundColor = color;
+
+            const scriptId = window.location.pathname.split('/')[2];
+            const sw_editor_id = parentNode.parentNode.parentNode.parentNode.id.split('-')[3];
+            const url = `/change-bg-color/${scriptId}/${sw_editor_id}/${color}`;
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
                 })
-                
-            }
 
-        </script>
-    </body>
+        }
+
+    </script>
+    <script src="../../cdn/js/ClientSetting.js"></script>
+</div>
+</body>
 </html>

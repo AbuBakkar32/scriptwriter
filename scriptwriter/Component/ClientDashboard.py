@@ -6,6 +6,7 @@ Created on Sun July 4 04:46:13 2021
 
 Hamdling Client Dashboard Logic
 """
+import os
 
 from .Assembler import (convertDBDataTOArray, render, HttpResponseRedirect,
                         Client, reverseReplaceTOHtmlCharacter, convertDBDataTOList, generateid,
@@ -168,6 +169,8 @@ class ClientDashboard(object):
                 # set data
                 data = {
                     'nightMode': datasuit['nightMode'].lower(),
+                    'onePageWriting': datasuit['onePageWriting'].lower(),
+                    'waterMarkStatus': datasuit['waterMarkStatus'].lower(),
                     'accountType': datasuit["accountType"],
                     'waterMarkDisplayOpacity': datasuit["waterMarkDisplayOpacity"],
                     'waterMarkDisplayText': datasuit["waterMarkDisplayText"],
@@ -185,6 +188,8 @@ class ClientDashboard(object):
                 pGet = Client.objects.get(season=sea)
                 # Set the Night Data
                 night = str(request.POST['nightMode']).capitalize()
+                onePageWriting = str(request.POST['onePageWriting']).capitalize()
+                waterMarkStatus = str(request.POST['waterMarkStatus']).capitalize()
                 opacity = request.POST['waterMarkDisplayOpacity']
                 waterMarkDisplayText = str(request.POST['waterMarkDisplayText'])
                 autoSaveTimeOut = request.POST['autoSaveTimeOut']
@@ -196,6 +201,8 @@ class ClientDashboard(object):
 
                 # Set Night mode
                 if night == "True" or night == "False": pGet.nightMode = night
+                if onePageWriting == "True" or onePageWriting == "False": pGet.onePageWriting = onePageWriting
+                if waterMarkStatus == "True" or waterMarkStatus == "False": pGet.waterMarkStatus = waterMarkStatus
 
                 # Set AccountType
                 """ if 'accountType' in listOfPostedDataKey:
