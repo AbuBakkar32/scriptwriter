@@ -37,20 +37,44 @@ class ClientSetting {
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
             // Set night mode status
-            if (res.nightMode) {
-                if (res.nightMode === 'true') {
-                    this.nightModeInput.checked = true;
-                    // Set the dark theme
-                    this.darkModeStyleElement.innerText = this.darkModeStyle();
-                }
-                this.nightModeStatus = this.nightModeInput.checked;
-            }
+            setTimeout(() => {
+                if (res.nightMode) {
+                    if (res.nightMode === 'true') {
+                        this.nightModeInput.checked = true;
+                        // Set the dark theme
+                        this.darkModeStyleElement.innerText = this.darkModeStyle();
+                        try {
+                            this.displayName.style.color = "white";
+                        } catch (e) {
 
+                        }
+                    }
+                    this.nightModeStatus = this.nightModeInput.checked;
+                } else {
+                    try {
+                        this.displayName.style.color = "black";
+                    } catch (e) {
+
+                    }
+                }
+            }, 200);
+
+            // Set one page writing mode status
             if (res.onePageWriting) {
                 if (res.onePageWriting === 'true') {
                     this.onePageWritingInput.checked = true;
+                    setTimeout(() => {
+                        this.searchWrapperElements = document.querySelectorAll(`[sw-search="wrapper"]`);
+                        this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+
+                        for (let i = 0; i < this.searchWrapperElements[0].children.length; i++) {
+                            this.searchWrapperElements[0].children[i].remove();
+                            this.searchPageNumber[i+1].remove();
+                        }
+                    }, 100)
                 }
                 this.onePageWritingStatus = this.onePageWritingInput.checked;
+
             }
 
             if (res.waterMarkStatus) {
@@ -64,15 +88,18 @@ class ClientSetting {
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
 
             setTimeout(() => {
-                this.displayName = document.querySelector(".water-marks");
-                if (this.waterMarkStatus) {
-                    this.displayName.classList.remove("hidden");
-                } else {
-                    this.displayName.classList.add("hidden");
+                try {
+                    this.displayName = document.querySelector(".water-marks");
+                    if (this.waterMarkStatus) {
+                        this.displayName.classList.remove("hidden");
+                    } else {
+                        this.displayName.classList.add("hidden");
+                    }
+                    var opacityValue = document.querySelector('.opacity-range');
+                    this.displayName.innerHTML = res.waterMarkDisplayText;
+                    opacityValue.style.opacity = res.waterMarkDisplayOpacity
+                } catch (e) {
                 }
-                var opacityValue = document.querySelector('.opacity-range');
-                this.displayName.innerHTML = res.waterMarkDisplayText;
-                opacityValue.style.opacity = res.waterMarkDisplayOpacity
             }, 100);
 
             this.listener();
@@ -122,8 +149,17 @@ class ClientSetting {
             this.nightModeStatus = this.nightModeInput.checked;
             this.getCommomFields();
             // Set or Remove dark mode
-            if (this.nightModeStatus) this.darkModeStyleElement.innerText = this.darkModeStyle();
-            else this.darkModeStyleElement.innerText = "";
+            try {
+                if (this.nightModeStatus) {
+                    this.darkModeStyleElement.innerText = this.darkModeStyle();
+                    this.displayName.style.color = "white";
+                } else {
+                    this.darkModeStyleElement.innerText = "";
+                    this.displayName.style.color = "black";
+                }
+            } catch (e) {
+
+            }
             //Save Settings
             this.saveSetting();
         });
@@ -145,12 +181,16 @@ class ClientSetting {
     waterMarkListener() {
         this.waterMarkInput.addEventListener('change', () => {
             // Update the status
-            this.waterMarkStatus = this.waterMarkInput.checked;
-            if (this.waterMarkStatus) {
+            try {
+                this.waterMarkStatus = this.waterMarkInput.checked;
+                if (this.waterMarkStatus) {
                     this.displayName.classList.remove("hidden");
                 } else {
                     this.displayName.classList.add("hidden");
                 }
+            } catch (e) {
+            }
+
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
