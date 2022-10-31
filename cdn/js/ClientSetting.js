@@ -59,9 +59,7 @@ class ClientSetting {
                 }
                 this.waterMarkStatus = this.waterMarkInput.checked;
             }
-            var opacity = document.querySelector('.opacity-range');
             res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
-            opacity.style.opacity = res.waterMarkDisplayOpacity
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
 
