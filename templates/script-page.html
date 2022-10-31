@@ -151,14 +151,8 @@
                 </div>
                 </div>`
 
-
-        setTimeout(function () {
-            const commentRelative = document.querySelectorAll('.commentRelative');
-            commentRelative.forEach(function (item) {
-                // check if item has mouseover eventListener
-
-
-                const sw_editor_id = item.getAttribute('sw-editor-id');
+            function addAbsElement(thisElement){
+                const sw_editor_id = thisElement.getAttribute('sw-editor-id');
                 const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
                 item.addEventListener('mouseover', function () {
                     // add to next sibling
@@ -357,7 +351,12 @@
                         })
                     }
                 })
+<<<<<<< HEAD
+                
+            }
+=======
         }
+>>>>>>> e7da1b7c6eade3b8a17798e10dcdd49403a1f5ff
 
         function getComments() {
             const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
