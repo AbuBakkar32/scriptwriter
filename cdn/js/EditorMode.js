@@ -215,7 +215,6 @@ class EditorMode {
                     //console.log(`[${this.cons.editID}="${x}"]`)
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
-                        console.log(duplicates);
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
                         const newCreatedElement = duplicates[1]; // the newly created element
@@ -230,17 +229,14 @@ class EditorMode {
                             // get the last child of the element which attribute is sw-editor="item"
                             const lastChild = document.querySelector(`[sw-editor="item"]`).lastElementChild;
                             let sw_editor_id = lastChild.getAttribute('sw-editor-id');
-                            console.log(sw_editor_id);
                             if (!sw_editor_id){
                                 let myId = lastChild.getAttribute('id');// sw-editor-id-0256
                                 myId = myId.split('-')[3];
                                 // add one to the id
                                 myId = String(Number(myId) + 1);
-                                console.log(myId);
                                 // add leading zero
                                 sw_editor_id = '0' + myId;
 
-                                console.log(sw_editor_id);
                             }
 
                             const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'

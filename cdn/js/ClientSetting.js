@@ -64,12 +64,12 @@ class ClientSetting {
                 if (res.onePageWriting === 'true') {
                     this.onePageWritingInput.checked = true;
                     setTimeout(() => {
-                        this.searchWrapperElements = document.querySelectorAll(`[sw-search="wrapper"]`);
+                        this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
                         this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
 
-                        for (let i = 0; i < this.searchWrapperElements[0].children.length; i++) {
-                            this.searchWrapperElements[0].children[i].remove();
-                            this.searchPageNumber[i+1].remove();
+                        for (let i = 1; i < this.searchWrapperElements.length; i++) {
+                            this.searchWrapperElements[i].remove();
+                            this.searchPageNumber[i].remove();
                         }
                     }, 100)
                 }
@@ -171,6 +171,17 @@ class ClientSetting {
         this.onePageWritingInput.addEventListener('change', () => {
             // Update the status
             this.onePageWritingStatus = this.onePageWritingInput.checked;
+            if (this.onePageWritingInput.checked === true) {
+                setTimeout(() => {
+                    this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
+                    this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+
+                    for (let i = 1; i < this.searchWrapperElements.length; i++) {
+                        this.searchWrapperElements[i].remove();
+                        this.searchPageNumber[i].remove();
+                    }
+                }, 100)
+            }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
@@ -211,8 +222,13 @@ class ClientSetting {
     /* Listening for a change the display Name */
     displayListener() {
         //Display Input
-        this.display.addEventListener('keyup', () => {
+        this.display.addEventListener('keyup', (event) => {
             // Update the status
+            try {
+                this.displayName.innerHTML = this.display.value;
+            } catch (e) {
+
+            }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
