@@ -21,7 +21,7 @@ class EditorMode {
     latestLine;
     // key pressed
     keyPressed = '';
-    /**  current number of text on editor. this value will be used to 
+    /**  current number of text on editor. this value will be used to
      * measure when a character is added or removed in editor through
      * keydown event in other to determine backspace and enter key
      */
@@ -30,14 +30,15 @@ class EditorMode {
     totalNewLine = 0;
     // last edited line
     lastFocusEdit;
+
     constructor(attrName) {
         this.attrName = attrName;
         this.cons = {
-            list: `[${this.attrName}="list"]`, 
-            item: `[${this.attrName}="item"]`, 
+            list: `[${this.attrName}="list"]`,
+            item: `[${this.attrName}="item"]`,
             line: `[${this.attrName}-type]`,
-            a: 'action', at: 'action-type', t: 'transition', tt:'transition-type',
-            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat:'parent-article-type',
+            a: 'action', at: 'action-type', t: 'transition', tt: 'transition-type',
+            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat: 'parent-article-type',
             c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
             editType: `${this.attrName}-type`, editID: `${this.attrName}-id`,
             editCharacterID: `${this.attrName}-character-id`, editColor: `${this.attrName}-color`,
@@ -56,6 +57,25 @@ class EditorMode {
         this.textLength = totalText.replace(/\n/g, '').length;
         // Listeners of the editor list
         this.listener();
+        const loadSettings = window.ClientSetting.loadSetting();
+        loadSettings.then((res) => {
+            if (res.onePageWriting === 'true') {
+                this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
+                this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+                this.selectAllInputField = this.searchWrapperElements[0].querySelectorAll('.commentRelative');
+                this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
+                this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+                this.selectAllInputField.forEach((e) => {
+                    e.addEventListener('click', (e) => {
+                        for (let i = 0; i < this.searchWrapperElements.length; i++) {
+                            // if(i===0) continue;
+                            this.searchWrapperElements[i].remove();
+                            this.searchPageNumber[i].remove();
+                        }
+                    });
+                });
+            }
+        });
     }
 
     listener() {
@@ -72,7 +92,7 @@ class EditorMode {
         leftIcon?.remove();
         rightIcon?.remove();
 
-        this.editorModeList.addEventListener('input', async(e)=> {
+        this.editorModeList.addEventListener('input', async (e) => {
             // if adding note, do not add text to the page
             const target = e.target;
             const targetClass = target.className;
@@ -87,10 +107,10 @@ class EditorMode {
             else if (currentTextLength < this.textLength) this.keyPressed = 'Backspace';
             //else if (currentTextLength > this.textLength) this.keyPressed = ''
 
-            if (this.keyPressed === 'Enter'){
+            if (this.keyPressed === 'Enter') {
                 this.watcherStatus = true;
                 this.watcher();
-            }else if (this.keyPressed === 'Backspace'){
+            } else if (this.keyPressed === 'Backspace') {
                 this.watcherStatus = true;
                 this.keyPressed = '';
                 this.rearrangePageBack();
@@ -113,14 +133,14 @@ class EditorMode {
     }
 
     lineSignal(line = this.lineTemp) {
-        line.addEventListener('click', (e)=>{
+        line.addEventListener('click', (e) => {
             //e.stopPropagation();
             //e.stopImmediatePropagation();
             this.lastFocusEdit = line;
             this.formatContentLine(line);
             //console.log('click',line)
         });
-    
+
         /* line.addEventListener('focus', (e)=>{
             e.stopImmediatePropagation();
             e.stopPropagation();
@@ -146,8 +166,8 @@ class EditorMode {
             let pageTop = page.offsetTop + 55;
             const newPageNumber = this.pageNumberClone.cloneNode(true);
             // set top
-            newPageNumber.style.top = String(pageTop)+'px';
-            newPageNumber.textContent = String(count)+'.';
+            newPageNumber.style.top = String(pageTop) + 'px';
+            newPageNumber.textContent = String(count) + '.';
             this.anyWhereWrap.append(newPageNumber);
             // increase count
             count += 1;
@@ -163,9 +183,11 @@ class EditorMode {
             if (xid) id += String(Number(xid.substr(1)) + 1);
             else id += '0';
         } else id += '0';
-        
+
         const lineIDList = [];
-        document.querySelectorAll(this.cons.line).forEach((i) => { lineIDList.push(i.getAttribute(this.cons.editID)); });
+        document.querySelectorAll(this.cons.line).forEach((i) => {
+            lineIDList.push(i.getAttribute(this.cons.editID));
+        });
         let count = 0;
         while (true) {
             count += 1;
@@ -184,12 +206,12 @@ class EditorMode {
     watcher() {
         // if writing script, remove the note
         document.querySelectorAll('.sw_editor_class').forEach((el) => {
-            if (el.querySelector('.relative')){
+            if (el.querySelector('.relative')) {
                 el.querySelector('.relative').remove();
             }
         });
         document.querySelectorAll('.sw_editor_class2').forEach((el) => {
-            if (el.querySelector('.relative')){
+            if (el.querySelector('.relative')) {
                 el.querySelector('.relative').remove();
                 el.classList.remove('sw_editor_class2');
                 el.classList.add('sw_editor_class');
@@ -198,8 +220,10 @@ class EditorMode {
 
 
         // make sure lines are well arranged
-        const rangeLinesWaiter = new Promise((resolve, reject)=>{ resolve(1) });
-        rangeLinesWaiter.then(async ()=>{
+        const rangeLinesWaiter = new Promise((resolve, reject) => {
+            resolve(1)
+        });
+        rangeLinesWaiter.then(async () => {
             await this.rangeLines();
         }).then(() => {
             if (this.keyPressed !== 'Enter') return;
@@ -207,7 +231,7 @@ class EditorMode {
         }).then(() => {
             //if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
-            setTimeout(()=>{
+            setTimeout(() => {
                 // trap to catch newly created line
                 for (let i = 0; i < this.idList.length; i++) {
                     const x = this.idList[i]; // might be the duplicated id
@@ -225,11 +249,11 @@ class EditorMode {
 
                         newCreatedElement.textContent = "";
 
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             // get the last child of the element which attribute is sw-editor="item"
                             const lastChild = document.querySelector(`[sw-editor="item"]`).lastElementChild;
                             let sw_editor_id = lastChild.getAttribute('sw-editor-id');
-                            if (!sw_editor_id){
+                            if (!sw_editor_id) {
                                 let myId = lastChild.getAttribute('id');// sw-editor-id-0256
                                 myId = myId.split('-')[3];
                                 // add one to the id
@@ -262,12 +286,12 @@ class EditorMode {
                                 </div>`
 
                             const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
-                            lastChild.addEventListener('mouseover', function(){
+                            lastChild.addEventListener('mouseover', function () {
                                 // add to next sibling
                                 lastChild.insertAdjacentHTML('afterend', abs);
                             });
 
-                            lastChild.addEventListener('mouseout', function(){
+                            lastChild.addEventListener('mouseout', function () {
                                 // remove from next sibling
                                 const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
                                 const is_show = abs.classList.contains('show');
@@ -276,7 +300,7 @@ class EditorMode {
                                 }
                             });
                         }, 1000);
-        
+
                         // formate new line
                         this.formatContentLine(newCreatedElement);
                         // this.handleContentLineNuetral(newCreatedElement);
@@ -306,12 +330,14 @@ class EditorMode {
             // if lines is empty
             if (line) return;
             const newPage = this.itemTemp.cloneNode(true);
-            [...newPage.children].forEach((e) => {e.remove()});
+            [...newPage.children].forEach((e) => {
+                e.remove()
+            });
             const newLine = this.lineTemp.cloneNode(true);
             newLine.textContent = '';
             newPage.append(newLine);
             this.editorModeList.append(newPage);
-        }).then(async ()=>{
+        }).then(async () => {
             this.watcherStatus = true;
             //console.log('watcher completed', new Date().getMilliseconds());
             await this.calculatePageNumbers();
@@ -332,32 +358,39 @@ class EditorMode {
         let lastID = 0;
         // rearrange page status
         let rearrange = false;
-        const rangePromise = new Promise((resolve, reject) => {resolve(1)})
-        rangePromise.then(()=> {
+        const rangePromise = new Promise((resolve, reject) => {
+            resolve(1)
+        })
+        rangePromise.then(() => {
             pageList.forEach((page) => {
                 const contentLines = [...page.children];
                 contentLines.forEach((conl) => {
                     const getTheId = conl.getAttribute(this.cons.editID);
                     if (!this.idList.includes(getTheId)) this.idList.push(getTheId);
-    
+
                     let textList = conl.innerText.split('\n');
 
                     const lastLine = textList.pop();
                     if (lastLine) textList.push(lastLine);
                     if (textList.length <= 1) return;
-    
+
                     if (textList.length > 1) {
                         rearrange = true;
                         for (let index = 0; index < textList.length; index++) {
-                            const text = textList[index];    
+                            const text = textList[index];
                             const div = this.lineTemp.cloneNode(true);
                             div.textContent = '';
                             // generate new id and assign it
                             //const newID = this.generateID();
                             let newID = '';
-                            if (!lastID) {newID = this.generateID(); lastID = Number(newID.substring(1));}
-                            else {newID = '0'+(lastID+1); lastID = lastID + 1;}
-                        
+                            if (!lastID) {
+                                newID = this.generateID();
+                                lastID = Number(newID.substring(1));
+                            } else {
+                                newID = '0' + (lastID + 1);
+                                lastID = lastID + 1;
+                            }
+
                             div.setAttribute(this.cons.editID, newID);
 
                             this.lineSignal(div);
@@ -379,7 +412,7 @@ class EditorMode {
                     }
                 });
             });
-        }).then(async()=> {
+        }).then(async () => {
             if (!rearrange) return;
             // re arrange pages
             await this.rearrangePage();
@@ -388,7 +421,7 @@ class EditorMode {
         return rangePromise;
     }
 
-    updateLastFocusEdit(){
+    updateLastFocusEdit() {
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
             if (!getReactPosID) return;
@@ -409,14 +442,14 @@ class EditorMode {
 
     formatContentLine(newLine) {
         const line = this.handleContentLineNuetral(newLine);
-        if (this.handleSceneHeadingType(line));
-        else if (this.handleCharater(line));
-        else if (this.handleParentArticle(line));
-        else if (this.handleDialog(line));
-        else if (this.handleTransition(line));
+        if (this.handleSceneHeadingType(line)) ;
+        else if (this.handleCharater(line)) ;
+        else if (this.handleParentArticle(line)) ;
+        else if (this.handleDialog(line)) ;
+        else if (this.handleTransition(line)) ;
     }
 
-    handleSceneHeadingType (line, direct=false) {
+    handleSceneHeadingType(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
@@ -435,8 +468,8 @@ class EditorMode {
         }
         return verify;
     }
-    
-    handleDialog (line, direct=false) {
+
+    handleDialog(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.dt);
@@ -448,7 +481,7 @@ class EditorMode {
         // targeting charater or parent article element
         const upperLine = line.previousElementSibling;
         // previous page last child
-        const upperPageLastLine = line.parentElement?.previousElementSibling?.lastElementChild; 
+        const upperPageLastLine = line.parentElement?.previousElementSibling?.lastElementChild;
         if (upperLine || upperPageLastLine) {
             const contentLineAbove = upperLine || upperPageLastLine;
             const metaType = contentLineAbove.getAttribute(this.cons.editType);
@@ -463,8 +496,8 @@ class EditorMode {
         }
         return verify
     }
-    
-    handleCharater (line, direct=false) {
+
+    handleCharater(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.ct);
@@ -476,7 +509,7 @@ class EditorMode {
         const num = '0123456789';
         const lineText = line.innerText;
         const transitionNames = ['fade in:', 'cut to:', 'back to:', 'fade out:'];
-        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText && 
+        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText &&
             !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
             line.classList.replace(this.cons.at, this.cons.ct);
             // Add content Line signature
@@ -489,7 +522,7 @@ class EditorMode {
         return verify
     }
 
-    handleTransition (line, direct=false) {
+    handleTransition(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.tt);
@@ -509,8 +542,8 @@ class EditorMode {
         }
         return verify
     }
-    
-    handleParentArticle (line, direct=false) {
+
+    handleParentArticle(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
@@ -529,8 +562,8 @@ class EditorMode {
         }
         return verify;
     }
-    
-    handleContentLineNuetral (line) {
+
+    handleContentLineNuetral(line) {
         // Adjust script body
         line.classList.remove(this.cons.sht);
         line.classList.remove(this.cons.ct);
@@ -543,7 +576,7 @@ class EditorMode {
         return line;
     }
 
-    rearrangePage(pageAttr=this.cons.item) {
+    rearrangePage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);
         // get total number of pages
         const tnp = allPage.length;
@@ -571,10 +604,12 @@ class EditorMode {
                     }
                 } else {
                     let newPage = this.itemTemp.cloneNode(true);//Remove all previous children from the new page
-                    [...newPage.children].forEach((cl) => {cl.remove()});
+                    [...newPage.children].forEach((cl) => {
+                        cl.remove()
+                    });
                     // Append new page to Page List
                     this.editorModeList.append(newPage);
-                        
+
                     while (true) {
                         if (page.scrollHeight > this.pageHeight) {
                             if (newPage.scrollHeight <= this.pageHeight) {
@@ -584,7 +619,9 @@ class EditorMode {
                                 page.append(newPage.firstElementChild);
                                 const latestPage = this.itemTemp.cloneNode(true);
                                 //Remove all previous children from the new page
-                                [...latestPage.children].forEach((cl) => {cl.remove()});
+                                [...latestPage.children].forEach((cl) => {
+                                    cl.remove()
+                                });
                                 // Append new page to Page List
                                 newPage.insertAdjacentElement('beforebegin', latestPage);
                                 latestPage.insertAdjacentElement('afterbegin', page.lastElementChild)
@@ -599,8 +636,8 @@ class EditorMode {
         this.rearrangePageBack();
         this.removeBlankPage();
     }
-    
-    rearrangePageBack(pageAttr=this.cons.item) {
+
+    rearrangePageBack(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr); // [sw-editor="item"]
         // get total number of pages
         const tnp = allPage.length;
@@ -611,7 +648,7 @@ class EditorMode {
             // Condition for new page
             //Get the page scroll height
             const currentScrollHeight = page.scrollHeight;
-            
+
             if (currentScrollHeight > this.pageHeight /* || page.childElementCount < 45 */) {
                 // Check if the page has a sibling. If no sibling then end func., else append first content-line of the sibling to the page
                 const nextPage = page.nextElementSibling;
@@ -631,7 +668,7 @@ class EditorMode {
         }
     }
 
-    removeBlankPage(pageAttr=this.cons.item) {
+    removeBlankPage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);
         allPage.forEach((page) => {
             if (![...page.children].length) page.remove();
@@ -639,6 +676,6 @@ class EditorMode {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.EditorMode = new EditorMode('sw-editor');
 })
