@@ -29,6 +29,12 @@ class ClientSetting {
     autoSaveTimeOut;
     //List for Display Name
     displayName;
+    //selectAllInputField
+    selectAllInputField;
+    //Get Data from the database
+    getData;
+    searchWrapperElements;
+    searchPageNumber;
 
     constructor() {
         //load Time and Date
@@ -36,6 +42,7 @@ class ClientSetting {
         // Load settings from web db
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
+            this.getData = res;
             // Set night mode status
             setTimeout(() => {
                 if (res.nightMode) {
@@ -64,14 +71,13 @@ class ClientSetting {
                 if (res.onePageWriting === 'true') {
                     this.onePageWritingInput.checked = true;
                     setTimeout(() => {
-                        this.searchWrapperElements = document.querySelectorAll(`[sw-search="wrapper"]`);
+                        this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
                         this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
-
-                        for (let i = 0; i < this.searchWrapperElements[0].children.length; i++) {
-                            this.searchWrapperElements[0].children[i].remove();
-                            this.searchPageNumber[i+1].remove();
+                        for (let i = 1; i < this.searchWrapperElements.length; i++) {
+                            this.searchWrapperElements[i].remove();
+                            this.searchPageNumber[i].remove();
                         }
-                    }, 100)
+                    }, 200)
                 }
                 this.onePageWritingStatus = this.onePageWritingInput.checked;
 
@@ -108,6 +114,7 @@ class ClientSetting {
             this.displayListener();
             this.opacityListener();
             this.autoSaveListener();
+            this.removeMultiplePages();
             //this.selectFileLocation();
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
@@ -125,6 +132,7 @@ class ClientSetting {
     //     });
     // }
 
+    //Set the date time into the dashboard
     showTimeDate() {
         var d = new Date();
         var date = d.toLocaleDateString();
@@ -135,6 +143,7 @@ class ClientSetting {
         }
     }
 
+    //settingPageListener
     getCommomFields() {
         this.autoSaveTimeOut = this.autoSave.value;
         this.waterMarkDisplayOpacity = this.opacity.value;
@@ -171,6 +180,17 @@ class ClientSetting {
         this.onePageWritingInput.addEventListener('change', () => {
             // Update the status
             this.onePageWritingStatus = this.onePageWritingInput.checked;
+            if (this.onePageWritingInput.checked === true) {
+                setTimeout(() => {
+                    this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
+                    this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+
+                    for (let i = 1; i < this.searchWrapperElements.length; i++) {
+                        this.searchWrapperElements[i].remove();
+                        this.searchPageNumber[i].remove();
+                    }
+                }, 100)
+            }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
@@ -211,8 +231,13 @@ class ClientSetting {
     /* Listening for a change the display Name */
     displayListener() {
         //Display Input
-        this.display.addEventListener('keyup', () => {
+        this.display.addEventListener('keyup', (event) => {
             // Update the status
+            try {
+                this.displayName.innerHTML = this.display.value;
+            } catch (e) {
+
+            }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
@@ -230,6 +255,13 @@ class ClientSetting {
             //Save Settings
             this.saveSetting();
         });
+    }
+
+    // Remove multiple pages after every enter button press
+    removeMultiplePages() {
+        setInterval(() => {
+
+        }, 100)
     }
 
     darkModeStyle() {

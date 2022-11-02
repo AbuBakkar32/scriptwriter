@@ -405,7 +405,6 @@ class ScriptAdapter{
             await window.Watcher.bothAwait(false);
             callback(); 
             window.EditorMode.calculatePageNumbers();
-            console.log(`Render Draft Content took ${performance.now() - startTime}ms`);
         });
         return renderDraftContentPromise;
     }
@@ -698,7 +697,6 @@ class ScriptAdapter{
         .then(response => response.json())
         .then(data => { /* console.log('Success:', data); */ })
         .catch((error) => {
-            console.log('Error:', error);
             alert('Unable to save content at this period, please refresh the page.');
         });
     }
