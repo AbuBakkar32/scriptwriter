@@ -2,7 +2,7 @@
     <div class="lg:block h-72 flex-grow-0 flex-shrink-0 hidden"></div>
 
     <!--Sider Bar-->
-    <div class="flex-grow w-inherit h-full overf-y" xclass="overflow-y-auto" data-controller="sidebar">
+    <div class="flex-grow w-inherit h-full" xclass="overflow-y-auto" data-controller="sidebar">
         <div class="h-full">
             <div class="px-40 pt-48 pb-24">
                 <!--<button class="block mb-32 text-xs font-semibold leading-none uppercase tracking-wide text-grey-700-opacity-60 focus:outline-none">
@@ -114,7 +114,7 @@
         </div>
     </div>
     <small data-target="#myModal" data-toggle="modal"></small>
-    <button sw-data="close-main-menu" sw-trigger="close" class="flex lg:hidden absolute items-center top-0 right-0 mt-48 mr-40 text-grey-700-opacity-90 
+    <button sw-data="close-main-menu" style="margin: 14px -4px" sw-trigger="close" class="flex absolute lg:hidden items-center top-0 right-0 mt-48 mr-40 text-grey-700-opacity-90
         hover:text-grey-700 fill-current transition-fast-out focus:outline-none focus:shadow-outline"
             data-action="click-&gt;app#toggleSidebar">
         <span class="flex items-center h-16 w-16 mr-16 flex-grow-0 flex-shrink-0 c-white">
@@ -122,6 +122,6 @@
                 <path d="M8.41,7l5.3-5.29A1,1,0,1,0,12.29.29L7,5.59,1.71.29A1,1,0,0,0,.29,1.71L5.59,7,.29,12.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L7,8.41l5.29,5.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
             </svg>
         </span>
-        <span class="block flex-grow-0 flex-shrink-0 mt-2 font-sans-alt text-base leading-none c-white">Close</span>
+        <span class="block flex-grow-0 flex-shrink-0 mt-2 font-sans-alt text-base leading-none c-white"></span>
     </button>
 </aside>
