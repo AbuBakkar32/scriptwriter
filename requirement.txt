@@ -39,3 +39,4 @@ sqlparse==0.4.2
 stripe==4.0.2
 urllib3==1.26.8
 virtualenv==20.7.2
+fpdf==1.7.2
