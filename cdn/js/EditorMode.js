@@ -30,6 +30,7 @@ class EditorMode {
     totalNewLine = 0;
     // last edited line
     lastFocusEdit;
+    inputFieldNumber;
 
     constructor(attrName) {
         this.attrName = attrName;
@@ -57,29 +58,10 @@ class EditorMode {
         this.textLength = totalText.replace(/\n/g, '').length;
         // Listeners of the editor list
         this.listener();
-        const loadSettings = window.ClientSetting.loadSetting();
-        loadSettings.then((res) => {
-            if (res.onePageWriting === 'true') {
-                this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
-                this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
-                this.selectAllInputField = this.searchWrapperElements[0].querySelectorAll('.commentRelative');
-                this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
-                this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
-                this.selectAllInputField.forEach((e) => {
-                    e.addEventListener('click', (e) => {
-                        for (let i = 0; i < this.searchWrapperElements.length; i++) {
-                            // if(i===0) continue;
-                            this.searchWrapperElements[i].remove();
-                            this.searchPageNumber[i].remove();
-                        }
-                    });
-                });
-            }
-        });
     }
 
     listener() {
-        // page number dom
+        const loadSettings = window.ClientSetting.loadSetting();
         this.anyWhereWrap = document.querySelector(`[sw-element-anywhere="wrap"]`);
         const pageNumber = document.querySelector(`[sw-page-number="item"]`);
         this.pageNumberClone = pageNumber.cloneNode(true);
@@ -106,10 +88,16 @@ class EditorMode {
             //else if (currentTextLength +2 < this.textLength) this.keyPressed = 'Enter';
             else if (currentTextLength < this.textLength) this.keyPressed = 'Backspace';
             //else if (currentTextLength > this.textLength) this.keyPressed = ''
-
             if (this.keyPressed === 'Enter') {
-                this.watcherStatus = true;
-                this.watcher();
+                loadSettings.then((res) => {
+                    if (res.onePageWriting === 'true') {
+                        this.watcherStatus = true;
+                        this.watcherOnePage();
+                    } else {
+                        this.watcherStatus = true;
+                        this.watcher();
+                    }
+                });
             } else if (this.keyPressed === 'Backspace') {
                 this.watcherStatus = true;
                 this.keyPressed = '';
@@ -125,7 +113,7 @@ class EditorMode {
                 this.watcherStatus = false;
                 this.watcher();
             }
-            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length;
+            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length
         });
 
         // calculate page number
@@ -138,18 +126,15 @@ class EditorMode {
             //e.stopImmediatePropagation();
             this.lastFocusEdit = line;
             this.formatContentLine(line);
-            //console.log('click',line)
         });
 
         /* line.addEventListener('focus', (e)=>{
             e.stopImmediatePropagation();
             e.stopPropagation();
-            console.log('focus',line.getAttribute(this.cons.editID))
         });
         line.addEventListener('blur', (e)=>{
             e.stopImmediatePropagation();
             e.stopPropagation();
-            console.log('==>\nblur',line.getAttribute(this.cons.editID))
         }); */
     }
 
@@ -203,6 +188,139 @@ class EditorMode {
         return id;
     }
 
+    watcherOnePage() {
+        // if writing script, remove the note
+        document.querySelectorAll('.sw_editor_class').forEach((el) => {
+            if (el.querySelector('.relative')) {
+                el.querySelector('.relative').remove();
+            }
+        });
+        document.querySelectorAll('.sw_editor_class2').forEach((el) => {
+            if (el.querySelector('.relative')) {
+                el.querySelector('.relative').remove();
+                el.classList.remove('sw_editor_class2');
+                el.classList.add('sw_editor_class');
+            }
+        });
+
+
+        // make sure lines are well arranged
+        const rangeLinesWaiter = new Promise((resolve, reject) => {
+            resolve(1)
+        });
+        rangeLinesWaiter.then(async () => {
+            await this.rangeLines();
+        }).then(() => {
+            if (this.keyPressed !== 'Enter') return;
+            //this.rearrangePage(this.cons.item);
+        }).then(() => {
+            //if (this.keyPressed !== 'Enter') return;
+            if (!this.watcherStatus) return;
+            setTimeout(() => {
+                // trap to catch newly created line
+                for (let i = 0; i < this.idList.length; i++) {
+                    const x = this.idList[i]; // might be the duplicated id
+                    const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
+                    if (duplicates.length > 1) {
+                        const newID = this.generateID(); // Check if its a another new line created
+                        const target = duplicates[0]; // previous line
+                        const newCreatedElement = duplicates[1]; // the newly created element
+                        this.formatContentLine(target); // format previous line
+                        // set color
+                        const color = window.BackgroundColor.randomBg();
+                        newCreatedElement.setAttribute(this.cons.editColor, color);
+
+                        newCreatedElement.textContent = "";
+
+                        setTimeout(() => {
+                            // get the last child of the element which attribute is sw-editor="item"
+                            const lastChild = document.querySelector(`[sw-editor="item"]`).lastElementChild;
+                            let sw_editor_id = lastChild.getAttribute('sw-editor-id');
+                            if (!sw_editor_id) {
+                                let myId = lastChild.getAttribute('id');// sw-editor-id-0256
+                                myId = myId.split('-')[3];
+                                // add one to the id
+                                myId = String(Number(myId) + 1);
+                                // add leading zero
+                                sw_editor_id = '0' + myId;
+
+                            }
+
+                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
+                            const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
+                                <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
+                                    <div onclick="hideNoteContainer(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
+                                    <div class="noteContainer"></div>
+
+                                    <div style="color: black;">
+                                        <input id="noteTitle" class="noteInput" type="text" placeholder="Title here..." style="padding: 8px; border: none; outline: none; background-color: inherit; font-weight: bold; font-size: 13px; color: black;"/>
+                                        <textarea id="noteDescription" class="noteInput" rows="2" placeholder="Note here..." style="padding: 8px; border: none; outline: none; margin-bottom: 8px; background-color: inherit; font-weight: bold; width: 90%; color: black; font-size: 12px"></textarea>
+                                        <button onclick="addComment(this)" style="background-color: rgb(0, 0, 226); color: white; border: none; padding: 0 8px; font-size: 12px;">Add Note</button>
+                                    </div>
+
+                                    <div style="position: sticky; bottom: 0; right: 0; width: 30px; height: 100px; padding: 10px; float: right;">
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: yellow; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: red; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: green; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: blue; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                        <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: orange; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
+                                    </div>
+                                </div>
+                                </div>`
+
+                            const abs = `<div onmouseout="hideElement('sw-editor-id-${sw_editor_id}')" id="sw-editor-id-${sw_editor_id}" class="absolute sw_editor_class" style="left: -36px; margin-top: -24px; width: 100%; z-index:0; " contenteditable="false">${commentIcon}<div class="relative hidden" style="margin-top: -30px;">${note}</div></div>`;
+                            lastChild.addEventListener('mouseover', function () {
+                                // add to next sibling
+                                lastChild.insertAdjacentHTML('afterend', abs);
+                            });
+
+                            lastChild.addEventListener('mouseout', function () {
+                                // remove from next sibling
+                                const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
+                                const is_show = abs.classList.contains('show');
+                                if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
+                                    abs.remove();
+                                }
+                            });
+                        }, 1000);
+
+                        // formate new line
+                        this.formatContentLine(newCreatedElement);
+                        // this.handleContentLineNuetral(newCreatedElement);
+                        newCreatedElement.setAttribute(this.cons.editID, newID);
+                        //newCreatedElement.focus();
+                        this.lineSignal(newCreatedElement);
+                        // remove the duplicated id
+                        this.idList.pop(x)
+                        // Add the new created id
+                        this.idList.push(newID);
+                        break;
+                    }
+                }
+            });
+        }).then(() => {
+            const line = document.querySelector(this.cons.line);
+            // if lines is empty
+            if (line) return;
+            const newPage = this.itemTemp.cloneNode(true);
+            [...newPage.children].forEach((e) => {
+                e.remove()
+            });
+            const newLine = this.lineTemp.cloneNode(true);
+            newLine.textContent = '';
+            newPage.append(newLine);
+            this.editorModeList.append(newPage);
+        }).then(async () => {
+            this.watcherStatus = true;
+            await this.calculatePageNumbers();
+            window.ScriptAdapter.autoSave();
+            this.keyPressed = '';
+            // update the element focus edit
+            this.updateLastFocusEdit()
+        })
+        return rangeLinesWaiter;
+    }
+
     watcher() {
         // if writing script, remove the note
         document.querySelectorAll('.sw_editor_class').forEach((el) => {
@@ -236,7 +354,6 @@ class EditorMode {
                 for (let i = 0; i < this.idList.length; i++) {
                     const x = this.idList[i]; // might be the duplicated id
                     //const lenth = this.idList.filter( d => d === x ).length;
-                    //console.log(`[${this.cons.editID}="${x}"]`)
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
@@ -339,7 +456,6 @@ class EditorMode {
             this.editorModeList.append(newPage);
         }).then(async () => {
             this.watcherStatus = true;
-            //console.log('watcher completed', new Date().getMilliseconds());
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
             //if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
@@ -426,7 +542,6 @@ class EditorMode {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
             if (!getReactPosID) return;
             const allReacters = document.querySelectorAll(`[react-pos="${getReactPosID}"]`);
-            //console.log(allReacters.length);
             allReacters.forEach((rect) => {
                 if (rect != this.lastFocusEdit) {
                     rect.innerHTML = this.lastFocusEdit.innerHTML;

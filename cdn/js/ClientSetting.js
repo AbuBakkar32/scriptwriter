@@ -35,10 +35,12 @@ class ClientSetting {
     getData;
     searchWrapperElements;
     searchPageNumber;
+    keyPressed;
 
     constructor() {
         //load Time and Date
         setInterval(this.showTimeDate, 1000);
+        this.keyPressed = '';
         // Load settings from web db
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
