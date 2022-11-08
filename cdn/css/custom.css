@@ -1060,13 +1060,13 @@ input:checked + .toggle__bg .toggle__sphere-bg { transform: rotateY(180deg); }
 
 @media screen and (min-width: 1440px) {
    .treedot {
-    margin-left: 180px !important;
+    margin-left: -1180px !important;
   }
 }
 
 @media screen and (min-width: 1024px){
   .treedot {
-    margin-left: 180px !important;
+    margin-left: -1180px !important;
   }
 }
 

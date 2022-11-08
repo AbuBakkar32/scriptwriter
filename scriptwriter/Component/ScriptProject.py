@@ -263,6 +263,7 @@ class ScriptProject(object):
                 # Get the current scriptdata
                 scriptData = eval(content)['data']
 
+
                 # get script data content keys. Each key represent a content line.
                 getScriptKeys = getDictKey(scriptData)
 

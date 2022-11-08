@@ -29,18 +29,16 @@ class ClientSetting {
     autoSaveTimeOut;
     //List for Display Name
     displayName;
-    //selectAllInputField
-    selectAllInputField;
     //Get Data from the database
     getData;
+    //Get data from the script page
     searchWrapperElements;
+    //get all script page number
     searchPageNumber;
-    keyPressed;
 
     constructor() {
         //load Time and Date
         setInterval(this.showTimeDate, 1000);
-        this.keyPressed = '';
         // Load settings from web db
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
@@ -109,15 +107,6 @@ class ClientSetting {
                 } catch (e) {
                 }
             }, 100);
-
-            this.listener();
-            this.onePageWritingListener();
-            this.waterMarkListener();
-            this.displayListener();
-            this.opacityListener();
-            this.autoSaveListener();
-            this.removeMultiplePages();
-            //this.selectFileLocation();
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
             loadScript.then(res => {
@@ -125,6 +114,13 @@ class ClientSetting {
                     setInterval(this.downloadScript, timeOut, res[i]);
                 }
             });
+            this.listener();
+            this.onePageWritingListener();
+            this.waterMarkListener();
+            this.displayListener();
+            this.opacityListener();
+            this.autoSaveListener();
+            this.removeMultiplePages();
         });
     }
 
@@ -212,7 +208,6 @@ class ClientSetting {
                 }
             } catch (e) {
             }
-
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
