@@ -435,7 +435,8 @@ class ScriptProject(object):
                         'writtenBy': '',
                         'contactName': '',
                         'emailAddress': '',
-                        'phoneNumber': ''
+                        'ph'
+                        'oneNumber': ''
                     },
                     'pageSet': [1]  #
                 }

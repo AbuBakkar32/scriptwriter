@@ -107,6 +107,7 @@ const data = {
         id: {
             id: '',
             title: '',
+            unique_id: '',
             body: '',
             color: 'bg-green',
         }
