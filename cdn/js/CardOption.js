@@ -485,7 +485,7 @@ class CardOption {
                     }
                 });
 
-                console.log('unique_id_list', unique_id_list);
+                console.log('unique_id_list', unique_id_list.sort((a, b) => a - b));
 
                 // create the pinboard
                 window.ScriptAdapter.scriptDataStore.pinboard[data.id] = {
