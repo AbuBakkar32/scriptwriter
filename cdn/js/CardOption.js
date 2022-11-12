@@ -471,16 +471,31 @@ class CardOption {
                 // create new id && // random bg color
                 const data = {
                     color: window.BackgroundColor.randomBg(),
-                    id: '0' + quickID().substr(2), // + document.querySelectorAll(this.cardVar.cardWrap).length + 1
+                    id: '0' + quickID().substr(2), // +
+                    unique_id: document.querySelectorAll(this.cardVar.cardWrap).length + 1
                 };
+
+                let dataList = window.ScriptAdapter.scriptDataStore.pinboard;
+                dataList = Object.keys(dataList).map((key) => dataList[key]);
+                let unique_id_list = [];
+                dataList.forEach((item) => {
+                    unique_id_list.push(item.unique_id);
+                    if (item.unique_id == data.unique_id) {
+                        data.unique_id = data.unique_id + 1;
+                    }
+                });
+
+                console.log('unique_id_list', unique_id_list);
 
                 // create the pinboard
                 window.ScriptAdapter.scriptDataStore.pinboard[data.id] = {
                     id: data.id,
                     title: '',
                     body: '',
+                    unique_id: data.unique_id,
                     color: data.color
                 };
+                // console.log(window.ScriptAdapter.scriptDataStore.pinboard);
 
                 // update the card id
                 const cardID = card.querySelector(this.cardVar.cardId);
@@ -514,8 +529,7 @@ class CardOption {
                         rs.card.querySelector(this.cardVar.optionWrap)?.classList.add('hide'); // hide the option wrap
                         rs.card.classList.remove('hide'); // Show the new rs card
                     }
-                }
-                ;
+                };
 
                 // save the pinBoard
                 window.ScriptAdapter.autoSave();
