@@ -2,7 +2,7 @@
 window.MapAndReactOnContent in MapAndReactOnContent.js 
 window.ScriptDataStore in newproject.html
 */
-class ScriptAdapter{
+class ScriptAdapter {
     // EditorFuncs.js loaded
     editorFuncs = window.EditorFuncs;
     // MapAndReactOnContent.js loaded
@@ -15,6 +15,7 @@ class ScriptAdapter{
     currentDraftKey;
     // save script indicator
     isToSave = false;
+
     constructor() {
         // Get current draft: capture all draft key
         const allLoadedDraftKeys = Object.keys(this.scriptDataStore.draft);
@@ -26,17 +27,18 @@ class ScriptAdapter{
             }
         }
         // Activate Draft List
-        this.draftList();  
+        this.draftList();
     }
 
     autoSave() {
-        if(!this.isToSave) {
+        if (!this.isToSave) {
             this.isToSave = true;
             setTimeout(() => {
-                this.save(); 
+                this.save();
                 this.isToSave = false;
             }, 700);
-        };
+        }
+        ;
     }
 
     draftList() {
@@ -64,8 +66,11 @@ class ScriptAdapter{
     initDraft() {
         // Draft list container
         const draftListWrapper = document.querySelector(`[sw-draft="list"]`);
-        //Delete dummy draft template
-        [...draftListWrapper.children].forEach((draftOption) => {draftOption.remove()});
+        //Delete dummy draft te
+        // plate
+        [...draftListWrapper.children].forEach((draftOption) => {
+            draftOption.remove()
+        });
         // Get current draft: capture all draft key
         const allLoadedDraftKeys = Object.keys(this.scriptDataStore.draft);
         // First set the active draft before setting other draft.
@@ -79,7 +84,7 @@ class ScriptAdapter{
                 // Append the element
                 draftListWrapper.append(newDraftOption);
                 break;
-            }   
+            }
         }
         // Set other draft apart from active
         allLoadedDraftKeys.forEach((dk) => {
@@ -97,7 +102,7 @@ class ScriptAdapter{
         /* Render Draft content on page Loaded */
         // Get current active draft option element and make it selected
         [...draftListWrapper.children].forEach((draftOpt) => {
-            const draftKey = draftOpt.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ','');
+            const draftKey = draftOpt.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
             if (this.currentDraftKey === draftKey) draftOpt.classList.add('select-feature-draft');
         });
     }
@@ -108,7 +113,7 @@ class ScriptAdapter{
 
         // Set the script title
         document.querySelector(`[sw-data-type="title"]`).innerText = this.scriptDataStore.title;
-        document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', ()=> {
+        document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', () => {
             // automatic save
             this.autoSave()
         });
@@ -151,7 +156,7 @@ class ScriptAdapter{
             this.scriptDataStore.draft[this.currentDraftKey].active = 'false';
 
             //get the current selected draft key
-            const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ','');
+            const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
             // Set current draft to active
             this.scriptDataStore.draft[draftKey].active = 'true';
             // set current draft key
@@ -179,13 +184,13 @@ class ScriptAdapter{
         });
 
         // Show draft buttons when mouse move around draft
-        draftItem.addEventListener('mousemove', ()=> { 
-            draftItem.querySelector(`[sw-draft="item-buttons"]`).classList.remove('hide'); 
+        draftItem.addEventListener('mousemove', () => {
+            draftItem.querySelector(`[sw-draft="item-buttons"]`).classList.remove('hide');
         });
 
         // Hide draft buttons when mouse move around draft
-        draftItem.addEventListener('mouseout', ()=> { 
-            draftItem.querySelector(`[sw-draft="item-buttons"]`).classList.add('hide'); 
+        draftItem.addEventListener('mouseout', () => {
+            draftItem.querySelector(`[sw-draft="item-buttons"]`).classList.add('hide');
         });
     }
 
@@ -200,7 +205,7 @@ class ScriptAdapter{
         let count = 1;
         while (1 === 1) {
             if (allText.includes(draftName)) {
-                draftName = 'Draft '+String(allText.length + count);
+                draftName = 'Draft ' + String(allText.length + count);
             } else break;
             count += 1;
         }
@@ -213,14 +218,14 @@ class ScriptAdapter{
         draftItem.insertAdjacentElement('afterend', newDraft);
         // Add to event
         this.draftItemEventListeners(newDraft);
-        
+
         //Load Content of the previous draft and store on new draft
         //...
         // Get previous and new draft keys
-        const prevDraftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ','');
-        const newDraftKey = draftName.toLowerCase().replace(' ','');
+        const prevDraftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
+        const newDraftKey = draftName.toLowerCase().replace(' ', '');
         // Check if previous draft key is active b4 storing it data
-        if ( this.scriptDataStore.draft[prevDraftKey].active === 'true' ) {
+        if (this.scriptDataStore.draft[prevDraftKey].active === 'true') {
             // get the current script content on page
             const getCurrentContent = this.getContent();
             // Store the previous draft content
@@ -229,7 +234,11 @@ class ScriptAdapter{
             this.scriptDataStore.draft[newDraftKey] = {name: draftName, active: 'false', data: getCurrentContent}
         } else {
             // Store the previous draft content to the new draft content
-            this.scriptDataStore.draft[newDraftKey] = {name: draftName, active: 'false', data: this.scriptDataStore.draft[prevDraftKey].data}
+            this.scriptDataStore.draft[newDraftKey] = {
+                name: draftName,
+                active: 'false',
+                data: this.scriptDataStore.draft[prevDraftKey].data
+            }
         }
     }
 
@@ -240,9 +249,9 @@ class ScriptAdapter{
             // Set another draft content on the page by clicking another draft element which will trigger click event listener set for the element
             if (draftItem.previousElementSibling) draftItem.previousElementSibling.click();
             else if (draftItem.nextElementSibling) draftItem.nextElementSibling.click();
-            
+
             //Get draft key through draft text
-            const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ','');
+            const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
             // Delete this draft from the store
             delete this.scriptDataStore.draft[draftKey];
             // Delete Draft and it content
@@ -261,7 +270,7 @@ class ScriptAdapter{
         line.setAttribute('sw-editor-id', lineData.id);
         // Set the color
         line.setAttribute('sw-editor-color', lineData.color);
-        
+
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
             window.CharacterHandle.lineValidator(line);
@@ -300,7 +309,8 @@ class ScriptAdapter{
         window.EditorMode.lineSignal(line);
     }
 
-    async renderDraftContent(draftKey, callback = ()=>{}, skipObserver = false) {
+    async renderDraftContent(draftKey, callback = () => {
+    }, skipObserver = false) {
 
         const startTime = performance.now();
         /** Await Starts*/
@@ -308,8 +318,10 @@ class ScriptAdapter{
 
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
-        const renderDraftContentPromise = new Promise((resolve, reject) => { resolve(1) });
-        renderDraftContentPromise.then(async() => {
+        const renderDraftContentPromise = new Promise((resolve, reject) => {
+            resolve(1)
+        });
+        renderDraftContentPromise.then(async () => {
             /** Await Point */
             window.Watcher.bothAwait(true, 'Rendering script text on page...');
             // clear all script comment in the right sider bar
@@ -323,14 +335,18 @@ class ScriptAdapter{
                 const pageList = this.editorFuncs.swPageListTemp;
 
                 // Remove all page
-                [...pageList.children].forEach((page) => {page.remove()});
+                [...pageList.children].forEach((page) => {
+                    page.remove()
+                });
 
                 // Create New Page for content
                 let pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
                 // Append current page to it Page List
                 pageList.append(pageClone);
                 // Remove previous children or content-line from new page
-                [...pageClone.children].forEach((cl) => {cl.remove()});
+                [...pageClone.children].forEach((cl) => {
+                    cl.remove()
+                });
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
 
@@ -351,7 +367,9 @@ class ScriptAdapter{
                         pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
                         pageList.append(pageClone);
                         //Remove previous children or content-line from new page
-                        [...pageClone.children].forEach((cl) => {cl.remove()});
+                        [...pageClone.children].forEach((cl) => {
+                            cl.remove()
+                        });
                         // Append last content first on new page
                         pageClone.append(lastContentLine);
                         // Append content-line to current page
@@ -366,11 +384,12 @@ class ScriptAdapter{
 
                 //Append page if not appended to it Page List
                 if (!count) {
-                    newLine = window.EditorFuncs.createNewLine(newLine, (b)=>{}, false, '');
+                    newLine = window.EditorFuncs.createNewLine(newLine, (b) => {
+                    }, false, '');
                     pageClone.append(newLine);
                 }
             }
-        }).then(async() => {
+        }).then(async () => {
             /** Await Point */
             window.Watcher.bothAwait(true, 'loading comments and calculating pages...');
             // Help author be able to save comment and note
@@ -379,7 +398,7 @@ class ScriptAdapter{
             //this.handleCommentOpeningAndClosing();
             // EditorFuncs.js method: Refresh the total number of pages avaliable.
             await this.editorFuncs.totalNumberOfPage();
-        }).then(async() => {
+        }).then(async () => {
             /** Await Point */
             window.Watcher.bothAwait(true, 'Re-arranging pages...');
             // EditorFuncs.js method: Make sure page is arrange
@@ -389,21 +408,21 @@ class ScriptAdapter{
             window.Watcher.bothAwait(true, 'Activating Watcher on page...');
             const pageWrap = document.querySelector(`[sw-editor="list"]`);
             const pageList = pageWrap.querySelectorAll(`[sw-editor="item"]`);
-            const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`); 
+            const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`);
             const totalPage = pageList.length;
             const totalLine = contentLineList.length;
             // initiate watcher
-            window.Watcher.reset(0,totalPage, totalLine, false);
-        }).then(async()=> {
+            window.Watcher.reset(0, totalPage, totalLine, false);
+        }).then(async () => {
             /** Await Point */
             //window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
             // Map react
             // if(!skipObserver) window.MapAndReactOnContent.mapreact();
             //await window.MapAndReactOnContent.mapreact();
-        }).then(async() => {
+        }).then(async () => {
             /** Await Ends*/
             await window.Watcher.bothAwait(false);
-            callback(); 
+            callback();
             window.EditorMode.calculatePageNumbers();
         });
         return renderDraftContentPromise;
@@ -418,13 +437,13 @@ class ScriptAdapter{
         //myDate // Wed Feb 16 2022 19:52:26 GMT+0100 (West Africa Standard Time)
         // Get month Name
         const monthName = String(myDate).split(' ')[1];
-        const todayDate = day + ' '+ monthName + ', ' + year;
-        
+        const todayDate = day + ' ' + monthName + ', ' + year;
+
         // For notes
         document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((nwrap) => {
             const noteSaveBtn = nwrap.querySelector(`[sw-data-content="note-btn-ok"]`);
             // Click event on the save button
-            noteSaveBtn?.addEventListener('click', ()=> {
+            noteSaveBtn?.addEventListener('click', () => {
                 // Get the note body
                 const noteBody = nwrap.querySelector(`[sw-data-content="note-body"]`);
                 // Get the particular content line
@@ -447,7 +466,7 @@ class ScriptAdapter{
                     const myColor = window.BackgroundColor.randomBg();
                     this.scriptDataStore.draft[this.currentDraftKey].data[clIndex].note.color = myColor;
                     // Check id current draft is the active on then set the content
-                    if(this.scriptDataStore.draft[this.currentDraftKey].active === 'true'){
+                    if (this.scriptDataStore.draft[this.currentDraftKey].active === 'true') {
                         // update the script data
                         this.scriptDataStore.data = this.scriptDataStore.draft[this.currentDraftKey].data;
                     }
@@ -464,17 +483,17 @@ class ScriptAdapter{
                     // Adjust the note detail wrapper parent height
                     nwrap.querySelector(`[sw-data-content="note-detail-wrap"]`).parentElement.classList.replace('rem-h7', 'rem-h10');
                     // Save the note
-                    this.sendCommentAndNote(clIndex, noteBody.innerText, this.currentDraftKey,todayDate, 'note', myColor).then((response) => {
+                    this.sendCommentAndNote(clIndex, noteBody.innerText, this.currentDraftKey, todayDate, 'note', myColor).then((response) => {
                         if (response.data === 'success') alert(response.message);
                         else alert(response.message);
                     });
                 }
             });
         });
-    
+
     }
 
-    async sendCommentAndNote(index, text, draft, date, type, color='bg-yellow') {
+    async sendCommentAndNote(index, text, draft, date, type, color = 'bg-yellow') {
         // get crsf token
         const crsftokenValue = document.querySelector(`input[name="csrfmiddlewaretoken"]`).value;
 
@@ -489,7 +508,7 @@ class ScriptAdapter{
         if (type === 'note') formData.append('color', color); //set color if note type
 
         // Send the data to store
-        const postData = await fetch(location.href+'/save-tip', {method: 'POST', body: formData,});
+        const postData = await fetch(location.href + '/save-tip', {method: 'POST', body: formData,});
         return postData.json();
     }
 
@@ -498,7 +517,7 @@ class ScriptAdapter{
         document.querySelectorAll(`[sw-open-comment="list"]`).forEach((menu) => {
             [...menu.children].forEach((item) => {
                 // Add click event to the children of the list element
-                item.addEventListener('click', ()=> {
+                item.addEventListener('click', () => {
                     // If open all option is clicked then carry then open all comment box with content
                     if (item.querySelector(`[sw-open-comment="item-open-all"]`)) {
                         document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((noteWrap) => {
@@ -518,11 +537,11 @@ class ScriptAdapter{
 
                                 // Make the comment icon visible
                                 noteIcon.classList.replace('op-0', 'op-1');
-                            } 
+                            }
                         });
-                        
+
                     } else if (item.querySelector(`[sw-open-comment="item-close-all"]`)) {
-                        document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((noteWrap) => { 
+                        document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((noteWrap) => {
                             // show comment wrapper
                             noteWrap.classList.add('hide');
                             const contentLine = noteWrap.closest(`[sw-data="content-line"]`); // The direct parent of the note wrap
@@ -538,7 +557,7 @@ class ScriptAdapter{
                         const authorId = item.querySelector(`[sw-open-comment="item"]`).getAttribute('sw-open-comment-id');
 
                         // Open only comment wrapper with the above author id
-                        document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((noteWrap) => { 
+                        document.querySelectorAll(`[sw-data-content="note-wrap"]`).forEach((noteWrap) => {
                             if (noteWrap.querySelector(`[sw-data-content="note-authorID"]`).textContent === authorId) {
                                 // show comment wrapper
                                 noteWrap.classList.remove('hide');
@@ -565,7 +584,7 @@ class ScriptAdapter{
         // get the keys in the content data
         const contentDataKeys = Object.keys(content);
         // Render the content to the page {location or storypage}
-        
+
         //const editor = new EditorWriter(`sw-${type}`);
         const pageList = document.querySelector(`[sw-${type}="list"]`);
         // Create New Page for content
@@ -576,11 +595,15 @@ class ScriptAdapter{
         const pageCloneDom = document.querySelector(`[sw-${type}="item"]`).cloneNode(true);
         const newLineDom = document.querySelector(`[sw-${type}-id]`).cloneNode(true);
         // Remove all page
-        [...pageList.children].forEach((page) => {page.remove()});
+        [...pageList.children].forEach((page) => {
+            page.remove()
+        });
         // Append current page to it Page List
         pageList.append(pageClone);
         // Remove previous children or content-line from new page
-        [...pageClone.children].forEach((cl) => {cl.remove()});
+        [...pageClone.children].forEach((cl) => {
+            cl.remove()
+        });
         // Kick of render
         let countNew = 0;
         for (let index = 0; index < contentDataKeys.length; index++) {
@@ -598,7 +621,9 @@ class ScriptAdapter{
                 pageClone = pageCloneDom.cloneNode(true);
                 pageList.append(pageClone);
                 //Remove previous children or content-line from new page
-                [...pageClone.children].forEach((cl) => {cl.remove()});
+                [...pageClone.children].forEach((cl) => {
+                    cl.remove()
+                });
                 // Append last content first on new page
                 pageClone.append(lastContentLine);
                 // Append content-line to current page
@@ -631,14 +656,14 @@ class ScriptAdapter{
 
             //create the line array
             data[clID] = {
-                id: clID, content: htmlText, type: lineType,  color: clColor, others: {},
-                note:{text:'', authorID: '', authorName: '', date: '', color: ''}
+                id: clID, content: htmlText, type: lineType, color: clColor, others: {},
+                note: {text: '', authorID: '', authorName: '', date: '', color: ''}
             }
 
             // Add others
             const piece = this.scriptDataStore.draft[this.currentDraftKey].data[clID];
-            
-            if (lineType === 'character') data[clID].others = { cid: characterID };
+
+            if (lineType === 'character') data[clID].others = {cid: characterID};
             else if (lineType === 'scene-heading') {
                 if (piece?.others?.ev) data[clID].others = piece.others;
                 else data[clID].others = {ev: '0', scenegoal: ''};
@@ -663,7 +688,7 @@ class ScriptAdapter{
             //const newID = count;
             const htmlText = clElement.innerHTML;
             //create the line array
-            data[String(newID)] = { id: newID, content: htmlText,}
+            data[String(newID)] = {id: newID, content: htmlText,}
             //count += 1;
         });
 
@@ -691,17 +716,17 @@ class ScriptAdapter{
         formData.append('content', JSON.stringify(window.ScriptAdapter.scriptDataStore));
         formData.append('title', this.scriptDataStore.title);
         formData.append('csrfmiddlewaretoken', crsftokenValue);
-
         // Send the data to store
-        fetch(location.href+'/save', { method: 'POST', body: formData, })
-        .then(response => response.json())
-        .then(data => { /* console.log('Success:', data); */ })
-        .catch((error) => {
-            alert('Unable to save content at this period, please refresh the page.');
-        });
+        fetch(location.href + '/save', {method: 'POST', body: formData,})
+            .then(response => response.json())
+            .then(data => { /* console.log('Success:', data); */
+            })
+            .catch((error) => {
+                alert('Unable to save content at this period, please refresh the page.');
+            });
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.ScriptAdapter = new ScriptAdapter();
 })

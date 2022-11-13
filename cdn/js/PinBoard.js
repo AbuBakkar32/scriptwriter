@@ -29,7 +29,7 @@ class PinBoard {
             [...this.cardListWrap.children].forEach((card) => {card.remove()});
             [...this.rsPinboardList.children].forEach((card) => {card.remove()});
             getPinBoardKeys.forEach((key) => {
-                // get the pin board details
+                // get the pin board
                 const data = window.ScriptDataStore.pinboard[key];
     
                 const card = this.cardOptionTemplate.cloneNode(true);
@@ -50,6 +50,8 @@ class PinBoard {
                 const colorOptionToBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`);
                 colorOptionToBgValue?.setAttribute(this.cardOption.cardVar.bgValue, data.color);
                 colorOptionToBgValue?.classList.replace(theCurrentBgValue, data.color);
+
+
 
                 this.cardListWrap.append(card);
 
