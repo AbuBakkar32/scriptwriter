@@ -20,10 +20,7 @@ function enableDragItem(item) {
 }
 
 function handleDrag(item) {
-    const selectedItem = item.target,
-        list = selectedItem.parentNode,
-        x = event.clientX,
-        y = event.clientY;
+    const selectedItem = item.target, list = selectedItem.parentNode, x = event.clientX, y = event.clientY;
 
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
@@ -35,19 +32,15 @@ function handleDrag(item) {
 }
 
 function saveChangedCard() {
+    let cardList = document.querySelectorAll(`[sw-data="pin-board-item"]`)
     let data = window.ScriptAdapter.scriptDataStore.pinboard;
-    let cardList = document.querySelectorAll(`[sw-card-option="card"]`)
     cardList.forEach((card, index) => {
         let title = card.querySelector(`[sw-card-option="title"]`).innerText;
         let body = card.querySelector(`[sw-card-option="body"]`).innerText;
         let cardId = card.querySelector(`[sw-card-option="card-id"]`).innerText;
         let bgColor = card.getAttribute("bg-value");
         let obj = {
-            id: cardId,
-            title: title,
-            body: body,
-            unique_id: index,
-            color: bgColor
+            id: cardId, title: title, body: body, unique_id: index, color: bgColor
         };
         data[cardId] = obj;
     });
@@ -69,5 +62,5 @@ function handleDrop(item) {
 }
 
 (() => {
-    enableDragSort('drag-sort-enable');
+    enableDragSort('drag-sort-enable-2');
 })();
