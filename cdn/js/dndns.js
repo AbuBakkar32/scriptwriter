@@ -62,5 +62,5 @@ function handleDrop(item) {
 }
 
 (() => {
-    enableDragSort('drag-sort-enable-2');
+    enableDragSort('data-drag-sort-enable');
 })();
