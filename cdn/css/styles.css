@@ -1467,3 +1467,14 @@ li span:hover {
     text-decoration: none;
     opacity: 0.7;
 }
+
+li.drag-sort-active {
+    background: transparent;
+    color: transparent;
+    border: 1px solid #4ca1af;
+}
+
+span.drag-sort-active {
+    background: transparent;
+    color: transparent;
+}

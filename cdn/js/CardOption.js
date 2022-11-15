@@ -336,13 +336,21 @@ class CardOption {
         } catch (error) {
         }
         if (title) {
-            title.setAttribute('contenteditable', 'true');
+            try {
+                title.setAttribute('contenteditable', 'true');
+            } catch (error) {
+
+            }
             title.click();
             title.focus();
         }
 
         if (rs.enabled) {
-            rsTitle.setAttribute('contenteditable', 'true');
+            try {
+                rsTitle.setAttribute('contenteditable', 'true');
+            } catch (error) {
+
+            }
             rsTitle.click();
             rsTitle.focus();
         }
@@ -397,6 +405,19 @@ class CardOption {
             else this.sendData('/note-create', 'GET', card, 'add', whatCard.useDB, !whatCard.piority, whatCard.vital, rs);
         }
     }
+
+    // rearrangeDataList(dataList, data) {
+    //     dataList = Object.keys(dataList).map((key) => dataList[key]);
+    //     let unique_id_list = [];
+    //     dataList.forEach((item) => {
+    //         unique_id_list.push(item.unique_id);
+    //         if (item.unique_id == data.unique_id) {
+    //             data.unique_id = data.unique_id + 1;
+    //         }
+    //     });
+    //     console.log('unique_id_list', unique_id_list.sort((a, b) => a - b));
+    //     return data;
+    // }
 
     sendData(url, type = "GET", card = this.dummyCard, which = "add", useDB = false, piority = false, vital = true, rs = {
         enabled: false,
@@ -471,14 +492,18 @@ class CardOption {
                 // create new id && // random bg color
                 const data = {
                     color: window.BackgroundColor.randomBg(),
-                    id: '0' + quickID().substr(2), // + document.querySelectorAll(this.cardVar.cardWrap).length + 1
+                    id: '0' + quickID().substr(2), // +
+                    // unique_id: document.querySelectorAll(this.cardVar.cardWrap).length + 1
                 };
+
+                // this.rearrangeDataList(window.ScriptAdapter.scriptDataStore.pinboard, data);
 
                 // create the pinboard
                 window.ScriptAdapter.scriptDataStore.pinboard[data.id] = {
                     id: data.id,
                     title: '',
                     body: '',
+                    unique_id: '',
                     color: data.color
                 };
 
