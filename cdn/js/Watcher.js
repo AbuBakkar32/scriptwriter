@@ -134,7 +134,7 @@ class Watcher {
         }
     }
 
-    changeAttribute() {
+    changeAttribute(uid) {
         // the content line element
         const clElement = document.querySelector(`[sw-editor-id="${uid}"]`);
         const lineType = clElement.getAttribute('sw-editor-type'); // current line type
