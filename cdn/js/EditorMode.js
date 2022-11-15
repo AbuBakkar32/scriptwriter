@@ -424,6 +424,7 @@ class EditorMode {
                                 const observer = new MutationObserver(function(mutations) {
                                     mutations.forEach(function(mutation) {
                                         if (swEditorTypeChangingFromDropdown) {
+                                            console.log('swEditorTypeChangingFromDropdown', swEditorTypeChangingFromDropdown);
                                             swEditorTypeChangingFromDropdown = false;
                                             return;
                                         }
@@ -447,6 +448,7 @@ class EditorMode {
                                         if (mutation.type === "attributes") {
                                             // if sw-editor-type is changed
                                             if (mutation.attributeName === "sw-editor-type") {
+                                                console.log('sw-editor-type changed')
                                                 // get the new value
                                                 const newValue = lastChild.getAttribute('sw-editor-type');
                                                 // if the sw-editor-type value is changed, we always set the old value to sw-editor-type
