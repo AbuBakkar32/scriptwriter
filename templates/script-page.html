@@ -118,6 +118,11 @@
             const allEditorType = document.querySelectorAll('[sw-editor-type]');
             // loop through all element sw-editor-type
             allEditorType.forEach((item) => {
+                let swEditorType = item.getAttribute('sw-editor-type');
+                if(!swEditorType){
+                    item.setAttribute('sw-editor-type', 'action');
+                    
+                }
                 item.setAttribute('sw-editor-type-helper', item.getAttribute('sw-editor-type'))
                 const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
