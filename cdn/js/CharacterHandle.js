@@ -21,41 +21,76 @@ class CharacterHandle {
     contentStore = [];
     /** Image change Indicator */
     imageChangeIndicator = false;
+
     constructor() {
         // mr means mapreact
         this.vars = {
-            mainMrList: `[${this.mrAttrName}="character-list"]`, mainMrItem: `[${this.mrAttrName}="character-item"]`,
-            rsMrList: `[${this.mrAttrName}="rs-character-list"]`, rsMrItem: `[${this.mrAttrName}="rs-character-item"]`,
-            createBtn: `[${this.attrName}="create-btn"]`, autoCreateBtn: `[${this.attrName}="auto-create-btn"]`,
-            hideContentBtn: `[${this.attrName}="hide-content-btn"]`, image: `[${this.attrName}="image"]`, 
-            name: `[${this.attrName}="name"]`, archetype: `[${this.attrName}="archetype"]`, lineWidth: `[${this.attrName}="line-width"]`,
-            possession: `[${this.attrName}="possession"]`, need: `[${this.attrName}="need"]`, trait: `[${this.attrName}="trait"]`,
-            content: `[${this.attrName}="content"]`, age: `[${this.attrName}="age"]`, gender: `[${this.attrName}="gender"]`,
-            interest: `[${this.attrName}="interest"]`, occupation: `[${this.attrName}="occupation"]`, index: `[${this.attrName}="index"]`,
-            mockBodyMapList: `[${this.attrName}="mock-body-map-list"]`, mockBodyMapItem: `[${this.attrName}="mock-body-map-item"]`,
-            openBodyMapBtn: `[${this.attrName}="open-body-map-btn"]`, want: `[${this.attrName}="want"]`, 
-            obstacle: `[${this.attrName}="obstacle"]`, resolvingObstacle: `[${this.attrName}="resolving-obstacle"]`,
-            synopsis: `[${this.attrName}="synopsis"]`, sceneList: `[${this.attrName}="scene-list"]`,
-            sceneItem: `[${this.attrName}="scene-item"]`, sceneItemIndex: `[${this.attrName}="scene-item-index"]`,
-            sceneItemTitle: `[${this.attrName}="scene-item-title"]`, sceneItemPageNo: `[${this.attrName}="scene-item-page-no"]`,
-            fillBodyMapBtn: `[${this.attrName}="fill-body-map-btn"]`, hideBodyMapBtn: `[${this.attrName}="hide-body-map-btn"]`,
-            bodyMap: `[${this.attrName}="body-map"]`, bodyMapLeft: `[${this.attrName}="body-map-left"]`,
-            bodyMapRight:`[${this.attrName}="body-map-right"]`, bodyMapCenter:`[${this.attrName}="body-map-center"]`,
-            bodyMapItem:`[${this.attrName}="body-map-item"]`, id: `[${this.attrName}="id"]`, menu: `[${this.attrName}="menu"]`,
-            commentOption: `[${this.attrName}="comment-option"]`, addOption: `[${this.attrName}="add-option"]`,
-            deleteOption: `[${this.attrName}="delete-option"]`, rsImage: `[${this.rsAttrName}="image"]`, 
-            rsName: `[${this.rsAttrName}="name"]`, rsArchetype: `[${this.rsAttrName}="archetype"]`, rsWant: `[${this.rsAttrName}="want"]`,
-            rsTrait: `[${this.rsAttrName}="trait"]`, rsBodyMapList: `[${this.rsAttrName}="body-map-list"]`, rsId: `[${this.rsAttrName}="id"]`,
-            rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`, imageBtn: `[${this.attrName}="image-btn"]`,
+            mainMrList: `[${this.mrAttrName}="character-list"]`,
+            mainMrItem: `[${this.mrAttrName}="character-item"]`,
+            rsMrList: `[${this.mrAttrName}="rs-character-list"]`,
+            rsMrItem: `[${this.mrAttrName}="rs-character-item"]`,
+            createBtn: `[${this.attrName}="create-btn"]`,
+            autoCreateBtn: `[${this.attrName}="auto-create-btn"]`,
+            hideContentBtn: `[${this.attrName}="hide-content-btn"]`,
+            image: `[${this.attrName}="image"]`,
+            name: `[${this.attrName}="name"]`,
+            archetype: `[${this.attrName}="archetype"]`,
+            lineWidth: `[${this.attrName}="line-width"]`,
+            possession: `[${this.attrName}="possession"]`,
+            need: `[${this.attrName}="need"]`,
+            trait: `[${this.attrName}="trait"]`,
+            content: `[${this.attrName}="content"]`,
+            age: `[${this.attrName}="age"]`,
+            gender: `[${this.attrName}="gender"]`,
+            interest: `[${this.attrName}="interest"]`,
+            occupation: `[${this.attrName}="occupation"]`,
+            index: `[${this.attrName}="index"]`,
+            mockBodyMapList: `[${this.attrName}="mock-body-map-list"]`,
+            mockBodyMapItem: `[${this.attrName}="mock-body-map-item"]`,
+            openBodyMapBtn: `[${this.attrName}="open-body-map-btn"]`,
+            want: `[${this.attrName}="want"]`,
+            obstacle: `[${this.attrName}="obstacle"]`,
+            resolvingObstacle: `[${this.attrName}="resolving-obstacle"]`,
+            synopsis: `[${this.attrName}="synopsis"]`,
+            sceneList: `[${this.attrName}="scene-list"]`,
+            sceneItem: `[${this.attrName}="scene-item"]`,
+            sceneItemIndex: `[${this.attrName}="scene-item-index"]`,
+            sceneItemTitle: `[${this.attrName}="scene-item-title"]`,
+            sceneItemPageNo: `[${this.attrName}="scene-item-page-no"]`,
+            fillBodyMapBtn: `[${this.attrName}="fill-body-map-btn"]`,
+            hideBodyMapBtn: `[${this.attrName}="hide-body-map-btn"]`,
+            bodyMap: `[${this.attrName}="body-map"]`,
+            bodyMapLeft: `[${this.attrName}="body-map-left"]`,
+            bodyMapRight: `[${this.attrName}="body-map-right"]`,
+            bodyMapCenter: `[${this.attrName}="body-map-center"]`,
+            bodyMapItem: `[${this.attrName}="body-map-item"]`,
+            id: `[${this.attrName}="id"]`,
+            menu: `[${this.attrName}="menu"]`,
+            commentOption: `[${this.attrName}="comment-option"]`,
+            addOption: `[${this.attrName}="add-option"]`,
+            deleteOption: `[${this.attrName}="delete-option"]`,
+            rsImage: `[${this.rsAttrName}="image"]`,
+            rsName: `[${this.rsAttrName}="name"]`,
+            rsArchetype: `[${this.rsAttrName}="archetype"]`,
+            rsWant: `[${this.rsAttrName}="want"]`,
+            rsTrait: `[${this.rsAttrName}="trait"]`,
+            rsBodyMapList: `[${this.rsAttrName}="body-map-list"]`,
+            rsId: `[${this.rsAttrName}="id"]`,
+            rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`,
+            imageBtn: `[${this.attrName}="image-btn"]`,
         };
 
         this.mainCharacterListTemp = document.querySelector(this.vars.mainMrList);
         this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true)
         this.rsCharacterListTemp = document.querySelector(this.vars.rsMrList);
-        this.rsCharacterItemTemp  = document.querySelector(this.vars.rsMrItem).cloneNode(true);
+        this.rsCharacterItemTemp = document.querySelector(this.vars.rsMrItem).cloneNode(true);
         //Remove all template
-        [...this.rsCharacterListTemp.children].forEach((el) => {el.remove()});
-        [...this.mainCharacterListTemp.children].forEach((el) => {el.remove()});
+        [...this.rsCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
+        [...this.mainCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
 
         // Listener
         this.listener();
@@ -65,7 +100,9 @@ class CharacterHandle {
         // Resize the All character maps
         //this.characterMapResize();
         // Event listener for windows resize
-        window.onresize = () => { this.characterMapResize() };
+        window.onresize = () => {
+            this.characterMapResize()
+        };
 
         // General create character button
         const createCharacterBtn = document.querySelector(this.vars.createBtn);
@@ -73,8 +110,14 @@ class CharacterHandle {
             // create on db
             const newCharacterID = this.create();
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
-            const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
-            const dataset = {name: newCharacterID.toUpperCase(), id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
+            const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
+            const dataset = {
+                name: newCharacterID.toUpperCase(),
+                id: mapreactID,
+                position: pos,
+                scenes: [],
+                cid: newCharacterID
+            };
             this.characterRenderTemplate(dataset);
             //this.activateMapReact(mapreactID)
             window.ScriptAdapter.autoSave();
@@ -86,12 +129,12 @@ class CharacterHandle {
             // create on db
             const newCharacterID = this.create();
             // New name
-            const newName = ('test'+newCharacterID).toUpperCase();
+            const newName = ('test' + newCharacterID).toUpperCase();
             //Update name in web db
             window.ScriptDataStore.character[newCharacterID].name = newName;
 
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
-            const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
+            const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {name: newName, id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
             this.characterRenderTemplate(dataset);
             //this.activateMapReact(mapreactID)
@@ -103,7 +146,7 @@ class CharacterHandle {
         ids.forEach((i) => {
             const character = window.ScriptDataStore.character[i];
             const mapreactID = Math.random().toString(36).substr(2);
-            const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
+            const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {name: character.name, id: mapreactID, position: pos, scenes: [], cid: character.id};
             this.characterRenderTemplate(dataset);
             //this.activateMapReact(mapreactID);
@@ -111,9 +154,11 @@ class CharacterHandle {
 
     }
 
-    quickID() {return Math.random().toString(36).substring(2)}
+    quickID() {
+        return Math.random().toString(36).substring(2)
+    }
 
-    activateMapReact(mapreactID='', isImage=false) {
+    activateMapReact(mapreactID = '', isImage = false) {
         if (!mapreactID) return;
         const allReacters = document.querySelectorAll(`[react-pos="${mapreactID}"]`);
 
@@ -133,9 +178,8 @@ class CharacterHandle {
             allReacters.forEach((el) => {
                 el.addEventListener('input', () => {
                     allReacters.forEach((it) => {
-                        if (el != it) { 
+                        if (el != it) {
                             it.innerText = el.innerText.toUpperCase();
-                            console.log(allReacters.length, it)
                         }
                     });
                     // Update the charater in the web DB
@@ -147,14 +191,16 @@ class CharacterHandle {
                 // Callback function to execute when mutations are observed
                 const callback = (mutationsList, observer) => {
                     // Use traditional 'for loops' for IE 11
-                    for(const mutation of mutationsList) {
+                    for (const mutation of mutationsList) {
                         if (mutation.type === 'attributes') {
                             if (mutation.attributeName === 'src') {
                                 if (this.imageChangeIndicator) {
                                     //const modifElement = mutation.target;
                                     this.imageChangeIndicator = false;
                                     const imageUrl = window.ScriptDataStore.character[characterID].image;
-                                    allReacters.forEach((it) => { if (el !== it) it.src = imageUrl; });
+                                    allReacters.forEach((it) => {
+                                        if (el !== it) it.src = imageUrl;
+                                    });
                                     // Update the charater in the web DB
                                     this.update(characterID);
                                 }
@@ -163,7 +209,7 @@ class CharacterHandle {
                     }
                 }
                 const observer = new MutationObserver(callback);
-                observer.observe(el, { attributes: true });
+                observer.observe(el, {attributes: true});
             });
         }
     }
@@ -184,10 +230,10 @@ class CharacterHandle {
         const imageAll = item.querySelectorAll(this.vars.image);
         const rsImage = this.rsCharacterListTemp.querySelector(`[rs-character-id="${cid}"]`)?.closest(
             this.vars.rsMrItem)?.querySelector(this.vars.rsImage);
-        
+
         /** Event Listeners for charater on Main Character Page */
-        item?.addEventListener('click', ()=> { 
-            if (bodyMap){
+        item?.addEventListener('click', () => {
+            if (bodyMap) {
                 if (bodyMap?.classList.contains('hide')) characterMainContent?.classList.remove('hide');
             } else characterMainContent?.classList.remove('hide');
             // Make menu visible
@@ -200,55 +246,87 @@ class CharacterHandle {
                 }
             });
         });
-        item?.addEventListener('mousemove', ()=> { hideContentBtn?.classList.remove('hide'); });
-        item?.addEventListener('mouseout', ()=> { hideContentBtn?.classList.add('hide'); });
-        item?.addEventListener('keyup', ()=> { if (cid) setTimeout(() => { this.update(cid)}, 20); });
+        item?.addEventListener('mousemove', () => {
+            hideContentBtn?.classList.remove('hide');
+        });
+        item?.addEventListener('mouseout', () => {
+            hideContentBtn?.classList.add('hide');
+        });
+        item?.addEventListener('keyup', () => {
+            if (cid) setTimeout(() => {
+                this.update(cid)
+            }, 20);
+        });
 
         /** Event Listener for closing the main charater content */
-        hideContentBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
+        hideContentBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             characterMainContent?.classList.add('hide');
         });
 
         /** Event Listener for opening body map  */
-        openBodyMapBtn?.addEventListener('click', (e) => { 
-            e.stopImmediatePropagation(); e.stopPropagation();
+        openBodyMapBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             characterMainContent?.classList.add('hide');
-            bodyMap?.classList.remove('hide'); this.characterMapResize();
+            bodyMap?.classList.remove('hide');
+            this.characterMapResize();
         });
 
         /** Event Listener for closing body map  */
         hideBodyMapBtn?.addEventListener('click', (e) => {
-            e.stopImmediatePropagation(); e.stopPropagation();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             characterMainContent?.classList.remove('hide');
             bodyMap?.classList.add('hide');
         });
 
         /** Event Listener for filling details in the character body map */
-        fillBodyMapBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
-            alert('work in progress for filling random data'); 
+        fillBodyMapBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            alert('work in progress for filling random data');
         });
 
-        commentOptionBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
+        commentOptionBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             alert('work in progress in adding comment or whatever')
         });
 
-        addOptionBtn?.addEventListener('click', (e)=> { e.stopImmediatePropagation(); e.stopPropagation(); this.add(cid) });
+        addOptionBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            this.add(cid)
+        });
 
-        deleteOptionBtn?.addEventListener('click', (e)=> { e.stopImmediatePropagation(); e.stopPropagation(); this.delete(item); });
+        deleteOptionBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            this.delete(item);
+        });
 
         /** Image Listener and Upload image */
         imageAll.forEach((img) => {
-            img?.addEventListener('click', (e)=> { 
-                e.stopImmediatePropagation(); e.stopPropagation(); imageBtn.click(); 
+            img?.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                imageBtn.click();
             });
         });
-        imageBtn?.addEventListener('change', (e)=> { e.stopImmediatePropagation(); e.stopPropagation(); this.uploadImage(item); });
+        imageBtn?.addEventListener('change', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            this.uploadImage(item);
+        });
 
         /** Right Side Bar image icon click */
-        rsImage?.addEventListener('click', (e) => { e.stopImmediatePropagation(); e.stopPropagation(); imageBtn.click();})
+        rsImage?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            imageBtn.click();
+        })
     }
 
     uploadImage(item = document.querySelector(this.vars.mainMrItem)) {
@@ -264,20 +342,20 @@ class CharacterHandle {
         formData.append('csrfmiddlewaretoken', crsftokenValue);
 
         // Send the data to store
-        fetch(location.origin+'/script/image', { method: 'POST', body: formData,})
-        .then(response => response.json())
-        .then(data => {
-            if (data.result === 'success') {
-                // Ensure image url is allowed to be add to src
-                this.imageChangeIndicator = true;
-                // Add the image url to web db
-                window.ScriptDataStore.character[cid].image = data.message;
-                // Add the image url to the main image element
-                image.src = data.message
-                // clear image Btn values
-                imageBtn.value = "";
-            } else alert(data.message);
-        }).catch((error) => {
+        fetch(location.origin + '/script/image', {method: 'POST', body: formData,})
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    // Ensure image url is allowed to be add to src
+                    this.imageChangeIndicator = true;
+                    // Add the image url to web db
+                    window.ScriptDataStore.character[cid].image = data.message;
+                    // Add the image url to the main image element
+                    image.src = data.message
+                    // clear image Btn values
+                    imageBtn.value = "";
+                } else alert(data.message);
+            }).catch((error) => {
             console.log('Error:', error);
         });
     }
@@ -288,10 +366,12 @@ class CharacterHandle {
         if (lastCharacter) {
             const xid = lastCharacter.querySelector(this.vars.id).textContent;
             id += String(Number(xid.substr(1)) + 1);
-        } else id+= '0';
+        } else id += '0';
 
         const scriptIDList = [];
-        document.querySelectorAll(this.vars.id).forEach((i) => { scriptIDList.push(i.textContent); });
+        document.querySelectorAll(this.vars.id).forEach((i) => {
+            scriptIDList.push(i.textContent);
+        });
         let count = 1;
 
         while (true) {
@@ -314,12 +394,11 @@ class CharacterHandle {
         let count = 0;
         metaTypeCharacterList.forEach((line) => {
             const lineText = line.innerText;
-            //console.log(scriptBody.textContent, name);
             if (lineText.toLowerCase() === name.toLowerCase()) count += 1;
         });
         // Possession will be
-        const pos = (count/metaTypeCharacterList.length*100).toFixed(0);
-        if(count) return pos+'%';
+        const pos = (count / metaTypeCharacterList.length * 100).toFixed(0);
+        if (count) return pos + '%';
         else return '0%';
     }
 
@@ -342,14 +421,26 @@ class CharacterHandle {
             age: '',
             gender: '',
             interest: '',
-            item1: 'nill', item2: 'nill',item3: 'nill',item4: 'nill',item5: 'nill',item6: 'nill',item7: 'nill',item8: 'nill',
-            item9: 'nill', item10: 'nill', item11: 'nill', item12: 'nill', item13: 'nill', item14: 'nill',
+            item1: 'nill',
+            item2: 'nill',
+            item3: 'nill',
+            item4: 'nill',
+            item5: 'nill',
+            item6: 'nill',
+            item7: 'nill',
+            item8: 'nill',
+            item9: 'nill',
+            item10: 'nill',
+            item11: 'nill',
+            item12: 'nill',
+            item13: 'nill',
+            item14: 'nill',
         }
 
         return uid;
     }
 
-    update(uid, isAddId='') {
+    update(uid, isAddId = '') {
         if (!window.ScriptDataStore.character[uid]) return;
         let idValue;
         if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`);
@@ -368,7 +459,7 @@ class CharacterHandle {
         window.ScriptDataStore.character[uid].need = character.querySelector(this.vars.need)?.innerText || '';
         window.ScriptDataStore.character[uid].want = character.querySelector(this.vars.want)?.innerText || '';
         window.ScriptDataStore.character[uid].obstacles = character.querySelector(this.vars.obstacle)?.innerText || '';
-        window.ScriptDataStore.character[uid].resolvingObstacles = character.querySelector(this.vars.resolvingObstacle)?.innerText || '';
+        window.ScriptDataStore.character[uid].resolvingObstacle = character.querySelector(this.vars.resolvingObstacle)?.innerText || '';
         window.ScriptDataStore.character[uid].synopsis = character.querySelector(this.vars.synopsis)?.innerText || '';
         window.ScriptDataStore.character[uid].trait = character.querySelector(this.vars.trait)?.innerText || '';
         window.ScriptDataStore.character[uid].occupation = character.querySelector(this.vars.occupation)?.innerText || '';
@@ -377,7 +468,7 @@ class CharacterHandle {
         window.ScriptDataStore.character[uid].age = character.querySelector(this.vars.age)?.innerText || '';
         window.ScriptDataStore.character[uid].gender = character.querySelector(this.vars.gender)?.innerText || '';
         window.ScriptDataStore.character[uid].interest = character.querySelector(this.vars.interest)?.innerText || '';
-        window.ScriptDataStore.character[uid].item1 =  itemList[0]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item1 = itemList[0]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item2 = itemList[1]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item3 = itemList[2]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item4 = itemList[3]?.querySelector('div')?.innerText || 'nill';
@@ -385,13 +476,12 @@ class CharacterHandle {
         window.ScriptDataStore.character[uid].item6 = itemList[5]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item7 = itemList[6]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item8 = itemList[7]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item9 = itemList[8]?.querySelector('div')?.innerText || 'nill'; 
-        window.ScriptDataStore.character[uid].item10 = itemList[9]?.querySelector('div')?.innerText || 'nill'; 
-        window.ScriptDataStore.character[uid].item11 = itemList[10]?.querySelector('div')?.innerText || 'nill'; 
-        window.ScriptDataStore.character[uid].item12 = itemList[11]?.querySelector('div')?.innerText || 'nill'; 
-        window.ScriptDataStore.character[uid].item13 = itemList[12]?.querySelector('div')?.innerText || 'nill'; 
+        window.ScriptDataStore.character[uid].item9 = itemList[8]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item10 = itemList[9]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item11 = itemList[10]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item12 = itemList[11]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item13 = itemList[12]?.querySelector('div')?.innerText || 'nill';
         window.ScriptDataStore.character[uid].item14 = itemList[13]?.querySelector('div')?.innerText || 'nill';
-        console.log('update character', uid);
         // Automatically save the script data.
         window.ScriptAdapter.autoSave();
     }
@@ -432,13 +522,13 @@ class CharacterHandle {
         const newCharacterID = this.create();
         this.update(newCharacterID, uid);
         const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
-        const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
+        const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
         const dataset = {name: newCharacterID, id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
         this.characterRenderTemplate(dataset);
         //this.activateMapReact(mapreactID)
     }
 
-    characterMapResize(){
+    characterMapResize() {
         // Character Body
         const mainWrapList = document.querySelectorAll(this.vars.bodyMap);
         mainWrapList.forEach((mainWrap) => {
@@ -456,49 +546,63 @@ class CharacterHandle {
             bodyItems.forEach((item) => {
                 const line = item.querySelector('span');
                 const text = item.querySelector('div');
-                const index = getEleId(item, bodyItems)+1;
+                const index = getEleId(item, bodyItems) + 1;
                 if (index === 1) {
-                    item.style.top = (height/20)-10+'px';
-                    line.style.width = (width*1.15)+'px'; line.style.transform = `translateX(${(width/4)*1.15}px)`
+                    item.style.top = (height / 20) - 10 + 'px';
+                    line.style.width = (width * 1.15) + 'px';
+                    line.style.transform = `translateX(${(width / 4) * 1.15}px)`
                 } else if (index === 2) {
-                    item.style.top = (height/20)*2.8+'px';
-                    line.style.width = (width*1.15)+'px'; line.style.transform = `translateX(${(width/4)*1.15}px)`
+                    item.style.top = (height / 20) * 2.8 + 'px';
+                    line.style.width = (width * 1.15) + 'px';
+                    line.style.transform = `translateX(${(width / 4) * 1.15}px)`
                 } else if (index === 3) {
-                    item.style.top = (height/20)*5.5+'px';
-                    line.style.width = (width+15)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    item.style.top = (height / 20) * 5.5 + 'px';
+                    line.style.width = (width + 15) + 'px';
+                    line.style.transform = `translateX(${(width / 4) + 15}px)`
                 } else if (index === 4) {
-                    item.style.top = (height/20)*7.5+'px';
-                    line.style.width = width+'px'; line.style.transform = `translateX(${(width/4)}px)`
+                    item.style.top = (height / 20) * 7.5 + 'px';
+                    line.style.width = width + 'px';
+                    line.style.transform = `translateX(${(width / 4)}px)`
                 } else if (index === 5) {
-                    item.style.top = (height/20)*11+'px';
-                    line.style.width = (width-25)+'px'; line.style.transform = `translateX(${(width/4)}px)`
+                    item.style.top = (height / 20) * 11 + 'px';
+                    line.style.width = (width - 25) + 'px';
+                    line.style.transform = `translateX(${(width / 4)}px)`
                 } else if (index === 6) {
-                    item.style.top = (height/20)*13.5+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    item.style.top = (height / 20) * 13.5 + 'px';
+                    line.style.width = (width + 25) + 'px';
+                    line.style.transform = `translateX(${(width / 4) + 15}px)`
                 } else if (index === 7) {
-                    item.style.top = (height/20)*16.5+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    item.style.top = (height / 20) * 16.5 + 'px';
+                    line.style.width = (width + 25) + 'px';
+                    line.style.transform = `translateX(${(width / 4) + 15}px)`
                 } else if (index === 8) {
-                    item.style.top = (height/20)*19+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    item.style.top = (height / 20) * 19 + 'px';
+                    line.style.width = (width + 25) + 'px';
+                    line.style.transform = `translateX(${(width / 4) + 15}px)`
                 } else if (index === 9) {
-                    item.style.top = (height/20)+10+'px';
-                    line.style.width = (width/2)-5+'px'; line.style.transform = `translateX(-${(width/2)-25}px)`
+                    item.style.top = (height / 20) + 10 + 'px';
+                    line.style.width = (width / 2) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2) - 25}px)`
                 } else if (index === 10) {
-                    item.style.top = (height/20)*3.6+'px';
-                    line.style.width = (width/2.3)-5+'px'; line.style.transform = `translateX(-${(width/2.3)-25}px)`
+                    item.style.top = (height / 20) * 3.6 + 'px';
+                    line.style.width = (width / 2.3) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2.3) - 25}px)`
                 } else if (index === 11) {
-                    item.style.top = (height/20)*7+'px';
-                    line.style.width = (width/2.7)-5+'px'; line.style.transform = `translateX(-${(width/2.7)-25}px)`
+                    item.style.top = (height / 20) * 7 + 'px';
+                    line.style.width = (width / 2.7) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2.7) - 25}px)`
                 } else if (index === 12) {
-                    item.style.top = (height/20)*12.5+'px';
-                    line.style.width = (width/2.3)-5+'px'; line.style.transform = `translateX(-${(width/2.3)-25}px)`
+                    item.style.top = (height / 20) * 12.5 + 'px';
+                    line.style.width = (width / 2.3) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2.3) - 25}px)`
                 } else if (index === 13) {
-                    item.style.top = (height/20)*15+'px';
-                    line.style.width = (width/2.35)-5+'px'; line.style.transform = `translateX(-${(width/2.35)-25}px)`
+                    item.style.top = (height / 20) * 15 + 'px';
+                    line.style.width = (width / 2.35) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2.35) - 25}px)`
                 } else if (index === 14) {
-                    item.style.top = (height/20)*17.5+'px';
-                    line.style.width = (width/2.4)-5+'px'; line.style.transform = `translateX(-${(width/2.4)-25}px)`
+                    item.style.top = (height / 20) * 17.5 + 'px';
+                    line.style.width = (width / 2.4) - 5 + 'px';
+                    line.style.transform = `translateX(-${(width / 2.4) - 25}px)`
                 }
             })
         })
@@ -506,9 +610,13 @@ class CharacterHandle {
 
     characterHandle(contenStore) {
         // Clear template
-        [...this.rsCharacterListTemp.children].forEach((el) => {el.remove()});
-        [...this.mainCharacterListTemp.children].forEach((el) => {el.remove()});
-        
+        [...this.rsCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
+        [...this.mainCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
+
         // Set new content store value
         this.contentStore = contenStore;
         const listOfCharacter = [];
@@ -528,18 +636,18 @@ class CharacterHandle {
             // Match data in contentStore
             for (let index = 0; index < this.contentStore.length; index++) {
                 const sdata = this.contentStore[index];
-                if (sdata.type === 'character') { 
+                if (sdata.type === 'character') {
                     if (sdata.cid === cdata.id) {
                         // Update the mapReact id;
                         idC = sdata.id;
                         this.contentStore.forEach((it) => {
                             if (it.type === 'scene-heading') {
-                                for (let i = it.index+1; i < this.contentStore.length; i++) {
+                                for (let i = it.index + 1; i < this.contentStore.length; i++) {
                                     const tem = this.contentStore[i];
                                     if ((tem.type === 'character') && (nameC === tem.content.innerText)) {
                                         characterAppearedScenes.push(it);
                                         break;
-                                    } else if (tem.type === 'scene-heading') break;   
+                                    } else if (tem.type === 'scene-heading') break;
                                 }
                             }
                         });
@@ -548,7 +656,13 @@ class CharacterHandle {
                 }
             }
             // Append character
-            listOfCharacter.push({name: nameC, id: idC, position: posC, scenes: characterAppearedScenes, cid: characterIDC});
+            listOfCharacter.push({
+                name: nameC,
+                id: idC,
+                position: posC,
+                scenes: characterAppearedScenes,
+                cid: characterIDC
+            });
 
             count += 1;
         });
@@ -582,8 +696,28 @@ class CharacterHandle {
         // Update character new possession
         window.ScriptDataStore.character[data.cid].possession = cPossession;
         // Capture new mapreact ids for activation
-        const mapReactIDList = {name: '', need:'', trait: '', want: '', image: '', archetype: '', item1: '', item2: '', item3: '', item4: '',
-            item5: '',item6: '',item7: '',item8: '', item9: '', item10: '', item11: '', item12: '', item13: '', item14: ''};
+        const mapReactIDList = {
+            name: '',
+            need: '',
+            trait: '',
+            want: '',
+            image: '',
+            archetype: '',
+            item1: '',
+            item2: '',
+            item3: '',
+            item4: '',
+            item5: '',
+            item6: '',
+            item7: '',
+            item8: '',
+            item9: '',
+            item10: '',
+            item11: '',
+            item12: '',
+            item13: '',
+            item14: ''
+        };
         // current main page character item template
         let currentCharacterItemTemplate;
         if (1) {
@@ -600,31 +734,35 @@ class CharacterHandle {
             /** Update character need Element*/
             const needElements = template.querySelectorAll(this.vars.need);
             needElements.forEach((need) => {
-                need.textContent = cDB.need; need.setAttribute(this.rpAttr, data.id+'1'); mapReactIDList.need = data.id+'1';
+                need.textContent = cDB.need;
+                need.setAttribute(this.rpAttr, data.id + '1');
+                mapReactIDList.need = data.id + '1';
             });
 
             /** Update character Archetype Element*/
             const archetype = template.querySelector(this.vars.archetype);
-            if (archetype) { 
-                archetype.textContent = cDB.archetype; 
-                archetype.setAttribute(this.rpAttr, data.id+'2');
-                mapReactIDList.archetype = data.id+'2'
-            };
+            if (archetype) {
+                archetype.textContent = cDB.archetype;
+                archetype.setAttribute(this.rpAttr, data.id + '2');
+                mapReactIDList.archetype = data.id + '2'
+            }
+            ;
 
             /** Update character Trait Element*/
             const trait = template.querySelector(this.vars.trait);
             if (trait) {
                 trait.textContent = cDB.trait;
-                trait.setAttribute(this.rpAttr, data.id+'3');
-                mapReactIDList.trait = data.id+'3';
-            };
+                trait.setAttribute(this.rpAttr, data.id + '3');
+                mapReactIDList.trait = data.id + '3';
+            }
+            ;
 
             /** Update character Image Element*/
             const imageElements = template.querySelectorAll(this.vars.image);
             imageElements.forEach((img) => {
-                if(cDB.image) img.src = cDB.image;
-                img.setAttribute(this.rpAttr, data.id+'4');
-                mapReactIDList.image = data.id+'4';
+                if (cDB.image) img.src = cDB.image;
+                img.setAttribute(this.rpAttr, data.id + '4');
+                mapReactIDList.image = data.id + '4';
             });
 
             /** Update character Age Element*/
@@ -646,11 +784,15 @@ class CharacterHandle {
             /** Update character Possession Element*/
             const posEle = template.querySelector(this.vars.possession);
             if (posEle) posEle.textContent = cPossession;
-            
+
 
             /** Update character ID Element*/
             const idElement = template.querySelector(this.vars.id);
-            if (idElement) { idElement.textContent = data.cid; idElement.setAttribute('character-idvalue', data.cid); };
+            if (idElement) {
+                idElement.textContent = data.cid;
+                idElement.setAttribute('character-idvalue', data.cid);
+            }
+            ;
 
             /** Update character Index Number Element */
             const index = template.querySelector(this.vars.index);
@@ -658,27 +800,30 @@ class CharacterHandle {
 
             /** Update character Line width Element*/
             const lineWidth = template.querySelector(this.vars.lineWidth);
-            if (lineWidth) { 
+            if (lineWidth) {
                 lineWidth.style.maxWidth = cPossession;
-                lineWidth.style.width = cPossession; 
+                lineWidth.style.width = cPossession;
                 if (cDB.color && lineWidth.classList.contains('bg-orange'))
                     lineWidth.classList.replace('bg-orange', cDB.color);
-            };
+            }
+            ;
 
             /** Update character Mock Body Map List Element*/
             const mockBodyMapList = template.querySelector(this.vars.mockBodyMapList);
             if (mockBodyMapList) {
                 const mockBodyMapItem = template.querySelector(this.vars.mockBodyMapItem).cloneNode(true);
                 mockBodyMapItem.textContent = '';
-                [...mockBodyMapList.children].forEach((e) => {e.remove()});
+                [...mockBodyMapList.children].forEach((e) => {
+                    e.remove()
+                });
 
                 let count = 0;
                 for (let index = 1; index <= 14; index++) {
                     const mItem = mockBodyMapItem.cloneNode(true);
-                    mItem.innerText = cDB['item'+index]; 
-                    mockBodyMapList.append(mItem); 
-                    mapReactIDList['item'+index] = data.id+(count+5);
-                    mItem.setAttribute(this.rpAttr, data.id+(count+5))
+                    mItem.innerText = cDB['item' + index];
+                    mockBodyMapList.append(mItem);
+                    mapReactIDList['item' + index] = data.id + (count + 5);
+                    mItem.setAttribute(this.rpAttr, data.id + (count + 5))
                     count += 1;
                 }
                 // MapReactID will stop at 18 here
@@ -686,7 +831,12 @@ class CharacterHandle {
 
             /** Update character Want Element*/
             const want = template.querySelector(this.vars.want);
-            if (want) { want.textContent = cDB.want; want.setAttribute(this.rpAttr, data.id+'19'); mapReactIDList.want = data.id+'19' };
+            if (want) {
+                want.textContent = cDB.want;
+                want.setAttribute(this.rpAttr, data.id + '19');
+                mapReactIDList.want = data.id + '19'
+            }
+            ;
 
             /** Update character Obstacle Element*/
             const obstacle = template.querySelector(this.vars.obstacle);
@@ -737,26 +887,30 @@ class CharacterHandle {
 
                 // get the left side of the body map
                 const bodyMapLeft = bodyMap.querySelector(this.vars.bodyMapLeft);
-                [...bodyMapLeft.children].forEach((e) => {e.remove()});
+                [...bodyMapLeft.children].forEach((e) => {
+                    e.remove()
+                });
                 // get the left side of the body map
                 const bodyMapRight = bodyMap.querySelector(this.vars.bodyMapRight);
-                [...bodyMapRight.children].forEach((e) => {e.remove()});
+                [...bodyMapRight.children].forEach((e) => {
+                    e.remove()
+                });
 
                 for (let index = 1; index <= 14; index++) {
                     const item = bodyMapItem.cloneNode(true);
-                    item.querySelector('div').innerText = cDB['item'+index]; 
+                    item.querySelector('div').innerText = cDB['item' + index];
                     if (index <= 8) bodyMapLeft.append(item);
                     else bodyMapRight.append(item);
-                    item.setAttribute(this.rpAttr, mapReactIDList['item'+index]);                    
+                    item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
             }
 
             //Append character template to List wrapper
             this.mainCharacterListTemp.append(template);
-        } 
+        }
 
         // Render Character data on right side bar space
-        if(2) {
+        if (2) {
             const rsTemplate = this.rsCharacterItemTemp.cloneNode(true);
             /** Update name */
             const rsName = rsTemplate.querySelector(this.vars.rsName);
@@ -765,36 +919,51 @@ class CharacterHandle {
 
             /** Update image */
             const rsImage = rsTemplate.querySelector(this.vars.rsImage);
-            if(rsImage) {
-                if(cDB.image) rsImage.src = cDB.image;
+            if (rsImage) {
+                if (cDB.image) rsImage.src = cDB.image;
                 rsImage.setAttribute(this.rpAttr, mapReactIDList.image);
             }
 
             /** Update Want */
             const rsWant = rsTemplate.querySelector(this.vars.rsWant);
-            if(rsWant) { rsWant.innerText = cDB.want; rsWant.setAttribute(this.rpAttr, mapReactIDList.want) };
-            
+            if (rsWant) {
+                rsWant.innerText = cDB.want;
+                rsWant.setAttribute(this.rpAttr, mapReactIDList.want)
+            }
+            ;
+
             /** Update Archetype */
             const rsArchetype = rsTemplate.querySelector(this.vars.rsArchetype);
-            if(rsArchetype) { rsArchetype.innerText = cDB.archetype; rsArchetype.setAttribute(this.rpAttr, mapReactIDList.archetype) };
+            if (rsArchetype) {
+                rsArchetype.innerText = cDB.archetype;
+                rsArchetype.setAttribute(this.rpAttr, mapReactIDList.archetype)
+            }
+            ;
 
             /** Update Trait */
             const rsTrait = rsTemplate.querySelector(this.vars.rsTrait);
-            if(rsTrait) { rsTrait.innerText = cDB.trait; rsTrait.setAttribute(this.rpAttr, mapReactIDList.trait); };
+            if (rsTrait) {
+                rsTrait.innerText = cDB.trait;
+                rsTrait.setAttribute(this.rpAttr, mapReactIDList.trait);
+            }
+            ;
 
             /** Update Body Map List*/
             const rsBodyMapList = rsTemplate.querySelector(this.vars.rsBodyMapList);
-            if(rsBodyMapList) { 
+            if (rsBodyMapList) {
                 const rsBodyMapItem = rsBodyMapList.querySelector(this.vars.rsBodyMapItem).cloneNode(true);
-                [...rsBodyMapList.children].forEach((e) => {e.remove()});
+                [...rsBodyMapList.children].forEach((e) => {
+                    e.remove()
+                });
 
                 for (let index = 1; index <= 14; index++) {
                     const item = rsBodyMapItem.cloneNode(true);
-                    item.innerText = cDB['item'+index]; 
+                    item.innerText = cDB['item' + index];
                     rsBodyMapList.append(item);
-                    item.setAttribute(this.rpAttr, mapReactIDList['item'+index]);                    
+                    item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
-            };
+            }
+            ;
 
             /** Set character id */
             const rsCharacterID = rsTemplate.querySelector(this.vars.rsId);
@@ -809,7 +978,7 @@ class CharacterHandle {
             // A hide and show function from app.js
             hideAndShowDropable('hideable-part', 'showable-part');
         }
-        
+
         // SetUp functionality to the new template
         this.setUp(currentCharacterItemTemplate);
 
@@ -832,7 +1001,7 @@ class CharacterHandle {
                 validity = true;
                 cid = data.index;
                 break
-            }   
+            }
         }
         return {valid: validity, id: cid};
     }
@@ -841,7 +1010,7 @@ class CharacterHandle {
         let validity = false;
         let cid = '';
         const keys = Object.keys(window.ScriptDataStore.character);
-        
+
         //Loop through character store to find out is character name already exist.
         for (let index = 0; index < keys.length; index++) {
             const key = keys[index];
@@ -850,13 +1019,13 @@ class CharacterHandle {
                 validity = true;
                 cid = character.id;
                 break
-            }   
+            }
         }
         return {valid: validity, id: cid};
     }
 
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.CharacterHandle = new CharacterHandle();
 })

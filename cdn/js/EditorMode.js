@@ -98,6 +98,8 @@ class EditorMode {
                         this.watcher();
                     }
                 });
+
+
             } else if (this.keyPressed === 'Backspace') {
                 this.watcherStatus = true;
                 this.keyPressed = '';
@@ -222,6 +224,7 @@ class EditorMode {
                     const x = this.idList[i]; // might be the duplicated id
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
+                        console.log(duplicates);
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
                         const newCreatedElement = duplicates[1]; // the newly created element
@@ -246,7 +249,7 @@ class EditorMode {
 
                             }
 
-                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
+                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer; transform: scaleX(-1);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
                             const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
                                 <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
                                     <div onclick="hideNoteContainer(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
@@ -380,7 +383,7 @@ class EditorMode {
 
                             }
 
-                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
+                            const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer; transform: scaleX(-1);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
                             const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
                                 <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
                                     <div onclick="hideNoteContainer(this)" style="position: absolute; top: 0; right: 10px; font-size: 20px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; cursor: pointer; font-weight: bolder;">x</div>
@@ -415,6 +418,54 @@ class EditorMode {
                                 if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
                                     abs.remove();
                                 }
+                            });
+                            // add click event
+                            lastChild.addEventListener('click', function () {
+                                const observer = new MutationObserver(function(mutations) {
+                                    mutations.forEach(function(mutation) {
+                                        if (swEditorTypeChangingFromDropdown) {
+                                            swEditorTypeChangingFromDropdown = false;
+                                            return;
+                                        }
+                                        
+                                        if (mutation.attributeName === "class") {
+                                            // get the new value
+                                            const newClass = lastChild.getAttribute('class') 
+                                            const newClassArray = newClass.split(' ') 
+                                            const newClassArrayFilter = newClassArray.filter((item) => typeList.includes(item)) 
+                                            const newClassArrayFilterString = newClassArrayFilter.toString()
+                                            let swEditorType = lastChild.getAttribute('sw-editor-type-helper')
+                                            if (swEditorType === 'dialogue') {
+                                                swEditorType = 'dialog'
+                                            }
+                                            const newClass2 = newClass.replace(newClassArrayFilterString, swEditorType+'-type')
+                                            if (newClass !== newClass2) {
+                                                lastChild.setAttribute('class', newClass2)
+                                            }
+                                        }
+                    
+                                        if (mutation.type === "attributes") {
+                                            // if sw-editor-type is changed
+                                            if (mutation.attributeName === "sw-editor-type") {
+                                                // get the new value
+                                                const newValue = lastChild.getAttribute('sw-editor-type');
+                                                // if the sw-editor-type value is changed, we always set the old value to sw-editor-type
+                                                if (newValue !== lastChild.getAttribute('sw-editor-type-helper')) {
+                                                    lastChild.setAttribute('sw-editor-type', lastChild.getAttribute('sw-editor-type-helper'));
+                                                } 
+                                            }
+                                        }
+                                    });
+                                });
+                
+                                observer.observe(lastChild, {
+                                    attributes: true, //configure it to listen to attribute changes
+                                    attributeOldValue: true, //pass a configuration object
+                                    childList: true,
+                                    subtree: true,
+                                    characterData: true,
+                                    characterDataOldValue: true,
+                                });
                             });
                         }, 1000);
 
