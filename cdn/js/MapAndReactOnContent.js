@@ -79,6 +79,8 @@ class MapAndReactOnContent {
                     else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
                 }
             }
+            //Function that can change any type of content line
+            this.changeTypeOfContentLine();
         });
         //Function that can change any type of content line
         this.changeTypeOfContentLine();
@@ -374,10 +376,10 @@ class MapAndReactOnContent {
 
     sceneHeadingType(line) {
         // set sw-editor-type="scene-heading" to the line
-        line.setAttribute('sw-editor-type', 'scene-heading');
-        line.setAttribute('sw-editor-type-helper', 'scene-heading');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'scene-heading');
+        //line.setAttribute('sw-editor-type', 'scene-heading');
+        //line.setAttribute('sw-editor-type-helper', 'scene-heading');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'scene-heading');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
         // if function name is same as metaType then end the function
@@ -385,17 +387,17 @@ class MapAndReactOnContent {
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'scene-heading');
         // set line type
         window.EditorMode.handleSceneHeadingType(line)
     }
 
     actionType(line) {
         // set sw-editor-type="action" to the line
-        line.setAttribute('sw-editor-type', 'action');
-        line.setAttribute('sw-editor-type-helper', 'action');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'action');
+        //line.setAttribute('sw-editor-type', 'action');
+        //line.setAttribute('sw-editor-type-helper', 'action');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'action');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'action'};
         // if function name is same as metaType then end the function
@@ -403,15 +405,15 @@ class MapAndReactOnContent {
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'action');
     }
 
     dialogeType(line) {
         // set sw-editor-type="dialogue" to the line
-        line.setAttribute('sw-editor-type', 'dialogue');
-        line.setAttribute('sw-editor-type-helper', 'dialogue');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'dialog');
+        //line.setAttribute('sw-editor-type', 'dialogue');
+        //line.setAttribute('sw-editor-type-helper', 'dialogue');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'dialog');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'dialog'};
         // if function name is same as metaType then end the function
@@ -419,16 +421,16 @@ class MapAndReactOnContent {
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'dialog');
         window.EditorMode.handleDialog(line); // set line type
     }
 
     parentArticleType(line) {
         // set sw-editor-type="parent-article" to the line
-        line.setAttribute('sw-editor-type', 'parent-article');
-        line.setAttribute('sw-editor-type-helper', 'parent-article');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'parent-article');
+        //line.setAttribute('sw-editor-type', 'parent-article');
+        //line.setAttribute('sw-editor-type-helper', 'parent-article');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'parent-article');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'parent-article'};
         // if function name is same as metaType then end the function
@@ -436,16 +438,16 @@ class MapAndReactOnContent {
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'parent-article');
         window.EditorMode.handleParentArticle(line) // set line type
     }
 
     characterType(line) {
         // set sw-editor-type="character" to the line
-        line.setAttribute('sw-editor-type', 'character');
-        line.setAttribute('sw-editor-type-helper', 'character');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'character');
+        //line.setAttribute('sw-editor-type', 'character');
+        //line.setAttribute('sw-editor-type-helper', 'character');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'character');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'character'};
         // if function name is same as metaType then end the function
@@ -463,17 +465,17 @@ class MapAndReactOnContent {
             line.setAttribute(this.cons.editCharacterID, newCharacterId);
         };
         //reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'character');
         // set line type
         window.EditorMode.handleCharater(line)
     }
 
     transitionType(line) {
         // set sw-editor-type="transition" to the line
-        line.setAttribute('sw-editor-type', 'transition');
-        line.setAttribute('sw-editor-type-helper', 'transition');
-        swEditorTypeChangingFromDropdown = true;
-        this.modifyClassNameOfContentLine(line, 'transition');
+        //line.setAttribute('sw-editor-type', 'transition');
+        //line.setAttribute('sw-editor-type-helper', 'transition');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'transition');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'transition'};
         // if function name is same as metaType then end the function
@@ -481,7 +483,7 @@ class MapAndReactOnContent {
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
-        window.EditorMode.handleContentLineNuetral(line);
+        window.EditorMode.handleContentLineNuetral(line, 'transition');
         // set line type
         window.EditorMode.handleTransition(line)
     }
