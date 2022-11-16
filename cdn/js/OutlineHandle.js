@@ -23,20 +23,39 @@ class OutlineHandle {
     contentStore = [];
     // main page changes
     mainPageChanges = false;
+
     constructor() {
         this.vars = {
             editorID: `[sw-editor-id="%s"]`,
-            mainMrList: `[${this.mrAttrName}="outline-list"]`, mainMrItem: `[${this.mrAttrName}="outline-item"]`,
-            rsMrList: `[${this.mrAttrName}="rs-outline-list"]`, rsMrItem: `[${this.mrAttrName}="rs-outline-item"]`,
-            rsTitle: `[${this.rsAttrName}="title"]`, rsList: `[${this.rsAttrName}="list"]`, rsItem: `[${this.rsAttrName}="item"]`,
-            sceneList: `[${this.attrName}="scene-list"]`, sceneTitle: `[${this.attrName}="scene-title"]`, index: `[${this.attrName}="index"]`,
-            sceneGoal: `[${this.attrName}="scene-goal"]`, ev: `[${this.attrName}="emotional-value"]`, page: `[${this.attrName}="page"]`, 
-            sceneItemTitle: `[${this.attrName}="scene-item-title"]`, sceneItem: `[${this.attrName}="scene-item"]`, 
-            menu: `[${this.attrName}="menu"]`, commentOpt: `[${this.attrName}="comment-option"]`, addOpt: `[${this.attrName}="add-option"]`,
-            deleteOpt: `[${this.attrName}="delete-option"]`, colorOpt: `[${this.attrName}="color-option"]`,
-            colorWrap: `[${this.attrName}="color-wrap"]`, bgValue: `[bg-value="%s"]`, bgAttr: `bg-value`, idAttrName: 'outline-data-id',
-            hideBtn:  `[${this.attrName}="hide-content-btn"]`, contentLineID: `[sw-script-body-idvalue="%s"]`, rsIdAttrName: `rs-outline-id`,
-            rsIdAttr: `[rs-outline-id="%s"]`, content: `[${this.attrName}="content"]`,
+            mainMrList: `[${this.mrAttrName}="outline-list"]`,
+            mainMrItem: `[${this.mrAttrName}="outline-item"]`,
+            rsMrList: `[${this.mrAttrName}="rs-outline-list"]`,
+            rsMrItem: `[${this.mrAttrName}="rs-outline-item"]`,
+            rsTitle: `[${this.rsAttrName}="title"]`,
+            rsList: `[${this.rsAttrName}="list"]`,
+            rsItem: `[${this.rsAttrName}="item"]`,
+            sceneList: `[${this.attrName}="scene-list"]`,
+            sceneTitle: `[${this.attrName}="scene-title"]`,
+            index: `[${this.attrName}="index"]`,
+            sceneGoal: `[${this.attrName}="scene-goal"]`,
+            ev: `[${this.attrName}="emotional-value"]`,
+            page: `[${this.attrName}="page"]`,
+            sceneItemTitle: `[${this.attrName}="scene-item-title"]`,
+            sceneItem: `[${this.attrName}="scene-item"]`,
+            menu: `[${this.attrName}="menu"]`,
+            commentOpt: `[${this.attrName}="comment-option"]`,
+            addOpt: `[${this.attrName}="add-option"]`,
+            deleteOpt: `[${this.attrName}="delete-option"]`,
+            colorOpt: `[${this.attrName}="color-option"]`,
+            colorWrap: `[${this.attrName}="color-wrap"]`,
+            bgValue: `[bg-value="%s"]`,
+            bgAttr: `bg-value`,
+            idAttrName: 'outline-data-id',
+            hideBtn: `[${this.attrName}="hide-content-btn"]`,
+            contentLineID: `[sw-script-body-idvalue="%s"]`,
+            rsIdAttrName: `rs-outline-id`,
+            rsIdAttr: `[rs-outline-id="%s"]`,
+            content: `[${this.attrName}="content"]`,
         };
 
         this.rsOutlineListTemp = document.querySelector(this.vars.rsMrList);
@@ -46,8 +65,12 @@ class OutlineHandle {
         this.mainOutlineItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true);
 
         //Remove all template
-        [...this.rsOutlineListTemp.children].forEach((el) => {el.remove()});
-        [...this.mainOutlineListTemp.children].forEach((el) => {el.remove()});
+        [...this.rsOutlineListTemp.children].forEach((el) => {
+            el.remove()
+        });
+        [...this.mainOutlineListTemp.children].forEach((el) => {
+            el.remove()
+        });
 
     }
 
@@ -65,7 +88,7 @@ class OutlineHandle {
         const emotionalValue = item.querySelector(this.vars.ev);
 
         /** Event Listeners on Outline Page Items*/
-        item?.addEventListener('click', ()=> { 
+        item?.addEventListener('click', () => {
             // Make menu visible
             if (menu?.classList.contains('hide')) menu?.classList.remove('hide');
             // Hide other outline item menu
@@ -79,17 +102,18 @@ class OutlineHandle {
             if (content.classList.contains('hide')) content.classList.remove('hide');
         });
 
-        item?.addEventListener('mousemove', ()=> { 
+        item?.addEventListener('mousemove', () => {
             //if (menu?.classList.contains('hide')){ menu?.focus(); menu?.classList.remove('hide'); };
             if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
         });
 
-        item?.addEventListener('mouseout', ()=> { 
-            if (!hide?.classList.contains('hide')) hide?.classList.add('hide'); 
+        item?.addEventListener('mouseout', () => {
+            if (!hide?.classList.contains('hide')) hide?.classList.add('hide');
         });
 
-        hide?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
+        hide?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             if (!content.classList.contains('hide')) content.classList.add('hide');
         });
 
@@ -97,20 +121,21 @@ class OutlineHandle {
             if (!menu?.classList.contains('hide')) menu?.classList.add('hide');
         }); */
 
-        colorWrap?.addEventListener('focusout', ()=> {
+        colorWrap?.addEventListener('focusout', () => {
             if (!colorWrap?.classList.contains('hide')) colorWrap?.classList.add('hide');
         });
 
         colorWrap?.querySelectorAll(`[${this.vars.bgAttr}]`).forEach((color) => {
-            if (color.getAttribute(this.vars.bgAttr)){
-                color.addEventListener('click', (e)=> {
-                    e.stopImmediatePropagation(); e.stopPropagation();
+            if (color.getAttribute(this.vars.bgAttr)) {
+                color.addEventListener('click', (e) => {
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
                     // new color to set
                     const newColorValue = color.getAttribute(this.vars.bgAttr);
                     /**Set this new color value to the item, colorBtn and contentLine itself */
                     const itemColor = item.getAttribute(this.vars.bgAttr);
 
-                    item.querySelectorAll(this.vars.bgValue.replace('%s', itemColor)).forEach((x) =>{
+                    item.querySelectorAll(this.vars.bgValue.replace('%s', itemColor)).forEach((x) => {
                         if (x != color) {
                             x.classList.replace(itemColor, newColorValue);
                             x.setAttribute(this.vars.bgAttr, newColorValue);
@@ -122,7 +147,7 @@ class OutlineHandle {
 
                     // Navigate to the particular content line through the content line id and target the contentLine element
                     const line = document.querySelector(this.vars.editorID.replace('%s', sceneID));
-                    line.setAttribute('sw-editor-color',newColorValue);
+                    line.setAttribute('sw-editor-color', newColorValue);
 
                     // make sure the color is saved
                     this.updateDB();
@@ -131,27 +156,31 @@ class OutlineHandle {
             }
         });
 
-        commentBtn?.addEventListener('click', (e)=>{
-            e.stopImmediatePropagation(); e.stopPropagation(); 
+        commentBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             alert('comment button in progress');
         });
 
-        addBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
+        addBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             this.add(item);
         });
 
-        deleteBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
+        deleteBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
             this.delete(item);
         });
 
-        colorBtn?.addEventListener('click', (e)=> {
-            e.stopImmediatePropagation(); e.stopPropagation();
-            if (colorWrap?.classList.contains('hide')) colorWrap?.classList.remove('hide'); 
+        colorBtn?.addEventListener('click', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            if (colorWrap?.classList.contains('hide')) colorWrap?.classList.remove('hide');
         });
 
-        emotionalValue?.addEventListener('keyup', ()=>{
+        emotionalValue?.addEventListener('keyup', () => {
             setTimeout(() => {
                 const draftKey = window.ScriptAdapter.currentDraftKey;
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
@@ -160,7 +189,7 @@ class OutlineHandle {
             }, 700);
         });
 
-        sceneGoal?.addEventListener('keyup', ()=>{
+        sceneGoal?.addEventListener('keyup', () => {
             setTimeout(() => {
                 const draftKey = window.ScriptAdapter.currentDraftKey;
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
@@ -179,8 +208,10 @@ class OutlineHandle {
         if (!ask) return;
         window.Watcher.mainPageAwait();
         setTimeout(() => {
-            const addOutlinePromise = new Promise((resolve, reject)=>{resolve(1)});
-            addOutlinePromise.then(()=>{
+            const addOutlinePromise = new Promise((resolve, reject) => {
+                resolve(1)
+            });
+            addOutlinePromise.then(() => {
                 const contentLineID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
                 const sceneList = item.querySelector(this.vars.sceneList);
                 // get the content line id of the last Line
@@ -193,16 +224,17 @@ class OutlineHandle {
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
                 const sceneHeadingContentLine = window.EditorFuncs.createNewLine(
-                    lastLineContentElement, headingFunc, true, 'INT. New Scene '+quickID());
-    
+                    lastLineContentElement, headingFunc, true, 'INT. New Scene ' + quickID());
+
                 // new action content line
                 const actionContentLine = window.EditorFuncs.createNewLine(
-                    sceneHeadingContentLine, (b)=>{}, true, 'new action line '+quickID());
+                    sceneHeadingContentLine, (b) => {
+                    }, true, 'new action line ' + quickID());
                 //sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
-    
-            }).then(()=>{
+
+            }).then(() => {
                 window.MapAndReactOnContent.mapreact();
-            }).then(()=> {
+            }).then(() => {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 this.updateDB();
@@ -217,14 +249,18 @@ class OutlineHandle {
 
         window.Watcher.mainPageAwait();
         setTimeout(() => {
-            const deleteOutlinePromise = new Promise((resolve, reject)=>{resolve(0)});
-            deleteOutlinePromise.then(()=>{
+            const deleteOutlinePromise = new Promise((resolve, reject) => {
+                resolve(0)
+            });
+            deleteOutlinePromise.then(() => {
                 const contentLineID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
                 const sceneList = item.querySelector(this.vars.sceneList);
                 // Get the list of contentLine ids
                 let contentLineIDList = [];
-                [...sceneList.children].forEach((line) => { contentLineIDList.push(line.getAttribute(this.vars.idAttrName)); });
-    
+                [...sceneList.children].forEach((line) => {
+                    contentLineIDList.push(line.getAttribute(this.vars.idAttrName));
+                });
+
                 contentLineIDList.forEach((cid) => {
                     // Navigate to the particular content line through the content line id and target the contentLine element
                     const line = document.querySelector(this.vars.editorID.replace('%s', cid));
@@ -235,10 +271,10 @@ class OutlineHandle {
                 });
                 item.remove();
                 document.querySelector(this.vars.rsIdAttr.replace('%s', contentLineID))?.remove();
-            }).then(()=> {
+            }).then(() => {
                 this.updateDB();
                 window.MapAndReactOnContent.mapreact();
-            }).then(()=>{
+            }).then(() => {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 this.mainPageChanges = true;
@@ -250,14 +286,18 @@ class OutlineHandle {
 
     outlineHandle(contenStore) {
         // Clear template
-        [...this.rsOutlineListTemp.children].forEach((el) => {el.remove()});
-        [...this.mainOutlineListTemp.children].forEach((el) => {el.remove()});
-        
+        [...this.rsOutlineListTemp.children].forEach((el) => {
+            el.remove()
+        });
+        [...this.mainOutlineListTemp.children].forEach((el) => {
+            el.remove()
+        });
+
         // Set new content store value
         this.contenStore = contenStore;
 
         const listOfOutline = [];
-        
+
         let count = 0;
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
@@ -271,17 +311,17 @@ class OutlineHandle {
 
                 //Get all other scene type that is under this scene heading
                 const otherSceneType = [];
-                
-                for (let i = pos+1; i < this.contentStore.length; i++) {
+
+                for (let i = pos + 1; i < this.contentStore.length; i++) {
                     const tem = this.contentStore[i];
                     if (tem.type === 'scene-heading') break;
-                    else otherSceneType.push(tem);       
+                    else otherSceneType.push(tem);
                 }
-                    
+
                 // Append outline
                 listOfOutline.push({
                     name: name, id: id, position: count, scenes: otherSceneType,
-                    color: color, sbID: scriptBodyID, pageNumber: pageNumber, 
+                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
                     type: item.type,
                 });
             }
@@ -328,9 +368,9 @@ class OutlineHandle {
                 sceneGoal.innerText = dataset.others.scenegoal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID, content: data.name, type: 'scene-heading',  
+                    id: data.sbID, content: data.name, type: 'scene-heading',
                     color: data.color, others: {ev: '0', scenegoal: ''},
-                    note:{text:'', authorID: '', authorName: '', date: '', color: ''}, 
+                    note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
             }
 
@@ -402,6 +442,6 @@ class OutlineHandle {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.OutlineHandle = new OutlineHandle();
 })
