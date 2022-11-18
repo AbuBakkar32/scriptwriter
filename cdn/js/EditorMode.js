@@ -419,56 +419,6 @@ class EditorMode {
                                     abs.remove();
                                 }
                             });
-                            // add click event
-                            lastChild.addEventListener('click', function () {
-                                const observer = new MutationObserver(function(mutations) {
-                                    mutations.forEach(function(mutation) {
-                                        if (swEditorTypeChangingFromDropdown) {
-                                            console.log('swEditorTypeChangingFromDropdown', swEditorTypeChangingFromDropdown);
-                                            swEditorTypeChangingFromDropdown = false;
-                                            return;
-                                        }
-                                        
-                                        if (mutation.attributeName === "class") {
-                                            // get the new value
-                                            const newClass = lastChild.getAttribute('class') 
-                                            const newClassArray = newClass.split(' ') 
-                                            const newClassArrayFilter = newClassArray.filter((item) => typeList.includes(item)) 
-                                            const newClassArrayFilterString = newClassArrayFilter.toString()
-                                            let swEditorType = lastChild.getAttribute('sw-editor-type-helper')
-                                            if (swEditorType === 'dialogue') {
-                                                swEditorType = 'dialog'
-                                            }
-                                            const newClass2 = newClass.replace(newClassArrayFilterString, swEditorType+'-type')
-                                            if (newClass !== newClass2) {
-                                                lastChild.setAttribute('class', newClass2)
-                                            }
-                                        }
-                    
-                                        if (mutation.type === "attributes") {
-                                            // if sw-editor-type is changed
-                                            if (mutation.attributeName === "sw-editor-type") {
-                                                console.log('sw-editor-type changed')
-                                                // get the new value
-                                                const newValue = lastChild.getAttribute('sw-editor-type');
-                                                // if the sw-editor-type value is changed, we always set the old value to sw-editor-type
-                                                if (newValue !== lastChild.getAttribute('sw-editor-type-helper')) {
-                                                    lastChild.setAttribute('sw-editor-type', lastChild.getAttribute('sw-editor-type-helper'));
-                                                } 
-                                            }
-                                        }
-                                    });
-                                });
-                
-                                observer.observe(lastChild, {
-                                    attributes: true, //configure it to listen to attribute changes
-                                    attributeOldValue: true, //pass a configuration object
-                                    childList: true,
-                                    subtree: true,
-                                    characterData: true,
-                                    characterDataOldValue: true,
-                                });
-                            });
                         }, 1000);
 
                         // formate new line
@@ -609,7 +559,8 @@ class EditorMode {
     }
 
     formatContentLine(newLine) {
-        const line = this.handleContentLineNuetral(newLine);
+        const type = newLine.getAttribute(this.cons.editType);
+        const line = this.handleContentLineNuetral(newLine, type);
         if (this.handleSceneHeadingType(line)) ;
         else if (this.handleCharater(line)) ;
         else if (this.handleParentArticle(line)) ;
@@ -731,16 +682,30 @@ class EditorMode {
         return verify;
     }
 
-    handleContentLineNuetral(line) {
+    handleContentLineNuetral(line, type='action') {
+        console.log('handleContentLineNuetral', line, type);
         // Adjust script body
         line.classList.remove(this.cons.sht);
         line.classList.remove(this.cons.ct);
         line.classList.remove(this.cons.pat);
         line.classList.remove(this.cons.dt);
         line.classList.remove(this.cons.tt);
-        line.classList.add(this.cons.at);
+        line.classList.remove(this.cons.at);
+        //line.classList.add(this.cons.at);
+        if (type === 'action') line.classList.add(this.cons.at);
+        else if (type === 'dialog') line.classList.add(this.cons.dt);
+        else if (type === 'character') line.classList.add(this.cons.ct);
+        else if (type === 'parent-article') line.classList.add(this.cons.pat);
+        else if (type === 'transition') line.classList.add(this.cons.tt);
+        else if (type === 'scene-heading') line.classList.add(this.cons.sht);
         line.setAttribute(this.cons.editType, '');
-        line.setAttribute(this.cons.editType, this.cons.a);
+        //line.setAttribute(this.cons.editType, this.cons.a);
+        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);
+        else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d);
+        else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c);
+        else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa);
+        else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t);
+        else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh);
         return line;
     }
 
