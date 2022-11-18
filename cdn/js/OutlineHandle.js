@@ -199,7 +199,45 @@ class OutlineHandle {
         });
     }
 
+    updateCardList() {
+    let data = window.ScriptAdapter.scriptDataStore.outline;
+    data = {};
+    window.ScriptAdapter.scriptDataStore.outline = data;
+    window.ScriptAdapter.autoSave();
+    let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
+    listData.forEach((card, index) => {
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
+        let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
+        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
+        let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
+        let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
+        let bgColor = card?.getAttribute("bg-value");
+        let scene_list = {};
+        card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
+            scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
+                let scene_item = {
+                    scene_item: item?.innerHTML
+                };
+                scene_list[index] = scene_item;
+            });
+        });
+        let obj = {
+            id: index,
+            title: title,
+            goal: goal,
+            emotional_value: emotional_value,
+            page_no: page_no,
+            color: bgColor,
+            item_title: item_title,
+            scene_list: scene_list
+        }
+        data[index] = obj;
+    });
+}
+
     updateDB() {
+        this.updateCardList();
         window.ScriptAdapter.autoSave();
     }
 
@@ -223,13 +261,11 @@ class OutlineHandle {
                 // window.EditorFuncs
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
-                const sceneHeadingContentLine = window.EditorFuncs.createNewLine(
-                    lastLineContentElement, headingFunc, true, 'INT. New Scene ' + quickID());
+                const sceneHeadingContentLine = window.EditorFuncs.createNewLine(lastLineContentElement, headingFunc, true, 'INT. New Scene ' + quickID());
 
                 // new action content line
-                const actionContentLine = window.EditorFuncs.createNewLine(
-                    sceneHeadingContentLine, (b) => {
-                    }, true, 'new action line ' + quickID());
+                const actionContentLine = window.EditorFuncs.createNewLine(sceneHeadingContentLine, (b) => {
+                }, true, 'new action line ' + quickID());
                 //sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
 
             }).then(() => {
@@ -314,14 +350,18 @@ class OutlineHandle {
 
                 for (let i = pos + 1; i < this.contentStore.length; i++) {
                     const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break;
-                    else otherSceneType.push(tem);
+                    if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
                 }
 
                 // Append outline
                 listOfOutline.push({
-                    name: name, id: id, position: count, scenes: otherSceneType,
-                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                    name: name,
+                    id: id,
+                    position: count,
+                    scenes: otherSceneType,
+                    color: color,
+                    sbID: scriptBodyID,
+                    pageNumber: pageNumber,
                     type: item.type,
                 });
             }
@@ -368,8 +408,11 @@ class OutlineHandle {
                 sceneGoal.innerText = dataset.others.scenegoal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID, content: data.name, type: 'scene-heading',
-                    color: data.color, others: {ev: '0', scenegoal: ''},
+                    id: data.sbID,
+                    content: data.name,
+                    type: 'scene-heading',
+                    color: data.color,
+                    others: {ev: '0', scenegoal: ''},
                     note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
             }
@@ -407,8 +450,7 @@ class OutlineHandle {
 
         if (2) {
             const template = this.rsOutlineItemTemp.cloneNode(true);
-            if (data.color && template.firstElementChild.classList.contains('bg-blue'))
-                template.firstElementChild.classList.replace('bg-blue', data.color);
+            if (data.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data.color);
             // update the template id
             template.setAttribute(this.vars.rsIdAttrName, data.sbID)
             //Update title
