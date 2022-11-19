@@ -3,7 +3,7 @@ let selector = 'drag-sort-enable-2';
 function enableDragSort(listClass) {
     setTimeout(() => {
         const sortableLists = document.getElementsByClassName(listClass);
-        //saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
+        saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
         Array.prototype.map.call(sortableLists, (list) => {
             enableDragList(list)
         });
