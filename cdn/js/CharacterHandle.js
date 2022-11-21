@@ -84,6 +84,7 @@ class CharacterHandle {
         this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true)
         this.rsCharacterListTemp = document.querySelector(this.vars.rsMrList);
         this.rsCharacterItemTemp = document.querySelector(this.vars.rsMrItem).cloneNode(true);
+
         //Remove all template
         [...this.rsCharacterListTemp.children].forEach((el) => {
             el.remove()
