@@ -200,41 +200,41 @@ class OutlineHandle {
     }
 
     updateCardList() {
-    let data = window.ScriptAdapter.scriptDataStore.outline;
-    data = {};
-    window.ScriptAdapter.scriptDataStore.outline = data;
-    window.ScriptAdapter.autoSave();
-    let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
-    listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-        let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
-        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
-        let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-        let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
-        let bgColor = card?.getAttribute("bg-value");
-        let scene_list = {};
-        card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
-            scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
-                let scene_item = {
-                    scene_item: item?.innerHTML
-                };
-                scene_list[index] = scene_item;
+        let data = window.ScriptAdapter.scriptDataStore.outline;
+        data = {};
+        window.ScriptAdapter.scriptDataStore.outline = data;
+        window.ScriptAdapter.autoSave();
+        let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
+        listData.forEach((card, index) => {
+            let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
+            let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
+            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
+            let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
+            let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
+            let bgColor = card?.getAttribute("bg-value");
+            let scene_list = {};
+            card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
+                scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
+                    let scene_item = {
+                        scene_item: item?.innerHTML
+                    };
+                    scene_list[index] = scene_item;
+                });
             });
+            let obj = {
+                id: index,
+                title: title,
+                goal: goal,
+                emotional_value: emotional_value,
+                page_no: page_no,
+                color: bgColor,
+                item_title: item_title,
+                scene_list: scene_list
+            }
+            data[index] = obj;
         });
-        let obj = {
-            id: index,
-            title: title,
-            goal: goal,
-            emotional_value: emotional_value,
-            page_no: page_no,
-            color: bgColor,
-            item_title: item_title,
-            scene_list: scene_list
-        }
-        data[index] = obj;
-    });
-}
+    }
 
     updateDB() {
         this.updateCardList();
@@ -375,6 +375,21 @@ class OutlineHandle {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
+        let dropDowm = `<select>
+                                    <option value="-1">-1</option>
+                                    <option value="-2">-2</option>
+                                    <option value="-3">-3</option>
+                                    <option value="-4">-4</option>
+                                    <option value="-5">-5</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>`
+        let div = `<div class="col-10 pb-2" outline-data="scene-item" outline-data-id="" contenteditable="true" data-placeholder="Type here.."></div>`
+
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
             currentItemTemplate = template;
@@ -401,6 +416,7 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
+            emotionalValue.insertAdjacentHTML('beforeend', div);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
             if (dataset && dataset?.others?.ev) {
@@ -443,7 +459,6 @@ class OutlineHandle {
                 //Append to Scene Wrapper
                 sceneWrapper.append(otherSceneItem);
             });
-
             //Append character template to List wrapper
             this.mainOutlineListTemp.append(template);
         }

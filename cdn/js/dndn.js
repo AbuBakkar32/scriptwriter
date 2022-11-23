@@ -135,13 +135,10 @@ function saveChangedCardList(swData) {
 function handleDrop(item) {
     item.target.classList.remove('drag-sort-active');
     if (selector === 'drag-sort-enable-2') {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-data="pin-board-item"]`);
     } else if (selector === 'drag-sort-enable-outline') {
-        console.log(selector);
         ChangeAndSaveData(swData = `[mapreact-data="outline-item"]`);
     } else {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-card-option="card"]`);
     }
 }
