@@ -51,7 +51,6 @@ class CommentHandler{
 
     insertCommentsToEditor(){
         this.comments.forEach(comment => {
-            console.log(comment);
             try {
                 const sw_editor_id = comment.sw_editor_id;
                 const html_sw_editor_id = document.querySelector(`[sw-editor-id="${sw_editor_id}"]`)
@@ -218,7 +217,7 @@ function showNoteContainer(thisElement) {
         comments.forEach(function (comment) {
             commentHtml += `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${comment.title}</div>
                 <div style="font-size: 12px; font-weight: bold; padding-bottom: 8px">
-                ${comment.comment}
+                ${comment.description}
                 </div>
                 <div style="border-bottom: 1px solid gray; display: flex; font-size: 12px; margin-top: 8px; font-weight: bold; align-items: center; padding-bottom: 4px">
                     <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">A</div>
@@ -317,6 +316,8 @@ function addComment(thisElement) {
     } else {
         note = [myNote];
     }
+    activedraft.data[sw_editor_id].note = note;
+    window.ScriptDataStore.draft = draft;
     window.ScriptAdapter.autoSave()
 
     const noteContainer = thisElement.parentNode.parentNode.querySelector('.noteContainer');
@@ -370,7 +371,6 @@ function changeBackgroundColor(thisElement) {
                 element.note.forEach(n => {
                     if (n.sw_editor_id == sw_editor_id) {
                         n.bg_color = color;
-                        console.log(n);
                     }
                 });
             }
