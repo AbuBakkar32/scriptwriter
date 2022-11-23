@@ -153,7 +153,6 @@ class MapAndReactOnContent {
         this.rsStructureList.appendChild(pageStructureWrap);
         
         const highestTextLenght = scenesCals.highestLenght;
-
         scenesCals.scenes.forEach((scene) => {
             const pageTextPercentage = scene.textLength/highestTextLenght*100;
             // get the width size of the text in the script body content
@@ -718,3 +717,4 @@ try {
 document.addEventListener("DOMContentLoaded", function(){
     window.MapAndReactOnContent = new MapAndReactOnContent();
 });
+
