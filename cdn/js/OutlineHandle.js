@@ -416,7 +416,7 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
-            emotionalValue.insertAdjacentHTML('beforeend', div);
+            emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
             if (dataset && dataset?.others?.ev) {
