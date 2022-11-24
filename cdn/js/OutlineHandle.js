@@ -75,7 +75,6 @@ class OutlineHandle {
     }
 
     setUp(item = document.querySelector(this.vars.mainMrItem)) {
-        const content = item.querySelector(this.vars.content);
         const hide = item.querySelector(this.vars.hideBtn);
         const menu = item.querySelector(this.vars.menu);
         const colorWrap = item.querySelector(this.vars.colorWrap);
@@ -88,7 +87,7 @@ class OutlineHandle {
         const emotionalValue = item.querySelector(this.vars.ev);
 
         /** Event Listeners on Outline Page Items*/
-        item?.addEventListener('click', () => {
+        hide?.addEventListener('click', () => {
             // Make menu visible
             if (menu?.classList.contains('hide')) menu?.classList.remove('hide');
             // Hide other outline item menu
@@ -96,14 +95,11 @@ class OutlineHandle {
                 if (x != item) {
                     const xMenu = x.querySelector(this.vars.menu);
                     if (!xMenu?.classList.contains('hide')) xMenu?.classList.add('hide');
-                    // xMenu?.classList.add('hide');
                 }
             });
-            if (content.classList.contains('hide')) content.classList.remove('hide');
         });
 
         item?.addEventListener('mousemove', () => {
-            //if (menu?.classList.contains('hide')){ menu?.focus(); menu?.classList.remove('hide'); };
             if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
         });
 
@@ -114,12 +110,7 @@ class OutlineHandle {
         hide?.addEventListener('click', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
-            if (!content.classList.contains('hide')) content.classList.add('hide');
         });
-
-        /* menu?.addEventListener('focusout', ()=> {
-            if (!menu?.classList.contains('hide')) menu?.classList.add('hide');
-        }); */
 
         colorWrap?.addEventListener('focusout', () => {
             if (!colorWrap?.classList.contains('hide')) colorWrap?.classList.add('hide');
@@ -211,26 +202,9 @@ class OutlineHandle {
             let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-            let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
             let bgColor = card?.getAttribute("bg-value");
-            let scene_list = {};
-            card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
-                scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
-                    let scene_item = {
-                        scene_item: item?.innerHTML
-                    };
-                    scene_list[index] = scene_item;
-                });
-            });
             let obj = {
-                id: index,
-                title: title,
-                goal: goal,
-                emotional_value: emotional_value,
-                page_no: page_no,
-                color: bgColor,
-                item_title: item_title,
-                scene_list: scene_list
+                id: index, title: title, goal: goal, emotional_value: emotional_value, page_no: page_no, color: bgColor,
             }
             data[index] = obj;
         });
@@ -335,7 +309,7 @@ class OutlineHandle {
         const listOfOutline = [];
 
         let count = 0;
-        this.contentStore.forEach((item) => {
+        this.contenStore.forEach((item) => {
             if (item.type === 'scene-heading') {
                 count += 1;
                 const name = item.content.innerText;
@@ -345,20 +319,11 @@ class OutlineHandle {
                 const scriptBodyID = item.sbID;
                 const pageNumber = item.pageNumber;
 
-                //Get all other scene type that is under this scene heading
-                const otherSceneType = [];
-
-                for (let i = pos + 1; i < this.contentStore.length; i++) {
-                    const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
-                }
-
                 // Append outline
                 listOfOutline.push({
                     name: name,
                     id: id,
                     position: count,
-                    scenes: otherSceneType,
                     color: color,
                     sbID: scriptBodyID,
                     pageNumber: pageNumber,
@@ -366,7 +331,6 @@ class OutlineHandle {
                 });
             }
         });
-
         //Render outline data to template
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
     }
@@ -375,20 +339,20 @@ class OutlineHandle {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
-        let dropDowm = `<select>
-                                    <option value="-1">-1</option>
-                                    <option value="-2">-2</option>
-                                    <option value="-3">-3</option>
-                                    <option value="-4">-4</option>
-                                    <option value="-5">-5</option>
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>`
-        let div = `<div class="col-10 pb-2" outline-data="scene-item" outline-data-id="" contenteditable="true" data-placeholder="Type here.."></div>`
+        // let dropDowm = `<select>
+        //                             <option value="-1">-1</option>
+        //                             <option value="-2">-2</option>
+        //                             <option value="-3">-3</option>
+        //                             <option value="-4">-4</option>
+        //                             <option value="-5">-5</option>
+        //                             <option value="0">0</option>
+        //                             <option value="1">1</option>
+        //                             <option value="2">2</option>
+        //                             <option value="3">3</option>
+        //                             <option value="4">4</option>
+        //                             <option value="5">5</option>
+        //                         </select>`
+        // let div = `<div class="col-10 pb-2" outline-data="scene-item" outline-data-id="" contenteditable="true" data-placeholder="Type here.."></div>`
 
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
@@ -416,7 +380,7 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
-            emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
+            //emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
             if (dataset && dataset?.others?.ev) {
@@ -437,8 +401,6 @@ class OutlineHandle {
             const sceneWrapper = template.querySelector(this.vars.sceneList);
             /**new scene heading template*/
             const sceneItemTitle = sceneWrapper.querySelector(this.vars.sceneItemTitle).cloneNode(true);
-            /**new scene item template*/
-            const sceneItem = sceneWrapper.querySelector(this.vars.sceneItem).cloneNode(true);
 
             //Remove dummy scene template
             [...sceneWrapper.children].forEach(sh => sh.remove());
@@ -450,15 +412,6 @@ class OutlineHandle {
 
             sceneWrapper.append(sceneItemTitle);
 
-            // Render and Update scene item
-            data.scenes.forEach((scene) => {
-                const otherSceneItem = sceneItem.cloneNode(true);
-                otherSceneItem.textContent = scene.content.innerText;
-                otherSceneItem.setAttribute(this.rpAttr, scene.id); // Set map react id
-                otherSceneItem.setAttribute(this.vars.idAttrName, scene.sbID); // Set script body id
-                //Append to Scene Wrapper
-                sceneWrapper.append(otherSceneItem);
-            });
             //Append character template to List wrapper
             this.mainOutlineListTemp.append(template);
         }
@@ -472,23 +425,6 @@ class OutlineHandle {
             const title = template.querySelector(this.vars.rsTitle);
             title.textContent = data.name;
             title.setAttribute('react-pos', data.id);
-
-            //Update other scene
-            const rsOutlineList = template.querySelector(this.vars.rsList);
-            const rsOutlineItem = template.querySelector(this.vars.rsItem).cloneNode(true);
-            //Remove dummy template
-            [...rsOutlineList.children].forEach(itm => itm.remove());
-
-            // Render scene headings
-            data.scenes.forEach((scene) => {
-                //Update other type of scene
-                const newRsOutlineItem = rsOutlineItem.cloneNode(true);
-                newRsOutlineItem.textContent = scene.content.innerText;
-                newRsOutlineItem.setAttribute('react-pos', scene.id);
-
-                //Append to Scene Wrapper
-                rsOutlineList.append(newRsOutlineItem);
-            });
 
             //Append
             this.rsOutlineListTemp.append(template);
