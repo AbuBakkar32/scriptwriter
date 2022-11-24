@@ -204,12 +204,7 @@ class OutlineHandle {
             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
             let bgColor = card?.getAttribute("bg-value");
             let obj = {
-                id: index,
-                title: title,
-                goal: goal,
-                emotional_value: emotional_value,
-                page_no: page_no,
-                color: bgColor,
+                id: index, title: title, goal: goal, emotional_value: emotional_value, page_no: page_no, color: bgColor,
             }
             data[index] = obj;
         });
