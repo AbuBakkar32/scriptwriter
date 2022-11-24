@@ -64,7 +64,8 @@ class CommentHandler{
                     <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">A</div>
                     <div style="margin-right: 8px;">Asif Biswas</div>
                     <div>sep 2, 2022</div>
-                </div>`
+                </div>
+                `
 
                 // check if id=sw-editor-id-${sw_editor_id} exists
                 if (document.getElementById(`sw-editor-id-${sw_editor_id}`)) {
@@ -124,7 +125,14 @@ const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shad
                 <div onclick="changeBackgroundColor(this)" style="width: 15px; height: 15px; background-color: orange; border: 1px solid gray; box-shadow: 1px 1px 3px; margin-bottom: 4px"></div>
             </div>
         </div>
-        </div>`
+        </div>
+        `
+
+let authorFullname = '';
+fetch('/auther-fullname').then(res => res.json()).then(data => {
+    console.log(data);
+    authorFullname = data.fullname;
+});
 
 function addAbsElement(thisElement){
     const sw_editor_id = thisElement.getAttribute('sw-editor-id');
@@ -201,7 +209,6 @@ function showNoteContainer(thisElement) {
                 // check if element.note is an array. If it not an array, it means there is no note
                 if (Array.isArray(element.note)) {
                     element.note.forEach(n => {
-                        console.log(n, lineNo);
                         if (n.sw_editor_id == lineNo) {
                             comments.push(n)
                         }
@@ -223,7 +230,8 @@ function showNoteContainer(thisElement) {
                     <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">A</div>
                     <div style="margin-right: 8px;">Asif Biswas</div>
                     <div>sep 2, 2022</div>
-                </div>`
+                </div>
+                `
         });
         const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shadow: 2px 2px 5px;">
             <div style="background-color:yellow; padding: 12px; max-width: 250px; position: relative;  max-height: 150px; overflow-y: scroll; z-index: 100;">
@@ -299,12 +307,17 @@ function addComment(thisElement) {
     sw_editor_id = sw_editor_id.split('-')[3]
     const scriptId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
+    let date = new Date();
+    // convert it to string like: 02 sep, 2022
+    date = date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
     
     const myNote = {
         title: noteTitle,
         description: noteDescription,
         script_id: scriptId,
-        sw_editor_id: sw_editor_id
+        sw_editor_id: sw_editor_id,
+        authorName: authorFullname,
+        date: date,
     }
 
     let draft = window.ScriptDataStore.draft
@@ -327,7 +340,7 @@ function addComment(thisElement) {
     </div>
     <div style="border-bottom: 1px solid gray; display: flex; font-size: 12px; margin-top: 8px; font-weight: bold; align-items: center; padding-bottom: 4px">
         <div style="margin-right: 4px; background-color: aqua; border-radius: 50%; padding: 0 6px 0 7px;">A</div>
-        <div style="margin-right: 8px;">Asif Biswas</div>
+        <div style="margin-right: 8px;">${authorFullname}</div>
         <div>sep 2, 2022</div>
     </div>`
     // add the comment at the end of the noteContainer

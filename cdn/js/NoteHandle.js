@@ -14,47 +14,63 @@ class NoteHandle {
     }
 
     clear() {
+        console.log('clear');
         // Remove dummy template
         if(this.noteList) [...this.noteList.children].forEach(e => e.remove());
     }
 
     renderer(data){
+        console.log(data);
         if(!this.noteList) return;
-        if (!data.note.authorName) return;
-        if(!data.note.text) return;
+        if (!data.note[0]) return;
+        //if (!data.note.authorName) return;
+        //console.log('renderer--', data);
+        //if(!data.note.text) return;
+        //console.log('renderer---', data);
 
-        // Set Note
-        const note = this.item.cloneNode(true);
+        for(let i = 0; i < data.note.length; i++){
 
-        // Set note body
-        const noteBody = note.querySelector(this.vars.body);
-        noteBody.innerText = data.note.text;
-        
-        // update bg-color
-        noteBody.parentElement.classList.replace('bg-yellow', data.note.color);
+            // Set Note
+            const note = this.item.cloneNode(true);
 
-        // set author name
-        const authorName = note.querySelector(this.vars.name);
-        authorName.innerText = data.note.authorName;
+            // Set note body
+            const noteTitle = note.querySelector(this.vars.title);
+            noteTitle.innerText = data.note[i]?.title;
 
-        //set date 
-        const dateCreated = note.querySelector(this.vars.date);
-        dateCreated.innerText = data.note.date;
+            // Set note body
+            const noteBody = note.querySelector(this.vars.body);
+            noteBody.innerText = data.note[i]?.description;
+            
+            // update bg-color
+            let bg_color = 'yellow';
+            data.note[i]['bg_color'] ? bg_color = data.note[i]['bg_color'] : bg_color = 'yellow';
+            bg_color.includes('green') ? bg_color = 'green' : null
+            bg_color.includes('blue') ? bg_color = 'blue' : null
+            noteBody.parentElement.classList.replace('bg-yellow','bg-' + bg_color);
 
-        // set author id
-        const authorID = note.querySelector(this.vars.authorId);
-        authorID.innerText = data.note.authorID;
+            // set author name
+            const authorName = note.querySelector(this.vars.name);
+            authorName.innerText = data.note[i].authorName? data.note[i].authorName : 'Anonymous';
 
-        const nameLogo = data.note.authorName.split(' ')[0][0].toUpperCase() + data.note.authorName.split(' ')[1][0].toUpperCase();
-        //set name logo
-        const authorNameLogo = note.querySelector(this.vars.nameLogo);
-        authorNameLogo.innerText = nameLogo;
+            //set date 
+            const dateCreated = note.querySelector(this.vars.date);
+            dateCreated.innerText = data.note[i].date? data.note[i].date : '';
 
-        //set color
-        const color = note.querySelector(this.vars.color);
-        color.innerText = data.note.color;
+            // set author id
+            const authorID = note.querySelector(this.vars.authorId);
+            authorID.innerText = '1'// data.note.authorID;
 
-        this.noteList.append(note);
+            const nameLogo = data.note[i].authorName? data.note[i].authorName[0].toUpperCase() + data.note[i].authorName.split(' ')[1][0].toUpperCase() : 'O';
+            //set name logo
+            const authorNameLogo = note.querySelector(this.vars.nameLogo);
+            authorNameLogo.innerText = nameLogo;
+
+            //set color
+            const color = note.querySelector(this.vars.color);
+            //color.innerText = data.note.color;
+
+            this.noteList.append(note);
+        }
     }
 
 }
