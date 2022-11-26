@@ -14,19 +14,13 @@ class NoteHandle {
     }
 
     clear() {
-        console.log('clear');
         // Remove dummy template
         if(this.noteList) [...this.noteList.children].forEach(e => e.remove());
     }
 
     renderer(data){
-        console.log(data);
         if(!this.noteList) return;
         if (!data.note[0]) return;
-        //if (!data.note.authorName) return;
-        //console.log('renderer--', data);
-        //if(!data.note.text) return;
-        //console.log('renderer---', data);
 
         for(let i = 0; i < data.note.length; i++){
 
@@ -70,6 +64,17 @@ class NoteHandle {
             //color.innerText = data.note.color;
 
             this.noteList.append(note);
+        }
+    }
+
+    reCallNoteHandle(){
+        this.clear();
+        const draft = window.ScriptDataStore.draft
+        const activedraft = Object.values(draft).filter(d => d.active)[0]
+        const data = activedraft.data
+        for (const [key, value] of Object.entries(data)) {
+            const val = value
+            this.renderer(val)
         }
     }
 
