@@ -4,11 +4,54 @@ function enableDragSort(listClass) {
     setTimeout(() => {
         const sortableLists = document.getElementsByClassName(listClass);
         saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
+        //outlineHandle(window.CharacterHandle.contentStore);
         Array.prototype.map.call(sortableLists, (list) => {
             enableDragList(list)
         });
     }, 100);
 }
+
+// function outlineHandle(contentStore) {
+//     console.log('Content',contentStore);
+//     const listOfOutline = [];
+//     let count = 0;
+//     contentStore.forEach((item) => {
+//         if (item.type === 'scene-heading') {
+//             count += 1;
+//             const name = item.content.innerText;
+//             const id = item.id;
+//             const pos = item.index;
+//             const color = item.color;
+//             const scriptBodyID = item.sbID;
+//             const pageNumber = item.pageNumber;
+//
+//             //Get all other scene type that is under this scene heading
+//             const otherSceneType = [];
+//
+//             for (let i = pos + 1; i < contentStore.length; i++) {
+//                 const tem = contentStore[i];
+//                 if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
+//             }
+//
+//             // Append outline
+//             listOfOutline.push({
+//                 name: name,
+//                 id: id,
+//                 position: count,
+//                 scenes: otherSceneType,
+//                 color: color,
+//                 sbID: scriptBodyID,
+//                 pageNumber: pageNumber,
+//                 type: item.type,
+//             });
+//         }
+//     });
+//     listOfOutline.forEach((item) => {
+//         console.log(item.position);
+//     })
+//     //Render outline data to template
+//     //listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
+// }
 
 function enableDragList(list) {
     Array.prototype.map.call(list.children, (item) => {
@@ -135,13 +178,11 @@ function saveChangedCardList(swData) {
 function handleDrop(item) {
     item.target.classList.remove('drag-sort-active');
     if (selector === 'drag-sort-enable-2') {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-data="pin-board-item"]`);
     } else if (selector === 'drag-sort-enable-outline') {
-        console.log(selector);
         ChangeAndSaveData(swData = `[mapreact-data="outline-item"]`);
+        //outlineHandle(window.CharacterHandle.contentStore);
     } else {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-card-option="card"]`);
     }
 }

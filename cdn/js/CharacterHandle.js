@@ -79,19 +79,27 @@ class CharacterHandle {
             rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`,
             imageBtn: `[${this.attrName}="image-btn"]`,
         };
+        setTimeout(() => {
+            const characterList = document.querySelectorAll(this.vars.mainMrItem);
+            let x = [];
+            characterList.forEach((item, i) => {
+                x.includes(item.querySelector(this.vars.name).innerHTML) ? 1 : x.push(item.querySelector(this.vars.name).innerHTML);
+            });
+            //console.log(x);
+        }, 200);
 
         this.mainCharacterListTemp = document.querySelector(this.vars.mainMrList);
-        this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true)
+        this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true);
         this.rsCharacterListTemp = document.querySelector(this.vars.rsMrList);
         this.rsCharacterItemTemp = document.querySelector(this.vars.rsMrItem).cloneNode(true);
 
         //Remove all template
-        [...this.rsCharacterListTemp.children].forEach((el) => {
-            el.remove()
-        });
-        [...this.mainCharacterListTemp.children].forEach((el) => {
-            el.remove()
-        });
+        // [...this.rsCharacterListTemp.children].forEach((el) => {
+        //     el.remove()
+        // });
+        // [...this.mainCharacterListTemp.children].forEach((el) => {
+        //     el.remove()
+        // });
 
         // Listener
         this.listener();
