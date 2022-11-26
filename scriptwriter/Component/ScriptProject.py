@@ -306,23 +306,23 @@ class ScriptProject(object):
                     # Add the content base
                     if scriptLine['type'] == "scene-heading":
                         pdf.set_font(fontFamily, style='B', size=18)
-                        pdf.multi_cell(200, 10, txt=scriptLine['body'], align='C')
+                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='C')
 
                     elif scriptLine['type'] == "character":
                         pdf.set_font(fontFamily, style='B', size=15)
-                        pdf.multi_cell(200, 10, txt=scriptLine['body'], align='C')
+                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='C')
 
                     elif scriptLine['type'] == "dialog":
                         pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(150, 10, txt=scriptLine['body'], align='C')
+                        pdf.multi_cell(150, 10, txt=scriptLine['content'], align='C')
 
                     elif scriptLine['type'] == "parathentical":
                         pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(180, 10, txt=scriptLine['body'], align='C')
+                        pdf.multi_cell(180, 10, txt=scriptLine['content'], align='C')
 
                     elif scriptLine['type'] == "transition":
                         pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(200, 10, txt=scriptLine['body'], align='R')
+                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='R')
 
                     elif scriptLine['type'] == "action":
                         pdf.set_font(fontFamily, style='', size=13)
