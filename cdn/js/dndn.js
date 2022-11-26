@@ -71,17 +71,8 @@ function ChangeAndSaveData(swData) {
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-        let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
         let bgColor = card?.getAttribute("bg-value");
-        let scene_list = {};
-        card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
-            scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
-                let scene_item = {
-                    scene_item: item?.innerHTML
-                };
-                scene_list[index] = scene_item;
-            });
-        });
+
         let obj = {
             id: index,
             title: title,
@@ -89,8 +80,6 @@ function ChangeAndSaveData(swData) {
             emotional_value: emotional_value,
             page_no: page_no,
             color: bgColor,
-            item_title: item_title,
-            scene_list: scene_list
         }
         data[index] = obj;
     });
@@ -100,7 +89,6 @@ function ChangeAndSaveData(swData) {
 
 function saveChangedCardList(swData) {
     let listData = document.querySelectorAll(swData);
-    let data = window.ScriptAdapter.scriptDataStore.outline;
     try {
         listData.forEach((card, index) => {
             card.querySelector(`[outline-data="index"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].id + 1;
@@ -109,23 +97,12 @@ function saveChangedCardList(swData) {
             card.querySelector(`[outline-data="emotional-value"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
             card.querySelector(`[outline-data="page"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
             card.setAttribute("bg-value", window.ScriptAdapter.scriptDataStore.outline[index].color);
-            card.querySelector(`[outline-data="scene-item-title"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].item_title;
             card.classList.forEach((item) => {
                 if (item.includes("bg-")) {
                     card.classList.remove(item);
                     card.classList.add(window.ScriptAdapter.scriptDataStore.outline[index].color);
                 }
             });
-            card.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, i) => {
-                scene.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, j) => {
-                    item.remove();
-                });
-            });
-            let cardList = Object.keys(data).map((key) => data[key]);
-            Object.keys(cardList[index].scene_list).forEach((key) => {
-                let div = `<div class="col-10 pb-2" outline-data="scene-item" outline-data-id="" contenteditable="true" data-placeholder="Type here..">${cardList[index].scene_list[key].scene_item}</div>`
-                card.querySelector(`[outline-data="scene-list"]`).insertAdjacentHTML('beforeend', div);
-            })
         });
     } catch (e) {
 
@@ -135,13 +112,10 @@ function saveChangedCardList(swData) {
 function handleDrop(item) {
     item.target.classList.remove('drag-sort-active');
     if (selector === 'drag-sort-enable-2') {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-data="pin-board-item"]`);
     } else if (selector === 'drag-sort-enable-outline') {
-        console.log(selector);
         ChangeAndSaveData(swData = `[mapreact-data="outline-item"]`);
     } else {
-        console.log(selector);
         saveChangedCardListPinboard(swData = `[sw-card-option="card"]`);
     }
 }
