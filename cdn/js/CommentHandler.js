@@ -130,7 +130,6 @@ const note = `<div style="position: absolute; left: -29%; bottom: -33%; box-shad
 
 let authorFullname = '';
 fetch('/auther-fullname').then(res => res.json()).then(data => {
-    console.log(data);
     authorFullname = data.fullname;
 });
 
@@ -332,6 +331,7 @@ function addComment(thisElement) {
     activedraft.data[sw_editor_id].note = note;
     window.ScriptDataStore.draft = draft;
     window.ScriptAdapter.autoSave()
+    window.NoteHandle.reCallNoteHandle();
 
     const noteContainer = thisElement.parentNode.parentNode.querySelector('.noteContainer');
     const comment = `<div style="font-size: 16px; font-weight: bolder; margin-right: 12px;">${noteTitle}</div>
