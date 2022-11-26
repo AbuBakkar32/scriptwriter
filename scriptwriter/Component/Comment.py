@@ -96,3 +96,13 @@ class Comment(object):
             comment.save()
 
         return JsonResponse({'data': 'success', 'message': 'Comments color changed successfully'})
+
+    def autherFullname(self, request):
+        sea = str(request.META.get('CSRF_COOKIE'))
+        user = Client.objects.filter(season=sea)
+        if user.exists():
+            user_fullname = user[0].fullName
+            return JsonResponse({'data': 'success', 'message': 'User fullname fetched successfully', 'fullname': user_fullname})
+        else:
+            return JsonResponse({'data': 'failed', 'message': 'Failed to authenticate login'})
+
