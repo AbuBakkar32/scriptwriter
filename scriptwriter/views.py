@@ -213,6 +213,8 @@ def getLineComments(request, scriptID, lineID): return Comment(request).getLineC
 def changeBGColor(request, scriptID, lineID, color): return Comment(request).changeBGColor(scriptID, lineID, color)
 
 
+def autherFullname(request): return Comment(request).autherFullname(request)
+
 """
 # Time stamp
 >>> from datetime import datetime, timedelta

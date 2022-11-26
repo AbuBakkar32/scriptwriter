@@ -87,6 +87,7 @@ urlpatterns = [
     path('get-comments/<slug:scriptID>', views.getComments),
     path('get-line-comments/<slug:scriptID>/<slug:lineID>', views.getLineComments),
     path('change-bg-color/<slug:scriptID>/<slug:lineID>/<slug:color>', views.changeBGColor),
+    path('auther-fullname', views.autherFullname),
 
 ]
 if settings.DEBUG:
