@@ -595,11 +595,11 @@ class EditorMode {
     formatContentLine(newLine) {
         const type = newLine.getAttribute(this.cons.editType);
         const line = this.handleContentLineNuetral(newLine, type);
-        if (this.handleSceneHeadingType(line)) ;
-        else if (this.handleCharater(line)) ;
-        else if (this.handleParentArticle(line)) ;
-        else if (this.handleDialog(line)) ;
-        else if (this.handleTransition(line)) ;
+        // if (this.handleSceneHeadingType(line)) ;
+        // else if (this.handleCharater(line)) ;
+        // else if (this.handleParentArticle(line)) ;
+        // else if (this.handleDialog(line)) ;
+        // else if (this.handleTransition(line)) ;
     }
 
     handleSceneHeadingType(line, direct = false) {
