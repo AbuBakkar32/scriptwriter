@@ -121,12 +121,10 @@ class EditorMode {
     updateCardList() {
         setTimeout(() => {
             let data = window.ScriptAdapter.scriptDataStore.outline;
-            console.log(data);
             data = {};
             window.ScriptAdapter.scriptDataStore.outline = data;
             window.ScriptAdapter.autoSave();
             let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
-            console.log(listData);
             listData.forEach((card, index) => {
                 let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
                 let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
@@ -261,7 +259,6 @@ class EditorMode {
                     const x = this.idList[i]; // might be the duplicated id
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
-                        console.log(duplicates);
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
                         const newCreatedElement = duplicates[1]; // the newly created element
