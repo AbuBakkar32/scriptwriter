@@ -131,6 +131,10 @@ function handleDrop(item) {
                     selector = "drag-sort-enable-outline"
                     enableDragSort(selector);
                 }
+                else if (e.srcElement.innerText === 'Script'){
+                    selector = 'drag-sort-enable-2';
+                    enableDragSort(selector);
+                }
             });
         })
     }, 500);

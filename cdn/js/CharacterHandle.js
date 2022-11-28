@@ -79,14 +79,17 @@ class CharacterHandle {
             rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`,
             imageBtn: `[${this.attrName}="image-btn"]`,
         };
-        setTimeout(() => {
-            const characterList = document.querySelectorAll(this.vars.mainMrItem);
-            let x = [];
-            characterList.forEach((item, i) => {
-                x.includes(item.querySelector(this.vars.name).innerHTML) ? 1 : x.push(item.querySelector(this.vars.name).innerHTML);
-            });
-            //console.log(x);
-        }, 200);
+
+
+        // setTimeout(() => {
+        //     const characterList = document.querySelectorAll(this.vars.mainMrItem);
+        //     let x = [];
+        //     characterList.forEach((item, i) => {
+        //         console.log(item.querySelector(this.vars.name))
+        //         x.includes(item.querySelector(this.vars.name).innerHTML) ? 1 : x.push(item.querySelector(this.vars.name).innerHTML);
+        //     });
+        //     console.log(x);
+        // }, 200);
 
         this.mainCharacterListTemp = document.querySelector(this.vars.mainMrList);
         this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true);
@@ -94,12 +97,12 @@ class CharacterHandle {
         this.rsCharacterItemTemp = document.querySelector(this.vars.rsMrItem).cloneNode(true);
 
         //Remove all template
-        // [...this.rsCharacterListTemp.children].forEach((el) => {
-        //     el.remove()
-        // });
-        // [...this.mainCharacterListTemp.children].forEach((el) => {
-        //     el.remove()
-        // });
+        [...this.rsCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
+        [...this.mainCharacterListTemp.children].forEach((el) => {
+            el.remove()
+        });
 
         // Listener
         this.listener();
@@ -118,6 +121,7 @@ class CharacterHandle {
         createCharacterBtn?.addEventListener('click', () => {
             // create on db
             const newCharacterID = this.create();
+            console.log(newCharacterID);
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {
@@ -272,6 +276,14 @@ class CharacterHandle {
             e.stopImmediatePropagation();
             e.stopPropagation();
             characterMainContent?.classList.add('hide');
+            menu?.classList.remove('hide');
+            // Hide other character menus
+            document.querySelectorAll(this.vars.mainMrItem).forEach((x) => {
+                if (x != item) {
+                    const xMenu = x.querySelector(this.vars.menu);
+                    xMenu?.classList.add('hide');
+                }
+            });
         });
 
         /** Event Listener for opening body map  */
@@ -683,8 +695,8 @@ class CharacterHandle {
     lineValidator(line) {
         const lineText = line.innerText;
         const color = line.getAttribute('sw-editor-color');
-        const isCharacterNameExist = this.checkStore(lineText);
-        if (isCharacterNameExist.valid) { /*this means character name exist, 
+        const isCharacterNameExist = this.checkStore(lineText)
+        if (isCharacterNameExist.valid) { /*this means character name exist,
             render the character id on the previous content-line */
             line.setAttribute('sw-editor-character-id', isCharacterNameExist.id);
         } else {
@@ -696,8 +708,10 @@ class CharacterHandle {
         }
     }
 
+
     characterRenderTemplate(data) {
         // data {name: name, id: id, position: pos, scenes: characterAppearedScenes, cid: characterID};
+        console.log(data);
         //Get character possession
         const cPossession = this.possession(data.name);
         // Get character database data

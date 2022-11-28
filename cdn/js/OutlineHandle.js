@@ -309,7 +309,7 @@ class OutlineHandle {
         const listOfOutline = [];
 
         let count = 0;
-        this.contenStore.forEach((item) => {
+        this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
                 count += 1;
                 const name = item.content.innerText;
@@ -319,18 +319,24 @@ class OutlineHandle {
                 const scriptBodyID = item.sbID;
                 const pageNumber = item.pageNumber;
 
+                //Get all other scene type that is under this scene heading
+                const otherSceneType = [];
+
+                for (let i = pos + 1; i < this.contentStore.length; i++) {
+                    const tem = this.contentStore[i];
+                    if (tem.type === 'scene-heading') break;
+                    else otherSceneType.push(tem);
+                }
+
                 // Append outline
                 listOfOutline.push({
-                    name: name,
-                    id: id,
-                    position: count,
-                    color: color,
-                    sbID: scriptBodyID,
-                    pageNumber: pageNumber,
+                    name: name, id: id, position: count, scenes: otherSceneType,
+                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
                     type: item.type,
                 });
             }
         });
+
         //Render outline data to template
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
     }
@@ -339,21 +345,6 @@ class OutlineHandle {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
-        // let dropDowm = `<select>
-        //                             <option value="-1">-1</option>
-        //                             <option value="-2">-2</option>
-        //                             <option value="-3">-3</option>
-        //                             <option value="-4">-4</option>
-        //                             <option value="-5">-5</option>
-        //                             <option value="0">0</option>
-        //                             <option value="1">1</option>
-        //                             <option value="2">2</option>
-        //                             <option value="3">3</option>
-        //                             <option value="4">4</option>
-        //                             <option value="5">5</option>
-        //                         </select>`
-        // let div = `<div class="col-10 pb-2" outline-data="scene-item" outline-data-id="" contenteditable="true" data-placeholder="Type here.."></div>`
-
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
             currentItemTemplate = template;
@@ -380,7 +371,6 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
-            //emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
             if (dataset && dataset?.others?.ev) {
@@ -388,11 +378,8 @@ class OutlineHandle {
                 sceneGoal.innerText = dataset.others.scenegoal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID,
-                    content: data.name,
-                    type: 'scene-heading',
-                    color: data.color,
-                    others: {ev: '0', scenegoal: ''},
+                    id: data.sbID, content: data.name, type: 'scene-heading',
+                    color: data.color, others: {ev: '0', scenegoal: ''},
                     note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
             }
@@ -401,6 +388,8 @@ class OutlineHandle {
             const sceneWrapper = template.querySelector(this.vars.sceneList);
             /**new scene heading template*/
             const sceneItemTitle = sceneWrapper.querySelector(this.vars.sceneItemTitle).cloneNode(true);
+            /**new scene item template*/
+            const sceneItem = sceneWrapper.querySelector(this.vars.sceneItem).cloneNode(true);
 
             //Remove dummy scene template
             [...sceneWrapper.children].forEach(sh => sh.remove());
@@ -412,19 +401,47 @@ class OutlineHandle {
 
             sceneWrapper.append(sceneItemTitle);
 
+            // Render and Update scene item
+            data.scenes.forEach((scene) => {
+                const otherSceneItem = sceneItem.cloneNode(true);
+                otherSceneItem.textContent = scene.content.innerText;
+                otherSceneItem.setAttribute(this.rpAttr, scene.id); // Set map react id
+                otherSceneItem.setAttribute(this.vars.idAttrName, scene.sbID); // Set script body id
+                //Append to Scene Wrapper
+                sceneWrapper.append(otherSceneItem);
+            });
+
             //Append character template to List wrapper
             this.mainOutlineListTemp.append(template);
         }
 
         if (2) {
             const template = this.rsOutlineItemTemp.cloneNode(true);
-            if (data.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data.color);
+            if (data.color && template.firstElementChild.classList.contains('bg-blue'))
+                template.firstElementChild.classList.replace('bg-blue', data.color);
             // update the template id
             template.setAttribute(this.vars.rsIdAttrName, data.sbID)
             //Update title
             const title = template.querySelector(this.vars.rsTitle);
             title.textContent = data.name;
             title.setAttribute('react-pos', data.id);
+
+            //Update other scene
+            const rsOutlineList = template.querySelector(this.vars.rsList);
+            const rsOutlineItem = template.querySelector(this.vars.rsItem).cloneNode(true);
+            //Remove dummy template
+            [...rsOutlineList.children].forEach(itm => itm.remove());
+
+            // Render scene headings
+            data.scenes.forEach((scene) => {
+                //Update other type of scene
+                const newRsOutlineItem = rsOutlineItem.cloneNode(true);
+                newRsOutlineItem.textContent = scene.content.innerText;
+                newRsOutlineItem.setAttribute('react-pos', scene.id);
+
+                //Append to Scene Wrapper
+                rsOutlineList.append(newRsOutlineItem);
+            });
 
             //Append
             this.rsOutlineListTemp.append(template);
