@@ -3,13 +3,8 @@ class EditorMode {
     editorModeItem;
     switch;
     pageHeight = 1130;
-    switchStatus = false;
-    currentLineList = {};
     // constants
     cons;
-    // attribute name
-    // attrName = `sw-editor-mode`;
-    // new db array
     dbArray = {};
     // later ids
     idList = [];
