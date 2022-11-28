@@ -79,6 +79,8 @@ class CharacterHandle {
             rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`,
             imageBtn: `[${this.attrName}="image-btn"]`,
         };
+
+
         // setTimeout(() => {
         //     const characterList = document.querySelectorAll(this.vars.mainMrItem);
         //     let x = [];
@@ -274,6 +276,14 @@ class CharacterHandle {
             e.stopImmediatePropagation();
             e.stopPropagation();
             characterMainContent?.classList.add('hide');
+            menu?.classList.remove('hide');
+            // Hide other character menus
+            document.querySelectorAll(this.vars.mainMrItem).forEach((x) => {
+                if (x != item) {
+                    const xMenu = x.querySelector(this.vars.menu);
+                    xMenu?.classList.add('hide');
+                }
+            });
         });
 
         /** Event Listener for opening body map  */
@@ -701,6 +711,7 @@ class CharacterHandle {
 
     characterRenderTemplate(data) {
         // data {name: name, id: id, position: pos, scenes: characterAppearedScenes, cid: characterID};
+        console.log(data);
         //Get character possession
         const cPossession = this.possession(data.name);
         // Get character database data
