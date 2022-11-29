@@ -359,26 +359,8 @@ class MapAndReactOnContent {
         });
     }
 
-    modifyClassNameOfContentLine(item, className) {
-        if (className === 'dialogue') {
-            swEditorType = 'dialog'
-        }
-        const newClass = item.getAttribute('class') 
-        const newClassArray = newClass.split(' ') 
-        const newClassArrayFilter = newClassArray.filter((item) => typeList.includes(item)) 
-        const newClassArrayFilterString = newClassArrayFilter.toString()
-        const newClass2 = newClass.replace(newClassArrayFilterString, className+'-type')
-        if (newClass !== newClass2) {
-            item.setAttribute('class', newClass2)
-        }
-    }
 
     sceneHeadingType(line) {
-        // set sw-editor-type="scene-heading" to the line
-        //line.setAttribute('sw-editor-type', 'scene-heading');
-        //line.setAttribute('sw-editor-type-helper', 'scene-heading');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'scene-heading');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
         // if function name is same as metaType then end the function
@@ -392,11 +374,6 @@ class MapAndReactOnContent {
     }
 
     actionType(line) {
-        // set sw-editor-type="action" to the line
-        //line.setAttribute('sw-editor-type', 'action');
-        //line.setAttribute('sw-editor-type-helper', 'action');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'action');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'action'};
         // if function name is same as metaType then end the function
@@ -408,11 +385,6 @@ class MapAndReactOnContent {
     }
 
     dialogeType(line) {
-        // set sw-editor-type="dialogue" to the line
-        //line.setAttribute('sw-editor-type', 'dialogue');
-        //line.setAttribute('sw-editor-type-helper', 'dialogue');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'dialog');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'dialog'};
         // if function name is same as metaType then end the function
@@ -425,11 +397,6 @@ class MapAndReactOnContent {
     }
 
     parentArticleType(line) {
-        // set sw-editor-type="parent-article" to the line
-        //line.setAttribute('sw-editor-type', 'parent-article');
-        //line.setAttribute('sw-editor-type-helper', 'parent-article');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'parent-article');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'parent-article'};
         // if function name is same as metaType then end the function
@@ -442,11 +409,6 @@ class MapAndReactOnContent {
     }
 
     characterType(line) {
-        // set sw-editor-type="character" to the line
-        //line.setAttribute('sw-editor-type', 'character');
-        //line.setAttribute('sw-editor-type-helper', 'character');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'character');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'character'};
         // if function name is same as metaType then end the function
@@ -470,11 +432,6 @@ class MapAndReactOnContent {
     }
 
     transitionType(line) {
-        // set sw-editor-type="transition" to the line
-        //line.setAttribute('sw-editor-type', 'transition');
-        //line.setAttribute('sw-editor-type-helper', 'transition');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'transition');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'transition'};
         // if function name is same as metaType then end the function

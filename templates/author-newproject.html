@@ -1,167 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Script Work</title>
-        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
-        <meta content="ie=edge" http-equiv="X-UA-Compatible">
-        <meta content="#ffffff" name="msapplication-TileColor">
-        <meta content="#ffffff" name="theme-color">
-        <!--<link href="img.ico" rel="shortcut icon">-->
-        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
-        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
-        <link rel="stylesheet" media="screen" href="../../cdn/css/character.css">
-    </head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Script Work</title>
+    <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta content="#ffffff" name="msapplication-TileColor">
+    <meta content="#ffffff" name="theme-color">
+    <!--<link href="img.ico" rel="shortcut icon">-->
+    <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/character.css">
+</head>
 
-    <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
-         <!-- Loading-->
-         {% include 'loading.html'%}
-        <div class="flex flex-col min-h-screen text-base font-sans">
-            <!--============ Header =========-->
-            {% include 'header-template1.html' %}
-            {% include 'header-template2.html' %}
-            {% include 'header-template3.html' %}
+<body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
+<!-- Loading-->
+{% include 'loading.html'%}
+<div class="flex flex-col min-h-screen text-base font-sans">
+    <!--============ Header =========-->
+    {% include 'header-template1.html' %}
+    {% include 'header-template2.html' %}
+    {% include 'header-template3.html' %}
 
-            <!--Settings-->
-            {% include 'settings-template.html'%}
+    <!--Settings-->
+    {% include 'settings-template.html'%}
 
-            <div class="flex-1 mx-auto w-full" xclass="max-w-1440 ">
-                <div class="h-full" xclass="flex">
+    <div class="flex-1 mx-auto w-full" xclass="max-w-1440 ">
+        <div class="h-full" xclass="flex">
 
-                    <!--Sider Bar At left side (with features list)-->
-                    {% include 'aside-template1.html' %}
+            <!--Sider Bar At left side (with features list)-->
+            {% include 'aside-template1.html' %}
 
-                    <div class=" lg:rem-ml-15 overflow-x-hidden bg-four" sw-page="main">
-                        <div class="row md:px-24 md:pb-24">
-                            <!--============MAIN BODY=========-->
-                            <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
-                                <div class="text-grey-1000 leading-normal">
-                                    
-                                    <!--Title of the script content-->
-                                    <div class="flex-wrap-center col-12 mt-16 w80to100">
-                                        <div class="p-8 col-12 col-10-lg ft-size20 bg-three shadow hover:shadow-md 
-                                            mx-8 transition-fast-out overflow-hidden title-input" sw-data-type="title" 
-                                            contenteditable="true" style="min-height: 2rem; text-align: center;" data-placeholder="Script Title"></div>
-                                    </div>
+            <div class=" lg:rem-ml-15 overflow-x-hidden bg-four" sw-page="main">
+                <div class="row md:px-24 md:pb-24">
+                    <!--============MAIN BODY=========-->
+                    <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
+                        <div class="text-grey-1000 leading-normal">
 
-                                    <!--Editor -For writing and preparing script goes here-->
-                                    <div class="mt-8 mb-48">
-                                        <div class="doping flex-wrap-center col relative w80to100" sw-page-pack="list" sw-search="wrapper">
-                                            <div sw-page-pack="item" class="page bg-three mx-8 my-8 py-48 ft-initial rounded-lg shadow hover:shadow-md  transition-fast-out overflow-hidden" > 
-                                                <div class="col-12 row mxx-8 end" sw-data="content-line" meta-type="action" tabindex="1" contentline-id="">
+                            <!--Title of the script content-->
+                            <div class="flex-wrap-center col-12 mt-16 w80to100">
+                                <div class="p-8 col-12 col-10-lg ft-size20 bg-three shadow hover:shadow-md
+                                            mx-8 transition-fast-out overflow-hidden title-input" sw-data-type="title"
+                                     contenteditable="true" style="min-height: 2rem; text-align: center;"
+                                     data-placeholder="Script Title"></div>
+                            </div>
 
-                                                    <div class="left-icon-pos mr-8 op-0 cus-pointer" sw-data-content="note-icon" contenteditable="false">
-                                                        <svg class="size24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                                                            <path d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625l-1.993 6.368 6.946-3c1.705.439 3.334.641 4.864.641 7.174 0 12.136-4.439 12.136-9.634 0-5.812-5.701-10.007-12-10.007zm0 1c6.065 0 11 4.041 11 9.007 0 4.922-4.787 8.634-11.136 8.634-1.881 0-3.401-.299-4.946-.695l-5.258 2.271 1.505-4.808c-1.308-1.564-2.165-3.128-2.165-5.402 0-4.966 4.935-9.007 11-9.007zm-5 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/>
-                                                        </svg>
-                                                    </div>
+                            <!--Editor -For writing and preparing script goes here-->
+                            <div class="mt-8 mb-48">
+                                <div class="doping flex-wrap-center col relative w80to100" sw-page-pack="list"
+                                     sw-search="wrapper">
+                                    <div sw-page-pack="item"
+                                         class="page bg-three mx-8 my-8 py-48 ft-initial rounded-lg shadow hover:shadow-md  transition-fast-out overflow-hidden">
+                                        <div class="col-12 row mxx-8 end" sw-data="content-line" meta-type="action"
+                                             tabindex="1" contentline-id="">
 
-                                                    <div class="hide col-12" sw-data-content="note-wrap" contenteditable="false">
-                                                        <div class="absolute rounded-lg font-sans-alt text-grey-700 bg-yellow rem-h10" style=" z-index: 300; left: 10px; margin-top: 24px;">
-                                                            <div class="p-8 overflow-y-auto rem-h7 rem-w15 break-space" sw-data-content="note-body" contenteditable="true"></div>
-                                                            <div class="hide" sw-data-content="note-detail-wrap">
-                                                                <div class="py-4 m-8 ft-size11 c-black">
-                                                                    <span sw-data-content="note-name-logo" class="rounded-circle bg-blue p-8 mr-8"></span>
-                                                                    <span sw-data-content="note-name"></span> 
-                                                                    <span sw-data-content="note-date"></span>
-                                                                    <span class="hide" sw-data-content="note-authorID"></span>
-                                                                    <span class="hide" sw-data-content="note-color"></span>
-                                                                </div>    
-                                                            </div>
-                                                            <div class="flex end m-2">
-                                                                <svg sw-data-content="note-btn-ok" class="mx-4 size24 cus-pointer" fill="green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/></svg>
-                                                                <svg sw-data-content="note-btn-cancel" class="mx-4 size24 cus-pointer" fill="red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"/></svg>
-                                                            </div>
+                                            <div class="left-icon-pos mr-8 op-0 cus-pointer" sw-data-content="note-icon"
+                                                 contenteditable="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-three-dots size24"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                                </svg>
+                                            </div>
+
+                                            <div class="hide col-12" sw-data-content="note-wrap"
+                                                 contenteditable="false">
+                                                <div class="absolute rounded-lg font-sans-alt text-grey-700 bg-yellow rem-h10"
+                                                     style=" z-index: 300; left: 10px; margin-top: 24px;">
+                                                    <div class="p-8 overflow-y-auto rem-h7 rem-w15 break-space"
+                                                         sw-data-content="note-body" contenteditable="true"></div>
+                                                    <div class="hide" sw-data-content="note-detail-wrap">
+                                                        <div class="py-4 m-8 ft-size11 c-black">
+                                                            <span sw-data-content="note-name-logo"
+                                                                  class="rounded-circle bg-blue p-8 mr-8"></span>
+                                                            <span sw-data-content="note-name"></span>
+                                                            <span sw-data-content="note-date"></span>
+                                                            <span class="hide" sw-data-content="note-authorID"></span>
+                                                            <span class="hide" sw-data-content="note-color"></span>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <div class="col-12 input" sw-data="script-body" sw-script-body-number="" contenteditable="false"></div>
-
-                                                    <div class="hide" sw-data-content="comment-wrap" contenteditable="false">
-                                                        <div class="absolute rounded-lg font-sans-alt text-grey-700 bg-blue rem-h7" style=" z-index: 300; right: 10px">
-                                                            <div class="p-8 overflow-y-auto rem-h7 rem-w15" sw-data-content="comment-body" contenteditable="true"></div>
-                                                            <span class="hide" sw-data-content="comment-name"></span> 
-                                                            <span class="hide" sw-data-content="comment-date"></span>
-                                                            <span class="hide" sw-data-content="comment-authorID"></span>
-                                                            <div class="py-4 flex end">
-                                                                <svg sw-data-content="comment-btn-ok" class="mx-4 size24 cus-pointer" fill="green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/></svg>
-                                                                <svg sw-data-content="comment-btn-cancel" class="mx-4 size24 cus-pointer" fill="red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"/></svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="right-icon-pos ml-8 op-0 cus-pointer" sw-data-content="comment-icon" contenteditable="false">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="size24" viewBox="0 0 24 24">
-                                                            <path d="M19 6.734c0 4.164-3.75 6.98-3.75 10.266h-1.992c.001-2.079.997-3.826 1.968-5.513.912-1.585 1.774-3.083 1.774-4.753 0-3.108-2.517-4.734-5.004-4.734-2.483 0-4.996 1.626-4.996 4.734 0 1.67.862 3.168 1.774 4.753.971 1.687 1.966 3.434 1.967 5.513h-1.991c0-3.286-3.75-6.103-3.75-10.266 0-4.343 3.498-6.734 6.996-6.734 3.502 0 7.004 2.394 7.004 6.734zm-4 11.766c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm0 2c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm-1.701 3.159c-.19.216-.465.341-.753.341h-1.093c-.288 0-.562-.125-.752-.341l-1.451-1.659h5.5l-1.451 1.659zm-2.182-11.123l3.633-5.536h-2.113l1.05-3.463-3.794 5.463h2.302l-1.078 3.536z"/>
+                                                    <div class="flex end m-2">
+                                                        <svg sw-data-content="note-btn-ok"
+                                                             class="mx-4 size24 cus-pointer" fill="green"
+                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/>
+                                                        </svg>
+                                                        <svg sw-data-content="note-btn-cancel"
+                                                             class="mx-4 size24 cus-pointer" fill="red"
+                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"/>
                                                         </svg>
                                                     </div>
-                                                
-                                                    <div class="hide" sw-script-body="id" sw-script-body-idvalue="" contenteditable="false"></div>
-                                                    <div class="hide" sw-script-body="color" contenteditable="false"></div>
-                                                    <div class="hide" sw-charater-data="id" sw-character-idvalue="" contenteditable="false"></div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-12 input" sw-data="script-body" sw-script-body-number=""
+                                                 contenteditable="false"></div>
+
+                                            <div class="hide" sw-data-content="comment-wrap" contenteditable="false">
+                                                <div class="absolute rounded-lg font-sans-alt text-grey-700 bg-blue rem-h7"
+                                                     style=" z-index: 300; right: 10px">
+                                                    <div class="p-8 overflow-y-auto rem-h7 rem-w15"
+                                                         sw-data-content="comment-body" contenteditable="true"></div>
+                                                    <span class="hide" sw-data-content="comment-name"></span>
+                                                    <span class="hide" sw-data-content="comment-date"></span>
+                                                    <span class="hide" sw-data-content="comment-authorID"></span>
+                                                    <div class="py-4 flex end">
+                                                        <svg sw-data-content="comment-btn-ok"
+                                                             class="mx-4 size24 cus-pointer" fill="green"
+                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 16.518l-4.5-4.319 1.396-1.435 3.078 2.937 6.105-6.218 1.421 1.409-7.5 7.626z"/>
+                                                        </svg>
+                                                        <svg sw-data-content="comment-btn-cancel"
+                                                             class="mx-4 size24 cus-pointer" fill="red"
+                                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="right-icon-pos ml-8 op-0 cus-pointer"
+                                                 sw-data-content="comment-icon" contenteditable="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size24"
+                                                     viewBox="0 0 24 24">
+                                                    <path d="M19 6.734c0 4.164-3.75 6.98-3.75 10.266h-1.992c.001-2.079.997-3.826 1.968-5.513.912-1.585 1.774-3.083 1.774-4.753 0-3.108-2.517-4.734-5.004-4.734-2.483 0-4.996 1.626-4.996 4.734 0 1.67.862 3.168 1.774 4.753.971 1.687 1.966 3.434 1.967 5.513h-1.991c0-3.286-3.75-6.103-3.75-10.266 0-4.343 3.498-6.734 6.996-6.734 3.502 0 7.004 2.394 7.004 6.734zm-4 11.766c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm0 2c0 .276-.224.5-.5.5h-5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5zm-1.701 3.159c-.19.216-.465.341-.753.341h-1.093c-.288 0-.562-.125-.752-.341l-1.451-1.659h5.5l-1.451 1.659zm-2.182-11.123l3.633-5.536h-2.113l1.05-3.463-3.794 5.463h2.302l-1.078 3.536z"/>
+                                                </svg>
+                                            </div>
+
+                                            <div class="hide" sw-script-body="id" sw-script-body-idvalue=""
+                                                 contenteditable="false"></div>
+                                            <div class="hide" sw-script-body="color" contenteditable="false"></div>
+                                            <div class="hide" sw-charater-data="id" sw-character-idvalue=""
+                                                 contenteditable="false"></div>
                                         </div>
-                                    </div> 
-
-                                    <!--Footer goes here-->  
+                                    </div>
                                 </div>
+                            </div>
 
-                            </main>
-
-                            <!--============Right side bar=========-->
-                            <!--Starting of new Right Bar here-->
-                            {% include 'newproject-right-sider.html' %}
-                            <!--End of new Right Bar here-->
+                            <!--Footer goes here-->
                         </div>
-                    </div>
 
-                    <!--Page for Character-->
-                    {% include 'sw-page/character.html' %}
-                    <!--Page for loaction-->
-                    {% include 'sw-page/location.html' %}
+                    </main>
 
-                    {% if SubscriptionType == 'pro' %}
-                    <!--Page for outline-->
-                    {% include 'sw-page/outline.html' %}
-                    <!--Page for pin-board-->
-                    {% include 'sw-page/pin-board.html' %}
-                    {% endif %}
-
-                    <!--Page for story-docs-->
-                    {% include 'sw-page/story-docs.html' %}
-                    <!--Page for structure-->
-                    {% include 'sw-page/structure.html' %}
+                    <!--============Right side bar=========-->
+                    <!--Starting of new Right Bar here-->
+                    {% include 'newproject-right-sider.html' %}
+                    <!--End of new Right Bar here-->
                 </div>
             </div>
-            
 
-            <!--============Flexable Fixed Pop-up=========--> <!--&quot; = " and &gt; = > and &lt; = < and \&quot; = \"-->
-        {% if ScriptContent %}
-            <script>
-                window.ScriptDataStore = {{ScriptContent|safe}};
-                window.AuthorName = '{{authorName}}';
-                window.AuthorID = '{{authorID}}'
-            </script>
-        {% endif %}
+            <!--Page for Character-->
+            {% include 'sw-page/character.html' %}
+            <!--Page for loaction-->
+            {% include 'sw-page/location.html' %}
 
-        <script src="../../cdn/js/app.js"></script>
-        <script src="../../cdn/js/BackgroundColor.js"></script>
-        <script src="../../cdn/js/CharacterHandle.js"></script>
-        <script src="../../cdn/js/NoteHandle.js"></script>
-        {% if SubscriptionType == 'pro' %}
-        <script src="../../cdn/js/CardOption.js"></script>
-        <script src="../../cdn/js/PinBoard.js"></script>
-        <script src="../../cdn/js/OutlineHandle.js"></script>
-        {% endif %}
-        <script src="../../cdn/js/Watcher.js"></script>
-        <script src="../../cdn/js/EditorFuncs.js"></script>
-        <script src="../../cdn/js/ScriptWriterPage.js"></script>
-        <script src="../../cdn/js/ScriptWriterSection.js"></script>
-        <script src="../../cdn/js/MapAndReactOnContent.js"></script>
-        <script src="../../cdn/js/SearchDocument.js"></script>
-        <script src="../../cdn/js/ScriptAdapter.js"></script>
+            {% if SubscriptionType == 'pro' %}
+            <!--Page for outline-->
+            {% include 'sw-page/outline.html' %}
+            <!--Page for pin-board-->
+            {% include 'sw-page/pin-board.html' %}
+            {% endif %}
+
+            <!--Page for story-docs-->
+            {% include 'sw-page/story-docs.html' %}
+            <!--Page for structure-->
+            {% include 'sw-page/structure.html' %}
         </div>
-    </body>
+    </div>
+
+
+    <!--============Flexable Fixed Pop-up=========--> <!--&quot; = " and &gt; = > and &lt; = < and \&quot; = \"-->
+    {% if ScriptContent %}
+    <script>
+        window.ScriptDataStore = {
+        {
+            ScriptContent | safe
+        }
+        }
+        ;
+        window.AuthorName = '{{authorName}}';
+        window.AuthorID = '{{authorID}}'
+    </script>
+    {% endif %}
+
+    <script src="../../cdn/js/app.js"></script>
+    <script src="../../cdn/js/BackgroundColor.js"></script>
+    <script src="../../cdn/js/CharacterHandle.js"></script>
+    <script src="../../cdn/js/NoteHandle.js"></script>
+    {% if SubscriptionType == 'pro' %}
+    <script src="../../cdn/js/CardOption.js"></script>
+    <script src="../../cdn/js/PinBoard.js"></script>
+    <script src="../../cdn/js/OutlineHandle.js"></script>
+    {% endif %}
+    <script src="../../cdn/js/Watcher.js"></script>
+    <script src="../../cdn/js/EditorFuncs.js"></script>
+    <script src="../../cdn/js/ScriptWriterPage.js"></script>
+    <script src="../../cdn/js/ScriptWriterSection.js"></script>
+    <script src="../../cdn/js/MapAndReactOnContent.js"></script>
+    <script src="../../cdn/js/SearchDocument.js"></script>
+    <script src="../../cdn/js/ScriptAdapter.js"></script>
+</div>
+</body>
 </html>

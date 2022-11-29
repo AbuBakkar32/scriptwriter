@@ -18,17 +18,13 @@
     {% include 'settings-template.html'%}
     <div classy="flex-1 mx-auto w-full" xclass="max-w-1440 ">
         <div classy="flex h-full">
-
-
             <!--Sider Bar At left side (with features list)-->
             {% include 'aside-template1.html' %}
-
             <div class="xl:rem-ml-15 xl:rem-mr-15 overflow-x-hidden bg-four" sw-page="main">
                 <div class="row md:px-24 md:pb-24">
                     <!--============MAIN BODY=========-->
                     <main class="col mxx-8 min-h-full" xclass="lg:max-w-648">
                         <div class="text-grey-1000 leading-normal">
-
                             <!--Title of the script content-->
                             <div class="flex-cnt input w80to100 relative mlmr-auto mt-16">
                                 <div class="p-8 ft-size20 bg-three shadow hover:shadow-md
@@ -37,7 +33,6 @@
                                             margin-left: 0.5em; margin-right: 1em;"
                                      data-placeholder="Script Title"></div>
                             </div>
-
                             <!--Editor -For writing and preparing script goes here-->
                             <div class="mt-8 mb-48">
                                 <div class="doping relative mlmr-auto relative">
@@ -61,7 +56,6 @@
                                             </svg>
                                         </div>
                                     </div>
-
                                     <div class="input flex-wrap-center w80to100 relative mlmr-auto" sw-editor="list"
                                          sw-search="wrapper" contenteditable="true">
                                         <div sw-editor="item"
@@ -74,11 +68,9 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!--Footer goes here-->
                         </div>
                     </main>
-
                     <!--Starting of new Right Bar here-->
                     {% include 'newproject-right-sider.html' %}
                     <!--End of new Right Bar here-->
@@ -103,7 +95,6 @@
 
         </div>
     </div>
-
     {% if ScriptContent %}
     <script>
         window.ScriptDataStore = {{ScriptContent | safe}};
@@ -117,6 +108,7 @@
     <script src="../../cdn/js/CardOption.js"></script>
     <script src="../../cdn/js/PinBoard.js"></script>
     <script src="../../cdn/js/OutlineHandle.js"></script>
+    <script src="../../cdn/js/MapAndReactOnContent.js"></script>
     {% endif %}
     <script src="../../cdn/js/Watcher.js"></script>
     <script src="../../cdn/js/EditorFunction.js"></script>
@@ -127,7 +119,6 @@
     <script src="../../cdn/js/EditorMode.js"></script>
     <script src="../../cdn/js/EditorWriter.js"></script>
     <script src="../../cdn/js/ScriptAdapter.js"></script>
-
     <script src="../../cdn/js/CommentHandler.js"></script>
     <script src="../../cdn/js/ClientSetting.js"></script>
 </div>

@@ -159,8 +159,8 @@ class EditorMode {
 
     lineSignal(line = this.lineTemp) {
         line.addEventListener('click', (e) => {
-            //e.stopPropagation();
-            //e.stopImmediatePropagation();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
             this.lastFocusEdit = line;
             this.formatContentLine(line);
         });
