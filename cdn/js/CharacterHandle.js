@@ -121,7 +121,6 @@ class CharacterHandle {
         createCharacterBtn?.addEventListener('click', () => {
             // create on db
             const newCharacterID = this.create();
-            console.log(newCharacterID);
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {
@@ -712,7 +711,6 @@ class CharacterHandle {
 
     characterRenderTemplate(data) {
         // data {name: name, id: id, position: pos, scenes: characterAppearedScenes, cid: characterID};
-        console.log(data);
         //Get character possession
         const cPossession = this.possession(data.name);
         // Get character database data
