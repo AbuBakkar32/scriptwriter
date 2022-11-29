@@ -623,6 +623,7 @@ class CharacterHandle {
                 } else if (index === 14) {
                     item.style.top = (height / 20) * 17.5 + 'px';
                     line.style.width = (width / 2.4) - 5 + 'px';
+
                     line.style.transform = `translateX(-${(width / 2.4) - 25}px)`
                 }
             })
