@@ -6,11 +6,11 @@ Created on Mon May 31 01:51:09 2021
 
 Client SignUp functionality/Handler
 """
-
 # Importing External Apps
 from .Assembler import (replaceTOHtmlCharacter, generateid, render,
                         HttpResponseRedirect, Client, time, MiniClient
                         )
+import requests
 
 
 class ClientSignUp(object):
@@ -20,6 +20,18 @@ class ClientSignUp(object):
         self.content_context = {"title": "Script Writer"}
         self.err_email = {"err": ["Email Already Exist!!!", "alert alert-danger", "margin-bottom:1%"],
                           "title": self.content_context["title"]}
+
+    def get_ip(self):
+        response = requests.get('https://api64.ipify.org?format=json').json()
+        return response["ip"]
+
+    def get_location(self):
+        ip_address = self.get_ip()
+        response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+        location_data = {
+            "country": response.get("country_name")
+        }
+        return location_data
 
     def signup(self):
         request = self.request
@@ -33,7 +45,12 @@ class ClientSignUp(object):
                 self.emailAddress = replaceTOHtmlCharacter(request.POST['email'])
                 password = replaceTOHtmlCharacter(request.POST['password'])
                 dateOfSignup = str(time.strftime("%d/%m/%Y, %H:%M:%S %p", time.localtime()))
-
+                experience = replaceTOHtmlCharacter(request.POST['experience'])
+                write = replaceTOHtmlCharacter(request.POST['write'])
+                try:
+                    country = self.get_location()["country"]
+                except:
+                    country = "Unknown"
                 self.cookie = str(request.META.get('CSRF_COOKIE'))
 
                 userID = generateid("newclient")
@@ -41,15 +58,15 @@ class ClientSignUp(object):
                 checkExistEmail = Client.objects.filter(email=self.emailAddress)
 
                 if checkExistEmail.exists():
-                    return render(request, "signup.html", self.err_email)
+                    return render(request, "registration.html", self.err_email)
                 else:
                     addUp = Client(fullName=fullname, email=self.emailAddress,
-                                   password=password, country="", userID=userID, emailVerification=False,
+                                   password=password, country=country, userID=userID, emailVerification=False,
                                    emailVerificationValue="", resetPasswordValue="", createdon=dateOfSignup,
                                    season=self.cookie, state="offline", authoredScript="[]", accountType='free',
                                    nightMode=False, onePageWriting=False, autoSaveTimeOut=5,
                                    waterMarkStatus=False, waterMarkDisplayText='', waterMarkDisplayOpacity=1.0,
-                                   subscriptionMode='free', subscriptionID=0
+                                   subscriptionMode='free', subscriptionID=0, experience=experience, write=write
                                    )
                     addUp.save()
 
@@ -66,4 +83,4 @@ class ClientSignUp(object):
             if user.exists():
                 return HttpResponseRedirect("/client-home")
             else:
-                return render(request, "signup.html", self.content_context)
+                return render(request, "registration.html", self.content_context)
