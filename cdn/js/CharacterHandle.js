@@ -643,6 +643,7 @@ class CharacterHandle {
         const listOfCharacter = [];
         // Get the character dataset keys
         let count = 1;
+        console.log(window.ScriptDataStore);
         const cKeys = Object.keys(window.ScriptDataStore.character);
         cKeys.forEach((key) => {
             const cdata = window.ScriptDataStore.character[key];
@@ -687,7 +688,6 @@ class CharacterHandle {
 
             count += 1;
         });
-
         // Render character data to template
         listOfCharacter.forEach(charater => this.characterRenderTemplate(charater));
     }
@@ -1019,6 +1019,7 @@ class CharacterHandle {
         //Loop through content store to find out is character name already exist.
         for (let index = 0; index < this.contentStore.length; index++) {
             const data = this.contentStore[index];
+            console.log(data);
             if (data.type === 'character' && data.content.innerText === name) {
                 validity = true;
                 cid = data.index;
@@ -1044,6 +1045,62 @@ class CharacterHandle {
             }
         }
         return {valid: validity, id: cid};
+    }
+
+    checkScriptDataStoreCharacter(){
+        const presentCharacters = Object.keys(window.ScriptDataStore.character); // object
+        const dataStore = Object.keys(window.ScriptDataStore.data) // object
+
+        let presentCharactersList = [];
+        let dataStoreCharactersList = []
+
+        for (let index = 0; index < dataStore.length; index++) {
+            const key = dataStore[index];
+            const data = window.ScriptDataStore.data[key];
+            if (data.type === 'character') {
+                if (dataStoreCharactersList.indexOf(data.content.toLowerCase()) === -1) {
+                    dataStoreCharactersList.push(data.content.toLowerCase())
+                }
+            }
+        }
+
+        for (let index = 0; index < presentCharacters.length; index++) {
+            const key = presentCharacters[index];
+            const character = window.ScriptDataStore.character[key];
+            if (presentCharactersList.indexOf(character.name.toLowerCase()) === -1) {
+                presentCharactersList.push(character.name.toLowerCase())
+            }
+        }
+
+        // if any item in presentCharactersList is not in dataStoreCharactersList
+        // then remove it from presentCharactersList
+        for (let index = 0; index < presentCharactersList.length; index++) {
+            const character = presentCharactersList[index];
+            if (dataStoreCharactersList.indexOf(character) === -1) {
+                // delete it from window.ScriptDataStore.character
+                const keys = Object.keys(window.ScriptDataStore.character);
+                for (let index = 0; index < keys.length; index++) {
+                    const key = keys[index];
+                    const c = window.ScriptDataStore.character[key];
+                    if (c.name.toLowerCase() === character) {
+                        delete window.ScriptDataStore.character[key];
+                        break
+                    }
+                }
+            }
+        }
+
+        // if any item in dataStoreCharactersList is not in presentCharactersList
+        // then add it to presentCharactersList
+        // for (let index = 0; index < dataStoreCharactersList.length; index++) {
+        //     const character = dataStoreCharactersList[index];
+        //     if (presentCharactersList.indexOf(character) === -1) {
+        //         const kk = this.create(character);
+        //         window.ScriptDataStore.character[kk] = {
+
+        //     }
+        // }
+
     }
 
 }
