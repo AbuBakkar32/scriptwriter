@@ -10,7 +10,8 @@
 <link rel="stylesheet" media="screen" href="../../cdn/css/reg.css">
 <body style="background-image: url('../cdn/image/reg.png')">
 
-<div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false" style="background: RGB(116, 206, 182, 0.5);;">
+<div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false"
+     style="background: RGB(116, 206, 182, 0.5);;">
     <form id="new_user" action="/signup" method="post">
         <div class="float-right log">
             <button type="button" class="close"><a href="/login">Have you Account?</a></button>
@@ -32,11 +33,13 @@
             </div>
             <div style="display: flex">
                 <div class="col-6" style="width: 50%; padding:5px">
-                    <input autofocus="autofocus" type="email" placeholder="Email" class="form-control" name="email">
+                    <input autofocus="autofocus" type="email" placeholder="Email"
+                           pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                           class="form-control" name="email" required />
                 </div>
                 <div style="width: 50%; padding:5px">
                     <input autofocus="autofocus" type="password" placeholder="Password" class="form-control"
-                           name="password">
+                           name="password" required />
                 </div>
             </div>
         </div>
