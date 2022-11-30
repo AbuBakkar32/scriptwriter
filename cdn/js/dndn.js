@@ -130,8 +130,7 @@ function handleDrop(item) {
                 } else if (e.srcElement.innerText === 'Outline') {
                     selector = "drag-sort-enable-outline"
                     enableDragSort(selector);
-                }
-                else if (e.srcElement.innerText === 'Script'){
+                } else if (e.srcElement.innerText === 'Script') {
                     selector = 'drag-sort-enable-2';
                     enableDragSort(selector);
                 }
