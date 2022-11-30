@@ -156,6 +156,7 @@ class ScriptWriterPage {
         window.Watcher.mainPageAwait();
         setTimeout(async() => {
             await window.MapAndReactOnContent?.mapreact();
+            console.log('awaitTrigger');
             await window.Watcher.mainPageAwait(false);
         }, 1);
     }
