@@ -643,7 +643,6 @@ class CharacterHandle {
         const listOfCharacter = [];
         // Get the character dataset keys
         let count = 1;
-        console.log(window.ScriptDataStore);
         const cKeys = Object.keys(window.ScriptDataStore.character);
         cKeys.forEach((key) => {
             const cdata = window.ScriptDataStore.character[key];

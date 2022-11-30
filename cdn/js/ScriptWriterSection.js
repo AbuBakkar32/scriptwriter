@@ -75,7 +75,6 @@ class ScriptWriterSection {
             window.Watcher.siderBarAwait();
             setTimeout(async () => {
                 await window.MapAndReactOnContent?.mapreact();
-                console.log('Outline section loaded');
                 await window.Watcher.siderBarAwait(false);
             }, 1);
         });
@@ -90,7 +89,6 @@ class ScriptWriterSection {
         });
 
         this.structureBtn?.addEventListener('click', () => {
-            console.log('structure');
             this.hideOrShowSectionExcept('structure');
             window.Watcher.siderBarAwait();
             setTimeout(async () => {
