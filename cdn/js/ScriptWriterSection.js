@@ -28,14 +28,15 @@ class ScriptWriterSection {
         this.structureBtn = document.querySelector(`[sw-section-btn="structure"]`);
 
         //Hide other section
-        this.hideOrShowSectionExcept('structure');
+        this.hideOrShowSectionExcept('None');
+        window.MapAndReactOnContent?.mapreact();
 
         // Initializer
         this.listener();
     }
 
     hideOrShowSectionExcept(exceptMe) { /* parameter are  charater, location, outline, pinBoard, storyDocs, structure */
-        if (exceptMe !== 'charater' && this.characterSection) this.characterSection.classList.add('hidden');
+        if (exceptMe !== 'character' && this.characterSection) this.characterSection.classList.add('hidden');
         if (exceptMe !== 'note' && this.noteSection) this.noteSection.classList.add('hidden');
         if (exceptMe !== 'outline' && this.outlineSection) this.outlineSection.classList.add('hidden');
         if (exceptMe !== 'pin-board' && this.pinBoardSection) this.pinBoardSection.classList.add('hidden');
@@ -62,6 +63,11 @@ class ScriptWriterSection {
 
         this.noteBtn?.addEventListener('click', () => {
             this.hideOrShowSectionExcept('note');
+            window.Watcher.siderBarAwait();
+            setTimeout(async () => {
+                await window.MapAndReactOnContent?.mapreact();
+                await window.Watcher.siderBarAwait(false);
+            }, 1);
         });
 
         this.outlineBtn?.addEventListener('click', () => {
@@ -76,10 +82,21 @@ class ScriptWriterSection {
 
         this.pinBoardBtn?.addEventListener('click', () => {
             this.hideOrShowSectionExcept('pin-board');
+            window.Watcher.siderBarAwait();
+            setTimeout(async () => {
+                await window.MapAndReactOnContent?.mapreact();
+                await window.Watcher.siderBarAwait(false);
+            }, 1);
         });
 
         this.structureBtn?.addEventListener('click', () => {
+            console.log('structure');
             this.hideOrShowSectionExcept('structure');
+            window.Watcher.siderBarAwait();
+            setTimeout(async () => {
+                await window.MapAndReactOnContent?.mapreact();
+                await window.Watcher.siderBarAwait(false);
+            }, 1);
         });
     }
 }

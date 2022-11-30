@@ -86,6 +86,7 @@ class OutlineHandle {
         const sceneGoal = item.querySelector(this.vars.sceneGoal);
         const emotionalValue = item.querySelector(this.vars.ev);
 
+
         /** Event Listeners on Outline Page Items*/
         hide?.addEventListener('click', () => {
             // Make menu visible
@@ -174,9 +175,13 @@ class OutlineHandle {
         emotionalValue?.addEventListener('keyup', () => {
             setTimeout(() => {
                 const draftKey = window.ScriptAdapter.currentDraftKey;
-                window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
-                window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
-                this.updateDB();
+                if (parseInt(emotionalValue.textContent) > 10 || parseInt(emotionalValue.textContent) < -10) {
+                    alert('Emotional Value must be between -10 and 10', 'Error');
+                } else {
+                    window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
+                    window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
+                    this.updateDB();
+                }
             }, 700);
         });
 
@@ -345,6 +350,19 @@ class OutlineHandle {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
+        let dropDowm = `<select>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                                <option value="-3">-3</option>
+                                <option value="-4">-4</option>
+                                <option value="-5">-5</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                        </select>`
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
             currentItemTemplate = template;
@@ -371,6 +389,7 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
+            emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
             if (dataset && dataset?.others?.ev) {

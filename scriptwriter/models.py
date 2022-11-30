@@ -145,6 +145,9 @@ class Client(models.Model):
     subscriptionID = models.TextField(default="")  # 20
     # Author Reminders
     authorReminders = models.TextField(default="")  # 21 true | false
+    #add new 2 field
+    experience = models.TextField(default="")  # 22
+    write = models.TextField(default="")  # 23
 
     def __str__(self):
         return "{'fullName':'''%s''','email':'''%s''','password':'''%s''','country':'''%s''',\

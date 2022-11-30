@@ -152,8 +152,9 @@
                         <div class="mt-16 px-16 mb-16 shadow hover:shadow-md brd-r3 relative"
                              mapreact-data="rs-character-item" sw-action="showable-part">
                             <div class="absolute top0 right10 cus-pointer hidden" sw-action="off-part">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current size20" viewBox="0 0 24 24">
-                                    <path d="M0 9h24v6h-24z"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-three-dots size24"
+                                     viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                 </svg>
                             </div>
                             <div class="row p-8">
@@ -218,9 +219,9 @@
                              rs-outline-id="">
                             <div class="col rounded-lg shadow hover:shadow-md transition-fast-out overflow-hidden relative bg-blue">
                                 <div class="absolute top0 right10 cus-pointer hidden" sw-action="off-part">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="size13" viewBox="0 0 24 24">
-                                        <path fill="red"
-                                              d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-three-dots size24"
+                                         viewBox="0 0 16 16">
+                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                     </svg>
                                 </div>
                                 <p rs-outline="title" contenteditable="true"
@@ -262,46 +263,49 @@
                                 <div class="col text-grey-700 m-8 overflow-y-auto rem-h7"
                                      sw-note-handle="rs-body"></div>
                                 <div class="py-8 m-8 ft-size11 c-black">
-                                    {% comment %} <span class="rounded-circle bg-yellow p-8 mr-8">GW</span>George willson 29th July, 2021</div> {% endcomment %}
-                                    <span sw-note-handle="rs-name-logo" class="rounded-circle bg-blue p-8 mr-8"></span>
-                                    <span sw-note-handle="rs-name"></span>
-                                    <span sw-note-handle="rs-date"></span>
-                                    <span class="hide" sw-note-handle="rs-author-id"></span>
-                                    <span class="hide" sw-note-handle="rs-color"></span>
+                                    {% comment %} <span class="rounded-circle bg-yellow p-8 mr-8">GW</span>George
+                                    willson 29th July, 2021
                                 </div>
+                                {% endcomment %}
+                                <span sw-note-handle="rs-name-logo" class="rounded-circle bg-blue p-8 mr-8"></span>
+                                <span sw-note-handle="rs-name"></span>
+                                <span sw-note-handle="rs-date"></span>
+                                <span class="hide" sw-note-handle="rs-author-id"></span>
+                                <span class="hide" sw-note-handle="rs-color"></span>
                             </div>
                         </div>
-
                     </div>
-                </div>
 
-                <div class="mt-40">
-                    <div class="block items-center hover:text-nebula-600 text-grey-1100 py-24 brd-top brd-bottom">
-                        <p class="c-white py-8"><span class="bold">Page Count : </span><span
-                                sw-number="totalpage">0</span></p>
-                        <p class="c-white py-8"><span class="bold">Est. Run Time : </span><span
-                                sw-number="time">0h:0m</span></p>
-                        {% if not anAuthor %}
-                        <!-- <div class="flex mt-8">
-                            <p class="c-white bold">Editor Mode:</p>
-                            <label class="toggle">
-                                <div class="toggle__wrapper">
-                                    <input class="toggle-input" type="checkbox" sw-editor-mode="switch">
-                                    <div class="toggle__bg">
-                                        <div class="toggle__sphere">
-                                            <div class="toggle__sphere-bg"></div>
-                                            <div class="toggle__sphere-overlay"></div>
-                                        </div>
+                </div>
+            </div>
+
+            <div class="mt-40">
+                <div class="block items-center hover:text-nebula-600 text-grey-1100 py-24 brd-top brd-bottom">
+                    <p class="c-white py-8"><span class="bold">Page Count : </span><span
+                            sw-number="totalpage">0</span></p>
+                    <p class="c-white py-8"><span class="bold">Est. Run Time : </span><span
+                            sw-number="time">0h:0m</span></p>
+                    {% if not anAuthor %}
+                    <!-- <div class="flex mt-8">
+                        <p class="c-white bold">Editor Mode:</p>
+                        <label class="toggle">
+                            <div class="toggle__wrapper">
+                                <input class="toggle-input" type="checkbox" sw-editor-mode="switch">
+                                <div class="toggle__bg">
+                                    <div class="toggle__sphere">
+                                        <div class="toggle__sphere-bg"></div>
+                                        <div class="toggle__sphere-overlay"></div>
                                     </div>
                                 </div>
-                            </label>
-                        </div> -->
-                        {% endif %}
-                    </div>
+                            </div>
+                        </label>
+                    </div> -->
+                    {% endif %}
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 </div>
 <!--End of new Right Bar-->

@@ -14,7 +14,7 @@ class Watcher {
         // window.MapAndReactOnContent
         // window.EditorFuncs
         // window.ScriptAdapter.currentDraftKey
-        // window.Watcher 
+        // window.Watcher
     }
 
     reset(a=0, b=0, c=0, d=false) {
@@ -99,8 +99,8 @@ class Watcher {
             // Refresh the total number of pages avaliable.
             if (contentLineList.length != this.totalLine) {
                 window.EditorFuncs.totalNumberOfPage();
-                document.querySelector(`[sw-section-btn="structure"]`).click();
-                document.querySelector(`[sw-section-btn="structure"]`).parentElement.click();
+                // document.querySelector(`[sw-section-btn="structure"]`).click();
+                // document.querySelector(`[sw-section-btn="structure"]`).parentElement.click();
             }
             // reload page structure guide
             if (pageList.length != this.totalPage) {
@@ -205,7 +205,6 @@ class Watcher {
         this.saveStatus = true;
         setTimeout(() => {
             this.save().then(data => { 
-                console.log('Data saved:', data); 
                 this.saveStatus = false;
             }).catch((error) => {
                 console.log('Error:', error);
