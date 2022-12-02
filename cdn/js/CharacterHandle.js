@@ -366,6 +366,7 @@ class CharacterHandle {
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
+                    console.log(data);
                     // Ensure image url is allowed to be add to src
                     this.imageChangeIndicator = true;
                     // Add the image url to web db
