@@ -79,8 +79,6 @@ class MapAndReactOnContent {
                     else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
                 }
             }
-            //Function that can change any type of content line
-            this.changeTypeOfContentLine();
         });
         //Function that can change any type of content line
         this.changeTypeOfContentLine();

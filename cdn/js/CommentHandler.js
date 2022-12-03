@@ -321,6 +321,7 @@ function addComment(thisElement) {
 
     let draft = window.ScriptDataStore.draft
     let activedraft = Object.values(draft).filter(d => d.active)[0]
+    const activeKeyName = Object.keys(draft).filter(d => draft[d].active)[0]
     let note = activedraft.data[sw_editor_id].note;   
     // check note is an object or an array
     if (Array.isArray(note)) {
@@ -328,8 +329,7 @@ function addComment(thisElement) {
     } else {
         note = [myNote];
     }
-    activedraft.data[sw_editor_id].note = note;
-    window.ScriptDataStore.draft = draft;
+    window.ScriptDataStore.draft[activeKeyName].data[sw_editor_id].note = note;
     window.ScriptAdapter.autoSave()
     window.NoteHandle.reCallNoteHandle();
 
