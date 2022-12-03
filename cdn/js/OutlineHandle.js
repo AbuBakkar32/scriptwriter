@@ -72,6 +72,16 @@ class OutlineHandle {
             el.remove()
         });
 
+        const s = document.querySelector(`[mapreact-data="rs-outline-list"]`);
+        s.addEventListener("click", (e) => {
+            console.log(document.querySelector(`[sw-editor="list"]`));
+        });
+
+        // const dotbutton = document.querySelector(`[sw-action="off-part"]`);
+        // dotbutton?.addEventListener('click', () => {
+        //     console.log('dotbutton clicked');
+        // });
+
     }
 
     setUp(item = document.querySelector(this.vars.mainMrItem)) {
@@ -84,8 +94,8 @@ class OutlineHandle {
         const colorBtn = item.querySelector(this.vars.colorOpt);
         const sceneID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
         const sceneGoal = item.querySelector(this.vars.sceneGoal);
-        const emotionalValue = item.querySelector(this.vars.ev);
-
+        const emotionalValue = item.querySelector(this.vars.ev)
+        // const list = item.querySelector(this.vars.rsMrList);
 
         /** Event Listeners on Outline Page Items*/
         hide?.addEventListener('click', () => {

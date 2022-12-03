@@ -355,6 +355,7 @@ class ScriptProject(object):
                 fName = fID + '.' + extention
                 # Upload the image
                 isSaveImage = uploadFileHandler(img, fName, self.privateFilePath)
+                print(isSaveImage)
                 # return the image url
                 if isSaveImage:
                     imageUrl = self.url + '/script/image/' + fID

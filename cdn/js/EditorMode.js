@@ -606,11 +606,11 @@ class EditorMode {
         newLine.setAttribute("sw-focused", "edit")
         
         const line = this.handleContentLineNuetral(newLine, type);
-        // if (this.handleSceneHeadingType(line)) ;
-        // else if (this.handleCharater(line)) ;
-        // else if (this.handleParentArticle(line)) ;
-        // else if (this.handleDialog(line)) ;
-        // else if (this.handleTransition(line)) ;
+        if (this.handleSceneHeadingType(line)) ;
+        else if (this.handleCharater(line)) ;
+        else if (this.handleParentArticle(line)) ;
+        else if (this.handleDialog(line)) ;
+        else if (this.handleTransition(line)) ;
     }
 
     handleSceneHeadingType(line, direct = false) {

@@ -366,6 +366,7 @@ class CharacterHandle {
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
+                    console.log(data);
                     // Ensure image url is allowed to be add to src
                     this.imageChangeIndicator = true;
                     // Add the image url to web db
@@ -643,7 +644,6 @@ class CharacterHandle {
         const listOfCharacter = [];
         // Get the character dataset keys
         let count = 1;
-        console.log(window.ScriptDataStore);
         const cKeys = Object.keys(window.ScriptDataStore.character);
         cKeys.forEach((key) => {
             const cdata = window.ScriptDataStore.character[key];
