@@ -99,8 +99,8 @@ class Watcher {
             // Refresh the total number of pages avaliable.
             if (contentLineList.length != this.totalLine) {
                 window.EditorFuncs.totalNumberOfPage();
-                // document.querySelector(`[sw-section-btn="structure"]`).click();
-                // document.querySelector(`[sw-section-btn="structure"]`).parentElement.click();
+                document.querySelector(`[sw-section-btn="structure"]`).click();
+                document.querySelector(`[sw-section-btn="structure"]`).parentElement.click();
             }
             // reload page structure guide
             if (pageList.length != this.totalPage) {
