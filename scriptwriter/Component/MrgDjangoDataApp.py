@@ -58,6 +58,9 @@ class MrgDjangoDataApp():
                 fileUploadPath is the system location to store the file."""
         import os
         filePath = os.path.join(fileUploadPath, filename)
+        isExist = os.path.exists(fileUploadPath)
+        if not isExist:
+            os.makedirs(fileUploadPath)
         try:
             with open(filePath, 'wb+') as destination:
                 for chunk in f.chunks():

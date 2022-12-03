@@ -242,6 +242,13 @@ function tabAction() {
     });
 }
 
+function swToggle() {
+    const dotbutton = document.querySelector(`[sw-action="off-part"]`);
+    dotbutton?.addEventListener('click', () => {
+        console.log('dotbutton clicked');
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Call this function
     customControlMenuPopUp();
@@ -259,6 +266,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Block click on wrapper
     clickBlock();
     // Tab function
-    tabAction()
-
+    tabAction();
+    swToggle();
 });
