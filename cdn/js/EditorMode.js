@@ -593,7 +593,18 @@ class EditorMode {
     }
 
     formatContentLine(newLine) {
-        const type = newLine.getAttribute(this.cons.editType);
+        let type = newLine.getAttribute(this.cons.editType);
+        if (type === '') type = 'action';
+        newLine.setAttribute(this.cons.editType, type);
+
+        // get all element with sw-focused attribute
+        const focusedElements = document.querySelectorAll('[sw-focused]');
+        // remove all sw-focused attribute
+        focusedElements.forEach((e) => {
+            e.removeAttribute('sw-focused');
+        });
+        newLine.setAttribute("sw-focused", "edit")
+        
         const line = this.handleContentLineNuetral(newLine, type);
         // if (this.handleSceneHeadingType(line)) ;
         // else if (this.handleCharater(line)) ;
@@ -717,6 +728,7 @@ class EditorMode {
     }
 
     handleContentLineNuetral(line, type = 'action') {
+        if (type === '') type = 'action';
         // Adjust script body
         line.classList.remove(this.cons.sht);
         line.classList.remove(this.cons.ct);
