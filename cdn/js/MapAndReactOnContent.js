@@ -357,7 +357,6 @@ class MapAndReactOnContent {
         });
     }
 
-
     sceneHeadingType(line) {
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
@@ -372,6 +371,11 @@ class MapAndReactOnContent {
     }
 
     actionType(line) {
+        // set sw-editor-type="action" to the line
+        //line.setAttribute('sw-editor-type', 'action');
+        //line.setAttribute('sw-editor-type-helper', 'action');
+        //swEditorTypeChangingFromDropdown = true;
+        //this.modifyClassNameOfContentLine(line, 'action');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'action'};
         // if function name is same as metaType then end the function

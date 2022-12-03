@@ -72,11 +72,6 @@ class OutlineHandle {
             el.remove()
         });
 
-        const s = document.querySelector(`[mapreact-data="rs-outline-list"]`);
-        s.addEventListener("click", (e) => {
-            console.log(document.querySelector(`[sw-editor="list"]`));
-        });
-
         // const dotbutton = document.querySelector(`[sw-action="off-part"]`);
         // dotbutton?.addEventListener('click', () => {
         //     console.log('dotbutton clicked');

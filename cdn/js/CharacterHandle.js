@@ -80,17 +80,6 @@ class CharacterHandle {
             imageBtn: `[${this.attrName}="image-btn"]`,
         };
 
-
-        // setTimeout(() => {
-        //     const characterList = document.querySelectorAll(this.vars.mainMrItem);
-        //     let x = [];
-        //     characterList.forEach((item, i) => {
-        //         console.log(item.querySelector(this.vars.name))
-        //         x.includes(item.querySelector(this.vars.name).innerHTML) ? 1 : x.push(item.querySelector(this.vars.name).innerHTML);
-        //     });
-        //     console.log(x);
-        // }, 200);
-
         this.mainCharacterListTemp = document.querySelector(this.vars.mainMrList);
         this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true);
         this.rsCharacterListTemp = document.querySelector(this.vars.rsMrList);
@@ -462,6 +451,7 @@ class CharacterHandle {
     }
 
     update(uid, isAddId = '') {
+        console.log(window.ScriptDataStore.character[uid])
         if (!window.ScriptDataStore.character[uid]) return;
         let idValue;
         if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`);
@@ -862,7 +852,7 @@ class CharacterHandle {
 
             /** Update character Obstacle Element*/
             const obstacle = template.querySelector(this.vars.obstacle);
-            if (obstacle) obstacle.textContent = cDB.obstacle;
+            if (obstacle) obstacle.textContent = cDB.obstacles;
 
             /** Update character Resolving Obstacle Element*/
             const resolvingObstacle = template.querySelector(this.vars.resolvingObstacle);
@@ -870,7 +860,7 @@ class CharacterHandle {
 
             /** Update character synopsis Element*/
             const synopsis = template.querySelector(this.vars.synopsis);
-            if (synopsis) obstacle.textContent = cDB.synopsis;
+            if (synopsis) synopsis.textContent = cDB.synopsis;
 
             /**Update scenes*/
             const sceneWrapper = template.querySelector(`[character-data="scene-list"]`);
