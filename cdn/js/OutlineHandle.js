@@ -347,11 +347,6 @@ class OutlineHandle {
                 });
             }
         });
-
-        //Render outline data to template
-        // window.ScriptAdapter.scriptDataStore.outline = {};
-        // window.ScriptAdapter.autoSave();
-        console.log(window.ScriptAdapter.scriptDataStore.outline)
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
     }
 
