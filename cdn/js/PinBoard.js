@@ -71,8 +71,6 @@ class PinBoard {
         const body = card.querySelector(this.cardOption.cardVar.body);
         const cardId = card.querySelector(this.cardOption.cardVar.cardId);
         const colorOption = card.querySelector(this.cardOption.cardVar.colorOpt)
-        console.log("Data", data);
-        console.log("card", card)
 
         const theCurrentBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`)?.getAttribute(this.cardOption.cardVar.bgValue);
 

@@ -32,7 +32,6 @@ const Profile = () => {
         for (var i = 0; i < a.length; i++) {
             weekdays.push(a[i]);
         }
-        console.log(weekdays);
         setTimeout(function () {
             for (var i = 0; i < li.length; i++) {
                 if (li[i].classList.contains("weekday-selected")) {
