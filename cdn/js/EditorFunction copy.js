@@ -220,7 +220,6 @@ class EditorFuncs {
             ele.addEventListener('change', (f) => {
                 f.stopImmediatePropagation();
                 f.stopPropagation();
-                console.log(ele.value);
                 //if (ele.getAttribute('render-color') === 'textColor') this.colorText(ele.value);
                 //else if (ele.getAttribute('render-color') === 'highlight') this.penPaint(ele.value)
             });
