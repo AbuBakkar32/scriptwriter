@@ -311,7 +311,6 @@ class MapAndReactOnContent {
                     if (!characterIDElement) return;
                     const characterID = characterIDElement.getAttribute('rs-character-id');
                     if (characterID) window.CharacterHandle.update(characterID);
-                    console.log('character option 2 update');
                 } else if (ele.hasAttribute(this.cons.editCharacterID)) {
                     if (ele.getAttribute(this.cons.editType) != 'character') return;
                     const getCharacterID = ele.getAttribute(this.cons.editCharacterID)
@@ -334,7 +333,6 @@ class MapAndReactOnContent {
             typeList.forEach((typ) => {
                 typ.addEventListener('click', ()=> {
                     const targetFocused = document.querySelector(this.cons.focused);
-                    console.log(targetFocused);
                     let targetFocusedPromise = new Promise((resolve, reject)=>{resolve(1)});
                     targetFocusedPromise.then(()=> {
                         if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
@@ -356,6 +354,9 @@ class MapAndReactOnContent {
     }
 
     sceneHeadingType(line) {
+        //to Clear the outline of the focused element
+        window.ScriptAdapter.scriptDataStore.outline = {}
+        window.ScriptAdapter.autoSave();
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType:line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
         // if function name is same as metaType then end the function

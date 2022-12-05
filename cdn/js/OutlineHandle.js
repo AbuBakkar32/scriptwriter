@@ -324,7 +324,6 @@ class OutlineHandle {
                 const color = item.color;
                 const scriptBodyID = item.sbID;
                 const pageNumber = item.pageNumber;
-
                 //Get all other scene type that is under this scene heading
                 const otherSceneType = [];
 
@@ -348,20 +347,8 @@ class OutlineHandle {
     outlineRenderTemplate(data) {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
+        console.log(data);
         let currentItemTemplate;
-        // let dropDowm = `<select>
-        //                         <option value="-1">-1</option>
-        //                         <option value="-2">-2</option>
-        //                         <option value="-3">-3</option>
-        //                         <option value="-4">-4</option>
-        //                         <option value="-5">-5</option>
-        //                         <option value="0">0</option>
-        //                         <option value="1">1</option>
-        //                         <option value="2">2</option>
-        //                         <option value="3">3</option>
-        //                         <option value="4">4</option>
-        //                         <option value="5">5</option>
-        //                 </select>`
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
             currentItemTemplate = template;
@@ -388,22 +375,22 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
-            // setTimeout(() => {
-            //     emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
-            // }, 200);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
+            const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID]
             if (dataset && dataset?.others?.ev) {
                 emotionalValue.textContent = dataset.others.ev;
                 sceneGoal.innerText = dataset.others.scenegoal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID, content: data.name, type: 'scene-heading',
-                    color: data.color, others: {ev: '0', scenegoal: ''},
+                    id: data.sbID,
+                    content: data.name,
+                    type: 'scene-heading',
+                    color: data.color,
+                    unique_key: data.position,
+                    others: {ev: '0', scenegoal: ''},
                     note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
             }
-
             //Update scenes List
             const sceneWrapper = template.querySelector(this.vars.sceneList);
             /**new scene heading template*/

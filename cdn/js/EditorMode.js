@@ -616,7 +616,7 @@ class EditorMode {
     }
 
     handleSceneHeadingType(line, direct = false) {
-        // for direct formatting of content line
+        // for direct formatting of content
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
             line.setAttribute(this.cons.editType, this.cons.sh);
