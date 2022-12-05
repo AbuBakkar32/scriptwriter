@@ -242,24 +242,13 @@ function tabAction() {
     });
 }
 
-function swToggle() {
-    const dotbutton = document.querySelector(`[sw-action="off-part"]`);
-    dotbutton?.addEventListener('click', () => {
-        console.log('dotbutton clicked');
-    });
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     // Call this function
     customControlMenuPopUp();
-
     // Call this function
     swSelectItem();
-
     swSelectOptionApply();
-
     hideAndShowDropable('hideable-part', 'showable-part');
-
     menuOptionPopup();
     //Call Setting Actions
     popUpSettings();
@@ -267,5 +256,4 @@ document.addEventListener("DOMContentLoaded", function () {
     clickBlock();
     // Tab function
     tabAction();
-    swToggle();
 });

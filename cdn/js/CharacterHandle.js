@@ -682,7 +682,7 @@ class CharacterHandle {
         listOfCharacter.forEach(charater => this.characterRenderTemplate(charater));
     }
 
-    lineValidator(line) {
+     lineValidator(line) {
         const lineText = line.innerText;
         const color = line.getAttribute('sw-editor-color');
         const isCharacterNameExist = this.checkStore(lineText)

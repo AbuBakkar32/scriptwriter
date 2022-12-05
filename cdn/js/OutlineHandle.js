@@ -72,11 +72,6 @@ class OutlineHandle {
             el.remove()
         });
 
-        // const dotbutton = document.querySelector(`[sw-action="off-part"]`);
-        // dotbutton?.addEventListener('click', () => {
-        //     console.log('dotbutton clicked');
-        // });
-
     }
 
     setUp(item = document.querySelector(this.vars.mainMrItem)) {

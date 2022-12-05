@@ -304,7 +304,6 @@ class MapAndReactOnContent {
                     if (!characterIDElement) return;
                     const characterID = characterIDElement.getAttribute('character-idvalue');
                     if (characterID) window.CharacterHandle.update(characterID);
-                    console.log('character option 1 update');
                 } else if (ele.hasAttribute('rs-character')){
                     const characterItem = ele.closest(`[mapreact-data="rs-character-item"]`);
                     if(!characterItem) return;
@@ -317,11 +316,9 @@ class MapAndReactOnContent {
                     if (ele.getAttribute(this.cons.editType) != 'character') return;
                     const getCharacterID = ele.getAttribute(this.cons.editCharacterID)
                     if (getCharacterID) window.CharacterHandle.update(getCharacterID);
-                    console.log('character option 3 update');
                 }
             });
         });
-        //console.log(`Rendering took ${performance.now() - startTime}ms`);
         // A hide and show function from app.js
         hideAndShowDropable('hideable-part', 'showable-part');
     }
@@ -337,6 +334,7 @@ class MapAndReactOnContent {
             typeList.forEach((typ) => {
                 typ.addEventListener('click', ()=> {
                     const targetFocused = document.querySelector(this.cons.focused);
+                    console.log(targetFocused);
                     let targetFocusedPromise = new Promise((resolve, reject)=>{resolve(1)});
                     targetFocusedPromise.then(()=> {
                         if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
