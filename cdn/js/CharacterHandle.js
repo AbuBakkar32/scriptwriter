@@ -113,17 +113,12 @@ class CharacterHandle {
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {
-                name: newCharacterID.toUpperCase(),
-                id: mapreactID,
-                position: pos,
-                scenes: [],
-                cid: newCharacterID
+                name: newCharacterID.toUpperCase(), id: mapreactID, position: pos, scenes: [], cid: newCharacterID
             };
             this.characterRenderTemplate(dataset);
-            //this.activateMapReact(mapreactID)
+            this.activateMapReact(mapreactID)
             window.ScriptAdapter.autoSave();
         });
-
         // General auto create character button
         const createCharacterAutoBtn = document.querySelector(this.vars.autoCreateBtn);
         createCharacterAutoBtn?.addEventListener('click', () => {
@@ -138,7 +133,7 @@ class CharacterHandle {
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {name: newName, id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
             this.characterRenderTemplate(dataset);
-            //this.activateMapReact(mapreactID)
+            this.activateMapReact(mapreactID)
             window.ScriptAdapter.autoSave();
         });
 
@@ -150,7 +145,7 @@ class CharacterHandle {
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {name: character.name, id: mapreactID, position: pos, scenes: [], cid: character.id};
             this.characterRenderTemplate(dataset);
-            //this.activateMapReact(mapreactID);
+            this.activateMapReact(mapreactID);
         });
 
     }
@@ -229,8 +224,7 @@ class CharacterHandle {
         const characterMainContent = item.querySelector(this.vars.content);
         const imageBtn = item.querySelector(this.vars.imageBtn);
         const imageAll = item.querySelectorAll(this.vars.image);
-        const rsImage = this.rsCharacterListTemp.querySelector(`[rs-character-id="${cid}"]`)?.closest(
-            this.vars.rsMrItem)?.querySelector(this.vars.rsImage);
+        const rsImage = this.rsCharacterListTemp.querySelector(`[rs-character-id="${cid}"]`)?.closest(this.vars.rsMrItem)?.querySelector(this.vars.rsImage);
 
         /** Event Listeners for charater on Main Character Page */
         item?.addEventListener('click', () => {
@@ -355,7 +349,6 @@ class CharacterHandle {
             .then(response => response.json())
             .then(data => {
                 if (data.result === 'success') {
-                    console.log(data);
                     // Ensure image url is allowed to be add to src
                     this.imageChangeIndicator = true;
                     // Add the image url to web db
@@ -408,8 +401,7 @@ class CharacterHandle {
         });
         // Possession will be
         const pos = (count / metaTypeCharacterList.length * 100).toFixed(0);
-        if (count) return pos + '%';
-        else return '0%';
+        if (count) return pos + '%'; else return '0%';
     }
 
     create(name = '') {
@@ -451,11 +443,9 @@ class CharacterHandle {
     }
 
     update(uid, isAddId = '') {
-        console.log(window.ScriptDataStore.character[uid])
         if (!window.ScriptDataStore.character[uid]) return;
         let idValue;
-        if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`);
-        else idValue = document.querySelector(`[character-idvalue="${uid}"]`);
+        if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`); else idValue = document.querySelector(`[character-idvalue="${uid}"]`);
 
         if (!idValue) return;
         // Now target the particular main character item element
@@ -628,16 +618,25 @@ class CharacterHandle {
         [...this.mainCharacterListTemp.children].forEach((el) => {
             el.remove()
         });
-
         // Set new content store value
         this.contentStore = contenStore;
         const listOfCharacter = [];
+        const listOfCharacterName = [];
+        const uniqueCharacter = [];
         // Get the character dataset keys
         let count = 1;
+
         const cKeys = Object.keys(window.ScriptDataStore.character);
         cKeys.forEach((key) => {
-            const cdata = window.ScriptDataStore.character[key];
+            const data = window.ScriptDataStore.character[key];
+            if (!listOfCharacterName.includes(data.name.toLowerCase())) {
+                listOfCharacterName.push(data.name.toLowerCase());
+                uniqueCharacter.push(window.ScriptDataStore.character[key]);
+            }
+        })
 
+        uniqueCharacter.forEach((key) => {
+            const cdata = key;
             let nameC = cdata.name;
             let idC = this.quickID();
             let posC = count;
@@ -669,11 +668,7 @@ class CharacterHandle {
             }
             // Append character
             listOfCharacter.push({
-                name: nameC,
-                id: idC,
-                position: posC,
-                scenes: characterAppearedScenes,
-                cid: characterIDC
+                name: nameC, id: idC, position: posC, scenes: characterAppearedScenes, cid: characterIDC
             });
 
             count += 1;
@@ -682,7 +677,7 @@ class CharacterHandle {
         listOfCharacter.forEach(charater => this.characterRenderTemplate(charater));
     }
 
-     lineValidator(line) {
+    lineValidator(line) {
         const lineText = line.innerText;
         const color = line.getAttribute('sw-editor-color');
         const isCharacterNameExist = this.checkStore(lineText)
@@ -703,6 +698,7 @@ class CharacterHandle {
         // data {name: name, id: id, position: pos, scenes: characterAppearedScenes, cid: characterID};
         //Get character possession
         const cPossession = this.possession(data.name);
+
         // Get character database data
         const cDB = window.ScriptDataStore.character[data.cid];
         // Update character new possession
@@ -815,8 +811,7 @@ class CharacterHandle {
             if (lineWidth) {
                 lineWidth.style.maxWidth = cPossession;
                 lineWidth.style.width = cPossession;
-                if (cDB.color && lineWidth.classList.contains('bg-orange'))
-                    lineWidth.classList.replace('bg-orange', cDB.color);
+                if (cDB.color && lineWidth.classList.contains('bg-orange')) lineWidth.classList.replace('bg-orange', cDB.color);
             }
             ;
 
@@ -911,12 +906,11 @@ class CharacterHandle {
                 for (let index = 1; index <= 14; index++) {
                     const item = bodyMapItem.cloneNode(true);
                     item.querySelector('div').innerText = cDB['item' + index];
-                    if (index <= 8) bodyMapLeft.append(item);
-                    else bodyMapRight.append(item);
+                    if (index <= 8) bodyMapLeft.append(item); else bodyMapRight.append(item);
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
             }
-
+            // avoid duplicate character where character name is the same
             //Append character template to List wrapper
             this.mainCharacterListTemp.append(template);
         }
@@ -998,8 +992,7 @@ class CharacterHandle {
         const mapReactIDListKeys = Object.keys(mapReactIDList);
         mapReactIDListKeys.forEach((key) => {
             const mrID = mapReactIDList[key];
-            if (key !== 'image') /* this.activateMapReact(mrID) */;
-            else this.activateMapReact(mrID, true);
+            if (key !== 'image') /* this.activateMapReact(mrID) */; else this.activateMapReact(mrID, true);
         });
     }
 
@@ -1009,7 +1002,6 @@ class CharacterHandle {
         //Loop through content store to find out is character name already exist.
         for (let index = 0; index < this.contentStore.length; index++) {
             const data = this.contentStore[index];
-            console.log(data);
             if (data.type === 'character' && data.content.innerText === name) {
                 validity = true;
                 cid = data.index;
@@ -1037,7 +1029,7 @@ class CharacterHandle {
         return {valid: validity, id: cid};
     }
 
-    checkScriptDataStoreCharacter(){
+    checkScriptDataStoreCharacter() {
         const presentCharacters = Object.keys(window.ScriptDataStore.character); // object
         const dataStore = Object.keys(window.ScriptDataStore.data) // object
 

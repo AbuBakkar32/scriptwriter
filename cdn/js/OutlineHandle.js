@@ -308,7 +308,6 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
-
         // Set new content store value
         this.contenStore = contenStore;
 
@@ -347,7 +346,6 @@ class OutlineHandle {
     outlineRenderTemplate(data) {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
-        console.log(data);
         let currentItemTemplate;
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);

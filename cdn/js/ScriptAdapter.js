@@ -273,7 +273,11 @@ class ScriptAdapter {
 
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
-            window.CharacterHandle.lineValidator(line);
+            try{
+                window.CharacterHandle.lineValidator(line);
+            }catch (e) {
+                console.log(e);
+            }
             //line.setAttribute('sw-editor-character-id', lineData.others.cID);
         }
 
