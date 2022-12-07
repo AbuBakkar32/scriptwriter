@@ -310,34 +310,60 @@ class OutlineHandle {
         });
         // Set new content store value
         this.contenStore = contenStore;
-
         const listOfOutline = [];
-
+        const listOfOutlineName = [];
         let count = 0;
+        Object.keys(window.ScriptDataStore.outline).forEach((key) => {
+            listOfOutlineName.push(window.ScriptDataStore.outline[key].title.replace(/&nbsp;/g, " ").toLowerCase());
+        })
+        console.log(listOfOutlineName);
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
-                count += 1;
-                const name = item.content.innerText;
-                const id = item.id;
-                const pos = item.index;
-                const color = item.color;
-                const scriptBodyID = item.sbID;
-                const pageNumber = item.pageNumber;
-                //Get all other scene type that is under this scene heading
                 const otherSceneType = [];
+                count += 1;
+                if (!listOfOutlineName.includes(item.main.innerText.toLowerCase())) {
+                    const name = item.content.innerText;
+                    const id = item.id;
+                    const pos = item.index;
+                    const color = item.color;
+                    const scriptBodyID = item.sbID;
+                    const pageNumber = item.pageNumber;
+                    //Get all other scene type that is under this scene heading
 
-                for (let i = pos + 1; i < this.contentStore.length; i++) {
-                    const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break;
-                    else otherSceneType.push(tem);
+                    for (let i = pos + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type,
+                    });
+                }else{
+                    const name = ""
+                    const id = ""
+                    const pos = ""
+                    const color = ""
+                    const scriptBodyID = ""
+                    const pageNumber = ""
+                    //Get all other scene type that is under this scene heading
+
+                    for (let i = pos + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type,
+                    });
                 }
-
-                // Append outline
-                listOfOutline.push({
-                    name: name, id: id, position: count, scenes: otherSceneType,
-                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
-                    type: item.type,
-                });
             }
         });
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
