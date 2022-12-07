@@ -308,38 +308,62 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
-
         // Set new content store value
         this.contenStore = contenStore;
-
         const listOfOutline = [];
-
+        const listOfOutlineName = [];
         let count = 0;
+        Object.keys(window.ScriptDataStore.outline).forEach((key) => {
+            listOfOutlineName.push(window.ScriptDataStore.outline[key].title.replace(/&nbsp;/g, " ").toLowerCase());
+        })
+        console.log(listOfOutlineName);
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
-                count += 1;
-                const name = item.content.innerText;
-                const id = item.id;
-                const pos = item.index;
-                const color = item.color;
-                const scriptBodyID = item.sbID;
-                const pageNumber = item.pageNumber;
-
-                //Get all other scene type that is under this scene heading
                 const otherSceneType = [];
+                count += 1;
+                if (!listOfOutlineName.includes(item.main.innerText.toLowerCase())) {
+                    const name = item.content.innerText;
+                    const id = item.id;
+                    const pos = item.index;
+                    const color = item.color;
+                    const scriptBodyID = item.sbID;
+                    const pageNumber = item.pageNumber;
+                    //Get all other scene type that is under this scene heading
 
-                for (let i = pos + 1; i < this.contentStore.length; i++) {
-                    const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break;
-                    else otherSceneType.push(tem);
+                    for (let i = pos + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type,
+                    });
+                }else{
+                    const name = ""
+                    const id = ""
+                    const pos = ""
+                    const color = ""
+                    const scriptBodyID = ""
+                    const pageNumber = ""
+                    //Get all other scene type that is under this scene heading
+
+                    for (let i = pos + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type,
+                    });
                 }
-
-                // Append outline
-                listOfOutline.push({
-                    name: name, id: id, position: count, scenes: otherSceneType,
-                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
-                    type: item.type,
-                });
             }
         });
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
@@ -349,19 +373,6 @@ class OutlineHandle {
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
-        // let dropDowm = `<select>
-        //                         <option value="-1">-1</option>
-        //                         <option value="-2">-2</option>
-        //                         <option value="-3">-3</option>
-        //                         <option value="-4">-4</option>
-        //                         <option value="-5">-5</option>
-        //                         <option value="0">0</option>
-        //                         <option value="1">1</option>
-        //                         <option value="2">2</option>
-        //                         <option value="3">3</option>
-        //                         <option value="4">4</option>
-        //                         <option value="5">5</option>
-        //                 </select>`
         if (1) {
             const template = this.mainOutlineItemTemp.cloneNode(true);
             currentItemTemplate = template;
@@ -388,22 +399,22 @@ class OutlineHandle {
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
-            // setTimeout(() => {
-            //     emotionalValue.insertAdjacentHTML('beforeend', dropDowm);
-            // }, 200);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID];
+            const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID]
             if (dataset && dataset?.others?.ev) {
                 emotionalValue.textContent = dataset.others.ev;
                 sceneGoal.innerText = dataset.others.scenegoal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID, content: data.name, type: 'scene-heading',
-                    color: data.color, others: {ev: '0', scenegoal: ''},
+                    id: data.sbID,
+                    content: data.name,
+                    type: 'scene-heading',
+                    color: data.color,
+                    unique_key: data.position,
+                    others: {ev: '0', scenegoal: ''},
                     note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
             }
-
             //Update scenes List
             const sceneWrapper = template.querySelector(this.vars.sceneList);
             /**new scene heading template*/

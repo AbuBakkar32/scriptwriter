@@ -497,7 +497,7 @@ class EditorMode {
             this.watcherStatus = true;
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
-            //if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
+            if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
             this.keyPressed = '';
 
             // update the element focus edit
@@ -571,7 +571,7 @@ class EditorMode {
             if (!rearrange) return;
             // re arrange pages
             await this.rearrangePage();
-            //await window.MapAndReactOnContent.mapreact();
+            await window.MapAndReactOnContent.mapreact();
         })
         return rangePromise;
     }
@@ -616,7 +616,7 @@ class EditorMode {
     }
 
     handleSceneHeadingType(line, direct = false) {
-        // for direct formatting of content line
+        // for direct formatting of content
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
             line.setAttribute(this.cons.editType, this.cons.sh);

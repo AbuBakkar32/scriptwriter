@@ -273,31 +273,14 @@ class ScriptAdapter {
 
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
-            window.CharacterHandle.lineValidator(line);
+            try{
+                window.CharacterHandle.lineValidator(line);
+            }catch (e) {
+                console.log(e);
+            }
             //line.setAttribute('sw-editor-character-id', lineData.others.cID);
         }
 
-        // Set Note
-        /*  const noteBody = contentLineClone.querySelector(`[sw-data-content="note-body"]`);
-        if (noteBody) {
-            // Update the bg-color
-            if(clDetial.note.color) noteBody.parentElement.classList.replace('bg-yellow', clDetial.note.color);
-            // New Note detail wrapper
-            const NoteDetailWrap = contentLineClone.querySelector(`[sw-data-content="note-detail-wrap"]`);
-            // Set the note details && || Adjust the note detail wrapper parent height
-            if (clDetial.note.text != '') NoteDetailWrap?.classList.remove('hide');
-            else NoteDetailWrap?.parentElement.classList.replace('rem-h10', 'rem-h7');
-        
-            if (clDetial.note.text) noteBody.innerText = clDetial.note.text;
-            if (clDetial.note.authorName) contentLineClone.querySelector(`[sw-data-content="note-name"]`).innerText = clDetial.note.authorName;
-            if (clDetial.note.date) contentLineClone.querySelector(`[sw-data-content="note-date"]`).innerText = clDetial.note.date;
-            if (clDetial.note.authorID) contentLineClone.querySelector(`[sw-data-content="note-authorID"]`).innerText = clDetial.note.authorID
-            let nameLogo;
-            if (clDetial.note.authorName) nameLogo = clDetial.note.authorName.split(' ')[0][0].toUpperCase() + clDetial.note.authorName.split(' ')[1][0].toUpperCase();
-            if (clDetial.note.authorName) contentLineClone.querySelector(`[sw-data-content="note-name-logo"]`).innerText = nameLogo;
-            if (clDetial.note.color) contentLineClone.querySelector(`[sw-data-content="note-color"]`).innerText = clDetial.note.color;
-        } 
-        */
         // format the line text
         if (lineData.type === 'action') ;
         else if (lineData.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
@@ -647,7 +630,7 @@ class ScriptAdapter {
         // All content line
         const contentLines = document.querySelectorAll(`[sw-editor-type]`);
 
-        contentLines.forEach((line) => {
+        contentLines.forEach((line, i) => {
             const htmlText = line.innerHTML;
             const lineType = line.getAttribute('sw-editor-type');
             const clID = line.getAttribute('sw-editor-id');
