@@ -388,8 +388,8 @@ class MapAndReactOnContent {
 
     sceneHeadingType(line) {
         //to Clear the outline of the focused element
-        window.ScriptAdapter.scriptDataStore.outline = {}
-        window.ScriptAdapter.autoSave();
+        // window.ScriptAdapter.scriptDataStore.outline = {}
+        // window.ScriptAdapter.autoSave();
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
         // if function name is same as metaType then end the function
