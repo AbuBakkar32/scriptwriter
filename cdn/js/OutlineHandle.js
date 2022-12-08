@@ -316,7 +316,6 @@ class OutlineHandle {
         Object.keys(window.ScriptDataStore.outline).forEach((key) => {
             listOfOutlineName.push(window.ScriptDataStore.outline[key].title.replace(/&nbsp;/g, " ").toLowerCase());
         })
-        console.log(listOfOutlineName);
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
                 const otherSceneType = [];
