@@ -423,20 +423,20 @@ class CharacterHandle {
             age: '',
             gender: '',
             interest: '',
-            item1: 'nill',
-            item2: 'nill',
-            item3: 'nill',
-            item4: 'nill',
-            item5: 'nill',
-            item6: 'nill',
-            item7: 'nill',
-            item8: 'nill',
-            item9: 'nill',
-            item10: 'nill',
-            item11: 'nill',
-            item12: 'nill',
-            item13: 'nill',
-            item14: 'nill',
+            item1: 'Nill',
+            item2: 'Nill',
+            item3: 'Nill',
+            item4: 'Nill',
+            item5: 'Nill',
+            item6: 'Nill',
+            item7: 'Nill',
+            item8: 'Nill',
+            item9: 'Nill',
+            item10: 'Nill',
+            item11: 'Nill',
+            item12: 'Nill',
+            item13: 'Nill',
+            item14: 'Nill',
         }
 
         return uid;
@@ -464,25 +464,25 @@ class CharacterHandle {
         window.ScriptDataStore.character[uid].synopsis = character.querySelector(this.vars.synopsis)?.innerText || '';
         window.ScriptDataStore.character[uid].trait = character.querySelector(this.vars.trait)?.innerText || '';
         window.ScriptDataStore.character[uid].occupation = character.querySelector(this.vars.occupation)?.innerText || '';
-        //window.ScriptDataStore.character[uid].color = window.BackgroundColor.randomBg();
+        window.ScriptDataStore.character[uid].color = window.BackgroundColor.randomBg();
         if (!isAddId) window.ScriptDataStore.character[uid].image = character.querySelector(this.vars.image).src || '';
         window.ScriptDataStore.character[uid].age = character.querySelector(this.vars.age)?.innerText || '';
         window.ScriptDataStore.character[uid].gender = character.querySelector(this.vars.gender)?.innerText || '';
         window.ScriptDataStore.character[uid].interest = character.querySelector(this.vars.interest)?.innerText || '';
-        window.ScriptDataStore.character[uid].item1 = itemList[0]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item2 = itemList[1]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item3 = itemList[2]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item4 = itemList[3]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item5 = itemList[4]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item6 = itemList[5]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item7 = itemList[6]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item8 = itemList[7]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item9 = itemList[8]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item10 = itemList[9]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item11 = itemList[10]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item12 = itemList[11]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item13 = itemList[12]?.querySelector('div')?.innerText || 'nill';
-        window.ScriptDataStore.character[uid].item14 = itemList[13]?.querySelector('div')?.innerText || 'nill';
+        window.ScriptDataStore.character[uid].item1 = itemList[0]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item2 = itemList[1]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item3 = itemList[2]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item4 = itemList[3]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item5 = itemList[4]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item6 = itemList[5]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item7 = itemList[6]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item8 = itemList[7]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item9 = itemList[8]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item10 = itemList[9]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item11 = itemList[10]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item12 = itemList[11]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item13 = itemList[12]?.querySelector('div')?.innerText || 'Nill';
+        window.ScriptDataStore.character[uid].item14 = itemList[13]?.querySelector('div')?.innerText || 'Nill';
         // Automatically save the script data.
         window.ScriptAdapter.autoSave();
     }
