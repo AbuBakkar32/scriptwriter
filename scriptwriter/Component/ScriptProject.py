@@ -347,7 +347,6 @@ class ScriptProject(object):
                             pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
-                    print(scriptLine['content'])
 
                 # PDF output
                 if title:

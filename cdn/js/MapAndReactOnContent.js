@@ -254,7 +254,7 @@ class MapAndReactOnContent {
                     try {
                         window.CharacterHandle.lineValidator(el)
                         cid = el.getAttribute(this.cons.editCharacterID);
-                    }catch (e) {
+                    } catch (e) {
 
                     }
                 }
@@ -606,25 +606,24 @@ class MapAndReactOnContent {
         google.charts.setOnLoadCallback(drawLineChart);
     }
 
-    graphTemplateThree(charactersPossession) { //Pie Chart Graph
+    //Pie Chart Graph
+    graphTemplateThree(charactersPossession) {
         // format for charactersPossession parameter: [['German',  5.85]]
         const drawChart = () => {
             const data = google.visualization.arrayToDataTable([
                 ['Character Name', 'Possession'],
                 ...charactersPossession
             ]);
-
             let graph3Width = 500;
             if (window.innerWidth < 1200) graph3Width = window.innerWidth - 20;
-
             const options = {
                 width: graph3Width,
                 height: 400,
                 legend: 'none',
                 pieSliceText: 'label',
                 title: '',
-                //pieStartAngle: 100,
-                pieHole: 0.3,
+                //pieStartAngle: 50,
+                pieHole: 0.4,
                 pieSliceTextStyle: {
                     color: 'black'
                 },
@@ -632,11 +631,10 @@ class MapAndReactOnContent {
                     fill: 'none', // Change the background color.
                     stroke: 'none' // Change the vartical line color
                 },
-                pieSliceBorderColor: 'none',
+                pieSliceBorderColor: '#952aff',
                 slices: {0: {color: '#952aff'}, 1: {color: '#fed59a'}, 3: {color: '#ffe6e9'}} //Customize bgcolor for each data space
                 //tooltip: { trigger: 'selection'} //trigger: selection => makes the tip display when click on the stroke.
             };
-
             const chart = new google.visualization.PieChart(document.querySelector(`[sw-graph="item-3"]`));
             chart.draw(data, options);
         }
