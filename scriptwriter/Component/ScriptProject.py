@@ -19,6 +19,7 @@ from .Assembler import (replaceTOHtmlCharacter, reverseReplaceTOHtmlCharacter,
 from .ClientSignup import ClientSignUp
 from .ScriptAuthors import ScriptAuthors
 from random import choice
+from bs4 import BeautifulSoup
 
 
 class ScriptProject(object):
@@ -259,10 +260,11 @@ class ScriptProject(object):
 
                 # location to store pdf after creating it
                 storePdfLocation = os.path.join(os.path.join(MAIN_DIR, 'cdn'), 'store')
+                if not os.path.exists(storePdfLocation):
+                    os.mkdir(storePdfLocation)
 
                 # Get the current scriptdata
                 scriptData = eval(content)['data']
-
 
                 # get script data content keys. Each key represent a content line.
                 getScriptKeys = getDictKey(scriptData)
@@ -274,17 +276,12 @@ class ScriptProject(object):
                 # Add a Unicode system font (using full path)
                 fontPath = os.path.join(os.path.join(os.path.join(MAIN_DIR, 'cdn'), 'fonts'), 'courier_prime')
                 fontFamily = "Courier"
-                # print(r'' + os.path.join(fontPath,"CourierPrime-Regular.ttf"))
-                # pdf.add_font('Courier Prime', '', os.path.join(fontPath,"CourierPrime-Regular.ttf"), uni=True)
-                # pdf.add_font('Courier Prime', '', os.path.join(fontPath, "CourierPrime-Italic.ttf"), uni=True)
-                # pdf.add_font('Courier Prime', '', os.path.join(fontPath, "CourierPrime-Bold.ttf"), uni=True)
-                # pdf.add_font('Courier Prime', '', os.path.join(fontPath, "CourierPrime-BoldItalic.ttf"), uni=True)
                 # set font family and size of font # Courier Prime                
                 pdf.set_font(fontFamily, size=13)
 
                 # Set title on pdf
                 if title:
-                    pdf.set_font(fontFamily, size=25, style='B')
+                    pdf.set_font(fontFamily, size=19, style='B')
                     pdf.multi_cell(200, 30, txt=title, align='C')
 
                 # Set all other content 
@@ -302,38 +299,63 @@ class ScriptProject(object):
                         }
                     """
                     scriptLine = scriptData[key]
-
                     # Add the content base
                     if scriptLine['type'] == "scene-heading":
-                        pdf.set_font(fontFamily, style='B', size=18)
-                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='C')
-
-                    elif scriptLine['type'] == "character":
-                        pdf.set_font(fontFamily, style='B', size=15)
-                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='C')
-
-                    elif scriptLine['type'] == "dialog":
-                        pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(150, 10, txt=scriptLine['content'], align='C')
-
-                    elif scriptLine['type'] == "parathentical":
-                        pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(180, 10, txt=scriptLine['content'], align='C')
-
-                    elif scriptLine['type'] == "transition":
-                        pdf.set_font(fontFamily, style='', size=13)
-                        pdf.multi_cell(200, 10, txt=scriptLine['content'], align='R')
-
-                    elif scriptLine['type'] == "action":
-                        pdf.set_font(fontFamily, style='', size=13)
                         try:
-                            pdf.multi_cell(200, 10, txt=scriptLine['content'], align='L')
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='B', size=13)
+                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
+                    elif scriptLine['type'] == "character":
+                        try:
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='', size=13)
+                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='C')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+
+                    elif scriptLine['type'] == "dialog":
+                        try:
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='', size=12)
+                            pdf.multi_cell(120, 6, txt=soup.get_text(), align='C')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+
+                    elif scriptLine['type'] == "parathentical":
+                        try:
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='', size=12)
+                            pdf.multi_cell(180, 6, txt=soup.get_text(), align='C')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+
+                    elif scriptLine['type'] == "transition":
+                        try:
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='B', size=12)
+                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='R')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+
+                    elif scriptLine['type'] == "action":
+                        soup = BeautifulSoup(scriptLine['content'])
+                        pdf.set_font(fontFamily, style='', size=12)
+                        try:
+                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+                    print(scriptLine['content'])
+
                 # PDF output
-                outFile = os.path.join(storePdfLocation, scriptID + '.pdf')
-                pdf.output(outFile)
+                if title:
+                    outFile = os.path.join(storePdfLocation, title + '_' + scriptID + '.pdf')
+                    pdf.output(outFile)
+                else:
+                    outFile = os.path.join(storePdfLocation, scriptID + '.pdf')
+                    pdf.output(outFile)
 
                 return JsonResponse({'result': 'success', 'message': 'link to download', 'file': scriptID + '.pdf'})
             else:
@@ -477,7 +499,7 @@ class ScriptProject(object):
                 if script.exists():
                     scriptSuite = arrayDBData(script, "Script")
                     scriptOwnerId = scriptSuite['userID']
-                    # Ensure another author don't delete 
+                    # Ensure another author don't delete
                     if scriptOwnerId == accountID:
                         scriptUpdate = Script.objects.get(uniqueID=scriptID)
                         scriptUpdate.color = color
@@ -518,7 +540,7 @@ class ScriptProject(object):
                     scriptSuite = arrayDBData(script, "Script")
                     scriptOwnerId = scriptSuite['userID']
                     listOfAuthorsIdOnScript = eval(scriptSuite['authorsID'])
-                    # Ensure another author don't delete 
+                    # Ensure another author don't delete
                     if scriptOwnerId == accountID:
                         # remove the script id from the users authored id
                         for i in listOfAuthorsIdOnScript:
