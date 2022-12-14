@@ -62,7 +62,7 @@ class EditorMode {
         this.anyWhereWrap = document.querySelector(`[sw-element-anywhere="wrap"]`);
         const pageNumber = document.querySelector(`[sw-page-number="item"]`);
         this.pageNumberClone = pageNumber.cloneNode(true);
-        pageNumber?.remove();
+        pageNumber?.remove()
         // icons dom
         const leftIcon = document.querySelector(`[sw-icon="left"]`);
         const rightIcon = document.querySelector(`[sw-icon="right"]`);
