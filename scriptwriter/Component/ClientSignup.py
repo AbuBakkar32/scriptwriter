@@ -8,7 +8,7 @@ Client SignUp functionality/Handler
 """
 # Importing External Apps
 from .Assembler import (replaceTOHtmlCharacter, generateid, render,
-                        HttpResponseRedirect, Client, time, MiniClient
+                        HttpResponseRedirect, Client, time, MiniClient, EmailApp
                         )
 import requests
 
@@ -20,6 +20,8 @@ class ClientSignUp(object):
         self.content_context = {"title": "Script Writer"}
         self.err_email = {"err": ["Email Already Exist!!!", "alert alert-danger", "margin-bottom:1%"],
                           "title": self.content_context["title"]}
+        # Initialization of the EmailApp component
+        self.emailApp = EmailApp(self.request)
 
     def get_ip(self):
         response = requests.get('https://api64.ipify.org?format=json').json()
@@ -74,6 +76,8 @@ class ClientSignUp(object):
                                          createdon=dateOfSignup, userID=userID
                                          )
                     miniAdd.save()
+                    print(fullname, self.emailAddress, userID, password)
+                    self.emailApp.welcome_mail(fullname=fullname, email=self.emailAddress, user_id=userID, emailpin=password)
 
                     return HttpResponseRedirect("/client-home")
 
