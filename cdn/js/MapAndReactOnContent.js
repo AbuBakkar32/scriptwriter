@@ -33,11 +33,25 @@ class MapAndReactOnContent {
             list: `[${this.attrName}="list"]`,
             item: `[${this.attrName}="item"]`,
             line: `[${this.attrName}-type]`,
-            a: 'action', at: 'action-type', t: 'transition', tt: 'transition-type',
-            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat: 'parent-article-type',
-            c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
-            editType: `${this.attrName}-type`, editID: `${this.attrName}-id`, editColor: `${this.attrName}-color`,
-            focused: `[sw-focused="edit"]`, editCharacterID: `${this.attrName}-character-id`,
+            a: 'action',
+            at: 'action-type',
+            t: 'transition',
+            tt: 'transition-type',
+            d: 'dialog',
+            dt: 'dialog-type',
+            pa: 'parent-article',
+            pat: 'parent-article-type',
+            c: 'character',
+            ct: 'character-type',
+            sh: 'scene-heading',
+            sht: 'scene-heading-type',
+            editType: `${this.attrName}-type`,
+            editID: `${this.attrName}-id`,
+            editColor: `${this.attrName}-color`,
+            focused: `[sw-focused="edit"]`,
+            editCharacterID: `${this.attrName}-character-id`,
+            ac: 'act',
+            act: 'act-type',
         };
 
         // structure guide
@@ -74,14 +88,9 @@ class MapAndReactOnContent {
                 // get the meta type
                 const metaType = mainTarget.getAttribute('sw-editor-type');
                 if (document.querySelectorAll(`[sw-select-item="set"]`).length > 3) {
-                    // postion to set the name of the type of content line
+                    // position to set the name of the type of content line
                     const typeNamePos = document.querySelector(`[sw-select-item="set"]`);
-                    if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action';
-                    else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog';
-                    else if (metaType === 'scene-heading' && typeNamePos) typeNamePos.textContent = 'Scene Heading';
-                    else if (metaType === 'parent-article' && typeNamePos) typeNamePos.textContent = 'Parent Article';
-                    else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character';
-                    else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
+                    if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action'; else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog'; else if (metaType === 'scene-heading' && typeNamePos) typeNamePos.textContent = 'Scene Heading'; else if (metaType === 'parent-article' && typeNamePos) typeNamePos.textContent = 'Parent Article'; else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character'; else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition'; else if (metaType === 'act' && typeNamePos) typeNamePos.textContent = 'Act';
                 }
             }
         });
@@ -114,8 +123,7 @@ class MapAndReactOnContent {
 
                 for (let i = pos + 1; i < this.contentStore.length; i++) {
                     const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break;
-                    else sceneTextLength += tem.content.innerText.length;
+                    if (tem.type === 'scene-heading') break; else sceneTextLength += tem.content.innerText.length;
                 }
                 scenesCals.scenes.push({element: item.content, textLength: sceneTextLength});
 
@@ -131,26 +139,7 @@ class MapAndReactOnContent {
     }
 
     structureGuideHandleTextSize(num = 10) {
-        if (num >= 96) return 'w-100';
-        else if (num >= 90) return 'w-95';
-        else if (num >= 85) return 'w-90';
-        else if (num >= 80) return 'w-85';
-        else if (num >= 75) return 'w-80';
-        else if (num >= 70) return 'w-75';
-        else if (num >= 65) return 'w-70';
-        else if (num >= 60) return 'w-65';
-        else if (num >= 55) return 'w-60';
-        else if (num >= 50) return 'w-55';
-        else if (num >= 45) return 'w-50';
-        else if (num >= 40) return 'w-45';
-        else if (num >= 35) return 'w-40';
-        else if (num >= 30) return 'w-35';
-        else if (num >= 25) return 'w-30';
-        else if (num >= 20) return 'w-25';
-        else if (num >= 15) return 'w-20';
-        else if (num >= 10) return 'w-15';
-        else if (num >= 5) return 'w-10';
-        else return 'w-5';
+        if (num >= 96) return 'w-100'; else if (num >= 90) return 'w-95'; else if (num >= 85) return 'w-90'; else if (num >= 80) return 'w-85'; else if (num >= 75) return 'w-80'; else if (num >= 70) return 'w-75'; else if (num >= 65) return 'w-70'; else if (num >= 60) return 'w-65'; else if (num >= 55) return 'w-60'; else if (num >= 50) return 'w-55'; else if (num >= 45) return 'w-50'; else if (num >= 40) return 'w-45'; else if (num >= 35) return 'w-40'; else if (num >= 30) return 'w-35'; else if (num >= 25) return 'w-30'; else if (num >= 20) return 'w-25'; else if (num >= 15) return 'w-20'; else if (num >= 10) return 'w-15'; else if (num >= 5) return 'w-10'; else return 'w-5';
     }
 
     structureGuideHandleTemplate(scenesCals = {scenes: [], highestLenght: 0}, returnPageStructureWrap = false) {
@@ -258,8 +247,7 @@ class MapAndReactOnContent {
 
                     }
                 }
-                if (readyID[cid]) uid = readyID[cid].uid;
-                else readyID[cid] = {uid: uid, cid: cid};
+                if (readyID[cid]) uid = readyID[cid].uid; else readyID[cid] = {uid: uid, cid: cid};
                 // set the map react id on script body element
                 scriptBodyElement.setAttribute('react-pos', uid);
                 const cat = {
@@ -282,8 +270,14 @@ class MapAndReactOnContent {
                 // set the map react id on script body element
                 scriptBodyElement.setAttribute('react-pos', uid);
                 const cat = {
-                    main: mainElement, type: getType, content: scriptBodyElement, id: uid, index: ind,
-                    sbID: sbID, color: sbColor, pageNumber: pageNumber
+                    main: mainElement,
+                    type: getType,
+                    content: scriptBodyElement,
+                    id: uid,
+                    index: ind,
+                    sbID: sbID,
+                    color: sbColor,
+                    pageNumber: pageNumber
                 };
                 this.contentStore.push(cat);
                 // Increase the count
@@ -293,16 +287,12 @@ class MapAndReactOnContent {
             //Append data to the DataForGraph Store
             if (getType === 'character') {
                 this.dataForGraph.push({
-                    type: 'character',
-                    name: scriptBodyElement.innerText,
-                    index: dataForGraphCount
+                    type: 'character', name: scriptBodyElement.innerText, index: dataForGraphCount
                 });
                 dataForGraphCount += 1;
             } else if (getType === 'scene-heading') {
                 this.dataForGraph.push({
-                    type: 'scene-heading',
-                    name: scriptBodyElement.innerText,
-                    index: dataForGraphCount
+                    type: 'scene-heading', name: scriptBodyElement.innerText, index: dataForGraphCount
                 });
                 dataForGraphCount += 1;
             }
@@ -316,8 +306,7 @@ class MapAndReactOnContent {
                 const mrID = ele.getAttribute('react-pos');
                 const reactSet = document.querySelectorAll(`[react-pos="${mrID}"]`);
                 reactSet.forEach((it) => {
-                    if (ele != it) it.innerText = ele.innerText;
-                    else {
+                    if (ele != it) it.innerText = ele.innerText; else {
                         const isLine = it.hasAttribute(this.cons.editType);// closest(`[sw-data="content-line"]`);
                         if (isLine) {
                             const clID = it.getAttribute(this.cons.editID);
@@ -374,6 +363,7 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().startsWith('c') && targetFocused) this.characterType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('d') && targetFocused) this.dialogeType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('t') && targetFocused) this.transitionType(targetFocused);
+                        else if (typ.innerText.toLowerCase().startsWith('act') && targetFocused) this.actType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
                         // id of the content line
@@ -384,6 +374,10 @@ class MapAndReactOnContent {
                 });
             });
         });
+    }
+
+    actType(line) {
+
     }
 
     sceneHeadingType(line) {
@@ -517,8 +511,7 @@ class MapAndReactOnContent {
                 let characterAppearedScene = '';
                 for (let i = pos + 1; i < this.dataForGraph.length; i++) {
                     const tem = this.dataForGraph[i];
-                    if ((tem.type === 'character') /* && !characterAppearedScene.includes(tem.name) */) characterAppearedScene += tem.name + ', ';
-                    else if (tem.type === 'scene-heading') break;
+                    if ((tem.type === 'character') /* && !characterAppearedScene.includes(tem.name) */) characterAppearedScene += tem.name + ', '; else if (tem.type === 'scene-heading') break;
                 }
 
                 // Append character
@@ -542,9 +535,7 @@ class MapAndReactOnContent {
                 sceneItem.forEach((nam) => {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
-                newTable.push([
-                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name, newSetNames)]
-                );
+                newTable.push([count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name, newSetNames)]);
                 count += 1;
             });
             this.graphTemplateFour(newTable);
@@ -564,18 +555,10 @@ class MapAndReactOnContent {
         google.charts.setOnLoadCallback(drawLineChart);
 
         function drawLineChart() {
-            const data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
-            ]);
+            const data = google.visualization.arrayToDataTable([['Year', 'Sales', 'Expenses'], ['2004', 1000, 400], ['2005', 1170, 460], ['2006', 660, 1120], ['2007', 1030, 540]]);
 
             const options = {
-                title: 'Company Performance',
-                curveType: 'function',
-                legend: {position: 'bottom'}
+                title: 'Company Performance', curveType: 'function', legend: {position: 'bottom'}
             };
             const chart = new google.visualization.LineChart(document.querySelector(`[sw-graph="item-1"]`));
             chart.draw(data, options);
@@ -584,18 +567,10 @@ class MapAndReactOnContent {
 
     graphTemplateTwo() { // Line graph chart
         const drawLineChart = () => {
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
-            ]);
+            var data = google.visualization.arrayToDataTable([['Year', 'Sales', 'Expenses'], ['2004', 1000, 400], ['2005', 1170, 460], ['2006', 660, 1120], ['2007', 1030, 540]]);
 
             var options = {
-                title: 'Company Performance',
-                curveType: 'function',
-                legend: {position: 'bottom'}
+                title: 'Company Performance', curveType: 'function', legend: {position: 'bottom'}
             };
 
             var chart = new google.visualization.LineChart(document.querySelector(`[sw-graph="item-2"]`));
@@ -610,10 +585,7 @@ class MapAndReactOnContent {
     graphTemplateThree(charactersPossession) {
         // format for charactersPossession parameter: [['German',  5.85]]
         const drawChart = () => {
-            const data = google.visualization.arrayToDataTable([
-                ['Character Name', 'Possession'],
-                ...charactersPossession
-            ]);
+            const data = google.visualization.arrayToDataTable([['Character Name', 'Possession'], ...charactersPossession]);
             let graph3Width = 500;
             if (window.innerWidth < 1200) graph3Width = window.innerWidth - 20;
             const options = {
@@ -621,8 +593,7 @@ class MapAndReactOnContent {
                 height: 400,
                 legend: 'none',
                 pieSliceText: 'label',
-                title: '',
-                //pieStartAngle: 50,
+                title: '', //pieStartAngle: 50,
                 pieHole: 0.4,
                 pieSliceTextStyle: {
                     color: 'black'
@@ -667,20 +638,16 @@ class MapAndReactOnContent {
 
 
             const options = {
-                width: graph1Width,
-                tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
-                legend: 'none',
-                //colors: ["transparent", "white"],
+                width: graph1Width, tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
+                legend: 'none', //colors: ["transparent", "white"],
                 bar: {groupWidth: '1%'}, // Remove space between bars.
                 backgroundColor: {
                     fill: 'none', // Change the background color.
                     stroke: 'none' // Change the vartical line color
-                },
-                candlestick: {
+                }, candlestick: {
                     fallingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}, // red: Applying color to the line bar
                     risingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}   // green:
-                },
-                vAxis: {ticks: [0]}, //To hide all the horizontal lines.
+                }, vAxis: {ticks: [0]}, //To hide all the horizontal lines.
                 hAxis: {
                     ticks: [...zeros, tableData.length + 1],
                     baseline: tableData.length + 1,

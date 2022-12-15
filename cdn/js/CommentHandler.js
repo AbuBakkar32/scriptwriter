@@ -393,3 +393,4 @@ function changeBackgroundColor(thisElement) {
 document.addEventListener("DOMContentLoaded", function(){
     window.CommentHandler = new CommentHandler();
 })
+
