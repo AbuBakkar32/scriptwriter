@@ -360,11 +360,7 @@ function addComment(thisElement) {
     // remove event listener 'mouseover' of sw_editor_id_container
     sw_editor_id_container.removeEventListener('mouseover', function () {
     })
-
-
-
 }
-
 
 function changeBackgroundColor(thisElement) {
     const parentNode = thisElement.parentNode.parentNode
@@ -391,11 +387,10 @@ function changeBackgroundColor(thisElement) {
     }
     // save changes 
     window.ScriptAdapter.autoSave()
-    
 }
 
 
 document.addEventListener("DOMContentLoaded", function(){
     window.CommentHandler = new CommentHandler();
-
 })
+
