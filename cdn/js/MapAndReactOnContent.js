@@ -90,7 +90,13 @@ class MapAndReactOnContent {
                 if (document.querySelectorAll(`[sw-select-item="set"]`).length > 3) {
                     // position to set the name of the type of content line
                     const typeNamePos = document.querySelector(`[sw-select-item="set"]`);
-                    if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action'; else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog'; else if (metaType === 'scene-heading' && typeNamePos) typeNamePos.textContent = 'Scene Heading'; else if (metaType === 'parent-article' && typeNamePos) typeNamePos.textContent = 'Parent Article'; else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character'; else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition'; else if (metaType === 'act' && typeNamePos) typeNamePos.textContent = 'Act';
+                    if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action';
+                    else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog';
+                    else if (metaType === 'scene-heading' && typeNamePos) typeNamePos.textContent = 'Scene Heading';
+                    else if (metaType === 'parent-article' && typeNamePos) typeNamePos.textContent = 'Parent Article';
+                    else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character';
+                    else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
+                    else if (metaType === 'act' && typeNamePos) typeNamePos.textContent = 'Act';
                 }
             }
         });
@@ -357,13 +363,13 @@ class MapAndReactOnContent {
                         resolve(1)
                     });
                     targetFocusedPromise.then(() => {
-                        if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
+                        if (typ.innerText.toLowerCase().startsWith('action') && targetFocused) this.actionType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('s') && targetFocused) this.sceneHeadingType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('p') && targetFocused) this.parentArticleType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('c') && targetFocused) this.characterType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('d') && targetFocused) this.dialogeType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('t') && targetFocused) this.transitionType(targetFocused);
-                        else if (typ.innerText.toLowerCase().startsWith('act') && targetFocused) this.actType(targetFocused)
+                        else if (typ.innerText.toLowerCase().endsWith('t')) this.actType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
                         // id of the content line
@@ -377,7 +383,13 @@ class MapAndReactOnContent {
     }
 
     actType(line) {
-
+        const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'act'};
+        // if function name is same as metaType then end the function
+        if (funcName === metaType) return;
+        // clear character id
+        window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
+        // reset line to action
+        window.EditorMode.handleContentLineNuetral(line, 'act');
     }
 
     sceneHeadingType(line) {

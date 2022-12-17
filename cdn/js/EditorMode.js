@@ -40,6 +40,7 @@ class EditorMode {
             c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
             editType: `${this.attrName}-type`, editID: `${this.attrName}-id`,
             editCharacterID: `${this.attrName}-character-id`, editColor: `${this.attrName}-color`,
+            ac: 'act', act: 'act-type',
         };
         this.editorModeList = document.querySelector(this.cons.list);
         this.editorModeItem = document.querySelector(this.cons.item);
@@ -738,6 +739,7 @@ class EditorMode {
         line.classList.remove(this.cons.dt);
         line.classList.remove(this.cons.tt);
         line.classList.remove(this.cons.at);
+        line.classList.remove(this.cons.act);
         //line.classList.add(this.cons.at);
         if (type === 'action') line.classList.add(this.cons.at);
         else if (type === 'dialog') line.classList.add(this.cons.dt);
@@ -745,6 +747,7 @@ class EditorMode {
         else if (type === 'parent-article') line.classList.add(this.cons.pat);
         else if (type === 'transition') line.classList.add(this.cons.tt);
         else if (type === 'scene-heading') line.classList.add(this.cons.sht);
+        else if (type === 'act') line.classList.add(this.cons.sht);
         line.setAttribute(this.cons.editType, '');
         //line.setAttribute(this.cons.editType, this.cons.a);
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);
@@ -753,6 +756,7 @@ class EditorMode {
         else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa);
         else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t);
         else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh);
+        else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
         return line;
     }
 
