@@ -747,7 +747,7 @@ class EditorMode {
         else if (type === 'parent-article') line.classList.add(this.cons.pat);
         else if (type === 'transition') line.classList.add(this.cons.tt);
         else if (type === 'scene-heading') line.classList.add(this.cons.sht);
-        else if (type === 'act') line.classList.add(this.cons.sht);
+        else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
         //line.setAttribute(this.cons.editType, this.cons.a);
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);

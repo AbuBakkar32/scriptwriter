@@ -369,7 +369,7 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().startsWith('c') && targetFocused) this.characterType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('d') && targetFocused) this.dialogeType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('t') && targetFocused) this.transitionType(targetFocused);
-                        else if (typ.innerText.toLowerCase().endsWith('t')) this.actType(targetFocused)
+                        else if (typ.innerText.toLowerCase().endsWith('t') && targetFocused) this.actType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
                         // id of the content line

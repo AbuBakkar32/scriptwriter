@@ -1,5 +1,6 @@
 
 .scene-heading-type {text-transform: uppercase; font-weight: bold; font-size: 16px; margin-top: 0.5rem; padding: 0px;}
+.act-type {text-transform: uppercase; font-weight: bold; font-size: 17px; margin-top: 0.5rem; padding: 0px;}
 .character-type {padding: 0px; margin-left: 40%; margin-top: 0.25rem; text-transform: uppercase;}
 .parent-article-type {margin-left: 33%;}
 .dialog-type {padding: 0px; margin-bottom: 0.5rem; margin-left: 25%;} /*padding: top right bottom left */
