@@ -168,11 +168,11 @@ class EditorMode {
             this.formatContentLine(line);
         });
 
-        line.addEventListener('focus', (e)=>{
+        line.addEventListener('focus', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
-        line.addEventListener('blur', (e)=>{
+        line.addEventListener('blur', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
@@ -242,7 +242,6 @@ class EditorMode {
                 el.classList.add('sw_editor_class');
             }
         });
-
 
         // make sure lines are well arranged
         const rangeLinesWaiter = new Promise((resolve, reject) => {
@@ -387,7 +386,7 @@ class EditorMode {
             if (this.keyPressed !== 'Enter') return;
             this.rearrangePage(this.cons.item);
         }).then(() => {
-            //if (this.keyPressed !== 'Enter') return;
+            if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
             setTimeout(() => {
                 // trap to catch newly created line
@@ -548,7 +547,6 @@ class EditorMode {
                             }
 
                             div.setAttribute(this.cons.editID, newID);
-
                             this.lineSignal(div);
 
                             div.innerText = text;
@@ -596,6 +594,10 @@ class EditorMode {
     }
 
     formatContentLine(newLine) {
+        let getId = newLine.getAttribute("sw-editor-character-id")
+        if(newLine.getAttribute("sw-editor-character-id") === getId){
+            newLine.setAttribute("sw-editor-character-id", getId+1)
+        }
         let type = newLine.getAttribute(this.cons.editType);
         if (type === '') type = 'action';
         newLine.setAttribute(this.cons.editType, type);
@@ -607,13 +609,23 @@ class EditorMode {
             e.removeAttribute('sw-focused');
         });
         newLine.setAttribute("sw-focused", "edit")
-        
-        const line = this.handleContentLineNuetral(newLine, type);
-        // if (this.handleSceneHeadingType(line)) ;
-        // else if (this.handleCharater(line)) ;
-        // else if (this.handleParentArticle(line)) ;
-        // else if (this.handleDialog(line)) ;
-        // else if (this.handleTransition(line)) ;
+    }
+
+    handleActType(line, direct = false) {
+        if (direct) {
+            line.classList.replace(this.cons.at, this.cons.act);
+            line.setAttribute(this.cons.editType, this.cons.ac);
+            return;
+        }
+        let verify = false;
+        if (line.innerText.toLowerCase().startsWith('int.') || line.innerText.toLowerCase().startsWith('ext.')) {
+            line.classList.replace(this.cons.at, this.cons.act);
+            // Add content Line signature
+            line.setAttribute(this.cons.editType, this.cons.ac);
+            // confirm checker
+            verify = true;
+        }
+        return verify;
     }
 
     handleSceneHeadingType(line, direct = false) {
@@ -747,7 +759,7 @@ class EditorMode {
         else if (type === 'parent-article') line.classList.add(this.cons.pat);
         else if (type === 'transition') line.classList.add(this.cons.tt);
         else if (type === 'scene-heading') line.classList.add(this.cons.sht);
-        else if (type === 'act') line.classList.add(this.cons.sht);
+        else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
         //line.setAttribute(this.cons.editType, this.cons.a);
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);

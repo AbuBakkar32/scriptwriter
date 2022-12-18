@@ -308,6 +308,14 @@ class ScriptProject(object):
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
+                    if scriptLine['type'] == "act":
+                        try:
+                            soup = BeautifulSoup(scriptLine['content'])
+                            pdf.set_font(fontFamily, style='B', size=14)
+                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
+                        except KeyError:
+                            return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
+
                     elif scriptLine['type'] == "character":
                         try:
                             soup = BeautifulSoup(scriptLine['content'])

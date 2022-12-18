@@ -10,11 +10,6 @@ class Watcher {
         this.attributeChanged = false;
         //save status
         this.saveStatus = false;
-        // window.ScriptDataStore
-        // window.MapAndReactOnContent
-        // window.EditorFuncs
-        // window.ScriptAdapter.currentDraftKey
-        // window.Watcher
     }
 
     reset(a=0, b=0, c=0, d=false) {

@@ -623,6 +623,7 @@ class CharacterHandle {
         const listOfCharacter = [];
         const listOfCharacterName = [];
         const uniqueCharacter = [];
+        const uniqueCharacterName = [];
         // Get the character dataset keys
         let count = 1;
 
@@ -635,7 +636,22 @@ class CharacterHandle {
             }
         })
 
-        uniqueCharacter.forEach((key) => {
+        this.contentStore.forEach((item) => {
+            if (item.type === 'character') {
+                if (listOfCharacterName.includes(item.content.innerText.toLowerCase())) {
+                    uniqueCharacterName.push(item.content.innerText.toLowerCase());
+                }
+            }
+        })
+
+        // create a unique character list from uniqueCharacterName
+        const finalCharacter = [];
+        let unique = [...new Set(uniqueCharacterName)];
+        unique.forEach((name,index) => {
+            finalCharacter.push(uniqueCharacter[index]);
+        })
+
+        finalCharacter.forEach((key) => {
             const cdata = key;
             let nameC = cdata.name;
             let idC = this.quickID();
@@ -1015,7 +1031,6 @@ class CharacterHandle {
         let validity = false;
         let cid = '';
         const keys = Object.keys(window.ScriptDataStore.character);
-
         //Loop through character store to find out is character name already exist.
         for (let index = 0; index < keys.length; index++) {
             const key = keys[index];
