@@ -278,7 +278,7 @@ class ScriptAdapter {
             }catch (e) {
                 console.log(e);
             }
-            //line.setAttribute('sw-editor-character-id', lineData.others.cID);
+            line.setAttribute('sw-editor-character-id', lineData.others.cID);
         }
 
         // format the line text
@@ -288,6 +288,7 @@ class ScriptAdapter {
         else if (lineData.type === 'character') window.EditorMode.handleCharater(line, true);
         else if (lineData.type === 'transition') window.EditorMode.handleTransition(line, true);
         else if (lineData.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
+        else if (lineData.type === 'act') window.EditorMode.handleActType(line, true);
 
         window.EditorMode.lineSignal(line);
     }
@@ -376,9 +377,9 @@ class ScriptAdapter {
             /** Await Point */
             window.Watcher.bothAwait(true, 'loading comments and calculating pages...');
             // Help author be able to save comment and note
-            //this.saveCommentAndNote();
+            this.saveCommentAndNote();
             // Event listener to manage open and closing of all comment
-            //this.handleCommentOpeningAndClosing();
+            this.handleCommentOpeningAndClosing();
             // EditorFuncs.js method: Refresh the total number of pages avaliable.
             await this.editorFuncs.totalNumberOfPage();
         }).then(async () => {
