@@ -24,6 +24,10 @@ class OutlineHandle {
     // main page changes
     mainPageChanges = false;
 
+    // ACT name list
+    actList = []
+    actIndex = 0
+
     constructor() {
         this.vars = {
             editorID: `[sw-editor-id="%s"]`,
@@ -196,6 +200,43 @@ class OutlineHandle {
                 this.updateDB();
             }, 700);
         });
+    }
+
+    renderActName(currentItemTemplate){
+        const title = currentItemTemplate.querySelector(this.vars.sceneTitle).innerText;
+        const scriptData = window.ScriptAdapter.scriptDataStore.data
+        let getTheNextAct = false
+        let isFirstItem = true
+        
+        for (const [key, value] of Object.entries(scriptData)) {
+            // replace &nbsp; with space
+            let valueContent = value.content.replace(/&nbsp;/g, ' ')
+            if (isFirstItem){
+                isFirstItem = false
+                if (value.type === 'act'){
+                    const firstLabel = document.querySelectorAll('.act-name')[0]
+                    if (firstLabel){
+                        firstLabel.innerText = valueContent
+                    }
+                }
+            }
+            if (getTheNextAct && value.type === 'act'){
+                const actName = document.createElement('label')
+                actName.classList.add('p-16', 'm-8', 'ft-size20', 'bold', 'act-name')
+                actName.innerText = valueContent
+                // if similar element with innerText exists, remove it
+                const similarElements = currentItemTemplate.parentNode.querySelectorAll(`.act-name`)
+                similarElements.forEach((element) => {
+                    if (element.innerText === valueContent) element.remove()
+                })
+                // add next to this item
+                currentItemTemplate.parentNode.insertBefore(actName, currentItemTemplate.nextSibling)
+                getTheNextAct = false
+            }
+            if (value.type === 'scene-heading' && valueContent.toLowerCase() === title.toLowerCase()) {
+                getTheNextAct = true
+            }
+        }
     }
 
     updateCardList() {
@@ -456,6 +497,7 @@ class OutlineHandle {
 
         // Enable outLine functionality
         this.setUp(currentItemTemplate);
+        this.renderActName(currentItemTemplate);
     }
 }
 
