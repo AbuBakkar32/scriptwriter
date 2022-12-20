@@ -223,6 +223,7 @@ class OutlineHandle {
             if (getTheNextAct && value.type === 'act'){
                 const actName = document.createElement('label')
                 actName.classList.add('p-16', 'm-8', 'ft-size20', 'bold', 'act-name')
+                actName.style.textTransform = 'uppercase'
                 actName.innerText = valueContent
                 // if similar element with innerText exists, remove it
                 const similarElements = currentItemTemplate.parentNode.querySelectorAll(`.act-name`)
