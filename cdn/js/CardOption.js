@@ -2,7 +2,6 @@ class CardOption {
     attrName = `sw-card-option`; // custom attribute name
     cardVar; // global strings across this class
     cardList; // list of cards main element
-    /** input element containing the crsftoken*/
     crsfToken;
     dummyCard;
     bg;

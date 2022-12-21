@@ -281,7 +281,6 @@ class OutlineHandle {
                 const lastLineID = lastLineElement.getAttribute(this.vars.idAttrName);
                 // Get the content line element of the last line ID
                 const lastLineContentElement = document.querySelector(this.vars.editorID.replace('%s', lastLineID));
-                // Navigate to the particular content line through the content line id and target the contentLine element
                 // window.EditorFuncs
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
