@@ -103,6 +103,7 @@ class OutlineHandle {
                 setTimeout(() => {
                     // Disable to edit any outline
                     document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                        el.removeAttribute("draggable");
                         document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
                         document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
                         document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
@@ -126,6 +127,7 @@ class OutlineHandle {
                 setTimeout(() => {
                     // Disable to edit any outline
                     document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                        el.setAttribute("draggable", "true");
                         document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
                         document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
                         document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
