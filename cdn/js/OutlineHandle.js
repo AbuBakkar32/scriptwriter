@@ -155,6 +155,7 @@ class OutlineHandle {
             if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
                 // Disable to edit any outline
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                    el.removeAttribute("draggable");
                     document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
                     document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
                     document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
