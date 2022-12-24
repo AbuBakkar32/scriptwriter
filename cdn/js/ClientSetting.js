@@ -103,7 +103,7 @@ class ClientSetting {
                     }
                     var opacityValue = document.querySelector('.opacity-range');
                     this.displayName.innerHTML = res.waterMarkDisplayText;
-                    opacityValue.style.opacity = res.waterMarkDisplayOpacity
+                    opacityValue.style.opacity = res.waterMarkDisplayOpacity;
                 } catch (e) {
                 }
             }, 100);

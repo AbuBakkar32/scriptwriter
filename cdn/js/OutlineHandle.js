@@ -60,6 +60,9 @@ class OutlineHandle {
             rsIdAttrName: `rs-outline-id`,
             rsIdAttr: `[rs-outline-id="%s"]`,
             content: `[${this.attrName}="content"]`,
+            add: `[${this.attrName}="add"]`,
+            lock: `[${this.attrName}="lock"]`,
+            unlock: `[${this.attrName}="unlock"]`,
         };
 
         this.rsOutlineListTemp = document.querySelector(this.vars.rsMrList);
@@ -76,7 +79,91 @@ class OutlineHandle {
             el.remove()
         });
 
+        setTimeout(() => {
+            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+                this.lockOutline();
+            }
+        }, 100)
+
+        //Add event listener
+        const unlockBtn = document.querySelector(this.vars.unlock)
+        const lockBtn = document.querySelector(this.vars.lock)
+        const addBtn = document.querySelector(this.vars.add)
+
+        addBtn.addEventListener("click", () => {
+            let data = document.querySelectorAll(this.vars.mainMrItem)
+            this.add(data[data.length - 1]);
+        });
+
+        unlockBtn.addEventListener('click', () => {
+            if (lockBtn?.classList.contains("hidden")) {
+                lockBtn?.classList.remove("hidden");
+                unlockBtn?.classList.add("hidden");
+                addBtn?.classList.add("hidden");
+                setTimeout(() => {
+                    // Disable to edit any outline
+                    document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                        el.removeAttribute("draggable");
+                        document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
+                        document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
+                        document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
+                    });
+                }, 100)
+            } else {
+                lockBtn?.classList.add("hidden");
+                unlockBtn?.classList.remove("hidden");
+                addBtn?.classList.remove("hidden");
+            }
+            window.ScriptAdapter.scriptDataStore.outline["lock"] = true;
+            window.ScriptAdapter.autoSave();
+        })
+
+        lockBtn.addEventListener('click', () => {
+            if (!lockBtn?.classList.contains("hidden")) {
+                lockBtn?.classList.add("hidden");
+                unlockBtn?.classList.remove("hidden");
+                addBtn?.classList.remove("hidden")
+
+                setTimeout(() => {
+                    // Disable to edit any outline
+                    document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                        el.setAttribute("draggable", "true");
+                        document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
+                    });
+                }, 100)
+            }
+            window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
+            window.ScriptAdapter.autoSave();
+        })
     }
+
+    lockOutline() {
+        const unlockBtn = document.querySelector(this.vars.unlock)
+        const lockBtn = document.querySelector(this.vars.lock)
+        const addBtn = document.querySelector(this.vars.add)
+        if (lockBtn?.classList.contains("hidden")) {
+            lockBtn?.classList.remove("hidden");
+            unlockBtn?.classList.add("hidden");
+            addBtn?.classList.add("hidden");
+        }
+    }
+
+    lockContent() {
+        setTimeout(() => {
+            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+                // Disable to edit any outline
+                document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                    el.removeAttribute("draggable");
+                    document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
+                    document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
+                    document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
+                });
+            }
+        }, 100)
+    }
+
 
     setUp(item = document.querySelector(this.vars.mainMrItem)) {
         const hide = item.querySelector(this.vars.hideBtn);
@@ -88,13 +175,17 @@ class OutlineHandle {
         const colorBtn = item.querySelector(this.vars.colorOpt);
         const sceneID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
         const sceneGoal = item.querySelector(this.vars.sceneGoal);
-        const emotionalValue = item.querySelector(this.vars.ev)
+        const emotionalValue = item.querySelector(this.vars.ev);
         // const list = item.querySelector(this.vars.rsMrList);
-
+        this.lockContent();
         /** Event Listeners on Outline Page Items*/
         hide?.addEventListener('click', () => {
             // Make menu visible
-            if (menu?.classList.contains('hide')) menu?.classList.remove('hide');
+            if (menu?.classList.contains('hide')) {
+                menu?.classList.remove('hide');
+            } else {
+                menu?.classList.add('hide');
+            }
             // Hide other outline item menu
             document.querySelectorAll(this.vars.mainMrItem).forEach((x) => {
                 if (x != item) {
@@ -105,7 +196,11 @@ class OutlineHandle {
         });
 
         item?.addEventListener('mousemove', () => {
-            if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
+            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+                hide?.classList.add('hide');
+            } else {
+                if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
+            }
         });
 
         item?.addEventListener('mouseout', () => {
@@ -202,27 +297,28 @@ class OutlineHandle {
         });
     }
 
-    renderActName(currentItemTemplate){
+    renderActName(currentItemTemplate) {
         const title = currentItemTemplate.querySelector(this.vars.sceneTitle).innerText;
         const scriptData = window.ScriptAdapter.scriptDataStore.data
         let getTheNextAct = false
         let isFirstItem = true
-        
+
         for (const [key, value] of Object.entries(scriptData)) {
             // replace &nbsp; with space
             let valueContent = value.content.replace(/&nbsp;/g, ' ')
-            if (isFirstItem){
+            if (isFirstItem) {
                 isFirstItem = false
-                if (value.type === 'act'){
+                if (value.type === 'act') {
                     const firstLabel = document.querySelectorAll('.act-name')[0]
-                    if (firstLabel){
+                    if (firstLabel) {
                         firstLabel.innerText = valueContent
                     }
                 }
             }
-            if (getTheNextAct && value.type === 'act'){
+            if (getTheNextAct && value.type === 'act') {
                 const actName = document.createElement('label')
                 actName.classList.add('p-16', 'm-8', 'ft-size20', 'bold', 'act-name')
+                actName.style.textTransform = 'uppercase'
                 actName.innerText = valueContent
                 // if similar element with innerText exists, remove it
                 const similarElements = currentItemTemplate.parentNode.querySelectorAll(`.act-name`)
@@ -280,7 +376,6 @@ class OutlineHandle {
                 const lastLineID = lastLineElement.getAttribute(this.vars.idAttrName);
                 // Get the content line element of the last line ID
                 const lastLineContentElement = document.querySelector(this.vars.editorID.replace('%s', lastLineID));
-                // Navigate to the particular content line through the content line id and target the contentLine element
                 // window.EditorFuncs
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
@@ -337,8 +432,6 @@ class OutlineHandle {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 this.mainPageChanges = true;
-                //const draftKey = window.ScriptAdapter.currentDraftKey;
-                //window.ScriptAdapter.renderDraftContent(draftKey)
             });
         });
     }
@@ -353,9 +446,7 @@ class OutlineHandle {
         });
         // Set new content store value
         this.contenStore = contenStore;
-
         const listOfOutline = [];
-
         let count = 0;
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
