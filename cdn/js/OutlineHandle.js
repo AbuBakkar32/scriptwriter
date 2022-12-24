@@ -432,8 +432,6 @@ class OutlineHandle {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 this.mainPageChanges = true;
-                //const draftKey = window.ScriptAdapter.currentDraftKey;
-                //window.ScriptAdapter.renderDraftContent(draftKey)
             });
         });
     }
@@ -448,9 +446,7 @@ class OutlineHandle {
         });
         // Set new content store value
         this.contenStore = contenStore;
-
         const listOfOutline = [];
-
         let count = 0;
         this.contentStore.forEach((item) => {
             if (item.type === 'scene-heading') {
