@@ -198,6 +198,7 @@ class MapAndReactOnContent {
         } catch (error) {
             console.log('Unable to render graph', error);
         }
+        this.renderActDropdown();
     }
 
     mapContents() {
@@ -684,6 +685,25 @@ class MapAndReactOnContent {
             chart1.draw(data, options);
         }
         google.charts.setOnLoadCallback(drawCandleChart);
+    }
+
+    renderActDropdown() {
+        const actDropdown = document.getElementById('act-dropdown');
+        const actDropdownLiTag = actDropdown.firstElementChild.cloneNode(true);
+        // remove all child nodes
+        while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
+        const data = window.ScriptDataStore.data
+        // loop this object to get key and value
+        for (const [key, value] of Object.entries(data)) {
+            if (value.type === 'act') {
+                const liTag = actDropdownLiTag.cloneNode(true);
+                liTag.innerText = value.content;
+                liTag.setAttribute('data-act-id', key);
+                actDropdown.appendChild(liTag);
+            }
+        }
+
+
     }
 }
 
