@@ -4,15 +4,20 @@
         <main class="w-full min-h-full">
             <div class="mb-4 px-16 flex justify-between items-end">
                 <div class="flex-rts">
-                    <div class="font-sans-alt font-semibold tracking-wide ft-size30">Project 1 Outline</div>
+                    <div class="font-sans-alt font-semibold tracking-wide ft-size30" style="margin-right:-152px">Project
+                        1 Outline
+                    </div>
                 </div>
 
                 <div class="flex-rts text-grey-500 ml-16">
-                    <svg class="size20 p-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <svg class="size20 p-2 cus-pointer" outline-data="add" style="margin-right: 5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
                     </svg>
-                    <svg class="size20 p-2 cus-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <svg class="size20 p-2 cus-pointer hidden" outline-data="lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M21.658 3.786l-3.658 3.318v-1.104c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v10.707l-2 1.813 1.346 1.48 20.654-18.734-1.342-1.48zm-5.658 5.132l-1.194 1.082h-6.806v-4c0-2.205 1.795-4 4-4s4 1.795 4 4v2.918zm5 1.082v14h-16.391l15.422-14h.969z"/>
+                    </svg>
+                    <svg class="size20 p-2 cus-pointer" outline-data="unlock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="22" width="22">
+                        <path d="M224 64C179.8 64 144 99.82 144 144V192H384C419.3 192 448 220.7 448 256V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V256C0 220.7 28.65 192 64 192H80V144C80 64.47 144.5 0 224 0C281.5 0 331 33.69 354.1 82.27C361.7 98.23 354.9 117.3 338.1 124.9C322.1 132.5 303.9 125.7 296.3 109.7C283.4 82.63 255.9 64 224 64H224zM256 384C273.7 384 288 369.7 288 352C288 334.3 273.7 320 256 320H192C174.3 320 160 334.3 160 352C160 369.7 174.3 384 192 384H256z"></path>
                     </svg>
                 </div>
             </div>
@@ -62,12 +67,11 @@
 
                         <div class="bg-three z-50 absolute top0 shadow hide" outline-data="menu"
                              style="right: -2.5rem; padding: 8px;">
-
-                            <div class="flex py-2 cus-pointer" outline-data="comment-option">
-                                <svg class="size13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625l-1.993 6.368 6.946-3c1.705.439 3.334.641 4.864.641 7.174 0 12.136-4.439 12.136-9.634 0-5.812-5.701-10.007-12-10.007zm0 1c6.065 0 11 4.041 11 9.007 0 4.922-4.787 8.634-11.136 8.634-1.881 0-3.401-.299-4.946-.695l-5.258 2.271 1.505-4.808c-1.308-1.564-2.165-3.128-2.165-5.402 0-4.966 4.935-9.007 11-9.007zm-5 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/>
-                                </svg>
-                            </div>
+<!--                            <div class="flex py-2 cus-pointer" outline-data="comment-option">-->
+<!--                                <svg class="size13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">-->
+<!--                                    <path d="M12 1c-6.338 0-12 4.226-12 10.007 0 2.05.739 4.063 2.047 5.625l-1.993 6.368 6.946-3c1.705.439 3.334.641 4.864.641 7.174 0 12.136-4.439 12.136-9.634 0-5.812-5.701-10.007-12-10.007zm0 1c6.065 0 11 4.041 11 9.007 0 4.922-4.787 8.634-11.136 8.634-1.881 0-3.401-.299-4.946-.695l-5.258 2.271 1.505-4.808c-1.308-1.564-2.165-3.128-2.165-5.402 0-4.966 4.935-9.007 11-9.007zm-5 7.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm5 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/>-->
+<!--                                </svg>-->
+<!--                            </div>-->
                             <div class="flex py-2 cus-pointer" outline-data="add-option">
                                 <svg class="size13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z"/>

@@ -951,24 +951,21 @@ class CharacterHandle {
             if (rsWant) {
                 rsWant.innerText = cDB.want;
                 rsWant.setAttribute(this.rpAttr, mapReactIDList.want)
-            }
-            ;
+            };
 
             /** Update Archetype */
             const rsArchetype = rsTemplate.querySelector(this.vars.rsArchetype);
             if (rsArchetype) {
                 rsArchetype.innerText = cDB.archetype;
                 rsArchetype.setAttribute(this.rpAttr, mapReactIDList.archetype)
-            }
-            ;
+            };
 
             /** Update Trait */
             const rsTrait = rsTemplate.querySelector(this.vars.rsTrait);
             if (rsTrait) {
                 rsTrait.innerText = cDB.trait;
                 rsTrait.setAttribute(this.rpAttr, mapReactIDList.trait);
-            }
-            ;
+            };
 
             /** Update Body Map List*/
             const rsBodyMapList = rsTemplate.querySelector(this.vars.rsBodyMapList);
@@ -984,8 +981,7 @@ class CharacterHandle {
                     rsBodyMapList.append(item);
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
-            }
-            ;
+            };
 
             /** Set character id */
             const rsCharacterID = rsTemplate.querySelector(this.vars.rsId);
@@ -1094,12 +1090,10 @@ class CharacterHandle {
         //     if (presentCharactersList.indexOf(character) === -1) {
         //         const kk = this.create(character);
         //         window.ScriptDataStore.character[kk] = {
-
         //     }
         // }
 
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", function () {

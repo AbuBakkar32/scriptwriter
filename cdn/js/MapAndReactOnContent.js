@@ -398,7 +398,13 @@ class MapAndReactOnContent {
         // window.ScriptAdapter.scriptDataStore.outline = {}
         // window.ScriptAdapter.autoSave();
         // get the content line meta-type // function name
-        const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'scene-heading'};
+        let metaType = '';
+        let funcName = 'scene-heading';
+        try {
+            metaType = line.getAttribute(this.cons.editType);
+        } catch (error) {
+            metaType = 'action'
+        }
         // if function name is same as metaType then end the function
         if (funcName === metaType) return;
         // clear character id
