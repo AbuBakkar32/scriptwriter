@@ -160,6 +160,13 @@ class OutlineHandle {
                     document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
                     document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
                 });
+            }else{
+                document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                    el.setAttribute("draggable", "true");
+                    document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
+                    document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
+                    document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
+                });
             }
         }, 100)
     }
