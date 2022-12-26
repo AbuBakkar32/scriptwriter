@@ -152,6 +152,7 @@ class OutlineHandle {
 
     lockContent() {
         setTimeout(() => {
+            console.log(window.ScriptAdapter.scriptDataStore.outline)
             if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
                 // Disable to edit any outline
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {

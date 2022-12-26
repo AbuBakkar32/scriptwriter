@@ -157,6 +157,7 @@ class EditorMode {
                 }
                 data[index] = obj;
             });
+            window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
         }, 200);
     }
 
