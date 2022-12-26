@@ -83,6 +83,7 @@ function ChangeAndSaveDataOutline(swData) {
         }
         data[index] = obj;
     });
+    window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
 }
 
 function ChangeAndSaveData(swData) {
@@ -110,6 +111,7 @@ function ChangeAndSaveData(swData) {
         }
         data[index] = obj;
     });
+    window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
     window.ScriptAdapter.autoSave();
     saveChangedCardList(swData);
 }
