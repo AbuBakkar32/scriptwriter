@@ -93,7 +93,6 @@ function ChangeAndSaveData(swData) {
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData);
     listData.forEach((card, index) => {
-        console.log(card);
         let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
         let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
