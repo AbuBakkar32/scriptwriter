@@ -27,9 +27,9 @@ class NoteHandle {
 
     renderer(data) {
         if (!this.noteList) return;
-        if (!data.note[0]) return;
+        if (!data?.note[0]) return;
 
-        for (let i = 0; i < data.note.length; i++) {
+        for (let i = 0; i < data?.note?.length; i++) {
 
             // Set Note
             const note = this.item.cloneNode(true);

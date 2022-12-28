@@ -216,8 +216,19 @@
         listener() {
             this.boldBtn.forEach(t => {
                 t.addEventListener("click", () => this.emis(t, "bold"))
-            }), this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))), this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))), this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))), this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))), this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))), this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))), this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))), this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))), this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))), this.totalNumberOfPage()
+            }),
+                this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))),
+                this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))),
+                this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))),
+                this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))),
+                this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))),
+                this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))),
+                this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))),
+                this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))),
+                this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))),
+                this.totalNumberOfPage()
         }
+
 
         emis(t, e) {
             let s = document.querySelector(this.cons.selectedBtn);
@@ -325,6 +336,33 @@
         }
 
         download() {
+            var rest = confirm("Do you want to download your content");
+            if (rest) {
+                document.querySelectorAll(`[sw-editor="item"]`).forEach(t => {
+                    t.style.boxShadow = "none"
+                })
+                const file = window.location.pathname.split("/");
+                const fileName = file[file.length - 1]
+                var HTML_Width = document.querySelector(".html-content").offsetWidth - 750;
+                var HTML_Height = document.querySelector(".html-content").offsetHeight - 500;
+                var top_left_margin = 15;
+                var PDF_Width = HTML_Width + (top_left_margin * 2);
+                var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+                var canvas_image_width = HTML_Width;
+                var canvas_image_height = HTML_Height;
+                var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+                html2canvas(document.querySelector(".html-content")).then(function (canvas) {
+                    var imgData = canvas.toDataURL("image/jpeg", 1.0);
+                    var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+                    pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+                    for (var i = 1; i <= totalPDFPages; i++) {
+                        pdf.addPage(PDF_Width, PDF_Height);
+                        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+                    }
+                    pdf.save(fileName + ".pdf");
+                });
+            }
         }
 
         share(t) {

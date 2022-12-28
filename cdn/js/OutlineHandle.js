@@ -23,6 +23,7 @@ class OutlineHandle {
     contentStore = [];
     // main page changes
     mainPageChanges = false;
+    storeName = [];
 
     // ACT name list
     actList = []
@@ -159,6 +160,13 @@ class OutlineHandle {
                     document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
                     document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
                     document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
+                });
+            } else {
+                document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
+                    el.setAttribute("draggable", "true");
+                    document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
+                    document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
+                    document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
                 });
             }
         }, 100)
@@ -305,7 +313,12 @@ class OutlineHandle {
 
         for (const [key, value] of Object.entries(scriptData)) {
             // replace &nbsp; with space
-            let valueContent = value.content.replace(/&nbsp;/g, ' ')
+            let valueContent = ""
+            try {
+                valueContent = value.content.replace(/&nbsp;/g, " ")
+            } catch (error) {
+                valueContent = value.content
+            }
             if (isFirstItem) {
                 isFirstItem = false
                 if (value.type === 'act') {
@@ -353,6 +366,7 @@ class OutlineHandle {
             }
             data[index] = obj;
         });
+        window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
     }
 
     updateDB() {
@@ -391,7 +405,9 @@ class OutlineHandle {
             }).then(() => {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
+                //window.ScriptAdapter.autoSave();
                 this.updateDB();
+                window.MapAndReactOnContent.mapreact();
                 this.mainPageChanges = true;
             });
         });
@@ -419,13 +435,14 @@ class OutlineHandle {
                     // Navigate to the particular content line through the content line id and target the contentLine element
                     const line = document.querySelector(this.vars.editorID.replace('%s', cid));
                     line.remove();
-                    //const draftKey = window.ScriptAdapter.currentDraftKey;
-                    //delete window.ScriptDataStore.draft[draftKey].data[cid];
+                    // const draftKey = window.ScriptAdapter.currentDraftKey;
+                    // delete window.ScriptDataStore.draft[draftKey].data[cid];
                     window.Watcher.removeLine(cid);
                 });
                 item.remove();
                 document.querySelector(this.vars.rsIdAttr.replace('%s', contentLineID))?.remove();
             }).then(() => {
+                //window.ScriptAdapter.autoSave();
                 this.updateDB();
                 window.MapAndReactOnContent.mapreact();
             }).then(() => {
@@ -448,30 +465,68 @@ class OutlineHandle {
         this.contenStore = contenStore;
         const listOfOutline = [];
         let count = 0;
-        this.contentStore.forEach((item) => {
+
+        const saveData = Object.keys(window.ScriptAdapter.scriptDataStore.outline).map((key) => {
+            return window.ScriptAdapter.scriptDataStore.outline[key];
+        });
+        saveData.forEach((item) => {
+            if (item.title) {
+                this.storeName.push(item.title.toLowerCase());
+            }
+        });
+        console.log(saveData);
+        this.storeName = [...new Set(this.storeName)];
+        console.log(this.storeName);
+        this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
-                const name = item.content.innerText;
-                const id = item.id;
-                const pos = item.index;
-                const color = item.color;
-                const scriptBodyID = item.sbID;
-                const pageNumber = item.pageNumber;
-                //Get all other scene type that is under this scene heading
                 const otherSceneType = [];
+                if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
+                    const name = item.content.innerText;
+                    const id = item.id;
+                    const pos = item.index;
+                    const color = item.color;
+                    const scriptBodyID = item.sbID;
+                    const pageNumber = item.pageNumber;
+                    const scene_goal = "";
+                    const evaluation_value = "";
 
-                for (let i = pos + 1; i < this.contentStore.length; i++) {
-                    const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break;
-                    else otherSceneType.push(tem);
+                    //Get all other scene type that is under this scene heading
+                    for (let i = index + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type, index: count - 1, scene_goal: scene_goal, evaluation_value: evaluation_value
+                    });
+                } else {
+                    const name = saveData[count - 1].title;
+                    const id = item.id
+                    const pos = item.count - 1;
+                    const color = saveData[count - 1].color;
+                    const scriptBodyID = item.sbID;
+                    const pageNumber = saveData[count - 1].page_no;
+                    const scene_goal = saveData[count - 1].scene_goal;
+                    const evaluation_value = saveData[count - 1].emotional_value;
+                    //Get all other scene type that is under this scene heading
+                    for (let i = index + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break;
+                        else otherSceneType.push(tem);
+                    }
+
+                    // Append outline
+                    listOfOutline.push({
+                        name: name, id: id, position: count, scenes: otherSceneType,
+                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
+                        type: item.type, index: count - 1, scene_goal: scene_goal, evaluation_value: evaluation_value
+                    });
                 }
-
-                // Append outline
-                listOfOutline.push({
-                    name: name, id: id, position: count, scenes: otherSceneType,
-                    color: color, sbID: scriptBodyID, pageNumber: pageNumber,
-                    type: item.type,
-                });
             }
         });
         listOfOutline.forEach(outline => this.outlineRenderTemplate(outline));
@@ -508,6 +563,11 @@ class OutlineHandle {
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
+            // const dataset = window.ScriptDataStore.outline[data.index];
+            // if (dataset && dataset?.scene_goal && dataset?.emotional_value) {
+            //     emotionalValue.textContent = dataset.emotional_value
+            //     sceneGoal.innerText = dataset.scene_goal
+            // }
             const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID]
             if (dataset && dataset?.others?.ev) {
                 emotionalValue.textContent = dataset.others.ev;
