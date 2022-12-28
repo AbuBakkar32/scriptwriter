@@ -27,6 +27,9 @@ class MapAndReactOnContent {
     // page mutation status
     pageMutationStatus = true;
 
+    specificLineList = []
+    specificLineListStatus = false;
+
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
         this.cons = {
@@ -223,7 +226,11 @@ class MapAndReactOnContent {
         if (window.OutlineHandle) window.OutlineHandle.contentStore = this.contentStore;
 
         // start mapping element by content type
-        const lineList = document.querySelectorAll(this.cons.line);
+        let lineList = document.querySelectorAll(this.cons.line);
+        if (this.specificLineListStatus) {
+            lineList = this.specificLineList;
+        }
+        
         let count = 0;
         let dataForGraphCount = 0;
         let uidCount = 0;
@@ -576,9 +583,11 @@ class MapAndReactOnContent {
         function drawLineChart() {
             const data = google.visualization.arrayToDataTable([['Year', 'Sales', 'Expenses'], ['2004', 1000, 400], ['2005', 1170, 460], ['2006', 660, 1120], ['2007', 1030, 540]]);
 
-            const options = {
+            let options = {
                 title: 'Company Performance', curveType: 'function', legend: {position: 'bottom'}
             };
+            // background opacity 0
+            options.backgroundColor = {fill: 'transparent'};
             const chart = new google.visualization.LineChart(document.querySelector(`[sw-graph="item-1"]`));
             chart.draw(data, options);
         }
@@ -692,6 +701,12 @@ class MapAndReactOnContent {
         const actDropdownLiTag = actDropdown.firstElementChild.cloneNode(true);
         // remove all child nodes
         while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
+        const allAct = actDropdownLiTag.cloneNode(true);
+        allAct.innerText = 'All Act';
+        allAct.setAttribute('data-act-id', 'all');
+        allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
+        actDropdown.appendChild(allAct);
+
         const data = window.ScriptDataStore.data
         // loop this object to get key and value
         for (const [key, value] of Object.entries(data)) {
@@ -699,11 +714,40 @@ class MapAndReactOnContent {
                 const liTag = actDropdownLiTag.cloneNode(true);
                 liTag.innerText = value.content;
                 liTag.setAttribute('data-act-id', key);
+                liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
                 actDropdown.appendChild(liTag);
             }
         }
+    }
 
-
+    modifyGraphTemplateOne(e) {
+        let actId = e.target.getAttribute('data-act-id');
+        if (actId === 'all') {
+            this.specificLineListStatus = false;
+            this.specificLineList = [];
+            this.mapreact();
+            return;
+        }
+        const lineList = document.querySelectorAll(this.cons.line);
+        let newLineList = [];
+        for (let i = 0; i < lineList.length; i++) {
+            let it = lineList[i];
+            let swEditorId = it.getAttribute('sw-editor-id');
+            // make integer 
+            swEditorId = parseInt(swEditorId);
+            actId = parseInt(actId);
+            if (swEditorId >= actId) {
+                if (swEditorId !== actId && it.getAttribute('sw-editor-type') === 'act') {
+                    // break the loop
+                    break;
+                }
+                newLineList.push(it);
+            }
+        };
+        
+        this.specificLineList = newLineList;
+        this.specificLineListStatus = true;
+        this.mapreact();
     }
 }
 
