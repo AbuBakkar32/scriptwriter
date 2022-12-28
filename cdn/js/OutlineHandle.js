@@ -285,9 +285,9 @@ class OutlineHandle {
                     alert('Emotional Value must be between -10 and 10', 'Error');
                     emotionalValue.textContent = 0;
                 } else {
-                    // const draftKey = window.ScriptAdapter.currentDraftKey;
-                    // window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
-                    // window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
+                    const draftKey = window.ScriptAdapter.currentDraftKey;
+                    window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
+                    window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
                     ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
                     this.updateDB();
                 }
@@ -297,9 +297,9 @@ class OutlineHandle {
         sceneGoal?.addEventListener('keyup', () => {
             setTimeout(() => {
                 ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
-                // const draftKey = window.ScriptAdapter.currentDraftKey;
-                // window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
-                // window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
+                const draftKey = window.ScriptAdapter.currentDraftKey;
+                window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
+                window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
                 this.updateDB();
             }, 700);
         });
@@ -475,10 +475,14 @@ class OutlineHandle {
             }
         });
         this.storeName = [...new Set(this.storeName)];
+        console.log(this.storeName);
+        console.log(saveData)
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
                 const otherSceneType = [];
+                const draftKey = window.ScriptAdapter.currentDraftKey;
+                const dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
                     const name = item.content.innerText;
                     const id = item.id;
@@ -486,8 +490,8 @@ class OutlineHandle {
                     const color = item.color;
                     const scriptBodyID = item.sbID;
                     const pageNumber = item.pageNumber;
-                    const scene_goal = "";
-                    const evaluation_value = "";
+                    const scene_goal = dataset.others.scenegoal? dataset.others.scenegoal : '';
+                    const evaluation_value = dataset.others.ev? dataset.others.ev : '';
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
@@ -562,8 +566,8 @@ class OutlineHandle {
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
             if (data.scene_goal && data.evaluation_value) {
-                emotionalValue.textContent = data.evaluation_value;
-                sceneGoal.innerText = data.scene_goal;
+                emotionalValue.textContent = data?.evaluation_value;
+                sceneGoal.innerText = data?.scene_goal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
                     id: data.sbID,
