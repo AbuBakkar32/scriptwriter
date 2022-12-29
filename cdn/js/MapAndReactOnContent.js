@@ -566,7 +566,6 @@ class MapAndReactOnContent {
             });
             this.graphTemplateFour(newTable);
             this.graphTemplateOne();
-            console.log(window.ScriptDataStore);
         }
     }
 
@@ -593,7 +592,6 @@ class MapAndReactOnContent {
         // check if a key 'lock' exist in outline
         if (outline['lock']) {
             outlineLength -= 1;
-            console.log('lock exist');
         }
 
         let xPart = item11.offsetWidth / outlineLength
@@ -817,7 +815,6 @@ class MapAndReactOnContent {
         };
         
         this.specificLineList = newLineList;
-        console.log(this.specificLineList);
         this.specificLineListStatus = true;
         this.mapreact();
     }
