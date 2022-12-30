@@ -647,7 +647,7 @@ class CharacterHandle {
         // create a unique character list from uniqueCharacterName
         const finalCharacter = [];
         let unique = [...new Set(uniqueCharacterName)];
-        unique.forEach((name,index) => {
+        unique.forEach((name, index) => {
             finalCharacter.push(uniqueCharacter[index]);
         })
 
@@ -663,8 +663,9 @@ class CharacterHandle {
             // Match data in contentStore
             for (let index = 0; index < this.contentStore.length; index++) {
                 const sdata = this.contentStore[index];
+                console.log(sdata);
                 if (sdata.type === 'character') {
-                    if (sdata.cid === cdata.id) {
+                    if (sdata.cid !== cdata.id) {
                         // Update the mapReact id;
                         idC = sdata.id;
                         this.contentStore.forEach((it) => {
@@ -714,7 +715,6 @@ class CharacterHandle {
         // data {name: name, id: id, position: pos, scenes: characterAppearedScenes, cid: characterID};
         //Get character possession
         const cPossession = this.possession(data.name);
-
         // Get character database data
         const cDB = window.ScriptDataStore.character[data.cid];
         // Update character new possession
@@ -900,7 +900,6 @@ class CharacterHandle {
                 //Append to Scene Wrapper
                 sceneWrapper.append(sceneTemp);
             });
-
             /** Update Body Map Data */
             const bodyMap = template.querySelector(this.vars.bodyMap);
             if (bodyMap) {
@@ -951,21 +950,24 @@ class CharacterHandle {
             if (rsWant) {
                 rsWant.innerText = cDB.want;
                 rsWant.setAttribute(this.rpAttr, mapReactIDList.want)
-            };
+            }
+            ;
 
             /** Update Archetype */
             const rsArchetype = rsTemplate.querySelector(this.vars.rsArchetype);
             if (rsArchetype) {
                 rsArchetype.innerText = cDB.archetype;
                 rsArchetype.setAttribute(this.rpAttr, mapReactIDList.archetype)
-            };
+            }
+            ;
 
             /** Update Trait */
             const rsTrait = rsTemplate.querySelector(this.vars.rsTrait);
             if (rsTrait) {
                 rsTrait.innerText = cDB.trait;
                 rsTrait.setAttribute(this.rpAttr, mapReactIDList.trait);
-            };
+            }
+            ;
 
             /** Update Body Map List*/
             const rsBodyMapList = rsTemplate.querySelector(this.vars.rsBodyMapList);
@@ -981,7 +983,8 @@ class CharacterHandle {
                     rsBodyMapList.append(item);
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
-            };
+            }
+            ;
 
             /** Set character id */
             const rsCharacterID = rsTemplate.querySelector(this.vars.rsId);

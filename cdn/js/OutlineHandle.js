@@ -79,6 +79,12 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
+        setTimeout(() => {
+            if (!window.ScriptAdapter.scriptDataStore.outline) {
+                window.ScriptAdapter.scriptDataStore.outline = {lock: false};
+                window.ScriptAdapter.autoSave();
+            }
+        }, 100);
 
         setTimeout(() => {
             if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
@@ -172,7 +178,6 @@ class OutlineHandle {
         }, 100)
     }
 
-
     setUp(item = document.querySelector(this.vars.mainMrItem)) {
         const hide = item.querySelector(this.vars.hideBtn);
         const menu = item.querySelector(this.vars.menu);
@@ -184,7 +189,7 @@ class OutlineHandle {
         const sceneID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
         const sceneGoal = item.querySelector(this.vars.sceneGoal);
         const emotionalValue = item.querySelector(this.vars.ev);
-        // const list = item.querySelector(this.vars.rsMrList);
+        const sceneTitle = item.querySelector(this.vars.sceneTitle);
         this.lockContent();
         /** Event Listeners on Outline Page Items*/
         hide?.addEventListener('click', () => {
@@ -279,6 +284,10 @@ class OutlineHandle {
             if (colorWrap?.classList.contains('hide')) colorWrap?.classList.remove('hide');
         });
 
+        sceneTitle?.addEventListener('keyup', () => {
+            this.updateDB();
+        });
+
         emotionalValue?.addEventListener('keyup', () => {
             setTimeout(() => {
                 if (parseInt(emotionalValue.textContent) > 10 || parseInt(emotionalValue.textContent) < -10) {
@@ -342,7 +351,7 @@ class OutlineHandle {
                 currentItemTemplate.parentNode.insertBefore(actName, currentItemTemplate.nextSibling)
                 getTheNextAct = false
             }
-            if (value.type === 'scene-heading' && valueContent.toLowerCase() === title.toLowerCase()) {
+            if (value?.type === 'scene-heading' && valueContent?.toLowerCase() === title?.toLowerCase()) {
                 getTheNextAct = true
             }
         }
@@ -465,24 +474,26 @@ class OutlineHandle {
         this.contenStore = contenStore;
         const listOfOutline = [];
         let count = 0;
-
-        const saveData = Object.keys(window.ScriptAdapter.scriptDataStore.outline).map((key) => {
-            return window.ScriptAdapter.scriptDataStore.outline[key];
-        });
-        saveData.forEach((item) => {
-            if (item.title) {
-                this.storeName.push(item.title.toLowerCase());
-            }
-        });
+        let saveData = {};
+        try {
+            saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
+                return window?.ScriptAdapter?.scriptDataStore?.outline[key];
+            });
+            saveData.forEach((item) => {
+                if (item?.title) {
+                    this.storeName.push(item?.title?.toLowerCase());
+                }
+            });
+        } catch (e) {
+            saveData = {};
+        }
         this.storeName = [...new Set(this.storeName)];
-        console.log(this.storeName);
-        console.log(saveData)
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
                 const otherSceneType = [];
-                const draftKey = window.ScriptAdapter.currentDraftKey;
-                const dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
+                let draftKey = window.ScriptAdapter.currentDraftKey;
+                let dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
                     const name = item.content.innerText;
                     const id = item.id;
@@ -490,21 +501,28 @@ class OutlineHandle {
                     const color = item.color;
                     const scriptBodyID = item.sbID;
                     const pageNumber = item.pageNumber;
-                    const scene_goal = dataset.others.scenegoal? dataset.others.scenegoal : '';
-                    const evaluation_value = dataset.others.ev? dataset.others.ev : '';
+                    const scene_goal = dataset?.others?.scenegoal ? dataset?.others?.scenegoal : '';
+                    const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : '';
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
-                        if (tem.type === 'scene-heading') break;
-                        else otherSceneType.push(tem);
+                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
                     }
 
                     // Append outline
                     listOfOutline.push({
-                        name: name, id: id, position: count, scenes: otherSceneType,
-                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
-                        type: item.type, index: count - 1, scene_goal: scene_goal, evaluation_value: evaluation_value
+                        name: name,
+                        id: id,
+                        position: count,
+                        scenes: otherSceneType,
+                        color: color,
+                        sbID: scriptBodyID,
+                        pageNumber: pageNumber,
+                        type: item.type,
+                        index: count - 1,
+                        scene_goal: scene_goal,
+                        evaluation_value: evaluation_value
                     });
                 } else {
                     const name = saveData[count - 1].title;
@@ -518,15 +536,22 @@ class OutlineHandle {
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
-                        if (tem.type === 'scene-heading') break;
-                        else otherSceneType.push(tem);
+                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
                     }
 
                     // Append outline
                     listOfOutline.push({
-                        name: name, id: id, position: count, scenes: otherSceneType,
-                        color: color, sbID: scriptBodyID, pageNumber: pageNumber,
-                        type: item.type, index: count - 1, scene_goal: scene_goal, evaluation_value: evaluation_value
+                        name: name,
+                        id: id,
+                        position: count,
+                        scenes: otherSceneType,
+                        color: color,
+                        sbID: scriptBodyID,
+                        pageNumber: pageNumber,
+                        type: item.type,
+                        index: count - 1,
+                        scene_goal: scene_goal,
+                        evaluation_value: evaluation_value
                     });
                 }
             }
@@ -612,8 +637,7 @@ class OutlineHandle {
 
         if (2) {
             const template = this.rsOutlineItemTemp.cloneNode(true);
-            if (data.color && template.firstElementChild.classList.contains('bg-blue'))
-                template.firstElementChild.classList.replace('bg-blue', data.color);
+            if (data.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data.color);
             // update the template id
             template.setAttribute(this.vars.rsIdAttrName, data.sbID)
             //Update title
