@@ -281,11 +281,11 @@ class OutlineHandle {
 
         emotionalValue?.addEventListener('keyup', () => {
             setTimeout(() => {
-                const draftKey = window.ScriptAdapter.currentDraftKey;
                 if (parseInt(emotionalValue.textContent) > 10 || parseInt(emotionalValue.textContent) < -10) {
                     alert('Emotional Value must be between -10 and 10', 'Error');
                     emotionalValue.textContent = 0;
                 } else {
+                    const draftKey = window.ScriptAdapter.currentDraftKey;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
                     ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
@@ -474,13 +474,15 @@ class OutlineHandle {
                 this.storeName.push(item.title.toLowerCase());
             }
         });
-        console.log(saveData);
         this.storeName = [...new Set(this.storeName)];
         console.log(this.storeName);
+        console.log(saveData)
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
                 const otherSceneType = [];
+                const draftKey = window.ScriptAdapter.currentDraftKey;
+                const dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
                     const name = item.content.innerText;
                     const id = item.id;
@@ -488,8 +490,8 @@ class OutlineHandle {
                     const color = item.color;
                     const scriptBodyID = item.sbID;
                     const pageNumber = item.pageNumber;
-                    const scene_goal = "";
-                    const evaluation_value = "";
+                    const scene_goal = dataset.others.scenegoal? dataset.others.scenegoal : '';
+                    const evaluation_value = dataset.others.ev? dataset.others.ev : '';
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
@@ -511,7 +513,7 @@ class OutlineHandle {
                     const color = saveData[count - 1].color;
                     const scriptBodyID = item.sbID;
                     const pageNumber = saveData[count - 1].page_no;
-                    const scene_goal = saveData[count - 1].scene_goal;
+                    const scene_goal = saveData[count - 1].goal;
                     const evaluation_value = saveData[count - 1].emotional_value;
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
@@ -563,15 +565,9 @@ class OutlineHandle {
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            // const dataset = window.ScriptDataStore.outline[data.index];
-            // if (dataset && dataset?.scene_goal && dataset?.emotional_value) {
-            //     emotionalValue.textContent = dataset.emotional_value
-            //     sceneGoal.innerText = dataset.scene_goal
-            // }
-            const dataset = window.ScriptDataStore.draft[draftKey].data[data.sbID]
-            if (dataset && dataset?.others?.ev) {
-                emotionalValue.textContent = dataset.others.ev;
-                sceneGoal.innerText = dataset.others.scenegoal;
+            if (data.scene_goal && data.evaluation_value) {
+                emotionalValue.textContent = data?.evaluation_value;
+                sceneGoal.innerText = data?.scene_goal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
                     id: data.sbID,
