@@ -27,6 +27,9 @@ class MapAndReactOnContent {
     // page mutation status
     pageMutationStatus = true;
 
+    specificLineList = []
+    specificLineListStatus = false;
+
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
         this.cons = {
@@ -223,7 +226,11 @@ class MapAndReactOnContent {
         if (window.OutlineHandle) window.OutlineHandle.contentStore = this.contentStore;
 
         // start mapping element by content type
-        const lineList = document.querySelectorAll(this.cons.line);
+        let lineList = document.querySelectorAll(this.cons.line);
+        if (this.specificLineListStatus) {
+            lineList = this.specificLineList;
+        }
+        
         let count = 0;
         let dataForGraphCount = 0;
         let uidCount = 0;
@@ -558,6 +565,7 @@ class MapAndReactOnContent {
                 count += 1;
             });
             this.graphTemplateFour(newTable);
+            this.graphTemplateOne();
         }
     }
 
@@ -570,18 +578,88 @@ class MapAndReactOnContent {
     }
 
     graphTemplateOne() { //Line Chart graph
-        google.charts.load('current', {'packages': ['corechart']});
-        google.charts.setOnLoadCallback(drawLineChart);
+        const item11 = document.querySelector(`[sw-graph="item-11"]`);
+        // while item11 has child node remove it
+        while (item11.firstChild) item11.removeChild(item11.firstChild);
+        // create a canvas element
+        const canvas = document.createElement('canvas');
+        // set canvas width and height full width and height of the item11 element and append it to the item11 element
+        canvas.width = item11.offsetWidth;
+        canvas.height = item11.offsetHeight;
 
-        function drawLineChart() {
-            const data = google.visualization.arrayToDataTable([['Year', 'Sales', 'Expenses'], ['2004', 1000, 400], ['2005', 1170, 460], ['2006', 660, 1120], ['2007', 1030, 540]]);
-
-            const options = {
-                title: 'Company Performance', curveType: 'function', legend: {position: 'bottom'}
-            };
-            const chart = new google.visualization.LineChart(document.querySelector(`[sw-graph="item-1"]`));
-            chart.draw(data, options);
+        const outline = window.ScriptDataStore.outline;
+        let outlineLength = Object.keys(outline).length;
+        // check if a key 'lock' exist in outline
+        if (outline['lock']) {
+            outlineLength -= 1;
         }
+
+        let xPart = item11.offsetWidth / outlineLength
+        let xValue = xPart + 20;
+
+        // create a new chart
+        const ctx = canvas.getContext('2d');
+        // make a red line
+        ctx.strokeStyle = 'red';
+        // make the line 5 pixels wide
+        ctx.lineWidth = 3;
+        // start at 20,0
+        ctx.moveTo(20, 100);
+
+        // loop outline
+        Object.keys(outline).forEach((key, index) => {
+            const item = outline[key];
+            const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
+            // if emotional value is 0 then y value is 100
+            // if emotional value is 10 then y value is 0
+            // if emotional value is -10 then y value is 200
+            let yValue = 100 - (emotionalValue * 10);
+            if (yValue > 195) yValue = 195;
+            if (yValue < 5) yValue = 5;
+            ctx.lineTo(xValue, yValue);
+            
+            if (index !== 0){
+                xValue = xValue + xPart - (20/index)/2 + 2;
+            } else {
+                xValue = xValue + xPart;
+            }
+        });
+
+        ctx.lineTo(item11.offsetWidth, 100)
+        // draw the line
+        ctx.stroke();
+
+        xPart = item11.offsetWidth / outlineLength
+        xValue = xPart + 20;
+        // draw small circle on the line
+        Object.keys(outline).forEach((key, index) => {
+            const item = outline[key];
+            const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
+            
+            let yValue = 100 - (emotionalValue * 10);
+            if (yValue > 195) yValue = 195;
+            if (yValue < 5) yValue = 5;
+            ctx.beginPath();
+            ctx.arc(xValue, yValue, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+
+            if (index !== 0){
+                xValue = xValue + xPart - (20/index)/2 + 2;
+            } else {
+                xValue = xValue + xPart;
+            }
+        });
+
+        ctx.beginPath();
+        ctx.arc(20, 100, 5, 0, 2 * Math.PI);
+        ctx.arc(item11.offsetWidth-3, 100, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+
+
+        // append canvas to the item11 element
+        item11.appendChild(canvas);
     }
 
     graphTemplateTwo() { // Line graph chart
@@ -692,6 +770,12 @@ class MapAndReactOnContent {
         const actDropdownLiTag = actDropdown.firstElementChild.cloneNode(true);
         // remove all child nodes
         while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
+        const allAct = actDropdownLiTag.cloneNode(true);
+        allAct.innerText = 'All Act';
+        allAct.setAttribute('data-act-id', 'all');
+        allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
+        actDropdown.appendChild(allAct);
+
         const data = window.ScriptDataStore.data
         // loop this object to get key and value
         for (const [key, value] of Object.entries(data)) {
@@ -699,11 +783,40 @@ class MapAndReactOnContent {
                 const liTag = actDropdownLiTag.cloneNode(true);
                 liTag.innerText = value.content;
                 liTag.setAttribute('data-act-id', key);
+                liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
                 actDropdown.appendChild(liTag);
             }
         }
+    }
 
-
+    modifyGraphTemplateOne(e) {
+        let actId = e.target.getAttribute('data-act-id');
+        if (actId === 'all') {
+            this.specificLineListStatus = false;
+            this.specificLineList = [];
+            this.mapreact();
+            return;
+        }
+        const lineList = document.querySelectorAll(this.cons.line);
+        let newLineList = [];
+        for (let i = 0; i < lineList.length; i++) {
+            let it = lineList[i];
+            let swEditorId = it.getAttribute('sw-editor-id');
+            // make integer 
+            swEditorId = parseInt(swEditorId);
+            actId = parseInt(actId);
+            if (swEditorId >= actId) {
+                if (swEditorId !== actId && it.getAttribute('sw-editor-type') === 'act') {
+                    // break the loop
+                    break;
+                }
+                newLineList.push(it);
+            }
+        };
+        
+        this.specificLineList = newLineList;
+        this.specificLineListStatus = true;
+        this.mapreact();
     }
 }
 
