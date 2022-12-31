@@ -230,7 +230,7 @@ class MapAndReactOnContent {
         if (this.specificLineListStatus) {
             lineList = this.specificLineList;
         }
-        
+
         let count = 0;
         let dataForGraphCount = 0;
         let uidCount = 0;
@@ -617,9 +617,9 @@ class MapAndReactOnContent {
             if (yValue > 195) yValue = 195;
             if (yValue < 5) yValue = 5;
             ctx.lineTo(xValue, yValue);
-            
-            if (index !== 0){
-                xValue = xValue + xPart - (20/index)/2 + 2;
+
+            if (index !== 0) {
+                xValue = xValue + xPart - (20 / index) / 2 + 2;
             } else {
                 xValue = xValue + xPart;
             }
@@ -635,7 +635,7 @@ class MapAndReactOnContent {
         Object.keys(outline).forEach((key, index) => {
             const item = outline[key];
             const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
-            
+
             let yValue = 100 - (emotionalValue * 10);
             if (yValue > 195) yValue = 195;
             if (yValue < 5) yValue = 5;
@@ -644,8 +644,8 @@ class MapAndReactOnContent {
             ctx.fillStyle = 'red';
             ctx.fill();
 
-            if (index !== 0){
-                xValue = xValue + xPart - (20/index)/2 + 2;
+            if (index !== 0) {
+                xValue = xValue + xPart - (20 / index) / 2 + 2;
             } else {
                 xValue = xValue + xPart;
             }
@@ -653,7 +653,7 @@ class MapAndReactOnContent {
 
         ctx.beginPath();
         ctx.arc(20, 100, 5, 0, 2 * Math.PI);
-        ctx.arc(item11.offsetWidth-3, 100, 5, 0, 2 * Math.PI);
+        ctx.arc(item11.offsetWidth - 3, 100, 5, 0, 2 * Math.PI);
         ctx.fillStyle = 'red';
         ctx.fill();
 
@@ -775,16 +775,22 @@ class MapAndReactOnContent {
         allAct.setAttribute('data-act-id', 'all');
         allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
         actDropdown.appendChild(allAct);
-
-        const data = window.ScriptDataStore.data
+        let data = {};
+        try {
+            data = window?.ScriptDataStore?.data
+        } catch (e) {
+            data = {};
+        }
         // loop this object to get key and value
-        for (const [key, value] of Object.entries(data)) {
-            if (value.type === 'act') {
-                const liTag = actDropdownLiTag.cloneNode(true);
-                liTag.innerText = value.content;
-                liTag.setAttribute('data-act-id', key);
-                liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
-                actDropdown.appendChild(liTag);
+        if (data) {
+            for (const [key, value] of Object?.entries(data)) {
+                if (value.type === 'act') {
+                    const liTag = actDropdownLiTag.cloneNode(true);
+                    liTag.innerText = value.content;
+                    liTag.setAttribute('data-act-id', key);
+                    liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
+                    actDropdown.appendChild(liTag);
+                }
             }
         }
     }
@@ -812,8 +818,9 @@ class MapAndReactOnContent {
                 }
                 newLineList.push(it);
             }
-        };
-        
+        }
+        ;
+
         this.specificLineList = newLineList;
         this.specificLineListStatus = true;
         this.mapreact();
