@@ -375,12 +375,12 @@
         }
 
         createNewLine(t, e, s = !0, i = "", n = "") {
-            let r = n || this.generateID(), o = this.lineTemp.cloneNode(!0);
-            o.innerHTML = i, o.setAttribute(this.cons.editID, r);
+            let r = n || this.generateID(), o = this.lineTemp?.cloneNode(!0);
+            o.innerHTML = i, o.setAttribute(this.cons?.editID, r);
             let y = window.BackgroundColor.randomBg();
-            if (o.setAttribute(this.cons.editColor, y), this.newlyCreatedLine = o, window.EditorMode.handleContentLineNuetral(o), e(o), s) {
-                t.insertAdjacentElement("afterend", o);
-                let a = t.getAttribute(this.cons.editID);
+            if (o?.setAttribute(this.cons?.editColor, y), this.newlyCreatedLine = o, window.EditorMode.handleContentLineNuetral(o), e(o), s) {
+                t?.insertAdjacentElement("afterend", o);
+                let a = t?.getAttribute(this.cons?.editID);
                 window.Watcher.newLine(r, a)
             }
             return o
