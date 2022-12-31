@@ -565,7 +565,10 @@ class MapAndReactOnContent {
                 count += 1;
             });
             this.graphTemplateFour(newTable);
-            this.graphTemplateOne();
+            this.graphTemplateOne(`[sw-graph="item-11"]`);
+            setTimeout(() => {
+                this.graphTemplateOne(`[sw-graph="item-22"]`);
+            }, 100);
         }
     }
 
@@ -577,8 +580,8 @@ class MapAndReactOnContent {
         </div>`
     }
 
-    graphTemplateOne() { //Line Chart graph
-        const item11 = document.querySelector(`[sw-graph="item-11"]`);
+    graphTemplateOne(qs) { //Line Chart graph
+        const item11 = document.querySelector(qs);
         // while item11 has child node remove it
         while (item11.firstChild) item11.removeChild(item11.firstChild);
         // create a canvas element
@@ -604,7 +607,9 @@ class MapAndReactOnContent {
         // make the line 5 pixels wide
         ctx.lineWidth = 3;
         // start at 20,0
-        ctx.moveTo(20, 100);
+        if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
+        else ctx.moveTo(20, 100);
+        
 
         // loop outline
         Object.keys(outline).forEach((key, index) => {
@@ -625,8 +630,8 @@ class MapAndReactOnContent {
             }
         });
 
-        ctx.lineTo(item11.offsetWidth, 100)
-        // draw the line
+        if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11.offsetWidth - 10, 100)
+        else ctx.lineTo(item11.offsetWidth, 100)
         ctx.stroke();
 
         xPart = item11.offsetWidth / outlineLength
@@ -652,8 +657,10 @@ class MapAndReactOnContent {
         });
 
         ctx.beginPath();
-        ctx.arc(20, 100, 5, 0, 2 * Math.PI);
-        ctx.arc(item11.offsetWidth-3, 100, 5, 0, 2 * Math.PI);
+        if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
+        else ctx.arc(20, 100, 5, 0, 2 * Math.PI);
+        if (qs === '[sw-graph="item-22"]') ctx.arc(item11.offsetWidth - 10, 100, 5, 0, 2 * Math.PI);
+        else ctx.arc(item11.offsetWidth-3, 100, 5, 0, 2 * Math.PI);
         ctx.fillStyle = 'red';
         ctx.fill();
 
