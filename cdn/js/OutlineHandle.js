@@ -370,8 +370,9 @@ class OutlineHandle {
             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
             let bgColor = card?.getAttribute("bg-value");
+            let sbID = card?.getAttribute("sw-editor-id");
             let obj = {
-                id: index, title: title, goal: goal, emotional_value: emotional_value, page_no: page_no, color: bgColor,
+                id: index, title: title, goal: goal, emotional_value: emotional_value, page_no: page_no, color: bgColor, sbID: sbID
             }
             data[index] = obj;
         });
@@ -392,13 +393,13 @@ class OutlineHandle {
                 resolve(1)
             });
             addOutlinePromise.then(() => {
-                const contentLineID = item.querySelector(this.vars.sceneItemTitle).getAttribute(this.vars.idAttrName);
-                const sceneList = item.querySelector(this.vars.sceneList);
+                const contentLineID = item?.querySelector(this.vars?.sceneItemTitle).getAttribute(this.vars?.idAttrName);
+                const sceneList = item?.querySelector(this.vars?.sceneList);
                 // get the content line id of the last Line
-                const lastLineElement = sceneList.lastElementChild;
-                const lastLineID = lastLineElement.getAttribute(this.vars.idAttrName);
+                const lastLineElement = sceneList?.lastElementChild;
+                const lastLineID = lastLineElement?.getAttribute(this.vars?.idAttrName);
                 // Get the content line element of the last line ID
-                const lastLineContentElement = document.querySelector(this.vars.editorID.replace('%s', lastLineID));
+                const lastLineContentElement = document.querySelector(this.vars?.editorID.replace('%s', lastLineID));
                 // window.EditorFuncs
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
@@ -473,8 +474,20 @@ class OutlineHandle {
         // Set new content store value
         this.contenStore = contenStore;
         const listOfOutline = [];
+        const isExist = [];
         let count = 0;
-        let saveData = {};
+        let saveData = {}
+        // this.contentStore.forEach((item, index) => {
+        //     if (item.type === 'scene-heading') {
+        //         isExist.push(item.id);
+        //     }
+        // })
+        // if (isExist.length === 0) {
+        //     window.ScriptAdapter.scriptDataStore.outline = {};
+        //     window.ScriptAdapter.autoSave();
+        //     window.ScriptAdapter.scriptDataStore.outline = {lock: false};
+        //     window.ScriptAdapter.autoSave();
+        // }
         try {
             saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
                 return window?.ScriptAdapter?.scriptDataStore?.outline[key];
@@ -570,6 +583,7 @@ class OutlineHandle {
             const title = template.querySelector(this.vars.sceneTitle);
             title.textContent = data.name;
             title.setAttribute('react-pos', data.id);
+            // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update Index
             const indexEle = template.querySelector(this.vars.index);
@@ -644,6 +658,7 @@ class OutlineHandle {
             const title = template.querySelector(this.vars.rsTitle);
             title.textContent = data.name;
             title.setAttribute('react-pos', data.id);
+            // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update other scene
             const rsOutlineList = template.querySelector(this.vars.rsList);
