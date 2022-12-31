@@ -142,7 +142,7 @@ function addAbsElement(thisElement){
 function removeAbsElement(thisElement){
     const sw_editor_id = thisElement.getAttribute('sw-editor-id');
     const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
-    const is_show = abs.classList.contains('show');
+    const is_show = abs?.classList?.contains('show');
     if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
         abs.remove();
     }
