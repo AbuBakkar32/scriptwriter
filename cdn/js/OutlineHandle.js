@@ -372,7 +372,13 @@ class OutlineHandle {
             let bgColor = card?.getAttribute("bg-value");
             let sbID = card?.getAttribute("sw-editor-id");
             let obj = {
-                id: index, title: title, goal: goal, emotional_value: emotional_value, page_no: page_no, color: bgColor, sbID: sbID
+                id: index,
+                title: title,
+                goal: goal,
+                emotional_value: emotional_value,
+                page_no: page_no,
+                color: bgColor,
+                sbID: sbID
             }
             data[index] = obj;
         });
@@ -581,39 +587,39 @@ class OutlineHandle {
             currentItemTemplate = template;
             //Update title
             const title = template.querySelector(this.vars.sceneTitle);
-            title.textContent = data.name;
-            title.setAttribute('react-pos', data.id);
+            title.textContent = data?.name;
+            title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update Index
             const indexEle = template.querySelector(this.vars.index);
-            indexEle.textContent = data.position;
+            indexEle.textContent = data?.position;
 
             // Update Page Number
-            template.querySelector(this.vars.page).textContent = data.pageNumber;
+            template.querySelector(this.vars.page).textContent = data?.pageNumber;
             // Update the color
-            if (data.color && template.classList.contains('bg-green')) {
-                template.classList.replace('bg-green', data.color);
-                template.setAttribute(this.vars.bgAttr, data.color);
+            if (data?.color && template.classList.contains('bg-green')) {
+                template.classList.replace('bg-green', data?.color);
+                template.setAttribute(this.vars.bgAttr, data?.color);
                 const colorOption = template.querySelector(this.vars.colorOpt);
-                colorOption.classList.replace('bg-green', data.color);
-                colorOption.setAttribute(this.vars.bgAttr, data.color);
+                colorOption.classList.replace('bg-green', data?.color);
+                colorOption.setAttribute(this.vars.bgAttr, data?.color);
             }
 
             //Update Scene goal and Emotional Value
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            if (data.scene_goal && data.evaluation_value) {
+            if (data?.scene_goal && data?.evaluation_value) {
                 emotionalValue.textContent = data?.evaluation_value;
                 sceneGoal.innerText = data?.scene_goal;
             } else {
-                window.ScriptDataStore.draft[draftKey].data[data.sbID] = {
-                    id: data.sbID,
-                    content: data.name,
+                window.ScriptDataStore.draft[draftKey].data[data?.sbID] = {
+                    id: data?.sbID,
+                    content: data?.name,
                     type: 'scene-heading',
-                    color: data.color,
-                    unique_key: data.position,
+                    color: data?.color,
+                    unique_key: data?.position,
                     others: {ev: '0', scenegoal: ''},
                     note: {text: '', authorID: '', authorName: '', date: '', color: ''},
                 }
@@ -629,14 +635,14 @@ class OutlineHandle {
             [...sceneWrapper.children].forEach(sh => sh.remove());
 
             //Update and Append scene heading
-            sceneItemTitle.textContent = data.name;
-            sceneItemTitle.setAttribute(this.rpAttr, data.id);
-            sceneItemTitle.setAttribute(this.vars.idAttrName, data.sbID); // Set script body id
+            sceneItemTitle.textContent = data?.name;
+            sceneItemTitle.setAttribute(this.rpAttr, data?.id);
+            sceneItemTitle.setAttribute(this.vars.idAttrName, data?.sbID); // Set script body id
 
             sceneWrapper.append(sceneItemTitle);
 
             // Render and Update scene item
-            data.scenes.forEach((scene) => {
+            data?.scenes.forEach((scene) => {
                 const otherSceneItem = sceneItem.cloneNode(true);
                 otherSceneItem.textContent = scene.content.innerText;
                 otherSceneItem.setAttribute(this.rpAttr, scene.id); // Set map react id
@@ -651,13 +657,13 @@ class OutlineHandle {
 
         if (2) {
             const template = this.rsOutlineItemTemp.cloneNode(true);
-            if (data.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data.color);
+            if (data?.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data?.color);
             // update the template id
-            template.setAttribute(this.vars.rsIdAttrName, data.sbID)
+            template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
             //Update title
             const title = template.querySelector(this.vars.rsTitle);
-            title.textContent = data.name;
-            title.setAttribute('react-pos', data.id);
+            title.textContent = data?.name;
+            title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update other scene
@@ -667,7 +673,7 @@ class OutlineHandle {
             [...rsOutlineList.children].forEach(itm => itm.remove());
 
             // Render scene headings
-            data.scenes.forEach((scene) => {
+            data?.scenes.forEach((scene) => {
                 //Update other type of scene
                 const newRsOutlineItem = rsOutlineItem.cloneNode(true);
                 newRsOutlineItem.textContent = scene.content.innerText;
