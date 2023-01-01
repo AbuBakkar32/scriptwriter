@@ -663,7 +663,6 @@ class CharacterHandle {
             // Match data in contentStore
             for (let index = 0; index < this.contentStore.length; index++) {
                 const sdata = this.contentStore[index];
-                console.log(sdata);
                 if (sdata.type === 'character') {
                     if (sdata.cid !== cdata.id) {
                         // Update the mapReact id;
