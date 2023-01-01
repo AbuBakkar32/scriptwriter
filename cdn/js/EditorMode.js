@@ -79,7 +79,7 @@ class EditorMode {
             if (targetClass.includes('noteInput')) {
                 return;
             }
-            this.updateCardList();
+            // this.updateCardList();
             e.stopImmediatePropagation();
             e.stopPropagation();
             const currentTextLength = this.editorModeList.innerText.replace(/\n/g, '').length;
@@ -121,45 +121,45 @@ class EditorMode {
         this.calculatePageNumbers();
     }
 
-    updateCardList() {
-        setTimeout(() => {
-            let data = window.ScriptAdapter.scriptDataStore.outline;
-            data = {};
-            window.ScriptAdapter.scriptDataStore.outline = data;
-            window.ScriptAdapter.autoSave();
-            let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
-            listData.forEach((card, index) => {
-                let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-                let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-                let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
-                let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
-                let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-                let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
-                let bgColor = card?.getAttribute("bg-value");
-                let scene_list = {};
-                card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
-                    scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
-                        let scene_item = {
-                            scene_item: item?.innerHTML
-                        };
-                        scene_list[index] = scene_item;
-                    });
-                });
-                let obj = {
-                    id: index,
-                    title: title,
-                    goal: goal,
-                    emotional_value: emotional_value,
-                    page_no: page_no,
-                    color: bgColor,
-                    item_title: item_title,
-                    scene_list: scene_list
-                }
-                data[index] = obj;
-            });
-            window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
-        }, 200);
-    }
+    // updateCardList() {
+    //     setTimeout(() => {
+    //         let data = window.ScriptAdapter.scriptDataStore.outline;
+    //         data = {};
+    //         window.ScriptAdapter.scriptDataStore.outline = data;
+    //         window.ScriptAdapter.autoSave();
+    //         let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
+    //         listData.forEach((card, index) => {
+    //             let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
+    //             let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+    //             let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
+    //             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
+    //             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
+    //             let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
+    //             let bgColor = card?.getAttribute("bg-value");
+    //             let scene_list = {};
+    //             card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
+    //                 scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
+    //                     let scene_item = {
+    //                         scene_item: item?.innerHTML
+    //                     };
+    //                     scene_list[index] = scene_item;
+    //                 });
+    //             });
+    //             let obj = {
+    //                 id: index,
+    //                 title: title,
+    //                 goal: goal,
+    //                 emotional_value: emotional_value,
+    //                 page_no: page_no,
+    //                 color: bgColor,
+    //                 item_title: item_title,
+    //                 scene_list: scene_list
+    //             }
+    //             data[index] = obj;
+    //         });
+    //         window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
+    //     }, 200);
+    // }
 
     lineSignal(line = this.lineTemp) {
         line.addEventListener('click', (e) => {

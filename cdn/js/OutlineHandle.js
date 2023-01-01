@@ -483,17 +483,17 @@ class OutlineHandle {
         const isExist = [];
         let count = 0;
         let saveData = {}
-        // this.contentStore.forEach((item, index) => {
-        //     if (item.type === 'scene-heading') {
-        //         isExist.push(item.id);
-        //     }
-        // })
-        // if (isExist.length === 0) {
-        //     window.ScriptAdapter.scriptDataStore.outline = {};
-        //     window.ScriptAdapter.autoSave();
-        //     window.ScriptAdapter.scriptDataStore.outline = {lock: false};
-        //     window.ScriptAdapter.autoSave();
-        // }
+        this.contentStore.forEach((item, index) => {
+            if (item.type === 'scene-heading') {
+                isExist.push(item.id);
+            }
+        })
+        if (isExist.length === 0) {
+            window.ScriptAdapter.scriptDataStore.outline = {};
+            window.ScriptAdapter.autoSave();
+            window.ScriptAdapter.scriptDataStore.outline = {lock: false};
+            window.ScriptAdapter.autoSave();
+        }
         try {
             saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
                 return window?.ScriptAdapter?.scriptDataStore?.outline[key];
