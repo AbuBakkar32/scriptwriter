@@ -7,6 +7,9 @@ class EditorMode {
     currentLineList = {};
     // constants
     cons;
+    // attribute name
+    // attrName = `sw-editor-mode`;
+    // new db array
     dbArray = {};
     // later ids
     idList = [];
@@ -35,8 +38,8 @@ class EditorMode {
             list: `[${this.attrName}="list"]`,
             item: `[${this.attrName}="item"]`,
             line: `[${this.attrName}-type]`,
-            a: 'action', at: 'action-type', t: 'transition', tt: 'transition-type',
-            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat: 'parent-article-type',
+            a: 'action', at: 'action-type', t: 'transition', tt:'transition-type',
+            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat:'parent-article-type',
             c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
             editType: `${this.attrName}-type`, editID: `${this.attrName}-id`,
             editCharacterID: `${this.attrName}-character-id`, editColor: `${this.attrName}-color`,
@@ -63,7 +66,7 @@ class EditorMode {
         this.anyWhereWrap = document.querySelector(`[sw-element-anywhere="wrap"]`);
         const pageNumber = document.querySelector(`[sw-page-number="item"]`);
         this.pageNumberClone = pageNumber.cloneNode(true);
-        pageNumber?.remove()
+        pageNumber?.remove();
         // icons dom
         const leftIcon = document.querySelector(`[sw-icon="left"]`);
         const rightIcon = document.querySelector(`[sw-icon="right"]`);
@@ -114,7 +117,7 @@ class EditorMode {
                 this.watcherStatus = false;
                 this.watcher();
             }
-            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length
+            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length;
         });
 
         // calculate page number
@@ -169,11 +172,11 @@ class EditorMode {
             this.formatContentLine(line);
         });
 
-        line.addEventListener('focus', (e) => {
+        line.addEventListener('focus', (e)=>{
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
-        line.addEventListener('blur', (e) => {
+        line.addEventListener('blur', (e)=>{
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
@@ -192,8 +195,8 @@ class EditorMode {
             let pageTop = page.offsetTop + 55;
             const newPageNumber = this.pageNumberClone.cloneNode(true);
             // set top
-            newPageNumber.style.top = String(pageTop) + 'px';
-            newPageNumber.textContent = String(count) + '.';
+            newPageNumber.style.top = String(pageTop)+'px';
+            newPageNumber.textContent = String(count)+'.';
             this.anyWhereWrap.append(newPageNumber);
             // increase count
             count += 1;
@@ -211,9 +214,7 @@ class EditorMode {
         } else id += '0';
 
         const lineIDList = [];
-        document.querySelectorAll(this.cons.line).forEach((i) => {
-            lineIDList.push(i.getAttribute(this.cons.editID));
-        });
+        document.querySelectorAll(this.cons.line).forEach((i) => { lineIDList.push(i.getAttribute(this.cons.editID)); });
         let count = 0;
         while (true) {
             count += 1;
@@ -326,7 +327,7 @@ class EditorMode {
 
                         // formate new line
                         this.formatContentLine(newCreatedElement);
-                        // this.handleContentLineNuetral(newCreatedElement);
+                        //this.handleContentLineNuetral(newCreatedElement);
                         newCreatedElement.setAttribute(this.cons.editID, newID);
                         //newCreatedElement.focus();
                         this.lineSignal(newCreatedElement);
@@ -387,9 +388,9 @@ class EditorMode {
             if (this.keyPressed !== 'Enter') return;
             this.rearrangePage(this.cons.item);
         }).then(() => {
-            if (this.keyPressed !== 'Enter') return;
+            //if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
-            setTimeout(() => {
+            setTimeout(()=>{
                 // trap to catch newly created line
                 for (let i = 0; i < this.idList.length; i++) {
                     const x = this.idList[i]; // might be the duplicated id
@@ -469,14 +470,14 @@ class EditorMode {
                         // Add the new created id
                         this.idList.push(newID);
 
-                        /* setTimeout(() => {
+                        setTimeout(() => {
                             const mainEditor = newCreatedElement.parentElement.parentElement;
                             mainEditor.setAttribute('contenteditable', 'false');
                             // click on the script body
                             newCreatedElement.click();
                             newCreatedElement.focus();
                             mainEditor.setAttribute('contenteditable', 'true');
-                        }, 50); */
+                        }, 50);
 
                         break;
                     }
@@ -487,15 +488,14 @@ class EditorMode {
             // if lines is empty
             if (line) return;
             const newPage = this.itemTemp.cloneNode(true);
-            [...newPage.children].forEach((e) => {
-                e.remove()
-            });
+            [...newPage.children].forEach((e) => {e.remove()});
             const newLine = this.lineTemp.cloneNode(true);
             newLine.textContent = '';
             newPage.append(newLine);
             this.editorModeList.append(newPage);
-        }).then(async () => {
+        }).then(async ()=>{
             this.watcherStatus = true;
+            //console.log('watcher completed', new Date().getMilliseconds());
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
             if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
@@ -514,10 +514,8 @@ class EditorMode {
         let lastID = 0;
         // rearrange page status
         let rearrange = false;
-        const rangePromise = new Promise((resolve, reject) => {
-            resolve(1)
-        })
-        rangePromise.then(() => {
+        const rangePromise = new Promise((resolve, reject) => {resolve(1)})
+        rangePromise.then(()=> {
             pageList.forEach((page) => {
                 const contentLines = [...page.children];
                 contentLines.forEach((conl) => {
@@ -539,15 +537,11 @@ class EditorMode {
                             // generate new id and assign it
                             //const newID = this.generateID();
                             let newID = '';
-                            if (!lastID) {
-                                newID = this.generateID();
-                                lastID = Number(newID.substring(1));
-                            } else {
-                                newID = '0' + (lastID + 1);
-                                lastID = lastID + 1;
-                            }
+                            if (!lastID) {newID = this.generateID(); lastID = Number(newID.substring(1));}
+                            else {newID = '0'+(lastID+1); lastID = lastID + 1;}
 
                             div.setAttribute(this.cons.editID, newID);
+
                             this.lineSignal(div);
 
                             div.innerText = text;
@@ -576,7 +570,7 @@ class EditorMode {
         return rangePromise;
     }
 
-    updateLastFocusEdit() {
+    updateLastFocusEdit(){
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
             if (!getReactPosID) return;
@@ -595,10 +589,6 @@ class EditorMode {
     }
 
     formatContentLine(newLine) {
-        let getId = newLine.getAttribute("sw-editor-character-id")
-        if(newLine.getAttribute("sw-editor-character-id") === getId){
-            newLine.setAttribute("sw-editor-character-id", getId+1)
-        }
         let type = newLine.getAttribute(this.cons.editType);
         if (type === '') type = 'action';
         newLine.setAttribute(this.cons.editType, type);
@@ -610,6 +600,14 @@ class EditorMode {
             e.removeAttribute('sw-focused');
         });
         newLine.setAttribute("sw-focused", "edit")
+
+        const line = this.handleContentLineNuetral(newLine, type);
+        if (this.handleSceneHeadingType(line)) ;
+        else if (this.handleCharater(line)) ;
+        else if (this.handleParentArticle(line)) ;
+        else if (this.handleDialog(line)) ;
+        else if (this.handleTransition(line)) ;
+        else if (this.handleActType(line));
     }
 
     handleActType(line, direct = false) {
@@ -619,7 +617,7 @@ class EditorMode {
             return;
         }
         let verify = false;
-        if (line.innerText.toLowerCase().startsWith('int.') || line.innerText.toLowerCase().startsWith('ext.')) {
+        if (line.innerText.toLowerCase().startsWith('act.') || line.innerText.toLowerCase().startsWith('act')) {
             line.classList.replace(this.cons.at, this.cons.act);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.ac);
@@ -629,8 +627,8 @@ class EditorMode {
         return verify;
     }
 
-    handleSceneHeadingType(line, direct = false) {
-        // for direct formatting of content
+    handleSceneHeadingType (line, direct=false) {
+        // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
             line.setAttribute(this.cons.editType, this.cons.sh);
@@ -649,7 +647,7 @@ class EditorMode {
         return verify;
     }
 
-    handleDialog(line, direct = false) {
+    handleDialog (line, direct=false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.dt);
@@ -677,7 +675,7 @@ class EditorMode {
         return verify
     }
 
-    handleCharater(line, direct = false) {
+    handleCharater (line, direct=false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.ct);
@@ -702,7 +700,7 @@ class EditorMode {
         return verify
     }
 
-    handleTransition(line, direct = false) {
+    handleTransition (line, direct=false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.tt);
@@ -723,7 +721,7 @@ class EditorMode {
         return verify
     }
 
-    handleParentArticle(line, direct = false) {
+    handleParentArticle (line, direct=false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
@@ -772,6 +770,19 @@ class EditorMode {
         else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
         return line;
     }
+
+    // handleContentLineNuetral(line) {
+    //     // Adjust script body
+    //     line.classList.remove(this.cons.sht);
+    //     line.classList.remove(this.cons.ct);
+    //     line.classList.remove(this.cons.pat);
+    //     line.classList.remove(this.cons.dt);
+    //     line.classList.remove(this.cons.tt);
+    //     line.classList.add(this.cons.at);
+    //     line.setAttribute(this.cons.editType, '');
+    //     line.setAttribute(this.cons.editType, this.cons.a);
+    //     return line;
+    // }
 
     rearrangePage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);
