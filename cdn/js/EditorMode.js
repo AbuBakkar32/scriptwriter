@@ -760,7 +760,6 @@ class EditorMode {
         else if (type === 'scene-heading') line.classList.add(this.cons.sht);
         else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
-        //line.setAttribute(this.cons.editType, this.cons.a);
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);
         else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d);
         else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c);
@@ -770,19 +769,6 @@ class EditorMode {
         else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
         return line;
     }
-
-    // handleContentLineNuetral(line) {
-    //     // Adjust script body
-    //     line.classList.remove(this.cons.sht);
-    //     line.classList.remove(this.cons.ct);
-    //     line.classList.remove(this.cons.pat);
-    //     line.classList.remove(this.cons.dt);
-    //     line.classList.remove(this.cons.tt);
-    //     line.classList.add(this.cons.at);
-    //     line.setAttribute(this.cons.editType, '');
-    //     line.setAttribute(this.cons.editType, this.cons.a);
-    //     return line;
-    // }
 
     rearrangePage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);

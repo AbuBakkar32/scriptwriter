@@ -587,7 +587,7 @@ class OutlineHandle {
             currentItemTemplate = template;
             //Update title
             const title = template.querySelector(this.vars.sceneTitle);
-            title.textContent = data?.name;
+            title.textContent = data?.name.toUpperCase();
             title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 
@@ -662,7 +662,7 @@ class OutlineHandle {
             template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
             //Update title
             const title = template.querySelector(this.vars.rsTitle);
-            title.textContent = data?.name;
+            title.textContent = data?.name.toUpperCase();
             title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 

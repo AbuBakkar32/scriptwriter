@@ -78,7 +78,6 @@ class MapAndReactOnContent {
         // Click listener for the page list wrapper
         this.swPageTemp.addEventListener('click', (e)=>{
             const mainTarget = e.target.closest(this.cons.line);
-            console.log(mainTarget);
             // Remove all previous target
             const previous = document.querySelector(this.cons.focused);
             if (previous) previous.removeAttribute('sw-focused');
@@ -358,7 +357,6 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().endsWith('t') && targetFocused) this.actType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
-                        // id of the content line
                         const clID = targetFocused.getAttribute(this.cons.editID);
                         /** Watcher reaction */
                         window.Watcher.changeAttribute(clID);
