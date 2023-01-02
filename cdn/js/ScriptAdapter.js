@@ -279,7 +279,6 @@ class ScriptAdapter {
             }
             line.setAttribute('sw-editor-character-id', lineData.others.cID);
         }
-        console.log(lineData);
         // format the line text
         if (lineData.type === 'action') ;
         else if (lineData.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
