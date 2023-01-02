@@ -333,7 +333,7 @@ class OutlineHandle {
                 if (value.type === 'act') {
                     const firstLabel = document.querySelectorAll('.act-name')[0]
                     if (firstLabel) {
-                        firstLabel.innerText = valueContent
+                        firstLabel.innerText = valueContent.toUpperCase()
                     }
                 }
             }
@@ -341,7 +341,7 @@ class OutlineHandle {
                 const actName = document.createElement('label')
                 actName.classList.add('p-16', 'm-8', 'ft-size20', 'bold', 'act-name')
                 actName.style.textTransform = 'uppercase'
-                actName.innerText = valueContent
+                actName.innerText = valueContent.toUpperCase()
                 // if similar element with innerText exists, remove it
                 const similarElements = currentItemTemplate.parentNode.querySelectorAll(`.act-name`)
                 similarElements.forEach((element) => {
@@ -587,7 +587,7 @@ class OutlineHandle {
             currentItemTemplate = template;
             //Update title
             const title = template.querySelector(this.vars.sceneTitle);
-            title.textContent = data?.name;
+            title.textContent = data?.name.toUpperCase();
             title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 
@@ -662,7 +662,7 @@ class OutlineHandle {
             template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
             //Update title
             const title = template.querySelector(this.vars.rsTitle);
-            title.textContent = data?.name;
+            title.textContent = data?.name.toUpperCase();
             title.setAttribute('react-pos', data?.id);
             // title.setAttribute('sw-editor-id', data.sbID);
 

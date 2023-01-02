@@ -65,7 +65,6 @@ class EditorFuncs {
         try {
             this.initRecorder();
         } catch (error) {
-            console.log(this.srNotSupportedText);
             alert(this.srNotSupportedText);
         }
 
@@ -318,12 +317,11 @@ class EditorFuncs {
 
     save() {
         if (confirm('Do you want to save your content')) {
-            // ScriptAdapter.js method:
             window.ScriptAdapter.save();
         }
     }
 
-    /** create new content line element and append in after a previous existing Line, then return then newly created element*/
+    /** create new content line element and append in after a previous existing Line, then return then newly created element**/
     createNewLine(conl, callback=(newConl)=>{}, publish=true, text='', artID='') {
         /* conl must be an existing content line inside the page.
             if publish is true then MapAndReactOnContent.mapreact() will fire,
