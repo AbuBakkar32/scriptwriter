@@ -592,7 +592,6 @@ class EditorMode {
         let type = newLine.getAttribute(this.cons.editType);
         if (type === '') type = 'action';
         newLine.setAttribute(this.cons.editType, type);
-
         // get all element with sw-focused attribute
         const focusedElements = document.querySelectorAll('[sw-focused]');
         // remove all sw-focused attribute
@@ -602,11 +601,11 @@ class EditorMode {
         newLine.setAttribute("sw-focused", "edit")
 
         const line = this.handleContentLineNuetral(newLine, type);
-        if (this.handleSceneHeadingType(line)) ;
-        else if (this.handleCharater(line)) ;
-        else if (this.handleParentArticle(line)) ;
-        else if (this.handleDialog(line)) ;
-        else if (this.handleTransition(line)) ;
+        if (this.handleSceneHeadingType(line));
+        else if (this.handleCharater(line));
+        else if (this.handleParentArticle(line));
+        else if (this.handleDialog(line));
+        else if (this.handleTransition(line));
         else if (this.handleActType(line));
     }
 

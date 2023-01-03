@@ -374,6 +374,8 @@ class MapAndReactOnContent {
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
         window.EditorMode.handleContentLineNuetral(line, 'act');
+        // set line into the act
+        window.EditorMode.handleActType(line);
     }
 
     sceneHeadingType(line) {
@@ -582,7 +584,7 @@ class MapAndReactOnContent {
         // start at 20,0
         if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
         else ctx.moveTo(20, 100);
-        
+
 
         // loop outline
         Object.keys(outline).forEach((key, index) => {

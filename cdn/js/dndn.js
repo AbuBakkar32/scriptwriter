@@ -17,7 +17,10 @@ function enableDragList(list) {
 }
 
 function enableDragItem(item) {
-    item.setAttribute('draggable', true)
+    item.setAttribute('draggable', true);
+    document.querySelectorAll('.act-name').forEach((item) => {
+        item.hasAttribute('draggable') ? item.removeAttribute('draggable') : null;
+    });
     item.ondrag = handleDrag;
     item.ondragend = handleDrop;
 }

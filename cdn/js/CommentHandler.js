@@ -31,22 +31,24 @@ class CommentHandler{
     }
     
     getComments(){
-        let draft = window.ScriptDataStore.draft
-        let activedraft = Object.values(draft).filter(d => d.active)[0]
-        let note = activedraft.data
-        // note is an object. loop it
-        for (const key in note) {
-            if (note.hasOwnProperty(key)) {
-                const element = note[key];
-                // check if element.note is an array. If it not an array, it means there is no note
-                if (Array.isArray(element.note)) {
-                    element.note.forEach(n => {
-                        this.comments.push(n);
-                    });
+        if(window?.ScriptDataStore?.draft) {
+            let draft = window?.ScriptDataStore?.draft
+            let activedraft = Object.values(draft).filter(d => d.active)[0]
+            let note = activedraft.data
+            // note is an object. loop it
+            for (const key in note) {
+                if (note.hasOwnProperty(key)) {
+                    const element = note[key];
+                    // check if element.note is an array. If it not an array, it means there is no note
+                    if (Array.isArray(element.note)) {
+                        element.note.forEach(n => {
+                            this.comments.push(n);
+                        });
+                    }
                 }
             }
+            this.insertCommentsToEditor();
         }
-        this.insertCommentsToEditor();
     }
 
     insertCommentsToEditor(){

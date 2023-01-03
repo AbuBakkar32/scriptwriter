@@ -57,12 +57,12 @@ function swSelectOptionApply() {
 }
 
 function hideAndShowDropable(eleName, NodeListName) {
-    const characterOption = document.querySelectorAll(`[sw-action="${NodeListName}"]`); //showable-part
+    const characterOption = document.querySelectorAll(`[sw-action="${NodeListName}"]`);
 
     // Listen to click event
     characterOption.forEach((ele) => {
-        //ele.setAttribute('tabindex', '1');
-        //let featureSwitch = true;
+        ele.setAttribute('tabindex', '1');
+        // let featureSwitch = true;
         ele.addEventListener('click', function () {
             // query the feature wrapper xter-down
             const featureWrapper = this.querySelector('.' + eleName) || this.querySelector(`[sw-action="${eleName}"]`); //hideable-part
@@ -109,7 +109,7 @@ function menuOptionPopup() {
         ele.addEventListener('click', function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation();
-            //e.preventDefault();
+            e.preventDefault();
             // query the main wrapper
             const mainWrapper = this.closest(`[sw-display="hello-drop"]`);
             if (mainWrapper) {

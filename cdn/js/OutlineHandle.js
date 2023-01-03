@@ -80,14 +80,18 @@ class OutlineHandle {
             el.remove()
         });
         setTimeout(() => {
-            if (!window.ScriptAdapter.scriptDataStore.outline) {
-                window.ScriptAdapter.scriptDataStore.outline = {lock: false};
-                window.ScriptAdapter.autoSave();
+            if (!window?.ScriptAdapter?.scriptDataStore?.outline) {
+                try {
+                    window.ScriptAdapter.scriptDataStore.outline = {lock: false};
+                    window.ScriptAdapter?.autoSave();
+                }catch (e) {
+                    return;
+                }
             }
         }, 100);
 
         setTimeout(() => {
-            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+            if (window?.ScriptAdapter?.scriptDataStore?.outline?.lock === true) {
                 this.lockOutline();
             }
         }, 100)
@@ -514,12 +518,12 @@ class OutlineHandle {
                 let draftKey = window.ScriptAdapter.currentDraftKey;
                 let dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
-                    const name = item.content.innerText;
-                    const id = item.id;
-                    const pos = item.index;
-                    const color = item.color;
-                    const scriptBodyID = item.sbID;
-                    const pageNumber = item.pageNumber;
+                    const name = item?.content.innerText;
+                    const id = item?.id;
+                    const pos = item?.index;
+                    const color = item?.color;
+                    const scriptBodyID = item?.sbID;
+                    const pageNumber = item?.pageNumber;
                     const scene_goal = dataset?.others?.scenegoal ? dataset?.others?.scenegoal : '';
                     const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : '';
 
@@ -544,14 +548,14 @@ class OutlineHandle {
                         evaluation_value: evaluation_value
                     });
                 } else {
-                    const name = saveData[count - 1].title;
-                    const id = item.id
-                    const pos = item.count - 1;
-                    const color = saveData[count - 1].color;
-                    const scriptBodyID = item.sbID;
-                    const pageNumber = saveData[count - 1].page_no;
-                    const scene_goal = saveData[count - 1].goal;
-                    const evaluation_value = saveData[count - 1].emotional_value;
+                    const name = saveData[count - 1]?.title;
+                    const id = item?.id
+                    const pos = item?.count - 1;
+                    const color = saveData[count - 1]?.color;
+                    const scriptBodyID = item?.sbID;
+                    const pageNumber = saveData[count - 1]?.page_no;
+                    const scene_goal = saveData[count - 1]?.goal;
+                    const evaluation_value = saveData[count - 1]?.emotional_value;
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
@@ -587,9 +591,8 @@ class OutlineHandle {
             currentItemTemplate = template;
             //Update title
             const title = template.querySelector(this.vars.sceneTitle);
-            title.textContent = data?.name.toUpperCase();
+            title.textContent = data?.name?.toUpperCase();
             title.setAttribute('react-pos', data?.id);
-            // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update Index
             const indexEle = template.querySelector(this.vars.index);
@@ -662,9 +665,8 @@ class OutlineHandle {
             template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
             //Update title
             const title = template.querySelector(this.vars.rsTitle);
-            title.textContent = data?.name.toUpperCase();
+            title.textContent = data?.name?.toUpperCase();
             title.setAttribute('react-pos', data?.id);
-            // title.setAttribute('sw-editor-id', data.sbID);
 
             //Update other scene
             const rsOutlineList = template.querySelector(this.vars.rsList);
