@@ -18,16 +18,18 @@ class ScriptAdapter {
 
     constructor() {
         // Get current draft: capture all draft key
-        const allLoadedDraftKeys = Object.keys(this.scriptDataStore.draft);
-        for (let index = 0; index < allLoadedDraftKeys.length; index++) {
-            const draft = this.scriptDataStore.draft[allLoadedDraftKeys[index]];
-            if (draft.active === 'true') {
-                this.currentDraftKey = allLoadedDraftKeys[index];
-                break
+        if(this.scriptDataStore?.draft) {
+            const allLoadedDraftKeys = Object.keys(this.scriptDataStore?.draft);
+            for (let index = 0; index < allLoadedDraftKeys.length; index++) {
+                const draft = this.scriptDataStore?.draft[allLoadedDraftKeys[index]];
+                if (draft.active === 'true') {
+                    this.currentDraftKey = allLoadedDraftKeys[index];
+                    break
+                }
             }
+            // Activate Draft List
+            this.draftList();
         }
-        // Activate Draft List
-        this.draftList();
     }
 
     autoSave() {

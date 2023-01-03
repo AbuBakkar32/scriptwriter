@@ -169,3 +169,7 @@ updateWeekAlert.addEventListener('click', function (e) {
     // Submit the form
     updateProfile();
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    window.Profile = new Profile();
+});

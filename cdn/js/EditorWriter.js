@@ -89,10 +89,8 @@ class EditorWriter {
                     return;
                 }; */
                 this.keyPressed = '';
-                
                 this.rearrangePageBack();
                 this.removeBlankPage();
-                
                 window.ScriptAdapter.autoSave();
             } else {
                 if(!this.watcherStatus) return;
@@ -145,11 +143,9 @@ class EditorWriter {
                 // trap to catch newly created line
                 for (let i = 0; i < this.idList.length; i++) {
                     const x = this.idList[i]; // might be the duplicated id
-                    //const lenth = this.idList.filter( d => d === x ).length;
-                    //console.log(`[${this.cons.editID}="${x}"]`)
+                    //const length = this.idList.filter( d => d === x ).length;
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
-                        //console.log(duplicates.length);
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
                         const newCreatedElement = duplicates[1]; // the newly created element

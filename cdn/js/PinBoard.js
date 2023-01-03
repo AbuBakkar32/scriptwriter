@@ -22,46 +22,51 @@ class PinBoard {
     load() {
         // load pin Board
         if (!this.cardOptionTemplate && !this.rsPinboardItemTemp) return;
+        if(window?.ScriptDataStore?.pinboard) {
+            const getPinBoardKeys = Object.keys(window?.ScriptDataStore?.pinboard);
+            if (getPinBoardKeys.length) {
+                // Remove previous template
+                [...this.cardListWrap.children].forEach((card) => {
+                    card.remove()
+                });
+                [...this.rsPinboardList.children].forEach((card) => {
+                    card.remove()
+                });
+                getPinBoardKeys.forEach((key) => {
+                    // get the pin board
+                    const data = window.ScriptDataStore.pinboard[key];
 
-        const getPinBoardKeys = Object.keys(window.ScriptDataStore.pinboard);
-        if (getPinBoardKeys.length) {
-            // Remove previous template
-            [...this.cardListWrap.children].forEach((card) => {card.remove()});
-            [...this.rsPinboardList.children].forEach((card) => {card.remove()});
-            getPinBoardKeys.forEach((key) => {
-                // get the pin board
-                const data = window.ScriptDataStore.pinboard[key];
-    
-                const card = this.cardOptionTemplate.cloneNode(true);
-                const title = card.querySelector(this.cardOption.cardVar.title);
-                const body = card.querySelector(this.cardOption.cardVar.body);
-                const cardId = card.querySelector(this.cardOption.cardVar.cardId);
-                const colorOption = card.querySelector(this.cardOption.cardVar.colorOpt);
+                    const card = this.cardOptionTemplate.cloneNode(true);
+                    const title = card.querySelector(this.cardOption.cardVar.title);
+                    const body = card.querySelector(this.cardOption.cardVar.body);
+                    const cardId = card.querySelector(this.cardOption.cardVar.cardId);
+                    const colorOption = card.querySelector(this.cardOption.cardVar.colorOpt);
 
-                const theCurrentBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`)?.getAttribute(this.cardOption.cardVar.bgValue);
+                    const theCurrentBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`)?.getAttribute(this.cardOption.cardVar.bgValue);
 
-                if (title) title.innerText = data.title;
-                if (body) body.innerText = data.body;
-                if (cardId) cardId.innerText = data.id;
+                    if (title) title.innerText = data.title;
+                    if (body) body.innerText = data.body;
+                    if (cardId) cardId.innerText = data.id;
 
-                card.classList.replace(theCurrentBgValue, data.color);
-                card.setAttribute(this.cardOption.cardVar.bgValue, data.color);
+                    card.classList.replace(theCurrentBgValue, data.color);
+                    card.setAttribute(this.cardOption.cardVar.bgValue, data.color);
 
-                const colorOptionToBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`);
-                colorOptionToBgValue?.setAttribute(this.cardOption.cardVar.bgValue, data.color);
-                colorOptionToBgValue?.classList.replace(theCurrentBgValue, data.color);
+                    const colorOptionToBgValue = colorOption?.querySelector(`[${this.cardOption.cardVar.bgValue}]`);
+                    colorOptionToBgValue?.setAttribute(this.cardOption.cardVar.bgValue, data.color);
+                    colorOptionToBgValue?.classList.replace(theCurrentBgValue, data.color);
 
-                this.cardListWrap.append(card);
+                    this.cardListWrap.append(card);
 
-                const newRsCard = this.rsPinboardTemplateRender(this.rsPinboardItemTemp, data);
-                const rs = {enabled: true, card: newRsCard}
-                this.cardOption.addListeners(card, rs);
-                this.cardOption.rsSetUp(rs.card, card);
-            });
-        } else {
-            const rs = {enabled: true, card: this.rsPinboardItem}
-            this.cardOption.addListeners(this.cardOptionItem, rs);
-            this.cardOption.rsSetUp(rs.card, this.cardOptionItem);
+                    const newRsCard = this.rsPinboardTemplateRender(this.rsPinboardItemTemp, data);
+                    const rs = {enabled: true, card: newRsCard}
+                    this.cardOption.addListeners(card, rs);
+                    this.cardOption.rsSetUp(rs.card, card);
+                });
+            } else {
+                const rs = {enabled: true, card: this.rsPinboardItem}
+                this.cardOption.addListeners(this.cardOptionItem, rs);
+                this.cardOption.rsSetUp(rs.card, this.cardOptionItem);
+            }
         }
     }
 
