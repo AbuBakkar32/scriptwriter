@@ -279,7 +279,7 @@ class ScriptAdapter {
                 window.CharacterHandle.lineValidator(line);
             }catch (e) {
             }
-            line.setAttribute('sw-editor-character-id', lineData.others.cID);
+            // line.setAttribute('sw-editor-character-id', lineData.others.cid);
         }
         // format the line text
         if (lineData.type === 'action') ;
@@ -656,7 +656,6 @@ class ScriptAdapter {
                 data[clID].note = piece.note;
             }
         });
-
         return data;
     }
 

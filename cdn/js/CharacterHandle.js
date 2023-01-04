@@ -21,77 +21,41 @@ class CharacterHandle {
     contentStore = [];
     /** Image change Indicator */
     imageChangeIndicator = false;
-
     constructor() {
         // mr means mapreact
         this.vars = {
-            mainMrList: `[${this.mrAttrName}="character-list"]`,
-            mainMrItem: `[${this.mrAttrName}="character-item"]`,
-            rsMrList: `[${this.mrAttrName}="rs-character-list"]`,
-            rsMrItem: `[${this.mrAttrName}="rs-character-item"]`,
-            createBtn: `[${this.attrName}="create-btn"]`,
-            autoCreateBtn: `[${this.attrName}="auto-create-btn"]`,
-            hideContentBtn: `[${this.attrName}="hide-content-btn"]`,
-            image: `[${this.attrName}="image"]`,
-            name: `[${this.attrName}="name"]`,
-            archetype: `[${this.attrName}="archetype"]`,
-            lineWidth: `[${this.attrName}="line-width"]`,
-            possession: `[${this.attrName}="possession"]`,
-            need: `[${this.attrName}="need"]`,
-            trait: `[${this.attrName}="trait"]`,
-            content: `[${this.attrName}="content"]`,
-            age: `[${this.attrName}="age"]`,
-            gender: `[${this.attrName}="gender"]`,
-            interest: `[${this.attrName}="interest"]`,
-            occupation: `[${this.attrName}="occupation"]`,
-            index: `[${this.attrName}="index"]`,
-            mockBodyMapList: `[${this.attrName}="mock-body-map-list"]`,
-            mockBodyMapItem: `[${this.attrName}="mock-body-map-item"]`,
-            openBodyMapBtn: `[${this.attrName}="open-body-map-btn"]`,
-            want: `[${this.attrName}="want"]`,
-            obstacle: `[${this.attrName}="obstacle"]`,
-            resolvingObstacle: `[${this.attrName}="resolving-obstacle"]`,
-            synopsis: `[${this.attrName}="synopsis"]`,
-            sceneList: `[${this.attrName}="scene-list"]`,
-            sceneItem: `[${this.attrName}="scene-item"]`,
-            sceneItemIndex: `[${this.attrName}="scene-item-index"]`,
-            sceneItemTitle: `[${this.attrName}="scene-item-title"]`,
-            sceneItemPageNo: `[${this.attrName}="scene-item-page-no"]`,
-            fillBodyMapBtn: `[${this.attrName}="fill-body-map-btn"]`,
-            hideBodyMapBtn: `[${this.attrName}="hide-body-map-btn"]`,
-            bodyMap: `[${this.attrName}="body-map"]`,
-            bodyMapLeft: `[${this.attrName}="body-map-left"]`,
-            bodyMapRight: `[${this.attrName}="body-map-right"]`,
-            bodyMapCenter: `[${this.attrName}="body-map-center"]`,
-            bodyMapItem: `[${this.attrName}="body-map-item"]`,
-            id: `[${this.attrName}="id"]`,
-            menu: `[${this.attrName}="menu"]`,
-            commentOption: `[${this.attrName}="comment-option"]`,
-            addOption: `[${this.attrName}="add-option"]`,
-            deleteOption: `[${this.attrName}="delete-option"]`,
-            rsImage: `[${this.rsAttrName}="image"]`,
-            rsName: `[${this.rsAttrName}="name"]`,
-            rsArchetype: `[${this.rsAttrName}="archetype"]`,
-            rsWant: `[${this.rsAttrName}="want"]`,
-            rsTrait: `[${this.rsAttrName}="trait"]`,
-            rsBodyMapList: `[${this.rsAttrName}="body-map-list"]`,
-            rsId: `[${this.rsAttrName}="id"]`,
-            rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`,
-            imageBtn: `[${this.attrName}="image-btn"]`,
+            mainMrList: `[${this.mrAttrName}="character-list"]`, mainMrItem: `[${this.mrAttrName}="character-item"]`,
+            rsMrList: `[${this.mrAttrName}="rs-character-list"]`, rsMrItem: `[${this.mrAttrName}="rs-character-item"]`,
+            createBtn: `[${this.attrName}="create-btn"]`, autoCreateBtn: `[${this.attrName}="auto-create-btn"]`,
+            hideContentBtn: `[${this.attrName}="hide-content-btn"]`, image: `[${this.attrName}="image"]`,
+            name: `[${this.attrName}="name"]`, archetype: `[${this.attrName}="archetype"]`, lineWidth: `[${this.attrName}="line-width"]`,
+            possession: `[${this.attrName}="possession"]`, need: `[${this.attrName}="need"]`, trait: `[${this.attrName}="trait"]`,
+            content: `[${this.attrName}="content"]`, age: `[${this.attrName}="age"]`, gender: `[${this.attrName}="gender"]`,
+            interest: `[${this.attrName}="interest"]`, occupation: `[${this.attrName}="occupation"]`, index: `[${this.attrName}="index"]`,
+            mockBodyMapList: `[${this.attrName}="mock-body-map-list"]`, mockBodyMapItem: `[${this.attrName}="mock-body-map-item"]`,
+            openBodyMapBtn: `[${this.attrName}="open-body-map-btn"]`, want: `[${this.attrName}="want"]`,
+            obstacle: `[${this.attrName}="obstacle"]`, resolvingObstacle: `[${this.attrName}="resolving-obstacle"]`,
+            synopsis: `[${this.attrName}="synopsis"]`, sceneList: `[${this.attrName}="scene-list"]`,
+            sceneItem: `[${this.attrName}="scene-item"]`, sceneItemIndex: `[${this.attrName}="scene-item-index"]`,
+            sceneItemTitle: `[${this.attrName}="scene-item-title"]`, sceneItemPageNo: `[${this.attrName}="scene-item-page-no"]`,
+            fillBodyMapBtn: `[${this.attrName}="fill-body-map-btn"]`, hideBodyMapBtn: `[${this.attrName}="hide-body-map-btn"]`,
+            bodyMap: `[${this.attrName}="body-map"]`, bodyMapLeft: `[${this.attrName}="body-map-left"]`,
+            bodyMapRight:`[${this.attrName}="body-map-right"]`, bodyMapCenter:`[${this.attrName}="body-map-center"]`,
+            bodyMapItem:`[${this.attrName}="body-map-item"]`, id: `[${this.attrName}="id"]`, menu: `[${this.attrName}="menu"]`,
+            commentOption: `[${this.attrName}="comment-option"]`, addOption: `[${this.attrName}="add-option"]`,
+            deleteOption: `[${this.attrName}="delete-option"]`, rsImage: `[${this.rsAttrName}="image"]`,
+            rsName: `[${this.rsAttrName}="name"]`, rsArchetype: `[${this.rsAttrName}="archetype"]`, rsWant: `[${this.rsAttrName}="want"]`,
+            rsTrait: `[${this.rsAttrName}="trait"]`, rsBodyMapList: `[${this.rsAttrName}="body-map-list"]`, rsId: `[${this.rsAttrName}="id"]`,
+            rsBodyMapItem: `[${this.rsAttrName}="body-map-item"]`, imageBtn: `[${this.attrName}="image-btn"]`,
         };
 
         this.mainCharacterListTemp = document.querySelector(this.vars.mainMrList);
-        this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true);
+        this.mainCharacterItemTemp = document.querySelector(this.vars.mainMrItem).cloneNode(true)
         this.rsCharacterListTemp = document.querySelector(this.vars.rsMrList);
-        this.rsCharacterItemTemp = document.querySelector(this.vars.rsMrItem).cloneNode(true);
-
+        this.rsCharacterItemTemp  = document.querySelector(this.vars.rsMrItem).cloneNode(true);
         //Remove all template
-        [...this.rsCharacterListTemp.children].forEach((el) => {
-            el.remove()
-        });
-        [...this.mainCharacterListTemp.children].forEach((el) => {
-            el.remove()
-        });
+        [...this.rsCharacterListTemp.children].forEach((el) => {el.remove()});
+        [...this.mainCharacterListTemp.children].forEach((el) => {el.remove()});
 
         // Listener
         this.listener();
@@ -99,7 +63,7 @@ class CharacterHandle {
 
     listener() {
         // Resize the All character maps
-        //this.characterMapResize();
+        this.characterMapResize();
         // Event listener for windows resize
         window.onresize = () => { this.characterMapResize() };
 
@@ -112,7 +76,7 @@ class CharacterHandle {
             const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
             const dataset = {name: newCharacterID.toUpperCase(), id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
             this.characterRenderTemplate(dataset);
-            //this.activateMapReact(mapreactID)
+            this.activateMapReact(mapreactID)
             window.ScriptAdapter.autoSave();
         });
 
@@ -130,7 +94,7 @@ class CharacterHandle {
             const pos = document.querySelectorAll(this.vars.mainMrItem).length+1;
             const dataset = {name: newName, id: mapreactID, position: pos, scenes: [], cid: newCharacterID};
             this.characterRenderTemplate(dataset);
-            //this.activateMapReact(mapreactID)
+            this.activateMapReact(mapreactID)
             window.ScriptAdapter.autoSave();
         });
 
@@ -139,17 +103,16 @@ class CharacterHandle {
             const ids = Object.keys(window?.ScriptDataStore?.character);
             ids.forEach((i) => {
                 const character = window?.ScriptDataStore?.character[i];
-                const mapreactID = Math.random().toString(36).substr(2);
+                const mapreactID = Math.random().toString(36).substring(2);
                 const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
                 const dataset = {name: character.name, id: mapreactID, position: pos, scenes: [], cid: character.id};
                 this.characterRenderTemplate(dataset);
-                //this.activateMapReact(mapreactID);
+                this.activateMapReact(mapreactID);
             });
         }
-
     }
 
-    quickID() {return Math.random().toString(36).substr(2)}
+    quickID() {return Math.random().toString(36).substring(2)}
 
     activateMapReact(mapreactID='', isImage=false) {
         if (!mapreactID) return;
@@ -344,7 +307,7 @@ class CharacterHandle {
         const lastCharacter = this.mainCharacterListTemp.lastElementChild;
         if (lastCharacter) {
             const xid = lastCharacter.querySelector(this.vars.id).textContent;
-            id += String(Number(xid.substr(1)) + 1);
+            id += String(Number(xid.substring(1)) + 1);
         } else id+= '0';
 
         const scriptIDList = [];
@@ -357,7 +320,7 @@ class CharacterHandle {
                 id = '0';
                 if (lastCharacter) {
                     const xid = lastCharacter.querySelector(this.vars.id).textContent;
-                    id += String(Number(xid.substr(1)) + count);
+                    id += String(Number(xid.substring(1)) + count);
                 } else id += String(count);
             } else break;
         }
@@ -572,6 +535,7 @@ class CharacterHandle {
     }
 
     characterHandle(contenStore) {
+        console.table(contenStore);
         // Clear template
         [...this.rsCharacterListTemp.children].forEach((el) => {el.remove()});
         [...this.mainCharacterListTemp.children].forEach((el) => {el.remove()});
@@ -586,31 +550,32 @@ class CharacterHandle {
         let count = 1;
 
         const cKeys = Object.keys(window.ScriptDataStore.character);
+        // cKeys.forEach((key) => {
+        //     const data = window.ScriptDataStore.character[key];
+        //     if (!listOfCharacterName.includes(data.name.toLowerCase())) {
+        //         listOfCharacterName.push(data.name.toLowerCase());
+        //         uniqueCharacter.push(window.ScriptDataStore.character[key]);
+        //     }
+        // })
+        //
+        // this.contentStore.forEach((item) => {
+        //     if (item.type === 'character') {
+        //         if (listOfCharacterName.includes(item.content.innerText.toLowerCase())) {
+        //             uniqueCharacterName.push(item.content.innerText.toLowerCase());
+        //         }
+        //     }
+        // })
+        //
+        // // create a unique character list from uniqueCharacterName
+        // const finalCharacter = [];
+        // let unique = [...new Set(uniqueCharacterName)];
+        // unique.forEach((name, index) => {
+        //     finalCharacter.push(uniqueCharacter[index]);
+        // })
+
         cKeys.forEach((key) => {
-            const data = window.ScriptDataStore.character[key];
-            if (!listOfCharacterName.includes(data.name.toLowerCase())) {
-                listOfCharacterName.push(data.name.toLowerCase());
-                uniqueCharacter.push(window.ScriptDataStore.character[key]);
-            }
-        })
-
-        this.contentStore.forEach((item) => {
-            if (item.type === 'character') {
-                if (listOfCharacterName.includes(item.content.innerText.toLowerCase())) {
-                    uniqueCharacterName.push(item.content.innerText.toLowerCase());
-                }
-            }
-        })
-
-        // create a unique character list from uniqueCharacterName
-        const finalCharacter = [];
-        let unique = [...new Set(uniqueCharacterName)];
-        unique.forEach((name, index) => {
-            finalCharacter.push(uniqueCharacter[index]);
-        })
-
-        finalCharacter.forEach((key) => {
-            const cdata = key;
+            const cdata = window.ScriptDataStore.character[key];
+            // const cdata = key;
             let nameC = cdata.name;
             let idC = this.quickID();
             let posC = count;
@@ -624,6 +589,7 @@ class CharacterHandle {
                 if (sdata.type === 'character') {
                     // Update the mapReact id;
                     idC = sdata.id;
+                    console.log(idC)
                     this.contentStore.forEach((it) => {
                         if (it.type === 'scene-heading') {
                             for (let i = it.index + 1; i < this.contentStore.length; i++) {
@@ -680,42 +646,43 @@ class CharacterHandle {
         if (1) {
             const template = this.mainCharacterItemTemp.cloneNode(true);
             currentCharacterItemTemplate = template;
+            let id = this.generateID();
             /** Update name element*/
             const nameElements = template.querySelectorAll(this.vars.name);
             nameElements.forEach((cname) => {
                 cname.textContent = data.name;
-                cname.setAttribute(this.rpAttr, data.id);
+                cname.setAttribute(this.rpAttr, id);
                 mapReactIDList.name = data.id;
             });
 
             /** Update character need Element*/
             const needElements = template.querySelectorAll(this.vars.need);
             needElements.forEach((need) => {
-                need.textContent = cDB.need; need.setAttribute(this.rpAttr, data.id+'1'); mapReactIDList.need = data.id+'1';
+                need.textContent = cDB.need; need.setAttribute(this.rpAttr, id+'1'); mapReactIDList.need = id+'1';
             });
 
             /** Update character Archetype Element*/
             const archetype = template.querySelector(this.vars.archetype);
             if (archetype) {
                 archetype.textContent = cDB.archetype;
-                archetype.setAttribute(this.rpAttr, data.id+'2');
-                mapReactIDList.archetype = data.id+'2'
+                archetype.setAttribute(this.rpAttr, id+'2');
+                mapReactIDList.archetype = id+'2'
             };
 
             /** Update character Trait Element*/
             const trait = template.querySelector(this.vars.trait);
             if (trait) {
                 trait.textContent = cDB.trait;
-                trait.setAttribute(this.rpAttr, data.id+'3');
-                mapReactIDList.trait = data.id+'3';
+                trait.setAttribute(this.rpAttr, id+'3');
+                mapReactIDList.trait = id+'3';
             };
 
             /** Update character Image Element*/
             const imageElements = template.querySelectorAll(this.vars.image);
             imageElements.forEach((img) => {
                 if(cDB.image) img.src = cDB.image;
-                img.setAttribute(this.rpAttr, data.id+'4');
-                mapReactIDList.image = data.id+'4';
+                img.setAttribute(this.rpAttr, id+'4');
+                mapReactIDList.image = id+'4';
             });
 
             /** Update character Age Element*/
@@ -768,8 +735,8 @@ class CharacterHandle {
                     const mItem = mockBodyMapItem.cloneNode(true);
                     mItem.innerText = cDB['item'+index];
                     mockBodyMapList.append(mItem);
-                    mapReactIDList['item'+index] = data.id+(count+5);
-                    mItem.setAttribute(this.rpAttr, data.id+(count+5))
+                    mapReactIDList['item'+index] = id+(count+5);
+                    mItem.setAttribute(this.rpAttr, id+(count+5))
                     count += 1;
                 }
                 // MapReactID will stop at 18 here
@@ -777,7 +744,7 @@ class CharacterHandle {
 
             /** Update character Want Element*/
             const want = template.querySelector(this.vars.want);
-            if (want) { want.textContent = cDB.want; want.setAttribute(this.rpAttr, data.id+'19'); mapReactIDList.want = data.id+'19' };
+            if (want) { want.textContent = cDB.want; want.setAttribute(this.rpAttr, id+'19'); mapReactIDList.want = id+'19' };
 
             /** Update character Obstacle Element*/
             const obstacle = template.querySelector(this.vars.obstacle);
