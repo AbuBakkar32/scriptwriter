@@ -103,7 +103,7 @@ class MapAndReactOnContent {
         this.changeTypeOfContentLine();
     }
 
-    geneateUniqueID() { return Date.now().toString(36) + Math.random().toString(36).substr(2); }
+    geneateUniqueID() { return Date.now().toString(36) + Math.random().toString(36).substring(2); }
 
     structureGuideHandle(contentStore = []) {
         // Clear the structure guide wrapper

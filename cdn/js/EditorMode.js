@@ -209,7 +209,7 @@ class EditorMode {
         const lastLine = lineList[(lineList.length - 1)];
         if (lastLine) {
             const xid = lastLine.getAttribute(this.cons.editID);
-            if (xid) id += String(Number(xid.substr(1)) + 1);
+            if (xid) id += String(Number(xid.substring(1)) + 1);
             else id += '0';
         } else id += '0';
 
@@ -222,7 +222,7 @@ class EditorMode {
                 id = '0';
                 if (lastLine) {
                     const xid = lastLine.getAttribute(this.cons.editID);
-                    if (xid) id += String(Number(xid.substr(1)) + count);
+                    if (xid) id += String(Number(xid.substring(1)) + count);
                     else id += String(count);
                 } else id += String(count);
             } else break;
@@ -495,7 +495,6 @@ class EditorMode {
             this.editorModeList.append(newPage);
         }).then(async ()=>{
             this.watcherStatus = true;
-            //console.log('watcher completed', new Date().getMilliseconds());
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
             if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
