@@ -144,7 +144,9 @@
                 t.addEventListener("click", () => this.emitAct(t, "tools"))
             }), this.searchBtns.forEach(t => {
                 t.addEventListener("click", () => this.emitAct(t, "search"))
-            }), this.authorBtn?.addEventListener("click", () => this.emitAct(this.authorBtn, "author")), this.shortcutBtn?.addEventListener("click", () => this.emitAct(this.authorBtn, "shortcut")), this.hideBtns.forEach(t => {
+            }), this.authorBtn?.addEventListener("click", () => this.emitAct(this.authorBtn, "author")),
+                this.shortcutBtn?.addEventListener("click", () => this.emitAct(this.authorBtn, "shortcut")),
+                this.hideBtns.forEach(t => {
                 t.addEventListener("click", () => this.emitAct(t, "hide"))
             })
         }
@@ -216,17 +218,7 @@
         listener() {
             this.boldBtn.forEach(t => {
                 t.addEventListener("click", () => this.emis(t, "bold"))
-            }),
-                this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))),
-                this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))),
-                this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))),
-                this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))),
-                this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))),
-                this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))),
-                this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))),
-                this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))),
-                this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))),
-                this.totalNumberOfPage()
+            }), this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))), this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))), this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))), this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))), this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))), this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))), this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))), this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))), this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))), this.totalNumberOfPage()
         }
 
 

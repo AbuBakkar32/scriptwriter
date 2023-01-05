@@ -82,7 +82,7 @@ class OutlineHandle {
         setTimeout(() => {
             if (!window?.ScriptAdapter?.scriptDataStore?.outline) {
                 try {
-                    window.ScriptAdapter.scriptDataStore.outline = {lock: false};
+                    window.ScriptAdapter.scriptDataStore.outline = {lock: 'False'};
                     window.ScriptAdapter?.autoSave();
                 }catch (e) {
                     return;
@@ -91,7 +91,7 @@ class OutlineHandle {
         }, 100);
 
         setTimeout(() => {
-            if (window?.ScriptAdapter?.scriptDataStore?.outline?.lock === true) {
+            if (window?.ScriptAdapter?.scriptDataStore?.outline?.lock === 'True') {
                 this.lockOutline();
             }
         }, 100)
@@ -125,7 +125,7 @@ class OutlineHandle {
                 unlockBtn?.classList.remove("hidden");
                 addBtn?.classList.remove("hidden");
             }
-            window.ScriptAdapter.scriptDataStore.outline["lock"] = true;
+            window.ScriptAdapter.scriptDataStore.outline["lock"] = 'True';
             window.ScriptAdapter.autoSave();
         })
 
@@ -145,7 +145,7 @@ class OutlineHandle {
                     });
                 }, 100)
             }
-            window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
+            window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
             window.ScriptAdapter.autoSave();
         })
     }
@@ -163,7 +163,7 @@ class OutlineHandle {
 
     lockContent() {
         setTimeout(() => {
-            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+            if (window.ScriptAdapter.scriptDataStore.outline.lock === 'True') {
                 // Disable to edit any outline
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
                     el.removeAttribute("draggable");
@@ -213,7 +213,7 @@ class OutlineHandle {
         });
 
         item?.addEventListener('mousemove', () => {
-            if (window.ScriptAdapter.scriptDataStore.outline.lock === true) {
+            if (window.ScriptAdapter.scriptDataStore.outline.lock === 'True') {
                 hide?.classList.add('hide');
             } else {
                 if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
@@ -386,7 +386,7 @@ class OutlineHandle {
             }
             data[index] = obj;
         });
-        window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
+        window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     }
 
     updateDB() {
@@ -425,8 +425,8 @@ class OutlineHandle {
             }).then(() => {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
-                //window.ScriptAdapter.autoSave();
-                this.updateDB();
+                window.ScriptAdapter.autoSave();
+                // this.updateDB();
                 window.MapAndReactOnContent.mapreact();
                 this.mainPageChanges = true;
             });

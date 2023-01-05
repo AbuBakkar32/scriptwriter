@@ -160,7 +160,7 @@ class EditorMode {
     //             }
     //             data[index] = obj;
     //         });
-    //         window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
+    //         window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     //     }, 200);
     // }
 

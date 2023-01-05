@@ -489,53 +489,52 @@ class CharacterHandle {
                 const index = getEleId(item, bodyItems)+1;
                 if (index === 1) {
                     item.style.top = (height/20)-10+'px';
-                    line.style.width = (width*1.15)+'px'; line.style.transform = `translateX(${(width/4)*1.15}px)`
+                    line.style.width = (width*1.15)+15+'px'; line.style.transform = `translateX(${(width/4)-6}px)`
                 } else if (index === 2) {
                     item.style.top = (height/20)*2.8+'px';
-                    line.style.width = (width*1.15)+'px'; line.style.transform = `translateX(${(width/4)*1.15}px)`
+                    line.style.width = (width*1.15)+20+'px'; line.style.transform = `translateX(${(width/4)-6}px)`
                 } else if (index === 3) {
                     item.style.top = (height/20)*5.5+'px';
-                    line.style.width = (width+15)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    line.style.width = (width+4)+'px'; line.style.transform = `translateX(${(width/4)-5}px)`
                 } else if (index === 4) {
                     item.style.top = (height/20)*7.5+'px';
-                    line.style.width = width+'px'; line.style.transform = `translateX(${(width/4)}px)`
+                    line.style.width = (width-25)+'px'; line.style.transform = `translateX(${(width/4)-6}px)`
                 } else if (index === 5) {
                     item.style.top = (height/20)*11+'px';
-                    line.style.width = (width-25)+'px'; line.style.transform = `translateX(${(width/4)}px)`
+                    line.style.width = (width-85)+'px'; line.style.transform = `translateX(${(width/4)-5}px)`
                 } else if (index === 6) {
                     item.style.top = (height/20)*13.5+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    line.style.width = (width+37)+'px'; line.style.transform = `translateX(${(width/4)-5}px)`
                 } else if (index === 7) {
                     item.style.top = (height/20)*16.5+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    line.style.width = (width+28)+'px'; line.style.transform = `translateX(${(width/4)-5}px)`
                 } else if (index === 8) {
                     item.style.top = (height/20)*19+'px';
-                    line.style.width = (width+25)+'px'; line.style.transform = `translateX(${(width/4)+15}px)`
+                    line.style.width = (width+36)+'px'; line.style.transform = `translateX(${(width/4)-6}px)`
                 } else if (index === 9) {
                     item.style.top = (height/20)+10+'px';
-                    line.style.width = (width/2)-5+'px'; line.style.transform = `translateX(-${(width/2)-25}px)`
+                    line.style.width = (width/2)-48+'px'; line.style.transform = `translateX(-${(width/2)-44}px)`
                 } else if (index === 10) {
                     item.style.top = (height/20)*3.6+'px';
-                    line.style.width = (width/2.3)-5+'px'; line.style.transform = `translateX(-${(width/2.3)-25}px)`
+                    line.style.width = (width/2.3)-72+'px'; line.style.transform = `translateX(-${(width/2.3)-68}px)`
                 } else if (index === 11) {
                     item.style.top = (height/20)*7+'px';
-                    line.style.width = (width/2.7)-5+'px'; line.style.transform = `translateX(-${(width/2.7)-25}px)`
+                    line.style.width = (width/2.7)-77+'px'; line.style.transform = `translateX(-${(width/2.7)-74}px)`
                 } else if (index === 12) {
                     item.style.top = (height/20)*12.5+'px';
-                    line.style.width = (width/2.3)-5+'px'; line.style.transform = `translateX(-${(width/2.3)-25}px)`
+                    line.style.width = (width/2.3)-60+'px'; line.style.transform = `translateX(-${(width/2.3)-57}px)`
                 } else if (index === 13) {
                     item.style.top = (height/20)*15+'px';
-                    line.style.width = (width/2.35)-5+'px'; line.style.transform = `translateX(-${(width/2.35)-25}px)`
+                    line.style.width = (width/2.35)-61+'px'; line.style.transform = `translateX(-${(width/2.35)-58}px)`
                 } else if (index === 14) {
                     item.style.top = (height/20)*17.5+'px';
-                    line.style.width = (width/2.4)-5+'px'; line.style.transform = `translateX(-${(width/2.4)-25}px)`
+                    line.style.width = (width/2.4)-53+'px'; line.style.transform = `translateX(-${(width/2.4)-49}px)`
                 }
             })
         })
     }
 
     characterHandle(contenStore) {
-        console.table(contenStore);
         // Clear template
         [...this.rsCharacterListTemp.children].forEach((el) => {el.remove()});
         [...this.mainCharacterListTemp.children].forEach((el) => {el.remove()});
@@ -589,7 +588,6 @@ class CharacterHandle {
                 if (sdata.type === 'character') {
                     // Update the mapReact id;
                     idC = sdata.id;
-                    console.log(idC)
                     this.contentStore.forEach((it) => {
                         if (it.type === 'scene-heading') {
                             for (let i = it.index + 1; i < this.contentStore.length; i++) {
