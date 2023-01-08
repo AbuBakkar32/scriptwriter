@@ -604,10 +604,8 @@ class CharacterHandle {
             }
             // Append character
             listOfCharacter.push({name: nameC, id: idC, position: posC, scenes: characterAppearedScenes, cid: characterIDC});
-
             count += 1;
         });
-
         // Render character data to template
         listOfCharacter.forEach(charater => this.characterRenderTemplate(charater));
     }

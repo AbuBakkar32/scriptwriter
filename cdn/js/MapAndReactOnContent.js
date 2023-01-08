@@ -109,7 +109,7 @@ class MapAndReactOnContent {
         // Clear the structure guide wrapper
         [...this.rsStructureList.children].forEach((el) => {el.remove()});
 
-        // List of scenes and their text lenght
+        // List of scenes and their text length
         const scenesCals = { scenes:[], highestLenght: 0 };
 
         const scenesTextLength = [];
