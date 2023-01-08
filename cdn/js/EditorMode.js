@@ -38,12 +38,24 @@ class EditorMode {
             list: `[${this.attrName}="list"]`,
             item: `[${this.attrName}="item"]`,
             line: `[${this.attrName}-type]`,
-            a: 'action', at: 'action-type', t: 'transition', tt:'transition-type',
-            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat:'parent-article-type',
-            c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
-            editType: `${this.attrName}-type`, editID: `${this.attrName}-id`,
-            editCharacterID: `${this.attrName}-character-id`, editColor: `${this.attrName}-color`,
-            ac: 'act', act: 'act-type',
+            a: 'action',
+            at: 'action-type',
+            t: 'transition',
+            tt: 'transition-type',
+            d: 'dialog',
+            dt: 'dialog-type',
+            pa: 'parent-article',
+            pat: 'parent-article-type',
+            c: 'character',
+            ct: 'character-type',
+            sh: 'scene-heading',
+            sht: 'scene-heading-type',
+            editType: `${this.attrName}-type`,
+            editID: `${this.attrName}-id`,
+            editCharacterID: `${this.attrName}-character-id`,
+            editColor: `${this.attrName}-color`,
+            ac: 'act',
+            act: 'act-type',
         };
         this.editorModeList = document.querySelector(this.cons.list);
         this.editorModeItem = document.querySelector(this.cons.item);
@@ -172,11 +184,11 @@ class EditorMode {
             this.formatContentLine(line);
         });
 
-        line.addEventListener('focus', (e)=>{
+        line.addEventListener('focus', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
-        line.addEventListener('blur', (e)=>{
+        line.addEventListener('blur', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
         });
@@ -195,8 +207,8 @@ class EditorMode {
             let pageTop = page.offsetTop + 55;
             const newPageNumber = this.pageNumberClone.cloneNode(true);
             // set top
-            newPageNumber.style.top = String(pageTop)+'px';
-            newPageNumber.textContent = String(count)+'.';
+            newPageNumber.style.top = String(pageTop) + 'px';
+            newPageNumber.textContent = String(count) + '.';
             this.anyWhereWrap.append(newPageNumber);
             // increase count
             count += 1;
@@ -209,12 +221,13 @@ class EditorMode {
         const lastLine = lineList[(lineList.length - 1)];
         if (lastLine) {
             const xid = lastLine.getAttribute(this.cons.editID);
-            if (xid) id += String(Number(xid.substring(1)) + 1);
-            else id += '0';
+            if (xid) id += String(Number(xid.substring(1)) + 1); else id += '0';
         } else id += '0';
 
         const lineIDList = [];
-        document.querySelectorAll(this.cons.line).forEach((i) => { lineIDList.push(i.getAttribute(this.cons.editID)); });
+        document.querySelectorAll(this.cons.line).forEach((i) => {
+            lineIDList.push(i.getAttribute(this.cons.editID));
+        });
         let count = 0;
         while (true) {
             count += 1;
@@ -222,8 +235,7 @@ class EditorMode {
                 id = '0';
                 if (lastLine) {
                     const xid = lastLine.getAttribute(this.cons.editID);
-                    if (xid) id += String(Number(xid.substring(1)) + count);
-                    else id += String(count);
+                    if (xid) id += String(Number(xid.substring(1)) + count); else id += String(count);
                 } else id += String(count);
             } else break;
         }
@@ -390,7 +402,7 @@ class EditorMode {
         }).then(() => {
             //if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
-            setTimeout(()=>{
+            setTimeout(() => {
                 // trap to catch newly created line
                 for (let i = 0; i < this.idList.length; i++) {
                     const x = this.idList[i]; // might be the duplicated id
@@ -488,12 +500,14 @@ class EditorMode {
             // if lines is empty
             if (line) return;
             const newPage = this.itemTemp.cloneNode(true);
-            [...newPage.children].forEach((e) => {e.remove()});
+            [...newPage.children].forEach((e) => {
+                e.remove()
+            });
             const newLine = this.lineTemp.cloneNode(true);
             newLine.textContent = '';
             newPage.append(newLine);
             this.editorModeList.append(newPage);
-        }).then(async ()=>{
+        }).then(async () => {
             this.watcherStatus = true;
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
@@ -513,8 +527,10 @@ class EditorMode {
         let lastID = 0;
         // rearrange page status
         let rearrange = false;
-        const rangePromise = new Promise((resolve, reject) => {resolve(1)})
-        rangePromise.then(()=> {
+        const rangePromise = new Promise((resolve, reject) => {
+            resolve(1)
+        })
+        rangePromise.then(() => {
             pageList.forEach((page) => {
                 const contentLines = [...page.children];
                 contentLines.forEach((conl) => {
@@ -536,8 +552,13 @@ class EditorMode {
                             // generate new id and assign it
                             //const newID = this.generateID();
                             let newID = '';
-                            if (!lastID) {newID = this.generateID(); lastID = Number(newID.substring(1));}
-                            else {newID = '0'+(lastID+1); lastID = lastID + 1;}
+                            if (!lastID) {
+                                newID = this.generateID();
+                                lastID = Number(newID.substring(1));
+                            } else {
+                                newID = '0' + (lastID + 1);
+                                lastID = lastID + 1;
+                            }
 
                             div.setAttribute(this.cons.editID, newID);
 
@@ -569,7 +590,40 @@ class EditorMode {
         return rangePromise;
     }
 
-    updateLastFocusEdit(){
+    onSuggestion(line) {
+        if (!line || line.innerText === '') return;
+        const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
+        let suggestion = new Set(data);
+        let list = [];
+        suggestion.forEach((e) => {
+            if (e.name.match(line.innerText)) {
+                list.push(e.name);
+            }
+        });
+        const listDiv = document.createElement('div');
+        listDiv.classList.add('suggestion-list');
+        listDiv.setAttribute('contenteditable', 'false');
+        listDiv.setAttribute('id', 'suggestion-list');
+        listDiv.style.position = 'absolute';
+        listDiv.style.top = '0';
+        listDiv.style.left = '0';
+
+        list.forEach((e) => {
+            const div = document.createElement('div');
+            div.classList.add('suggestion-item');
+            div.setAttribute('contenteditable', 'false');
+            div.textContent = e;
+            div.addEventListener('click', () => {
+                line.textContent = e;
+                listDiv.remove();
+            })
+            listDiv.append(div);
+        });
+        console.log(listDiv);
+    }
+
+    updateLastFocusEdit() {
+        this.onSuggestion(this.lastFocusEdit)
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
             if (!getReactPosID) return;
@@ -600,12 +654,7 @@ class EditorMode {
         newLine.setAttribute("sw-focused", "edit")
 
         const line = this.handleContentLineNuetral(newLine, type);
-        if (this.handleSceneHeadingType(line));
-        else if (this.handleCharater(line));
-        else if (this.handleParentArticle(line));
-        else if (this.handleDialog(line));
-        else if (this.handleTransition(line));
-        else if (this.handleActType(line));
+        if (this.handleSceneHeadingType(line)) ; else if (this.handleCharater(line)) ; else if (this.handleParentArticle(line)) ; else if (this.handleDialog(line)) ; else if (this.handleTransition(line)) ; else if (this.handleActType(line)) ;
     }
 
     handleActType(line, direct = false) {
@@ -625,7 +674,7 @@ class EditorMode {
         return verify;
     }
 
-    handleSceneHeadingType (line, direct=false) {
+    handleSceneHeadingType(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
@@ -645,7 +694,7 @@ class EditorMode {
         return verify;
     }
 
-    handleDialog (line, direct=false) {
+    handleDialog(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.dt);
@@ -673,7 +722,7 @@ class EditorMode {
         return verify
     }
 
-    handleCharater (line, direct=false) {
+    handleCharater(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.ct);
@@ -685,8 +734,7 @@ class EditorMode {
         const num = '0123456789';
         const lineText = line.innerText;
         const transitionNames = ['fade in:', 'cut to:', 'back to:', 'fade out:'];
-        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText &&
-            !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
+        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText && !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
             line.classList.replace(this.cons.at, this.cons.ct);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.c);
@@ -698,7 +746,7 @@ class EditorMode {
         return verify
     }
 
-    handleTransition (line, direct=false) {
+    handleTransition(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.tt);
@@ -719,7 +767,7 @@ class EditorMode {
         return verify
     }
 
-    handleParentArticle (line, direct=false) {
+    handleParentArticle(line, direct = false) {
         // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
@@ -750,21 +798,9 @@ class EditorMode {
         line.classList.remove(this.cons.at);
         line.classList.remove(this.cons.act);
         //line.classList.add(this.cons.at);
-        if (type === 'action') line.classList.add(this.cons.at);
-        else if (type === 'dialog') line.classList.add(this.cons.dt);
-        else if (type === 'character') line.classList.add(this.cons.ct);
-        else if (type === 'parent-article') line.classList.add(this.cons.pat);
-        else if (type === 'transition') line.classList.add(this.cons.tt);
-        else if (type === 'scene-heading') line.classList.add(this.cons.sht);
-        else if (type === 'act') line.classList.add(this.cons.act);
+        if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
-        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);
-        else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d);
-        else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c);
-        else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa);
-        else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t);
-        else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh);
-        else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
+        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
         return line;
     }
 
@@ -851,8 +887,7 @@ class EditorMode {
                     while (true) {
                         if (currentScrollHeight > this.pageHeight /* || page.childElementCount < 45 */) {
                             const firstOfNextPage = nextPage.firstElementChild;
-                            if (firstOfNextPage) page.insertAdjacentElement('beforeend', firstOfNextPage);
-                            else break;
+                            if (firstOfNextPage) page.insertAdjacentElement('beforeend', firstOfNextPage); else break;
                         } else break;
                     }
                 }

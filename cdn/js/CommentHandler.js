@@ -27,7 +27,6 @@ class CommentHandler{
         this.comments = [];
         // call the getComments function when the page loads
         this.getComments()
-
     }
     
     getComments(){
@@ -159,7 +158,7 @@ setInterval(function(){
         // add onmouseout event
         item.setAttribute('onmouseout', 'removeAbsElement(this)');
     });
-}, 5000);
+}, 3000);
 
 
 function hideElement(id) {
