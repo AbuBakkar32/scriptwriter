@@ -1478,3 +1478,40 @@ span.drag-sort-active {
     background: transparent;
     color: transparent;
 }
+
+.suggestion-item{
+    padding: 2px;
+    font-size: 12px;
+}
+
+.suggestion-list{
+    position: absolute;
+    top: 20;
+    left: 80;
+    margin-top: 20px;
+    overflow: auto;
+    height: 120px;
+    width: 216px;
+    text-align: center;
+    background: #fff;
+}
+
+.charsugg{
+    width: 16%;
+    height: 150px;
+    background: white;
+    box-shadow:0 0 1.5cm rgb(0 0 0 / 50%);
+    inset:auto 100px auto 100px;
+    display: block;
+    z-index: 999;
+    border-radius: 5px;
+}
+
+.hover:hover {
+    background: darkgray;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-weight: bold;
+}
