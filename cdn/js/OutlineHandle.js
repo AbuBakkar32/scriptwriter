@@ -698,3 +698,12 @@ class OutlineHandle {
 document.addEventListener("DOMContentLoaded", function () {
     window.OutlineHandle = new OutlineHandle();
 })
+
+    setTimeout(() => {
+            let list = document.querySelectorAll(".suggestion-item")
+            if (list) {
+                list.forEach((i) => {
+                    i.remove();
+                })
+            }
+        }, 200)

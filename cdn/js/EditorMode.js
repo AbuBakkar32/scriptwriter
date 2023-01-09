@@ -31,6 +31,7 @@ class EditorMode {
     // last edited line
     lastFocusEdit;
     inputFieldNumber;
+    hasChange;
 
     constructor(attrName) {
         this.attrName = attrName;
@@ -591,41 +592,48 @@ class EditorMode {
     }
 
     onSuggestion(line) {
-        if (!line || line.innerText === '') return;
+        const slist = document.querySelector(`[sw-editor-suggetion="list"]`);
         const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
         let suggestion = new Set(data);
         let list = [];
+        if (line.textContent !== '' && line.textContent === line.textContent.toUpperCase()) {
+            if (slist.classList.contains("hide")) slist.classList.remove("hide");
+        } else {
+            if (!slist.classList.contains("hide")) slist.classList.add("hide");
+        }
         suggestion.forEach((e) => {
             if (e.name.match(line.innerText)) {
                 list.push(e.name);
             }
         });
+        if (!list) if (!slist.classList.contains("hide")) slist.classList.add("hide");
+
         const listDiv = document.createElement('div');
         listDiv.classList.add('suggestion-list');
         listDiv.setAttribute('contenteditable', 'false');
         listDiv.setAttribute('id', 'suggestion-list');
-        listDiv.style.position = 'absolute';
-        listDiv.style.top = '0';
-        listDiv.style.left = '0';
 
         list.forEach((e) => {
             const div = document.createElement('div');
-            div.classList.add('suggestion-item');
+            div.classList.add('suggestion-item', 'hover');
             div.setAttribute('contenteditable', 'false');
             div.textContent = e;
             div.addEventListener('click', () => {
                 line.textContent = e;
                 listDiv.remove();
+                if (!slist.classList.contains("hide")) slist.classList.add("hide");
+                line.click();
+                line.click();
             })
             listDiv.append(div);
         });
-        console.log(listDiv);
+        slist.append(listDiv)
     }
 
     updateLastFocusEdit() {
-        this.onSuggestion(this.lastFocusEdit)
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
+            this.onSuggestion(this.lastFocusEdit);
             if (!getReactPosID) return;
             const allReacters = document.querySelectorAll(`[react-pos="${getReactPosID}"]`);
             allReacters.forEach((rect) => {
