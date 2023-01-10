@@ -591,6 +591,7 @@ class EditorMode {
         return rangePromise;
     }
 
+    // START - Suggestion Function For on time character suggestion
     onSuggestion(line) {
         const slist = document.querySelector(`[sw-editor-suggetion="list"]`);
         const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
@@ -606,7 +607,7 @@ class EditorMode {
                 list.push(e.name);
             }
         });
-        if (!list) if (!slist.classList.contains("hide")) slist.classList.add("hide");
+        if (list.length <= 0) if (!slist.classList.contains("hide")) slist.classList.add("hide");
 
         const listDiv = document.createElement('div');
         listDiv.classList.add('suggestion-list');
@@ -629,6 +630,7 @@ class EditorMode {
         });
         slist.append(listDiv)
     }
+// END - Suggestion Function For on time character suggestion
 
     updateLastFocusEdit() {
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
