@@ -583,6 +583,7 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
+        console.log(data)
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;

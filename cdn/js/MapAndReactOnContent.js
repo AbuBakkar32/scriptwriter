@@ -208,7 +208,7 @@ class MapAndReactOnContent {
          * //the other key is an optional key that is only available for charater type, and is used to store charater script body 
          * element of the same value.
          *  }
-          */
+         **/
         //Clear previous stored contents
         this.contentStore = [];
 
@@ -235,9 +235,9 @@ class MapAndReactOnContent {
             uidCount += 1;
             const el = lineList[index];
             const mainElement = el;
-            const getType = el.getAttribute(this.cons.editType); // return either action or dialog or parathentical or scene-heading etc.
+            const getType = el.getAttribute(this.cons.editType); // return either action or dialog or parenthetical or scene-heading etc.
             const scriptBodyElement = el;
-            let uid = uidCount; //this.geneateUniqueID();
+            let uid = uidCount; //this.generateUniqueID();
             const ind = count;
             // script body id
             const sbID = el.getAttribute(this.cons.editID);
@@ -325,7 +325,7 @@ class MapAndReactOnContent {
                     const characterID = characterIDElement.getAttribute('rs-character-id');
                     if (characterID) window.CharacterHandle.update(characterID);
                 } else if (ele.hasAttribute(this.cons.editCharacterID)) {
-                    if (ele.getAttribute(this.cons.editType) != 'character') return;
+                    if (ele.getAttribute(this.cons.editType) !== 'character') return;
                     const getCharacterID = ele.getAttribute(this.cons.editCharacterID)
                     if (getCharacterID) window.CharacterHandle.update(getCharacterID);
                 }
@@ -342,7 +342,7 @@ class MapAndReactOnContent {
         controlSwitch.forEach((stw) => {
             // List of content line type
             const typeList = [...stw.children];
-            // Add click listener event that will trigger the chnage of the selected content
+            // Add click listener event that will trigger the change of the selected content
             typeList.forEach((typ) => {
                 typ.addEventListener('click', () => {
                     const targetFocused = document.querySelector(this.cons.focused);
