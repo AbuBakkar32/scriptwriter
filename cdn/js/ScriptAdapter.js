@@ -262,6 +262,7 @@ class ScriptAdapter {
     }
 
     renderContentLine(line, lineData) {
+        // console.log(lineData);
         // Render the script comment on right sider bar
         window.NoteHandle?.renderer(lineData);
         // Set the particular script line html content to the clone template
@@ -272,14 +273,15 @@ class ScriptAdapter {
         line.setAttribute('sw-editor-id', lineData.id);
         // Set the color
         line.setAttribute('sw-editor-color', lineData.color);
-
+        // new Attribute
+        line.setAttribute('sw-rearrange-id', lineData.attribute);
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
             try{
                 window.CharacterHandle.lineValidator(line);
             }catch (e) {
+                console.log(e);
             }
-            // line.setAttribute('sw-editor-character-id', lineData.others.cid);
         }
         // format the line text
         if (lineData.type === 'action') ;
@@ -299,7 +301,6 @@ class ScriptAdapter {
         const startTime = performance.now();
         /** Await Starts*/
         window.Watcher.bothAwait();
-        console.log(this.scriptDataStore)
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
@@ -334,6 +335,8 @@ class ScriptAdapter {
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
                 // Kick of render
+                console.log(draft.data);
+                console.log(draftDataKeys);
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
                     const clDetial = draft.data[draftDataKeys[index]];
@@ -399,7 +402,6 @@ class ScriptAdapter {
         }).then(async () => {
             /** Await Point */
             //window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
-            // Map react
             // if(!skipObserver) window.MapAndReactOnContent.mapreact();
             //await window.MapAndReactOnContent.mapreact();
         }).then(async () => {
