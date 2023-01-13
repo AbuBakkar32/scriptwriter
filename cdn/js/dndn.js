@@ -75,7 +75,6 @@ function ChangeAndSaveDataOutline(swData) {
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
         let bgColor = card?.getAttribute("bg-value");
-        // let sbID = card?.getAttribute("sw-editor-id");
 
         let obj = {
             id: index,
@@ -84,7 +83,6 @@ function ChangeAndSaveDataOutline(swData) {
             emotional_value: emotional_value,
             page_no: page_no,
             color: bgColor,
-            // sbID: sbID
         }
         data[index] = obj;
     });
@@ -104,7 +102,6 @@ function ChangeAndSaveData(swData) {
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
         let bgColor = card?.getAttribute("bg-value");
-        // let sbID = card?.getAttribute("sw-editor-id");
 
         let obj = {
             id: index,
@@ -113,7 +110,6 @@ function ChangeAndSaveData(swData) {
             emotional_value: emotional_value,
             page_no: page_no,
             color: bgColor,
-            // sbID: sbID
         }
         data[index] = obj;
     });
@@ -132,7 +128,6 @@ function saveChangedCardList(swData) {
             card.querySelector(`[outline-data="emotional-value"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
             card.querySelector(`[outline-data="page"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
             card.setAttribute("bg-value", window.ScriptAdapter.scriptDataStore.outline[index].color);
-            // card.setAttribute("sw-editor-id", window.ScriptAdapter.scriptDataStore.outline[index].sbID);
             card.classList.forEach((item) => {
                 if (item.includes("bg-")) {
                     card.classList.remove(item);

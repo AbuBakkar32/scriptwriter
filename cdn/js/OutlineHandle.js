@@ -583,6 +583,7 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
+        console.log(data);
         // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
         // current main page outLine item template
         let currentItemTemplate;
@@ -697,13 +698,4 @@ class OutlineHandle {
 
 document.addEventListener("DOMContentLoaded", function () {
     window.OutlineHandle = new OutlineHandle();
-})
-
-    setTimeout(() => {
-            let list = document.querySelectorAll(".suggestion-item")
-            if (list) {
-                list.forEach((i) => {
-                    i.remove();
-                })
-            }
-        }, 200)
+});
