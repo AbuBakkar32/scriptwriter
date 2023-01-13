@@ -299,7 +299,7 @@ class ScriptAdapter {
         const startTime = performance.now();
         /** Await Starts*/
         window.Watcher.bothAwait();
-
+        console.log(this.scriptDataStore)
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
@@ -333,7 +333,6 @@ class ScriptAdapter {
                 });
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
-
                 // Kick of render
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
@@ -380,7 +379,7 @@ class ScriptAdapter {
             this.saveCommentAndNote();
             // Event listener to manage open and closing of all comment
             this.handleCommentOpeningAndClosing();
-            // EditorFuncs.js method: Refresh the total number of pages avaliable.
+            // EditorFuncs.js method: Refresh the total number of pages available.
             await this.editorFuncs.totalNumberOfPage();
         }).then(async () => {
             /** Await Point */

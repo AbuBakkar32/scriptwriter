@@ -35,7 +35,7 @@ class ScriptWriterSection {
         this.listener();
     }
 
-    hideOrShowSectionExcept(exceptMe) { /* parameter are  charater, location, outline, pinBoard, storyDocs, structure */
+    hideOrShowSectionExcept(exceptMe) { /* parameter are  character, location, outline, pinBoard, storyDocs, structure */
         if (exceptMe !== 'character' && this.characterSection) this.characterSection.classList.add('hidden');
         if (exceptMe !== 'note' && this.noteSection) this.noteSection.classList.add('hidden');
         if (exceptMe !== 'outline' && this.outlineSection) this.outlineSection.classList.add('hidden');
