@@ -625,6 +625,7 @@ class EditorMode {
                 if (!slist.classList.contains("hide")) slist.classList.add("hide");
                 line.click();
                 line.click();
+                window.ScriptAdapter.autoSave();
             })
             listDiv.append(div);
         });

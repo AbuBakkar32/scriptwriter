@@ -299,7 +299,7 @@ class ScriptAdapter {
         const startTime = performance.now();
         /** Await Starts*/
         window.Watcher.bothAwait();
-
+        console.log(this.scriptDataStore)
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
