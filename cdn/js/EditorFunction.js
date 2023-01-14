@@ -215,6 +215,8 @@
 
         listener() {
             setTimeout(() => {
+                // window.ScriptAdapter.scriptDataStore.outline = {};
+                // window.ScriptAdapter.autoSave();
                 if (window.ClientSetting.getData.accountType === 'free') {
                     this.sideBarHideAndShow();
                 }

@@ -602,11 +602,13 @@ class EditorMode {
         } else {
             if (!slist.classList.contains("hide")) slist.classList.add("hide");
         }
+        try {
         suggestion.forEach((e) => {
             if (e.name.match(line.innerText)) {
                 list.push(e.name);
             }
         });
+        } catch (error) {}
         if (list.length <= 0) if (!slist.classList.contains("hide")) slist.classList.add("hide");
 
         const listDiv = document.createElement('div');
@@ -618,6 +620,7 @@ class EditorMode {
             const div = document.createElement('div');
             div.classList.add('suggestion-item', 'hover');
             div.setAttribute('contenteditable', 'false');
+            div.setAttribute('tabindex', '1');
             div.textContent = e;
             div.addEventListener('click', () => {
                 line.textContent = e;
@@ -783,6 +786,7 @@ class EditorMode {
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
             line.setAttribute(this.cons.editType, this.cons.pa);
+            // line.innerText = '('+line.innerText+')';
             return;
         }
         // Checker if action on script content line execute successfully
@@ -812,6 +816,7 @@ class EditorMode {
         if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
+        console.log(line)
         return line;
     }
 

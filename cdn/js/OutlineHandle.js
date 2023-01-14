@@ -374,7 +374,8 @@ class OutlineHandle {
             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
             let bgColor = card?.getAttribute("bg-value");
-            let sbID = card?.getAttribute("sw-editor-id");
+            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
+
             let obj = {
                 id: index,
                 title: title,
@@ -511,6 +512,7 @@ class OutlineHandle {
             saveData = {};
         }
         this.storeName = [...new Set(this.storeName)];
+        // console.log(window?.ScriptAdapter?.scriptDataStore?.outline)
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
@@ -552,7 +554,7 @@ class OutlineHandle {
                     const id = item?.id
                     const pos = item?.count - 1;
                     const color = saveData[count - 1]?.color;
-                    const scriptBodyID = item?.sbID;
+                    const scriptBodyID = saveData[count - 1]?.sbID;
                     const pageNumber = saveData[count - 1]?.page_no;
                     const scene_goal = saveData[count - 1]?.goal;
                     const evaluation_value = saveData[count - 1]?.emotional_value;
@@ -583,8 +585,9 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
-        console.log(data);
-        // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber }
+        // Object.values(data).forEach(([key, value]) => {setTimeout(() => {})});
+        // window.ScriptAdapter.renderDraftContent(window.ScriptAdapter.currentDraftKey, Data);
+        // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber}
         // current main page outLine item template
         let currentItemTemplate;
         if (1) {
@@ -594,6 +597,7 @@ class OutlineHandle {
             const title = template.querySelector(this.vars.sceneTitle);
             title.textContent = data?.name?.toUpperCase();
             title.setAttribute('react-pos', data?.id);
+            title.setAttribute('react-sbid', data?.sbID);
 
             //Update Index
             const indexEle = template.querySelector(this.vars.index);

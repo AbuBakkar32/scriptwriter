@@ -427,6 +427,7 @@ class MapAndReactOnContent {
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'parent-article'};
         // if function name is same as metaType then end the function
+        line.innerText = '('+line.innerText+')';
         if (funcName === metaType) return;
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
@@ -473,7 +474,7 @@ class MapAndReactOnContent {
     }
 
     clearCharacterIdOnContentLine(line){
-        const characterIDValue = line.getAttribute(this.cons.editCharacterID);
+        const characterIDValue = line?.getAttribute(this.cons?.editCharacterID);
         if(!characterIDValue) return;
         line.setAttribute(this.cons.editCharacterID, '');
     }

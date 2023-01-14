@@ -273,8 +273,7 @@ class ScriptAdapter {
         line.setAttribute('sw-editor-id', lineData.id);
         // Set the color
         line.setAttribute('sw-editor-color', lineData.color);
-        // new Attribute
-        line.setAttribute('sw-rearrange-id', lineData.attribute);
+
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
             try{
@@ -335,8 +334,8 @@ class ScriptAdapter {
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
                 // Kick of render
-                console.log(draft.data);
-                console.log(draftDataKeys);
+                // console.log(draft.data);
+                // console.log(draftDataKeys);
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
                     const clDetial = draft.data[draftDataKeys[index]];
