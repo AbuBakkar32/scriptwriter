@@ -207,7 +207,6 @@ class MapAndReactOnContent {
     }
 
     mapContents() {
-        console.log('mapContents');
         /** this.contentStore structure must be a list of array with the this structure
          * {main: content-line element itself, 
          *  type: the type of content-line gotten from meta-type attribute value,

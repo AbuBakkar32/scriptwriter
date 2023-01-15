@@ -268,7 +268,6 @@ class ScriptAdapter {
     }
 
     renderContentLine(line, lineData) {
-        // console.log(lineData);
         // Render the script comment on right sider bar
         window.NoteHandle?.renderer(lineData);
         // Set the particular script line html content to the clone template
@@ -331,7 +330,6 @@ class ScriptAdapter {
                         }
                     });
                 }
-                console.log(this.keyList);
                 // get the keys in the draft data or each content-line
                 //const draftDataKeys = Object.keys(draft.data);
                 const draftDataKeys = this.keyList;

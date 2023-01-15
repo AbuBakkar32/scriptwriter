@@ -490,8 +490,6 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
-        console.log(window.ScriptAdapter.scriptDataStore.data)
-        console.log(contenStore)
         // Set new content store value
         this.contenStore = contenStore;
         const listOfOutline = [];
