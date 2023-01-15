@@ -16,9 +16,15 @@ class ScriptAdapter {
     // save script indicator
     isToSave = false;
 
+    keyList = [];
+
     constructor() {
+        setTimeout(() => {
+            window.MapAndReactOnContent.mapreact();
+        });
+
         // Get current draft: capture all draft key
-        if(this.scriptDataStore?.draft) {
+        if (this.scriptDataStore?.draft) {
             const allLoadedDraftKeys = Object.keys(this.scriptDataStore?.draft);
             for (let index = 0; index < allLoadedDraftKeys.length; index++) {
                 const draft = this.scriptDataStore?.draft[allLoadedDraftKeys[index]];
@@ -38,7 +44,7 @@ class ScriptAdapter {
             setTimeout(() => {
                 this.save();
                 this.isToSave = false;
-            }, 700);
+            }, 200);
         }
         ;
     }
@@ -262,7 +268,6 @@ class ScriptAdapter {
     }
 
     renderContentLine(line, lineData) {
-        // console.log(lineData);
         // Render the script comment on right sider bar
         window.NoteHandle?.renderer(lineData);
         // Set the particular script line html content to the clone template
@@ -276,9 +281,9 @@ class ScriptAdapter {
 
         // If character type of content line, then set the charater id
         if (lineData.type === 'character') {
-            try{
+            try {
                 window.CharacterHandle.lineValidator(line);
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
         }
@@ -296,10 +301,9 @@ class ScriptAdapter {
 
     async renderDraftContent(draftKey, callback = () => {
     }, skipObserver = false) {
-
-        const startTime = performance.now();
+        // const startTime = performance.now();
         /** Await Starts*/
-        window.Watcher.bothAwait();
+        window.Watcher.bothAwait()
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
@@ -312,9 +316,23 @@ class ScriptAdapter {
             await window.NoteHandle?.clear();
             const draft = this.scriptDataStore.draft[draftKey];
             if (draft) {
+                const data = Object.values(this.scriptDataStore.outline);
+                if (data) {
+                    data.forEach((item) => {
+                        if (item.title) {
+                            this.keyList.push(item.sbID);
+                            const scene = Object.values(item.sceneListId);
+                            if (scene.length > 0) {
+                                scene.forEach((item) => {
+                                    this.keyList.push(item);
+                                });
+                            }
+                        }
+                    });
+                }
                 // get the keys in the draft data or each content-line
-                const draftDataKeys = Object.keys(draft.data);
-
+                //const draftDataKeys = Object.keys(draft.data);
+                const draftDataKeys = this.keyList;
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 
@@ -334,8 +352,6 @@ class ScriptAdapter {
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
                 // Kick of render
-                // console.log(draft.data);
-                // console.log(draftDataKeys);
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
                     const clDetial = draft.data[draftDataKeys[index]];
@@ -400,9 +416,9 @@ class ScriptAdapter {
             window.Watcher.reset(0, totalPage, totalLine, false);
         }).then(async () => {
             /** Await Point */
-            //window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
+            window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
             // if(!skipObserver) window.MapAndReactOnContent.mapreact();
-            //await window.MapAndReactOnContent.mapreact();
+            await window.MapAndReactOnContent.mapreact();
         }).then(async () => {
             /** Await Ends*/
             await window.Watcher.bothAwait(false);
@@ -486,7 +502,7 @@ class ScriptAdapter {
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('text', text);
         formData.append('content-line-index', index);
-        formData.append('draftID', draft); //Ex. draft1 
+        formData.append('draftID', draft); //Ex. draft1
         formData.append('date', date);
         formData.append('type', type); //note or comment
         if (type === 'note') formData.append('color', color); //set color if note type

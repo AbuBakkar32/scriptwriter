@@ -2,6 +2,7 @@ let selector = 'drag-sort-enable-2';
 
 function enableDragSort(listClass) {
     setTimeout(() => {
+        // window.MapAndReactOnContent.mapreact();
         const sortableLists = document.getElementsByClassName(listClass);
         saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
         Array.prototype.map.call(sortableLists, (list) => {
@@ -76,6 +77,12 @@ function ChangeAndSaveDataOutline(swData) {
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
         let bgColor = card?.getAttribute("bg-value");
         let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
+        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+        const sceneID = {};
+        scene.forEach((item, index) => {
+            const id = item?.getAttribute("outline-data-id")
+            sceneID[id] = id;
+        })
 
         let obj = {
             id: index,
@@ -84,7 +91,8 @@ function ChangeAndSaveDataOutline(swData) {
             emotional_value: emotional_value,
             page_no: page_no,
             color: bgColor,
-            sbID: sbID
+            sbID: sbID,
+            sceneListId: sceneID
         }
         data[index] = obj;
     });
@@ -105,6 +113,12 @@ function ChangeAndSaveData(swData) {
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
         let bgColor = card?.getAttribute("bg-value");
         let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
+        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+        const sceneID = {};
+        scene.forEach((item, index) => {
+            const id = item?.getAttribute("outline-data-id")
+            sceneID[id] = id;
+        })
 
         let obj = {
             id: index,
@@ -113,7 +127,8 @@ function ChangeAndSaveData(swData) {
             emotional_value: emotional_value,
             page_no: page_no,
             color: bgColor,
-            sbID: sbID
+            sbID: sbID,
+            sceneListId: sceneID
         }
         data[index] = obj;
     });

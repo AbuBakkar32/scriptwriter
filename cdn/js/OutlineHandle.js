@@ -28,6 +28,7 @@ class OutlineHandle {
     // ACT name list
     actList = []
     actIndex = 0
+    sbIdlist = [];
 
     constructor() {
         this.vars = {
@@ -84,7 +85,7 @@ class OutlineHandle {
                 try {
                     window.ScriptAdapter.scriptDataStore.outline = {lock: 'False'};
                     window.ScriptAdapter?.autoSave();
-                }catch (e) {
+                } catch (e) {
                     return;
                 }
             }
@@ -375,6 +376,12 @@ class OutlineHandle {
             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
             let bgColor = card?.getAttribute("bg-value");
             let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
+            let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+            const sceneID = {};
+            scene.forEach((item, index) => {
+                const id = item?.getAttribute("outline-data-id")
+                sceneID[id] = id;
+            })
 
             let obj = {
                 id: index,
@@ -383,7 +390,8 @@ class OutlineHandle {
                 emotional_value: emotional_value,
                 page_no: page_no,
                 color: bgColor,
-                sbID: sbID
+                sbID: sbID,
+                sceneListId: sceneID
             }
             data[index] = obj;
         });
@@ -496,8 +504,8 @@ class OutlineHandle {
         if (isExist.length === 0) {
             window.ScriptAdapter.scriptDataStore.outline = {};
             window.ScriptAdapter.autoSave();
-            window.ScriptAdapter.scriptDataStore.outline = {lock: false};
-            window.ScriptAdapter.autoSave();
+            // window.ScriptAdapter.scriptDataStore.outline = {lock: False};
+            // window.ScriptAdapter.autoSave();
         }
         try {
             saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
@@ -512,7 +520,6 @@ class OutlineHandle {
             saveData = {};
         }
         this.storeName = [...new Set(this.storeName)];
-        // console.log(window?.ScriptAdapter?.scriptDataStore?.outline)
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading') {
                 count += 1;
@@ -528,11 +535,13 @@ class OutlineHandle {
                     const pageNumber = item?.pageNumber;
                     const scene_goal = dataset?.others?.scenegoal ? dataset?.others?.scenegoal : '';
                     const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : '';
+                    this.sbIdlist.push(scriptBodyID);
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
                         if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
+                        this.sbIdlist.push(tem.sbID);
                     }
 
                     // Append outline
@@ -558,11 +567,13 @@ class OutlineHandle {
                     const pageNumber = saveData[count - 1]?.page_no;
                     const scene_goal = saveData[count - 1]?.goal;
                     const evaluation_value = saveData[count - 1]?.emotional_value;
-                    //Get all other scene type that is under this scene heading
-                    for (let i = index + 1; i < this.contentStore.length; i++) {
-                        const tem = this.contentStore[i];
-                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
-                    }
+                    this.sbIdlist.push(saveData[count - 1]?.sbID);
+                    const sceneKey = Object.keys(saveData[count - 1]?.sceneListId)
+                    sceneKey.forEach((key) => {
+                        const tem = this.contentStore.find((item) => item.sbID === saveData[count - 1]?.sceneListId[key])
+                        otherSceneType.push(tem);
+                        this.sbIdlist.push(tem.sbID);
+                    })
 
                     // Append outline
                     listOfOutline.push({
@@ -585,9 +596,6 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
-        // Object.values(data).forEach(([key, value]) => {setTimeout(() => {})});
-        // window.ScriptAdapter.renderDraftContent(window.ScriptAdapter.currentDraftKey, Data);
-        // the data parameter is an array of {name,  id, position, scenes, color, sbID, pageNumber}
         // current main page outLine item template
         let currentItemTemplate;
         if (1) {
