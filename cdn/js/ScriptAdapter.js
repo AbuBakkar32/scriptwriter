@@ -118,7 +118,6 @@ class ScriptAdapter {
     initContent() {
         // set the current draft content on page
         this.renderDraftContent(this.currentDraftKey);
-
         // Set the script title
         document.querySelector(`[sw-data-type="title"]`).innerText = this.scriptDataStore.title;
         document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', () => {
@@ -315,8 +314,9 @@ class ScriptAdapter {
             // clear all script comment in the right sider bar
             await window.NoteHandle?.clear();
             const draft = this.scriptDataStore.draft[draftKey];
+
             if (draft) {
-                const data = Object.values(this.scriptDataStore.outline);
+                const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
                 if (data) {
                     data.forEach((item) => {
                         if (item.title) {
@@ -330,9 +330,13 @@ class ScriptAdapter {
                         }
                     });
                 }
-                // get the keys in the draft data or each content-line
-                //const draftDataKeys = Object.keys(draft.data);
-                const draftDataKeys = this.keyList;
+                const draftDataKeys = Object.keys(draft.data);
+                // let draftDataKeys;
+                // if(window.ScriptDataStore.isDrag !== 'True') {
+                //     draftDataKeys = this.keyList.length > 0 ? this.keyList : Object.keys(draft.data);
+                // } else {
+                //     draftDataKeys = Object.keys(draft.data);
+                // }
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 
@@ -694,6 +698,42 @@ class ScriptAdapter {
         return data;
     }
 
+    getOutlineContent() {
+        let data = window.ScriptAdapter.scriptDataStore.outline = {};
+        window.ScriptAdapter.autoSave();
+        let listData = document.querySelectorAll(swData);
+        listData.forEach((card, index) => {
+            let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
+            let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
+            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
+            let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
+            let bgColor = card?.getAttribute("bg-value");
+            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
+            let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+            const sceneID = {};
+            scene.forEach((item, index) => {
+                const id = item?.getAttribute("outline-data-id")
+                sceneID[id] = id;
+            })
+
+            let obj = {
+                id: index,
+                title: title,
+                goal: goal,
+                emotional_value: emotional_value,
+                page_no: page_no,
+                color: bgColor,
+                sbID: sbID,
+                sceneListId: sceneID
+            }
+            data[index] = obj;
+        });
+        window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
+        window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
+        window.ScriptAdapter.autoSave();
+    }
+
     save() {
         // get the current script content on page
         const getCurrentContent = this.getContent();
@@ -701,6 +741,8 @@ class ScriptAdapter {
         this.scriptDataStore.draft[this.currentDraftKey].data = getCurrentContent;
         // update the script data
         this.scriptDataStore.data = getCurrentContent;
+        //outline Object
+        // this.scriptDataStore.outline = {'abu': 'Bakkar'};
         // Set title
         this.scriptDataStore.title = document.querySelector(`[sw-data-type="title"]`).innerText;
         // Save location
