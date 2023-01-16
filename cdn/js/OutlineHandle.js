@@ -396,6 +396,7 @@ class OutlineHandle {
             data[index] = obj;
         });
         window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
+        window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
     }
 
     updateDB() {
@@ -490,6 +491,7 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
+        console.log(contenStore);
         // Set new content store value
         this.contenStore = contenStore;
         const listOfOutline = [];
