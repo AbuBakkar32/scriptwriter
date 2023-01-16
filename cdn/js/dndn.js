@@ -2,7 +2,8 @@ let selector = 'drag-sort-enable-2';
 
 function enableDragSort(listClass) {
     setTimeout(() => {
-        // window.MapAndReactOnContent.mapreact();
+        // window.ScriptAdapter.scriptDataStore.outline = {};
+        // window.ScriptAdapter.autoSave();
         const sortableLists = document.getElementsByClassName(listClass);
         saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
         Array.prototype.map.call(sortableLists, (list) => {
@@ -28,7 +29,6 @@ function enableDragItem(item) {
 
 function handleDrag(item) {
     const selectedItem = item.target, list = selectedItem.parentNode, x = event.clientX, y = event.clientY;
-
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
 
@@ -64,11 +64,9 @@ function saveChangedCardListPinboard(swData) {
 }
 
 function ChangeAndSaveDataOutline(swData) {
-    let data = window.ScriptAdapter.scriptDataStore.outline;
-    data = {};
-    window.ScriptAdapter.scriptDataStore.outline = data;
+    let data = window.ScriptAdapter.scriptDataStore.outline = {};
     window.ScriptAdapter.autoSave();
-    let listData = document.querySelectorAll(swData);
+    let listData = document.querySelectorAll(swData)
     listData.forEach((card, index) => {
         let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
         let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
@@ -97,12 +95,11 @@ function ChangeAndSaveDataOutline(swData) {
         data[index] = obj;
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
+    window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
 }
 
 function ChangeAndSaveData(swData) {
-    let data = window.ScriptAdapter.scriptDataStore.outline;
-    data = {};
-    window.ScriptAdapter.scriptDataStore.outline = data;
+    let data = window.ScriptAdapter.scriptDataStore.outline = {};
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData);
     listData.forEach((card, index) => {
@@ -133,6 +130,7 @@ function ChangeAndSaveData(swData) {
         data[index] = obj;
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
+    window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
     window.ScriptAdapter.autoSave();
     saveChangedCardList(swData);
 }
@@ -156,7 +154,6 @@ function saveChangedCardList(swData) {
             });
         });
     } catch (e) {
-
     }
 }
 
@@ -175,13 +172,13 @@ function handleDrop(item) {
     setTimeout(() => {
         document.querySelectorAll(`[sw-data="option"]`).forEach((option) => {
             option.addEventListener('click', (e) => {
-                if (e.srcElement.innerText === 'Pin Board') {
+                if (e.target.innerText === 'Pin Board') {
                     selector = "drag-sort-enable"
                     enableDragSort(selector);
-                } else if (e.srcElement.innerText === 'Outline') {
+                } else if (e.target.innerText === 'Outline') {
                     selector = "drag-sort-enable-outline"
                     enableDragSort(selector);
-                } else if (e.srcElement.innerText === 'Script') {
+                } else if (e.target.innerText === 'Script') {
                     selector = 'drag-sort-enable-2';
                     enableDragSort(selector);
                 }
