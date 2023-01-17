@@ -270,16 +270,16 @@ class ScriptAdapter {
         // Render the script comment on right sider bar
         window.NoteHandle?.renderer(lineData);
         // Set the particular script line html content to the clone template
-        line.innerHTML = lineData.content;
+        line.innerHTML = lineData?.content;
         // Set the type of script line to the content-line element
-        line.setAttribute('sw-editor-type', lineData.type);
+        line.setAttribute('sw-editor-type', lineData?.type);
         // Set the id
-        line.setAttribute('sw-editor-id', lineData.id);
+        line.setAttribute('sw-editor-id', lineData?.id);
         // Set the color
-        line.setAttribute('sw-editor-color', lineData.color);
+        line.setAttribute('sw-editor-color', lineData?.color);
 
         // If character type of content line, then set the charater id
-        if (lineData.type === 'character') {
+        if (lineData?.type === 'character') {
             try {
                 window.CharacterHandle.lineValidator(line);
             } catch (e) {
@@ -287,15 +287,13 @@ class ScriptAdapter {
             }
         }
         // format the line text
-        if (lineData.type === 'action') ;
-        else if (lineData.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
-        else if (lineData.type === 'dialog') window.EditorMode.handleDialog(line, true);
-        else if (lineData.type === 'character') window.EditorMode.handleCharater(line, true);
-        else if (lineData.type === 'transition') window.EditorMode.handleTransition(line, true);
-        else if (lineData.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
-        else if (lineData.type === 'act') window.EditorMode.handleActType(line, true);
-
-        window.EditorMode.lineSignal(line);
+        if (lineData?.type === 'action') ;
+        else if (lineData?.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
+        else if (lineData?.type === 'dialog') window.EditorMode.handleDialog(line, true);
+        else if (lineData?.type === 'character') window.EditorMode.handleCharater(line, true);
+        else if (lineData?.type === 'transition') window.EditorMode.handleTransition(line, true);
+        else if (lineData?.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
+        else if (lineData?.type === 'act') window.EditorMode.handleActType(line, true);
     }
 
     async renderDraftContent(draftKey, callback = () => {
@@ -320,23 +318,21 @@ class ScriptAdapter {
                 if (data) {
                     data.forEach((item) => {
                         if (item.title) {
-                            this.keyList.push(item.sbID);
+                            if(!this.keyList.includes(item.sbID)) {
+                                this.keyList.push(item.sbID);
+                            }
                             const scene = Object.values(item.sceneListId);
                             if (scene.length > 0) {
                                 scene.forEach((item) => {
-                                    this.keyList.push(item);
+                                    if(!this.keyList.includes(item.sbID)) {
+                                        this.keyList.push(item);
+                                    }
                                 });
                             }
                         }
                     });
                 }
-                const draftDataKeys = Object.keys(draft.data);
-                // let draftDataKeys;
-                // if(window.ScriptDataStore.isDrag !== 'True') {
-                //     draftDataKeys = this.keyList.length > 0 ? this.keyList : Object.keys(draft.data);
-                // } else {
-                //     draftDataKeys = Object.keys(draft.data);
-                // }
+                const draftDataKeys = this.keyList;
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 
@@ -703,7 +699,6 @@ class ScriptAdapter {
         window.ScriptAdapter.autoSave();
         let listData = document.querySelectorAll(swData);
         listData.forEach((card, index) => {
-            let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
             let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
             let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
@@ -713,7 +708,7 @@ class ScriptAdapter {
             let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
             const sceneID = {};
             scene.forEach((item, index) => {
-                const id = item?.getAttribute("outline-data-id")
+                const id = item?.getAttribute("outline-data-id");
                 sceneID[id] = id;
             })
 
