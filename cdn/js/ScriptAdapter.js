@@ -294,6 +294,8 @@ class ScriptAdapter {
         else if (lineData?.type === 'transition') window.EditorMode.handleTransition(line, true);
         else if (lineData?.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
         else if (lineData?.type === 'act') window.EditorMode.handleActType(line, true);
+
+        window.EditorMode.lineSignal(line);
     }
 
     async renderDraftContent(draftKey, callback = () => {

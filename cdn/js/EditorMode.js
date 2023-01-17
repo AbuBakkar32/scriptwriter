@@ -93,6 +93,7 @@ class EditorMode {
             const target = e.target;
             const targetClass = target.className;
             window.ScriptAdapter.scriptDataStore["isDrag"] = 'True';
+            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             if (targetClass.includes('noteInput')) {
                 return;
             }
