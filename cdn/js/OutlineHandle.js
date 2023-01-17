@@ -491,7 +491,6 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
-        console.log(contenStore);
         // Set new content store value
         this.contenStore = contenStore;
         const listOfOutline = [];
@@ -506,8 +505,6 @@ class OutlineHandle {
         if (isExist.length === 0) {
             window.ScriptAdapter.scriptDataStore.outline = {};
             window.ScriptAdapter.autoSave();
-            // window.ScriptAdapter.scriptDataStore.outline = {lock: False};
-            // window.ScriptAdapter.autoSave();
         }
         try {
             saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
@@ -543,9 +540,7 @@ class OutlineHandle {
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
                         if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
-                        this.sbIdlist.push(tem.sbID);
                     }
-
                     // Append outline
                     listOfOutline.push({
                         name: name,
@@ -561,7 +556,7 @@ class OutlineHandle {
                         evaluation_value: evaluation_value
                     });
                 } else {
-                    const name = saveData[count - 1]?.title;
+                    const name = item?.content.innerText;
                     const id = item?.id
                     const pos = item?.count - 1;
                     const color = saveData[count - 1]?.color;
@@ -570,12 +565,10 @@ class OutlineHandle {
                     const scene_goal = saveData[count - 1]?.goal;
                     const evaluation_value = saveData[count - 1]?.emotional_value;
                     this.sbIdlist.push(saveData[count - 1]?.sbID);
-                    const sceneKey = Object.keys(saveData[count - 1]?.sceneListId)
-                    sceneKey.forEach((key) => {
-                        const tem = this.contentStore.find((item) => item.sbID === saveData[count - 1]?.sceneListId[key])
-                        otherSceneType.push(tem);
-                        this.sbIdlist.push(tem.sbID);
-                    })
+                    for (let i = index + 1; i < this.contentStore.length; i++) {
+                        const tem = this.contentStore[i];
+                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
+                    }
 
                     // Append outline
                     listOfOutline.push({
@@ -658,7 +651,6 @@ class OutlineHandle {
             sceneItemTitle.setAttribute(this.vars.idAttrName, data?.sbID); // Set script body id
 
             sceneWrapper.append(sceneItemTitle);
-
             // Render and Update scene item
             data?.scenes.forEach((scene) => {
                 const otherSceneItem = sceneItem.cloneNode(true);
