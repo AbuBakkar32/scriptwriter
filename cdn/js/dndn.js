@@ -69,7 +69,7 @@ function ChangeAndSaveDataOutline(swData) {
     let listData = document.querySelectorAll(swData)
     listData.forEach((card, index) => {
         let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-        let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
@@ -104,7 +104,7 @@ function ChangeAndSaveData(swData) {
     let listData = document.querySelectorAll(swData);
     listData.forEach((card, index) => {
         let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-        let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
         let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
@@ -141,6 +141,7 @@ function saveChangedCardList(swData) {
         listData.forEach((card, index) => {
             card.querySelector(`[outline-data="index"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].id + 1;
             card.querySelector(`[outline-data="scene-title"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].title;
+            card.querySelector(`[outline-data="scene-item-title"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].title;
             card.querySelector(`[outline-data="scene-goal"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].goal;
             card.querySelector(`[outline-data="emotional-value"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
             card.querySelector(`[outline-data="page"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
