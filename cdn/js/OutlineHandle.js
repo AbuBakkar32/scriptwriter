@@ -299,13 +299,13 @@ class OutlineHandle {
                     alert('Emotional Value must be between -10 and 10', 'Error');
                     emotionalValue.textContent = 0;
                 } else {
+                    ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
                     const draftKey = window.ScriptAdapter.currentDraftKey;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
-                    ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
                     this.updateDB();
                 }
-            }, 700);
+            }, 200);
         });
 
         sceneGoal?.addEventListener('keyup', () => {
@@ -315,7 +315,7 @@ class OutlineHandle {
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
                 this.updateDB();
-            }, 700);
+            }, 200);
         });
     }
 
@@ -621,8 +621,8 @@ class OutlineHandle {
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            if (data?.scene_goal && data?.evaluation_value) {
-                emotionalValue.textContent = data?.evaluation_value;
+            if (data?.scene_goal || data?.evaluation_value) {
+                emotionalValue.innerText = data?.evaluation_value;
                 sceneGoal.innerText = data?.scene_goal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data?.sbID] = {

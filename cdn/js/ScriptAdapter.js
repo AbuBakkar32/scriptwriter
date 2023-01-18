@@ -342,7 +342,6 @@ class ScriptAdapter {
                 [...pageList.children].forEach((page) => {
                     page.remove()
                 });
-
                 // Create New Page for content
                 let pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
                 // Append current page to it Page List
