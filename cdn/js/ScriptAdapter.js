@@ -313,28 +313,40 @@ class ScriptAdapter {
             window.Watcher.bothAwait(true, 'Rendering script text on page...');
             // clear all script comment in the right sider bar
             await window.NoteHandle?.clear();
-            const draft = this.scriptDataStore.draft[draftKey];
+            let draft = this.scriptDataStore.draft[draftKey];
+            let draftDataKeys;
+            let dataList;
+            // delete unrefined object from the draft
+            if (draft.data.length > 0) {
+                draft = draft.data.filter((line) => {
+                    return line.type !== 'undefined';
+                });
+            }
 
             if (draft) {
+                // Get the draft data values
                 const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
-                if (data) {
+                if (data.length > 0) {
                     data.forEach((item) => {
                         if (item.title) {
-                            if(!this.keyList.includes(item.sbID)) {
+                            if (!this.keyList.includes(item.sbID)) {
                                 this.keyList.push(item.sbID);
                             }
                             const scene = Object.values(item.sceneListId);
                             if (scene.length > 0) {
                                 scene.forEach((item) => {
-                                    if(!this.keyList.includes(item.sbID)) {
+                                    if (!this.keyList.includes(item.sbID)) {
                                         this.keyList.push(item);
                                     }
                                 });
                             }
                         }
                     });
+                    draftDataKeys = this.keyList;
+                } else {
+                    draftDataKeys = Object.keys(draft.data)
                 }
-                const draftDataKeys = this.keyList;
+                console.log(this.keyList);
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 
@@ -342,7 +354,6 @@ class ScriptAdapter {
                 [...pageList.children].forEach((page) => {
                     page.remove()
                 });
-
                 // Create New Page for content
                 let pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
                 // Append current page to it Page List
@@ -357,32 +368,34 @@ class ScriptAdapter {
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
                     const clDetial = draft.data[draftDataKeys[index]];
-                    // Clone content line template
-                    newLine = this.editorFuncs.lineTemp.cloneNode(true);
-                    // render the content line data to DOM
-                    this.renderContentLine(newLine, clDetial)
+                    if (clDetial) {
+                        // Clone content line template
+                        newLine = this.editorFuncs.lineTemp.cloneNode(true);
+                        // render the content line data to DOM
+                        this.renderContentLine(newLine, clDetial)
 
-                    // Check if page still maintain it size before rendering the new content-line
-                    if (pageClone.scrollHeight > this.editorFuncs.swPageHeight) {
-                        //the last content-line in the page
-                        const lastContentLine = pageClone.lastElementChild;
-                        // create new page
-                        pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
-                        pageList.append(pageClone);
-                        //Remove previous children or content-line from new page
-                        [...pageClone.children].forEach((cl) => {
-                            cl.remove()
-                        });
-                        // Append last content first on new page
-                        pageClone.append(lastContentLine);
-                        // Append content-line to current page
-                        pageClone.append(newLine);
-                    } else {
-                        // Append content-line to current page
-                        pageClone.append(newLine);
+                        // Check if page still maintain it size before rendering the new content-line
+                        if (pageClone.scrollHeight > this.editorFuncs.swPageHeight) {
+                            //the last content-line in the page
+                            const lastContentLine = pageClone.lastElementChild;
+                            // create new page
+                            pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
+                            pageList.append(pageClone);
+                            //Remove previous children or content-line from new page
+                            [...pageClone.children].forEach((cl) => {
+                                cl.remove()
+                            });
+                            // Append last content first on new page
+                            pageClone.append(lastContentLine);
+                            // Append content-line to current page
+                            pageClone.append(newLine);
+                        } else {
+                            // Append content-line to current page
+                            pageClone.append(newLine);
+                        }
+                        // Update count
+                        count += 1;
                     }
-                    // Update count
-                    count += 1;
                 }
 
                 //Append page if not appended to it Page List

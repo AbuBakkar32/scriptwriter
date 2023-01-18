@@ -299,13 +299,13 @@ class OutlineHandle {
                     alert('Emotional Value must be between -10 and 10', 'Error');
                     emotionalValue.textContent = 0;
                 } else {
+                    ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
                     const draftKey = window.ScriptAdapter.currentDraftKey;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
                     window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
-                    ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
                     this.updateDB();
                 }
-            }, 700);
+            }, 200);
         });
 
         sceneGoal?.addEventListener('keyup', () => {
@@ -315,16 +315,15 @@ class OutlineHandle {
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.ev = emotionalValue.textContent;
                 window.ScriptDataStore.draft[draftKey].data[sceneID].others.scenegoal = sceneGoal.textContent;
                 this.updateDB();
-            }, 700);
+            }, 200);
         });
     }
 
     renderActName(currentItemTemplate) {
         const title = currentItemTemplate.querySelector(this.vars.sceneTitle).innerText;
-        const scriptData = window.ScriptAdapter.scriptDataStore.data
+        let scriptData = window.ScriptAdapter.scriptDataStore.data
         let getTheNextAct = false
         let isFirstItem = true
-
         for (const [key, value] of Object.entries(scriptData)) {
             // replace &nbsp; with space
             let valueContent = ""
@@ -520,21 +519,19 @@ class OutlineHandle {
         }
         this.storeName = [...new Set(this.storeName)];
         this.contentStore.forEach((item, index) => {
+            let draftKey = window.ScriptAdapter.currentDraftKey;
+            let dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
             if (item.type === 'scene-heading') {
                 count += 1;
                 const otherSceneType = [];
-                let draftKey = window.ScriptAdapter.currentDraftKey;
-                let dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
                     const name = item?.content.innerText;
                     const id = item?.id;
-                    const pos = item?.index;
                     const color = item?.color;
                     const scriptBodyID = item?.sbID;
                     const pageNumber = item?.pageNumber;
                     const scene_goal = dataset?.others?.scenegoal ? dataset?.others?.scenegoal : '';
                     const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : '';
-                    this.sbIdlist.push(scriptBodyID);
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
@@ -553,12 +550,11 @@ class OutlineHandle {
                         type: item.type,
                         index: count - 1,
                         scene_goal: scene_goal,
-                        evaluation_value: evaluation_value
+                        evaluation_value: evaluation_value,
                     });
                 } else {
                     const name = item?.content.innerText;
                     const id = item?.id
-                    const pos = item?.count - 1;
                     const color = saveData[count - 1]?.color;
                     const scriptBodyID = saveData[count - 1]?.sbID;
                     const pageNumber = saveData[count - 1]?.page_no;
@@ -582,7 +578,7 @@ class OutlineHandle {
                         type: item.type,
                         index: count - 1,
                         scene_goal: scene_goal,
-                        evaluation_value: evaluation_value
+                        evaluation_value: evaluation_value,
                     });
                 }
             }
@@ -591,6 +587,7 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
+        console.log(data);
         // current main page outLine item template
         let currentItemTemplate;
         if (1) {
@@ -621,8 +618,8 @@ class OutlineHandle {
             const sceneGoal = template.querySelector(this.vars.sceneGoal);
             const emotionalValue = template.querySelector(this.vars.ev);
             const draftKey = window.ScriptAdapter.currentDraftKey;
-            if (data?.scene_goal && data?.evaluation_value) {
-                emotionalValue.textContent = data?.evaluation_value;
+            if (data?.scene_goal || data?.evaluation_value) {
+                emotionalValue.innerText = data?.evaluation_value;
                 sceneGoal.innerText = data?.scene_goal;
             } else {
                 window.ScriptDataStore.draft[draftKey].data[data?.sbID] = {
