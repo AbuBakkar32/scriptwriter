@@ -92,7 +92,7 @@ class EditorMode {
             // if adding note, do not add text to the page
             const target = e.target;
             const targetClass = target.className;
-            ChangeAndSaveDataOutline(`[mapreact-data="outline-item"]`);
+            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             if (targetClass.includes('noteInput')) {
                 return;
             }
@@ -373,6 +373,7 @@ class EditorMode {
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
+                        console.log('target', target);
                         const newCreatedElement = duplicates[1]; // the newly created element
                         this.formatContentLine(target); // format previous line
                         // set color
@@ -525,9 +526,7 @@ class EditorMode {
                             div.setAttribute(this.cons.editID, newID);
 
                             this.lineSignal(div);
-
                             div.innerText = text;
-
                             if (index === 0) {
                                 conl.insertAdjacentElement('afterend', div);
                                 conl.remove();
@@ -709,7 +708,7 @@ class EditorMode {
         const num = '0123456789';
         const lineText = line.innerText;
         const transitionNames = ['fade in:', 'cut to:', 'back to:', 'fade out:'];
-        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText && !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
+        if (lineText && lineText.split('').length >= 3 && !lineText.toLowerCase().startsWith('act') && lineText.toUpperCase() === lineText && !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
             line.classList.replace(this.cons.at, this.cons.ct);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.c);

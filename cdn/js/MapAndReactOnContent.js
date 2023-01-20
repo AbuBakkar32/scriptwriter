@@ -596,9 +596,9 @@ class MapAndReactOnContent {
         const outline = window.ScriptDataStore.outline;
         let outlineLength = Object.keys(outline).length;
         // check if a key 'lock' exist in outline
-        if (outline['lock']) {
-            outlineLength -= 1;
-        }
+        // if (outline['lock']) {
+        //     outlineLength -= 1;
+        // }
 
         let xPart = item11.offsetWidth / outlineLength
         let xValue = xPart + 20;
