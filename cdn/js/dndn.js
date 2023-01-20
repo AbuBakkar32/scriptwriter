@@ -23,19 +23,22 @@ function enableDragItem(item) {
     document.querySelectorAll('.act-name').forEach((item) => {
         item.hasAttribute('draggable') ? item.removeAttribute('draggable') : null;
     });
+    item.style.cursor = 'grab';
     item.ondrag = handleDrag;
     item.ondragend = handleDrop;
 }
 
 function handleDrag(item) {
+    item.target.removeAttribute('style');
     const selectedItem = item.target, list = selectedItem.parentNode, x = event.clientX, y = event.clientY;
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
-
     if (list === swapItem.parentNode) {
+        item.target.style.cursor = 'grabbing';
         swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
         list.insertBefore(selectedItem, swapItem);
     }
+    item.target.style.cursor = 'grab';
 }
 
 function saveChangedCardListPinboard(swData) {
@@ -173,6 +176,8 @@ function handleDrop(item) {
     setTimeout(() => {
         document.querySelectorAll(`[sw-data="option"]`).forEach((option) => {
             option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.stopImmediatePropagation();
                 if (e.target.innerText === 'Pin Board') {
                     selector = "drag-sort-enable"
                     enableDragSort(selector);
@@ -185,6 +190,6 @@ function handleDrop(item) {
                 }
             });
         })
-    }, 500);
+    }, 1000);
     enableDragSort(selector);
 })();

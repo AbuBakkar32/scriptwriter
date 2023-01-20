@@ -491,13 +491,13 @@ class OutlineHandle {
             el.remove()
         });
         // Set new content store value
-        this.contenStore = contenStore;
+        this.contentStore = contenStore;
         const listOfOutline = [];
         const isExist = [];
         let count = 0;
         let saveData = {}
         this.contentStore.forEach((item, index) => {
-            if (item.type === 'scene-heading') {
+            if (item.type === 'scene-heading' || item.type === 'act') {
                 isExist.push(item.id);
             }
         })
@@ -521,10 +521,11 @@ class OutlineHandle {
         this.contentStore.forEach((item, index) => {
             let draftKey = window.ScriptAdapter.currentDraftKey;
             let dataset = window.ScriptDataStore.draft[draftKey].data[item.sbID]
-            if (item.type === 'scene-heading') {
+            if (item.type === 'scene-heading' || item.type === 'act') {
                 count += 1;
                 const otherSceneType = [];
                 if (!this.storeName.includes(item.content.innerText.toLowerCase())) {
+                    // get all the content before the first scene heading
                     const name = item?.content.innerText;
                     const id = item?.id;
                     const color = item?.color;
@@ -536,7 +537,7 @@ class OutlineHandle {
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
-                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
+                        if (tem.type === 'scene-heading' || tem.type === 'act') break; else otherSceneType.push(tem);
                     }
                     // Append outline
                     listOfOutline.push({
@@ -554,16 +555,15 @@ class OutlineHandle {
                     });
                 } else {
                     const name = item?.content.innerText;
-                    const id = item?.id
+                    const id = item?.id;
                     const color = saveData[count - 1]?.color;
                     const scriptBodyID = saveData[count - 1]?.sbID;
                     const pageNumber = saveData[count - 1]?.page_no;
                     const scene_goal = saveData[count - 1]?.goal;
                     const evaluation_value = saveData[count - 1]?.emotional_value;
-                    this.sbIdlist.push(saveData[count - 1]?.sbID);
                     for (let i = index + 1; i < this.contentStore.length; i++) {
                         const tem = this.contentStore[i];
-                        if (tem.type === 'scene-heading') break; else otherSceneType.push(tem);
+                        if (tem.type === 'scene-heading' || tem.type === 'act') break; else otherSceneType.push(tem);
                     }
 
                     // Append outline
@@ -587,7 +587,6 @@ class OutlineHandle {
     }
 
     outlineRenderTemplate(data) {
-        console.log(data);
         // current main page outLine item template
         let currentItemTemplate;
         if (1) {
@@ -625,7 +624,7 @@ class OutlineHandle {
                 window.ScriptDataStore.draft[draftKey].data[data?.sbID] = {
                     id: data?.sbID,
                     content: data?.name,
-                    type: 'scene-heading',
+                    type: data?.type,
                     color: data?.color,
                     unique_key: data?.position,
                     others: {ev: '0', scenegoal: ''},
@@ -695,7 +694,7 @@ class OutlineHandle {
 
         // Enable outLine functionality
         this.setUp(currentItemTemplate);
-        this.renderActName(currentItemTemplate);
+        // this.renderActName(currentItemTemplate);
     }
 }
 
