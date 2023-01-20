@@ -322,10 +322,11 @@ class ScriptAdapter {
                     return line.type !== 'undefined';
                 });
             }
-
+            //console.log(draft.data);
             if (draft) {
                 // Get the draft data values
                 const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
+                //console.log(data);
                 if (data.length > 0) {
                     data.forEach((item) => {
                         if (item.title) {
