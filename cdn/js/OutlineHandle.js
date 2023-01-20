@@ -174,10 +174,12 @@ class OutlineHandle {
                 });
             } else {
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
-                    el.setAttribute("draggable", "true");
-                    document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
-                    document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
-                    document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
+                    if(el.classList.contains('relative')) {
+                        el.setAttribute("draggable", "true");
+                        document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
+                    }
                 });
             }
         }, 100)
@@ -599,6 +601,7 @@ class OutlineHandle {
                 div.setAttribute('react-sbid', data?.sbID);
                 div.setAttribute('mapreact-data', "outline-item");
                 div.setAttribute('type', 'act');
+                div.classList.add('act-name');
                 div.style.fontSize = '16px';
                 div.style.fontWeight = 'bold';
                 div.style.marginLeft = '10px';
