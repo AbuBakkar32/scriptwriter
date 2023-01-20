@@ -131,6 +131,7 @@ function ChangeAndSaveData(swData) {
             sceneListId: sceneID
         }
         data[index] = obj;
+        console.log(data);
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';

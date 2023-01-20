@@ -373,7 +373,7 @@ class EditorMode {
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
-                        console.log('target', target);
+                        // console.log('target', target);
                         const newCreatedElement = duplicates[1]; // the newly created element
                         this.formatContentLine(target); // format previous line
                         // set color

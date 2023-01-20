@@ -1504,6 +1504,7 @@ span.drag-sort-active {
     display: block;
     z-index: 999;
     border-radius: 20px;
+    margin-top: 36px;
 }
 
 .hover:hover {
