@@ -783,7 +783,7 @@ class MapAndReactOnContent {
         // remove all child nodes
         while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
         const allAct = actDropdownLiTag.cloneNode(true);
-        allAct.innerText = 'All Act';
+        allAct.innerText = 'All Act'.toUpperCase();
         allAct.setAttribute('data-act-id', 'all');
         allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
         actDropdown.appendChild(allAct);
@@ -798,7 +798,7 @@ class MapAndReactOnContent {
             for (const [key, value] of Object?.entries(data)) {
                 if (value.type === 'act') {
                     const liTag = actDropdownLiTag.cloneNode(true);
-                    liTag.innerText = value.content;
+                    liTag.innerText = value.content.toUpperCase();
                     liTag.setAttribute('data-act-id', key);
                     liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
                     actDropdown.appendChild(liTag);

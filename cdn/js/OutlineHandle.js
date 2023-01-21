@@ -350,6 +350,7 @@ class OutlineHandle {
                 sceneListId: sceneID
             }
             data[index] = obj;
+            console.log(data)
         });
         window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     }
@@ -390,7 +391,6 @@ class OutlineHandle {
             }).then(() => {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
-                window.ScriptAdapter.autoSave();
                 this.updateDB();
                 window.MapAndReactOnContent.mapreact();
                 this.mainPageChanges = true;
@@ -425,7 +425,6 @@ class OutlineHandle {
                 item.remove();
                 document.querySelector(this.vars.rsIdAttr.replace('%s', contentLineID))?.remove();
             }).then(() => {
-                //window.ScriptAdapter.autoSave();
                 this.updateDB();
                 window.MapAndReactOnContent.mapreact();
             }).then(() => {
@@ -559,9 +558,9 @@ class OutlineHandle {
                 div.style.fontSize = '16px';
                 div.style.fontWeight = 'bold';
                 div.style.marginLeft = '10px';
-                if(this.count === 1) {
+                if (this.count === 1) {
                     div.style.marginTop = '10px'
-                }else{
+                } else {
                     div.style.marginTop = '60px'
                 }
                 this.count += 1;
@@ -694,35 +693,37 @@ class OutlineHandle {
         }
 
         if (2) {
-            const template = this.rsOutlineItemTemp.cloneNode(true);
-            if (data?.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data?.color);
-            // update the template id
-            template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
-            //Update title
-            const title = template.querySelector(this.vars.rsTitle);
-            title.textContent = data?.name?.toUpperCase();
-            title.setAttribute('react-pos', data?.id);
-            title.setAttribute('react-sbid', data?.sbID);
+            if (data.type === 'scene-heading') {
+                const template = this.rsOutlineItemTemp.cloneNode(true);
+                if (data?.color && template.firstElementChild.classList.contains('bg-blue')) template.firstElementChild.classList.replace('bg-blue', data?.color);
+                // update the template id
+                template.setAttribute(this.vars.rsIdAttrName, data?.sbID)
+                //Update title
+                const title = template.querySelector(this.vars.rsTitle);
+                title.textContent = data?.name?.toUpperCase();
+                title.setAttribute('react-pos', data?.id);
+                title.setAttribute('react-sbid', data?.sbID);
 
-            //Update other scene
-            const rsOutlineList = template.querySelector(this.vars.rsList);
-            const rsOutlineItem = template.querySelector(this.vars.rsItem).cloneNode(true);
-            //Remove dummy template
-            [...rsOutlineList.children].forEach(itm => itm.remove());
+                //Update other scene
+                const rsOutlineList = template.querySelector(this.vars.rsList);
+                const rsOutlineItem = template.querySelector(this.vars.rsItem).cloneNode(true);
+                //Remove dummy template
+                [...rsOutlineList.children].forEach(itm => itm.remove());
 
-            // Render scene headings
-            data?.scenes.forEach((scene) => {
-                //Update other type of scene
-                const newRsOutlineItem = rsOutlineItem.cloneNode(true);
-                newRsOutlineItem.textContent = scene.content.innerText;
-                newRsOutlineItem.setAttribute('react-pos', scene.id);
+                // Render scene headings
+                data?.scenes.forEach((scene) => {
+                    //Update other type of scene
+                    const newRsOutlineItem = rsOutlineItem.cloneNode(true);
+                    newRsOutlineItem.textContent = scene.content.innerText;
+                    newRsOutlineItem.setAttribute('react-pos', scene.id);
 
-                //Append to Scene Wrapper
-                rsOutlineList.append(newRsOutlineItem);
-            });
+                    //Append to Scene Wrapper
+                    rsOutlineList.append(newRsOutlineItem);
+                });
 
-            //Append
-            this.rsOutlineListTemp.append(template);
+                //Append
+                this.rsOutlineListTemp.append(template);
+            }
         }
         // Enable outLine functionality
         this.setUp(currentItemTemplate);
