@@ -101,6 +101,7 @@ class OutlineHandle {
         addBtn.addEventListener("click", () => {
             let data = document.querySelectorAll(this.vars.mainMrItem)
             this.add(data[data.length - 1]);
+            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
         });
 
         unlockBtn.addEventListener('click', () => {
@@ -390,7 +391,7 @@ class OutlineHandle {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 window.ScriptAdapter.autoSave();
-                // this.updateDB();
+                this.updateDB();
                 window.MapAndReactOnContent.mapreact();
                 this.mainPageChanges = true;
             });
