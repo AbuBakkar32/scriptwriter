@@ -594,11 +594,16 @@ class MapAndReactOnContent {
         canvas.height = item11.offsetHeight;
 
         const outline = window.ScriptDataStore.outline;
-        let outlineLength = Object.keys(outline).length;
-        // check if a key 'lock' exist in outline
-        // if (outline['lock']) {
-        //     outlineLength -= 1;
-        // }
+        let lengthList = []
+        Object.keys(outline).forEach((key) => {
+            try {
+                if (!outline[key].title.startsWith('ACT')) {
+                    lengthList.push(outline[key]);
+                }
+            } catch (e) {
+            }
+        });
+        let outlineLength = lengthList.length + 1;
 
         let xPart = item11.offsetWidth / outlineLength
         let xValue = xPart + 20;
@@ -613,10 +618,8 @@ class MapAndReactOnContent {
         if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
         else ctx.moveTo(20, 100);
 
-
-        // loop outline
-        Object.keys(outline).forEach((key, index) => {
-            const item = outline[key];
+        lengthList.forEach((key, index) => {
+            const item = lengthList[index];
             const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
             // if emotional value is 0 then y value is 100
             // if emotional value is 10 then y value is 0
@@ -631,7 +634,7 @@ class MapAndReactOnContent {
             } else {
                 xValue = xValue + xPart;
             }
-        });
+        })
 
         if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11.offsetWidth - 10, 100)
         else ctx.lineTo(item11.offsetWidth, 100)
@@ -640,8 +643,8 @@ class MapAndReactOnContent {
         xPart = item11.offsetWidth / outlineLength
         xValue = xPart + 20;
         // draw small circle on the line
-        Object.keys(outline).forEach((key, index) => {
-            const item = outline[key];
+        lengthList.forEach((key, index) => {
+            const item = lengthList[index];
             const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
 
             let yValue = 100 - (emotionalValue * 10);
@@ -657,7 +660,7 @@ class MapAndReactOnContent {
             } else {
                 xValue = xValue + xPart;
             }
-        });
+        })
 
         ctx.beginPath();
         if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
@@ -666,7 +669,6 @@ class MapAndReactOnContent {
         else ctx.arc(item11.offsetWidth - 3, 100, 5, 0, 2 * Math.PI);
         ctx.fillStyle = 'red';
         ctx.fill();
-
 
         // append canvas to the item11 element
         item11.appendChild(canvas);

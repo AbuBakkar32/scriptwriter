@@ -70,14 +70,14 @@ function ChangeAndSaveDataOutline(swData) {
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData)
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML ? card?.querySelector(`[outline-data="index"]`)?.innerHTML : '0';
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML : card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML : "";
-        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML : "0";
-        let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML ? card?.querySelector(`[outline-data="page"]`).innerHTML : "0";
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
+        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
+        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
         let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
         let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
-        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
         const sceneID = {};
         scene.forEach((item, index) => {
             const id = item?.getAttribute("outline-data-id");
@@ -97,7 +97,6 @@ function ChangeAndSaveDataOutline(swData) {
         data[index] = obj;
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
-    window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
 }
 
 function ChangeAndSaveData(swData) {
@@ -105,11 +104,11 @@ function ChangeAndSaveData(swData) {
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData);
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML ? card?.querySelector(`[outline-data="index"]`)?.innerHTML : '0';
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML : 'Rakib';
-        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML : "";
-        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML : "0";
-        let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML ? card?.querySelector(`[outline-data="page"]`).innerHTML : "0";
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
+        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
+        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
         let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
         let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
         let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
@@ -130,9 +129,9 @@ function ChangeAndSaveData(swData) {
             sceneListId: sceneID
         }
         data[index] = obj;
+        console.log(data)
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
-    window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
     window.ScriptAdapter.autoSave();
     saveChangedCardList(swData);
 }

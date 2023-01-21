@@ -19,10 +19,6 @@ class ScriptAdapter {
     keyList = [];
 
     constructor() {
-        setTimeout(() => {
-            window.MapAndReactOnContent.mapreact();
-        });
-
         // Get current draft: capture all draft key
         if (this.scriptDataStore?.draft) {
             const allLoadedDraftKeys = Object.keys(this.scriptDataStore?.draft);

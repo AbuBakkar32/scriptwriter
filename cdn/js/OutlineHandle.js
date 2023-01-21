@@ -24,11 +24,7 @@ class OutlineHandle {
     // main page changes
     mainPageChanges = false;
     storeName = [];
-
-    // ACT name list
-    actList = []
-    actIndex = 0
-    sbIdlist = [];
+    count = 1;
 
     constructor() {
         this.vars = {
@@ -174,7 +170,7 @@ class OutlineHandle {
                 });
             } else {
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
-                    if(el.classList.contains('relative')) {
+                    if (el.classList.contains('relative')) {
                         el.setAttribute("draggable", "true");
                         document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
                         document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
@@ -321,48 +317,6 @@ class OutlineHandle {
         });
     }
 
-    renderActName(currentItemTemplate) {
-        const title = currentItemTemplate.querySelector(this.vars.sceneTitle).innerText;
-        let scriptData = window.ScriptAdapter.scriptDataStore.data
-        let getTheNextAct = false
-        let isFirstItem = true
-        for (const [key, value] of Object.entries(scriptData)) {
-            // replace &nbsp; with space
-            let valueContent = ""
-            try {
-                valueContent = value.content.replace(/&nbsp;/g, " ")
-            } catch (error) {
-                valueContent = value.content
-            }
-            if (isFirstItem) {
-                isFirstItem = false
-                if (value.type === 'act') {
-                    const firstLabel = document.querySelectorAll('.act-name')[0]
-                    if (firstLabel) {
-                        firstLabel.innerText = valueContent.toUpperCase()
-                    }
-                }
-            }
-            if (getTheNextAct && value.type === 'act') {
-                const actName = document.createElement('label')
-                actName.classList.add('p-16', 'm-8', 'ft-size20', 'bold', 'act-name')
-                actName.style.textTransform = 'uppercase'
-                actName.innerText = valueContent.toUpperCase()
-                // if similar element with innerText exists, remove it
-                const similarElements = currentItemTemplate.parentNode.querySelectorAll(`.act-name`)
-                similarElements.forEach((element) => {
-                    if (element.innerText === valueContent) element.remove()
-                })
-                // add next to this item
-                currentItemTemplate.parentNode.insertBefore(actName, currentItemTemplate.nextSibling)
-                getTheNextAct = false
-            }
-            if (value?.type === 'scene-heading' && valueContent?.toLowerCase() === title?.toLowerCase()) {
-                getTheNextAct = true
-            }
-        }
-    }
-
     updateCardList() {
         let data = window.ScriptAdapter.scriptDataStore.outline;
         data = {};
@@ -370,14 +324,14 @@ class OutlineHandle {
         window.ScriptAdapter.autoSave();
         let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
         listData.forEach((card, index) => {
-            let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-            let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
-            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
-            let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-            let bgColor = card?.getAttribute("bg-value");
-            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
-            let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+            let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
+            let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
+            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
+            let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
+            let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
+            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+            let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
             const sceneID = {};
             scene.forEach((item, index) => {
                 const id = item?.getAttribute("outline-data-id")
@@ -397,7 +351,6 @@ class OutlineHandle {
             data[index] = obj;
         });
         window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
-        window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
     }
 
     updateDB() {
@@ -466,8 +419,6 @@ class OutlineHandle {
                     // Navigate to the particular content line through the content line id and target the contentLine element
                     const line = document.querySelector(this.vars.editorID.replace('%s', cid));
                     line.remove();
-                    // const draftKey = window.ScriptAdapter.currentDraftKey;
-                    // delete window.ScriptDataStore.draft[draftKey].data[cid];
                     window.Watcher.removeLine(cid);
                 });
                 item.remove();
@@ -498,6 +449,7 @@ class OutlineHandle {
         const isExist = [];
         let count = 0;
         let saveData = {}
+        this.count = 1
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading' || item.type === 'act') {
                 isExist.push(item.id);
@@ -601,13 +553,19 @@ class OutlineHandle {
                 div.setAttribute('react-sbid', data?.sbID);
                 div.setAttribute('mapreact-data', "outline-item");
                 div.setAttribute('type', 'act');
+                div.setAttribute('bg-value', data?.color);
                 div.classList.add('act-name');
                 div.style.fontSize = '16px';
                 div.style.fontWeight = 'bold';
                 div.style.marginLeft = '10px';
-                div.innerHTML = data.name.toUpperCase();
+                if(this.count === 1) {
+                    div.style.marginTop = '10px'
+                }else{
+                    div.style.marginTop = '60px'
+                }
+                this.count += 1;
+                div.innerHTML = data?.name.toUpperCase();
                 this.mainOutlineListTemp.appendChild(div);
-
                 // Add outline scene Title div
                 const outlineSceneTitle = document.createElement('div');
                 outlineSceneTitle.setAttribute('outline-data', "scene-title");
@@ -631,6 +589,7 @@ class OutlineHandle {
                 const page = document.createElement('div');
                 page.setAttribute('outline-data', "page");
                 page.classList.add('hide');
+                page.innerText = data.pageNumber;
                 div.append(page);
 
                 // Add outline data index div
@@ -645,6 +604,13 @@ class OutlineHandle {
                 sceneList.setAttribute('outline-data', "scene-list");
                 div.append(sceneList);
 
+                // add scene-item-title div element
+                const sceneItemTitle = document.createElement('div');
+                sceneItemTitle.setAttribute('outline-data', "scene-item-title");
+                sceneItemTitle.classList.add('hide');
+                sceneItemTitle.innerText = data?.name?.toUpperCase();
+                sceneList.append(sceneItemTitle);
+
                 // Render and Update scene item
                 data?.scenes.forEach((scene) => {
                     const div = document.createElement('div');
@@ -655,9 +621,7 @@ class OutlineHandle {
                     //Append to Scene Wrapper
                     sceneList.append(div);
                 });
-
-            }
-            else {
+            } else {
                 //Update title
                 const title = template.querySelector(this.vars.sceneTitle);
                 title.textContent = data?.name?.toUpperCase();
@@ -689,7 +653,7 @@ class OutlineHandle {
                 } else {
                     window.ScriptDataStore.draft[draftKey].data[data?.sbID] = {
                         id: data?.sbID,
-                        content: data?.name,
+                        content: data?.name.toUpperCase(),
                         type: data?.type,
                         color: data?.color,
                         unique_key: data?.position,
@@ -708,7 +672,7 @@ class OutlineHandle {
                 [...sceneWrapper.children].forEach(sh => sh.remove());
 
                 //Update and Append scene heading
-                sceneItemTitle.textContent = data?.name;
+                sceneItemTitle.textContent = data?.name.toUpperCase();
                 sceneItemTitle.setAttribute(this.rpAttr, data?.id);
                 sceneItemTitle.setAttribute(this.vars.idAttrName, data?.sbID); // Set script body id
 
@@ -759,10 +723,8 @@ class OutlineHandle {
             //Append
             this.rsOutlineListTemp.append(template);
         }
-
         // Enable outLine functionality
         this.setUp(currentItemTemplate);
-        // this.renderActName(currentItemTemplate);
     }
 }
 
