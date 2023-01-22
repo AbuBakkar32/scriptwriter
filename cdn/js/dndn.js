@@ -2,8 +2,6 @@ let selector = 'drag-sort-enable-2';
 
 function enableDragSort(listClass) {
     setTimeout(() => {
-        // window.ScriptAdapter.scriptDataStore.outline = {};
-        // window.ScriptAdapter.autoSave();
         const sortableLists = document.getElementsByClassName(listClass);
         saveChangedCardList(swData = `[mapreact-data="outline-item"]`);
         Array.prototype.map.call(sortableLists, (list) => {
@@ -29,7 +27,7 @@ function enableDragItem(item) {
 
 function handleDrag(item) {
     item.target.removeAttribute('style');
-    const selectedItem = item.target, list = selectedItem.parentNode, x = event.clientX, y = event.clientY;
+    const selectedItem = item.target, list = selectedItem.parentNode, x = item.clientX, y = item.clientY;
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
     if (list === swapItem.parentNode) {
@@ -66,17 +64,19 @@ function saveChangedCardListPinboard(swData) {
 }
 
 function ChangeAndSaveDataOutline(swData) {
-    let data = window.ScriptAdapter.scriptDataStore.outline = {};
+    window.ScriptAdapter.scriptDataStore.outline = {};
     window.ScriptAdapter.autoSave();
-    let listData = document.querySelectorAll(swData)
+    let listData = document.querySelectorAll(swData);
+    let data = window.ScriptAdapter.scriptDataStore.outline;
+
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
-        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
-        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
-        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
-        let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ?? 0;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ?? card?.querySelector(`[outline-data="scene-title"]`)?.innerText ?? "";
+        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ?? "";
+        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ?? 0;
+        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ?? 0;
+        let bgColor = card?.getAttribute("bg-value") ?? "";
+        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ?? "";
         let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
         const sceneID = {};
         scene.forEach((item, index) => {
@@ -96,25 +96,27 @@ function ChangeAndSaveDataOutline(swData) {
         }
         data[index] = obj;
     });
-    window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
 }
 
+
 function ChangeAndSaveData(swData) {
-    let data = window.ScriptAdapter.scriptDataStore.outline = {};
+    window.ScriptAdapter.scriptDataStore.outline = {};
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData);
+    let data = window.ScriptAdapter.scriptDataStore.outline;
+
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
-        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
-        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
-        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
-        let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
-        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ?? 0;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ?? card?.querySelector(`[outline-data="scene-title"]`)?.innerText ?? "";
+        let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ?? "";
+        let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ?? 0;
+        let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ?? 0;
+        let bgColor = card?.getAttribute("bg-value") ?? "";
+        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ?? "";
+        let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
         const sceneID = {};
         scene.forEach((item, index) => {
-            const id = item?.getAttribute("outline-data-id")
+            const id = item?.getAttribute("outline-data-id");
             sceneID[id] = id;
         })
 
@@ -130,33 +132,36 @@ function ChangeAndSaveData(swData) {
         }
         data[index] = obj;
     });
-    window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     window.ScriptAdapter.autoSave();
     saveChangedCardList(swData);
 }
 
 function saveChangedCardList(swData) {
-    let listData = document.querySelectorAll(swData);
+    let list = document.querySelectorAll(swData);
     let count = 0;
     try {
-        listData.forEach((card, index) => {
-            if(!window.ScriptAdapter.scriptDataStore.outline[index].title.toLowerCase().startsWith('act')){count++;}
+        list.forEach((card, index) => {
+            if (!window.ScriptAdapter.scriptDataStore.outline[index].title.toLowerCase().startsWith('act')) {
+                count++;
+            }
+            let outlineData = window.ScriptAdapter.scriptDataStore.outline[index];
             card.querySelector(`[outline-data="index"]`).innerText = count;
-            card.querySelector(`[outline-data="scene-title"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].title;
-            card.querySelector(`[outline-data="scene-item-title"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].title;
-            card.querySelector(`[outline-data="scene-goal"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].goal;
-            card.querySelector(`[outline-data="emotional-value"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
-            card.querySelector(`[outline-data="page"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
-            card.setAttribute("bg-value", window.ScriptAdapter.scriptDataStore.outline[index].color);
-            card.querySelector(`[outline-data="scene-title"]`).setAttribute('react-sbid', window.ScriptAdapter.scriptDataStore.outline[index].sbID);
+            card.querySelector(`[outline-data="scene-title"]`).innerText = outlineData.title;
+            card.querySelector(`[outline-data="scene-item-title"]`).innerText = outlineData.title;
+            card.querySelector(`[outline-data="scene-goal"]`).innerText = outlineData.goal;
+            card.querySelector(`[outline-data="emotional-value"]`).innerText = outlineData.emotional_value;
+            card.querySelector(`[outline-data="page"]`).innerText = outlineData.page_no;
+            card.setAttribute("bg-value", outlineData.color);
+            card.querySelector(`[outline-data="scene-title"]`).setAttribute('react-sbid', outlineData.sbID);
             card.classList.forEach((item) => {
                 if (item.includes("bg-")) {
                     card.classList.remove(item);
-                    card.classList.add(window.ScriptAdapter.scriptDataStore.outline[index].color);
+                    card.classList.add(outlineData.color);
                 }
             });
         });
     } catch (e) {
+        console.error(e);
     }
 }
 

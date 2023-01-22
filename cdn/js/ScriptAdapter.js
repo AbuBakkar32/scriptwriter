@@ -315,7 +315,6 @@ class ScriptAdapter {
             await window.NoteHandle?.clear();
             let draft = this.scriptDataStore.draft[draftKey];
             let draftDataKeys;
-            let dataList;
             // delete unrefined object from the draft
             if (draft.data.length > 0) {
                 draft = draft.data.filter((line) => {
@@ -707,41 +706,6 @@ class ScriptAdapter {
         });
 
         return data;
-    }
-
-    getOutlineContent() {
-        let data = window.ScriptAdapter.scriptDataStore.outline = {};
-        window.ScriptAdapter.autoSave();
-        let listData = document.querySelectorAll(swData);
-        listData.forEach((card, index) => {
-            let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
-            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
-            let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-            let bgColor = card?.getAttribute("bg-value");
-            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid");
-            let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
-            const sceneID = {};
-            scene.forEach((item, index) => {
-                const id = item?.getAttribute("outline-data-id");
-                sceneID[id] = id;
-            })
-
-            let obj = {
-                id: index,
-                title: title,
-                goal: goal,
-                emotional_value: emotional_value,
-                page_no: page_no,
-                color: bgColor,
-                sbID: sbID,
-                sceneListId: sceneID
-            }
-            data[index] = obj;
-        });
-        window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
-        window.ScriptAdapter.scriptDataStore["isDrag"] = 'False';
-        window.ScriptAdapter.autoSave();
     }
 
     save() {
