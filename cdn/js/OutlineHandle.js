@@ -25,6 +25,7 @@ class OutlineHandle {
     mainPageChanges = false;
     storeName = [];
     count = 1;
+    index = 1;
 
     constructor() {
         this.vars = {
@@ -165,17 +166,17 @@ class OutlineHandle {
                 // Disable to edit any outline
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
                     el.removeAttribute("draggable");
-                    document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "false");
-                    document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "false");
-                    document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "false");
+                    document.querySelectorAll(this.vars.sceneTitle)[index]?.setAttribute("contenteditable", "false");
+                    document.querySelectorAll(this.vars.sceneGoal)[index]?.setAttribute("contenteditable", "false");
+                    document.querySelectorAll(this.vars.ev)[index]?.setAttribute("contenteditable", "false");
                 });
             } else {
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
                     if (el.classList.contains('relative')) {
                         el.setAttribute("draggable", "true");
-                        document.querySelectorAll(this.vars.sceneTitle)[index].setAttribute("contenteditable", "true");
-                        document.querySelectorAll(this.vars.sceneGoal)[index].setAttribute("contenteditable", "true");
-                        document.querySelectorAll(this.vars.ev)[index].setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.sceneTitle)[index]?.setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.sceneGoal)[index]?.setAttribute("contenteditable", "true");
+                        document.querySelectorAll(this.vars.ev)[index]?.setAttribute("contenteditable", "true");
                     }
                 });
             }
@@ -325,13 +326,13 @@ class OutlineHandle {
         window.ScriptAdapter.autoSave();
         let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
         listData.forEach((card, index) => {
-            let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
-            let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+            let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
+            let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
             let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
             let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
             let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-            let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+            let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
             let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
             const sceneID = {};
             scene.forEach((item, index) => {
@@ -350,7 +351,6 @@ class OutlineHandle {
                 sceneListId: sceneID
             }
             data[index] = obj;
-            console.log(data)
         });
         window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     }
@@ -450,6 +450,7 @@ class OutlineHandle {
         let count = 0;
         let saveData = {}
         this.count = 1
+        this.index = 1
         this.contentStore.forEach((item, index) => {
             if (item.type === 'scene-heading' || item.type === 'act') {
                 isExist.push(item.id);
@@ -464,7 +465,7 @@ class OutlineHandle {
                 return window?.ScriptAdapter?.scriptDataStore?.outline[key];
             });
             saveData.forEach((item) => {
-                if (item?.title) {
+                if (item) {
                     this.storeName.push(item?.title?.toLowerCase());
                 }
             });
@@ -486,7 +487,7 @@ class OutlineHandle {
                     const scriptBodyID = item?.sbID;
                     const pageNumber = item?.pageNumber;
                     const scene_goal = dataset?.others?.scenegoal ? dataset?.others?.scenegoal : '';
-                    const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : '';
+                    const evaluation_value = dataset?.others?.ev ? dataset?.others?.ev : 0;
 
                     //Get all other scene type that is under this scene heading
                     for (let i = index + 1; i < this.contentStore.length; i++) {
@@ -577,12 +578,14 @@ class OutlineHandle {
                 const outlineGoal = document.createElement('div');
                 outlineGoal.setAttribute('outline-data', "scene-goal");
                 outlineGoal.classList.add('hide');
+                outlineGoal.innerText = data?.scene_goal;
                 div.append(outlineGoal);
 
                 // Add outline emotional value div
                 const outlineEmotionalValue = document.createElement('div');
                 outlineEmotionalValue.setAttribute('outline-data', "emotional-value");
                 outlineEmotionalValue.classList.add('hide');
+                outlineEmotionalValue.innerText = data?.evaluation_value;
                 div.append(outlineEmotionalValue);
 
                 // Add outline page section
@@ -630,7 +633,8 @@ class OutlineHandle {
 
                 //Update Index
                 const indexEle = template.querySelector(this.vars.index);
-                indexEle.textContent = data?.position;
+                indexEle.textContent = this.index;
+                this.index += 1;
 
                 // Update Page Number
                 template.querySelector(this.vars.page).textContent = data?.pageNumber;

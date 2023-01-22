@@ -137,12 +137,12 @@ function swSelectItem() {
         Array.prototype.slice.call(getItems.children).forEach((sel) => {
             sel.addEventListener('click', function () {
                 if (useImage) {
-                    setItem.innerHTML = sel.querySelector('img').outerHTML.toUpperCase();
+                    setItem.innerHTML = sel.querySelector('img').outerHTML;
                     setItem.querySelector('img').classList.replace('img30', 'img40');
                     //Hide the wrapper for get items
                     getItems.style.display = '';
                 } else {
-                    setItem.textContent = this.textContent.toUpperCase();
+                    setItem.textContent = this.textContent;
                     //Hide the wrapper for get items
                     getItems.style.display = '';
                 }
