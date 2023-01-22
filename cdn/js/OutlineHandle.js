@@ -77,19 +77,9 @@ class OutlineHandle {
         [...this.mainOutlineListTemp.children].forEach((el) => {
             el.remove()
         });
-        setTimeout(() => {
-            if (!window?.ScriptAdapter?.scriptDataStore?.outline) {
-                try {
-                    window.ScriptAdapter.scriptDataStore.outline = {lock: 'False'};
-                    window.ScriptAdapter?.autoSave();
-                } catch (e) {
-                    return;
-                }
-            }
-        }, 100);
 
         setTimeout(() => {
-            if (window?.ScriptAdapter?.scriptDataStore?.outline?.lock === 'True') {
+            if (window.ScriptAdapter.scriptDataStore.draft[window.ScriptAdapter.currentDraftKey].lock === 'True') {
                 this.lockOutline();
             }
         }, 100)
@@ -124,7 +114,7 @@ class OutlineHandle {
                 unlockBtn?.classList.remove("hidden");
                 addBtn?.classList.remove("hidden");
             }
-            window.ScriptAdapter.scriptDataStore.outline["lock"] = 'True';
+            window.ScriptAdapter.scriptDataStore.draft[window.ScriptAdapter.currentDraftKey]["lock"] = 'True';
             window.ScriptAdapter.autoSave();
         })
 
@@ -144,7 +134,7 @@ class OutlineHandle {
                     });
                 }, 100)
             }
-            window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
+            window.ScriptAdapter.scriptDataStore.draft[window.ScriptAdapter.currentDraftKey]["lock"] = 'False';
             window.ScriptAdapter.autoSave();
         })
     }
@@ -162,7 +152,7 @@ class OutlineHandle {
 
     lockContent() {
         setTimeout(() => {
-            if (window.ScriptAdapter.scriptDataStore.outline.lock === 'True') {
+            if (window.ScriptAdapter.scriptDataStore.draft[window.ScriptAdapter.currentDraftKey].lock === 'True') {
                 // Disable to edit any outline
                 document.querySelectorAll(this.vars.mainMrItem).forEach((el, index) => {
                     el.removeAttribute("draggable");
@@ -214,7 +204,7 @@ class OutlineHandle {
         });
 
         item?.addEventListener('mousemove', () => {
-            if (window.ScriptAdapter.scriptDataStore.outline.lock === 'True') {
+            if (window.ScriptAdapter.scriptDataStore.draft[window.ScriptAdapter.currentDraftKey].lock === 'True') {
                 hide?.classList.add('hide');
             } else {
                 if (hide?.classList.contains('hide')) hide?.classList.remove('hide');
@@ -320,23 +310,23 @@ class OutlineHandle {
     }
 
     updateCardList() {
-        let data = window.ScriptAdapter.scriptDataStore.outline;
-        data = {};
-        window.ScriptAdapter.scriptDataStore.outline = data;
+        window.ScriptAdapter.scriptDataStore.outline = {};
         window.ScriptAdapter.autoSave();
-        let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
+        let listData = document.querySelectorAll(swData);
+        let data = window.ScriptAdapter.scriptDataStore.outline;
+
         listData.forEach((card, index) => {
-            let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
-            let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
-            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
-            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
-            let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
-            let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-            let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+            let id = card?.querySelector(`[outline-data="index"]`)?.innerText ?? 0;
+            let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ?? card?.querySelector(`[outline-data="scene-title"]`)?.innerText ?? "";
+            let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ?? "";
+            let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ?? 0;
+            let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ?? 0;
+            let bgColor = card?.getAttribute("bg-value") ?? "";
+            let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ?? "";
             let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
             const sceneID = {};
             scene.forEach((item, index) => {
-                const id = item?.getAttribute("outline-data-id")
+                const id = item?.getAttribute("outline-data-id");
                 sceneID[id] = id;
             })
 
@@ -352,7 +342,6 @@ class OutlineHandle {
             }
             data[index] = obj;
         });
-        window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     }
 
     updateDB() {
@@ -392,6 +381,7 @@ class OutlineHandle {
                 window.Watcher.mainPageAwait(false);
                 window.Watcher.conditionState();
                 this.updateDB();
+                enableDragSort('drag-sort-enable-outline');
                 window.MapAndReactOnContent.mapreact();
                 this.mainPageChanges = true;
             });
@@ -426,6 +416,7 @@ class OutlineHandle {
                 document.querySelector(this.vars.rsIdAttr.replace('%s', contentLineID))?.remove();
             }).then(() => {
                 this.updateDB();
+                enableDragSort('drag-sort-enable-outline');
                 window.MapAndReactOnContent.mapreact();
             }).then(() => {
                 window.Watcher.mainPageAwait(false);
@@ -435,40 +426,33 @@ class OutlineHandle {
         });
     }
 
-    outlineHandle(contenStore) {
+    outlineHandle(contentStore) {
         // Clear template
-        [...this.rsOutlineListTemp.children].forEach((el) => {
-            el.remove()
+        [...this.rsOutlineListTemp.children].forEach(el => {
+            el.remove();
         });
-        [...this.mainOutlineListTemp.children].forEach((el) => {
-            el.remove()
+        [...this.mainOutlineListTemp.children].forEach(el => {
+            el.remove();
         });
         // Set new content store value
-        this.contentStore = contenStore;
-        const listOfOutline = [];
-        const isExist = [];
+        this.contentStore = contentStore;
         let count = 0;
-        let saveData = {}
-        this.count = 1
-        this.index = 1
-        this.contentStore.forEach((item, index) => {
-            if (item.type === 'scene-heading' || item.type === 'act') {
-                isExist.push(item.id);
-            }
-        })
-        if (isExist.length === 0) {
+        let saveData = {};
+        let listOfOutline = [];
+        this.count = 1;
+        this.index = 1;
+        const isExist = this.contentStore.some(item => item.type === 'scene-heading' || item.type === 'act');
+        if (!isExist) {
             window.ScriptAdapter.scriptDataStore.outline = {};
             window.ScriptAdapter.autoSave();
         }
         try {
-            saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map((key) => {
-                return window?.ScriptAdapter?.scriptDataStore?.outline[key];
-            });
-            saveData.forEach((item) => {
-                if (item) {
-                    this.storeName.push(item?.title?.toLowerCase());
-                }
-            });
+            saveData = Object.keys(window?.ScriptAdapter?.scriptDataStore?.outline).map(
+                key => window?.ScriptAdapter?.scriptDataStore?.outline[key]
+            );
+            this.storeName = saveData
+                .map(item => item?.title?.toLowerCase())
+                .filter(name => name);
         } catch (e) {
             saveData = {};
         }
