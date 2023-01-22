@@ -300,7 +300,6 @@ class ScriptAdapter {
 
     async renderDraftContent(draftKey, callback = () => {
     }, skipObserver = false) {
-        // const startTime = performance.now();
         /** Await Starts*/
         const isPro = localStorage.getItem('userData');
         window.Watcher.bothAwait()
