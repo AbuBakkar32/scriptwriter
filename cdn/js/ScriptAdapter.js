@@ -302,6 +302,7 @@ class ScriptAdapter {
     }, skipObserver = false) {
         // const startTime = performance.now();
         /** Await Starts*/
+        const isPro = localStorage.getItem('userData');
         window.Watcher.bothAwait()
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
@@ -324,28 +325,31 @@ class ScriptAdapter {
             // Get the draft data keys
             if (draft) {
                 // Get the draft data values
-                const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
-                if (data.length > 0) {
-                    data.forEach((item) => {
-                        if (item.title) {
-                            if (!this.keyList.includes(item.sbID)) {
-                                this.keyList.push(item.sbID);
+                if (isPro.toLowerCase() === 'pro') {
+                    const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
+                    if (data.length > 0) {
+                        data.forEach((item) => {
+                            if (item.title) {
+                                if (!this.keyList.includes(item.sbID)) {
+                                    this.keyList.push(item.sbID);
+                                }
+                                const scene = Object.values(item.sceneListId);
+                                if (scene.length > 0) {
+                                    scene.forEach((item) => {
+                                        if (!this.keyList.includes(item.sbID)) {
+                                            this.keyList.push(item);
+                                        }
+                                    });
+                                }
                             }
-                            const scene = Object.values(item.sceneListId);
-                            if (scene.length > 0) {
-                                scene.forEach((item) => {
-                                    if (!this.keyList.includes(item.sbID)) {
-                                        this.keyList.push(item);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                    draftDataKeys = this.keyList;
+                        });
+                        draftDataKeys = this.keyList;
+                    } else {
+                        draftDataKeys = Object.keys(draft.data)
+                    }
                 } else {
                     draftDataKeys = Object.keys(draft.data)
                 }
-                // console.log(this.keyList);
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 

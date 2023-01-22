@@ -43,6 +43,7 @@ class ClientSetting {
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
             this.getData = res;
+            localStorage.setItem('userData', this.getData.accountType);
             // Set night mode status
             setTimeout(() => {
                 if (res.nightMode) {
