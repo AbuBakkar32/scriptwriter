@@ -70,13 +70,13 @@ function ChangeAndSaveDataOutline(swData) {
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData)
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
         let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
         let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-        let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
         let scene = card?.querySelectorAll(`[outline-data="scene-item"]`)
         const sceneID = {};
         scene.forEach((item, index) => {
@@ -104,13 +104,13 @@ function ChangeAndSaveData(swData) {
     window.ScriptAdapter.autoSave();
     let listData = document.querySelectorAll(swData);
     listData.forEach((card, index) => {
-        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : '0';
-        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : 'Rakib';
+        let id = card?.querySelector(`[outline-data="index"]`)?.innerText ? card?.querySelector(`[outline-data="index"]`)?.innerText : 0;
+        let title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText ? card?.querySelector(`[outline-data="scene-item-title"]`)?.innerText : card.querySelector(`[outline-data="scene-title"]`)?.innerText;
         let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerText ? card?.querySelector(`[outline-data="scene-goal"]`)?.innerText : "";
         let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerText ? card?.querySelector(`[outline-data="emotional-value"]`)?.innerText : 0;
         let page_no = card?.querySelector(`[outline-data="page"]`)?.innerText ? card?.querySelector(`[outline-data="page"]`).innerText : 0;
         let bgColor = card?.getAttribute("bg-value") ? card?.getAttribute("bg-value") : "";
-        let sbID = card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
+        let sbID = card?.querySelector(`[outline-data="scene-title"]`)?.getAttribute("react-sbid") ? card?.querySelector(`[outline-data="scene-title"]`).getAttribute("react-sbid") : "";
         let scene = card?.querySelectorAll(`[outline-data="scene-item"]`);
         const sceneID = {};
         scene.forEach((item, index) => {
@@ -129,7 +129,6 @@ function ChangeAndSaveData(swData) {
             sceneListId: sceneID
         }
         data[index] = obj;
-        console.log(data)
     });
     window.ScriptAdapter.scriptDataStore.outline["lock"] = 'False';
     window.ScriptAdapter.autoSave();
@@ -138,14 +137,16 @@ function ChangeAndSaveData(swData) {
 
 function saveChangedCardList(swData) {
     let listData = document.querySelectorAll(swData);
+    let count = 0;
     try {
         listData.forEach((card, index) => {
-            card.querySelector(`[outline-data="index"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].id + 1;
-            card.querySelector(`[outline-data="scene-title"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].title;
-            card.querySelector(`[outline-data="scene-item-title"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].title;
-            card.querySelector(`[outline-data="scene-goal"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].goal;
-            card.querySelector(`[outline-data="emotional-value"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
-            card.querySelector(`[outline-data="page"]`).innerHTML = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
+            if(!window.ScriptAdapter.scriptDataStore.outline[index].title.toLowerCase().startsWith('act')){count++;}
+            card.querySelector(`[outline-data="index"]`).innerText = count;
+            card.querySelector(`[outline-data="scene-title"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].title;
+            card.querySelector(`[outline-data="scene-item-title"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].title;
+            card.querySelector(`[outline-data="scene-goal"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].goal;
+            card.querySelector(`[outline-data="emotional-value"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].emotional_value;
+            card.querySelector(`[outline-data="page"]`).innerText = window.ScriptAdapter.scriptDataStore.outline[index].page_no;
             card.setAttribute("bg-value", window.ScriptAdapter.scriptDataStore.outline[index].color);
             card.querySelector(`[outline-data="scene-title"]`).setAttribute('react-sbid', window.ScriptAdapter.scriptDataStore.outline[index].sbID);
             card.classList.forEach((item) => {

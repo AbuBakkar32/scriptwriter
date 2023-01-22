@@ -92,7 +92,6 @@ class EditorMode {
             // if adding note, do not add text to the page
             const target = e.target;
             const targetClass = target.className;
-            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             if (targetClass.includes('noteInput')) {
                 return;
             }
@@ -109,9 +108,17 @@ class EditorMode {
                     if (res.onePageWriting === 'true') {
                         this.watcherStatus = true;
                         this.watcherOnePage();
+                        setTimeout(() => {
+                            window.MapAndReactOnContent.mapreact();
+                        });
+                        ChangeAndSaveData(`[mapreact-data="outline-item"]`);
                     } else {
                         this.watcherStatus = true;
                         this.watcher();
+                        setTimeout(() => {
+                            window.MapAndReactOnContent.mapreact();
+                        });
+                        ChangeAndSaveData(`[mapreact-data="outline-item"]`);
                     }
                 });
 
@@ -123,15 +130,21 @@ class EditorMode {
                 this.removeBlankPage();
                 // update the element focus edit
                 this.updateLastFocusEdit();
+                setTimeout(() => {
+                    window.MapAndReactOnContent.mapreact();
+                });
                 // save content
                 window.ScriptAdapter.autoSave();
                 // arrange page number
                 this.calculatePageNumbers();
+                ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             } else {
                 this.watcherStatus = false;
                 this.watcher();
+                ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             }
             this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length;
+            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
         });
 
         // calculate page number
@@ -563,12 +576,13 @@ class EditorMode {
             if (!slist.classList.contains("hide")) slist.classList.add("hide");
         }
         try {
-        suggestion.forEach((e) => {
-            if (e.name.match(line.innerText)) {
-                list.push(e.name);
-            }
-        });
-        } catch (error) {}
+            suggestion.forEach((e) => {
+                if (e.name.match(line.innerText)) {
+                    list.push(e.name);
+                }
+            });
+        } catch (error) {
+        }
         if (list.length <= 0) if (!slist.classList.contains("hide")) slist.classList.add("hide");
 
         const listDiv = document.createElement('div');
@@ -594,6 +608,7 @@ class EditorMode {
         });
         slist.append(listDiv)
     }
+
 // END - Suggestion Function For on time character suggestion
 
     updateLastFocusEdit() {
