@@ -38,11 +38,11 @@ class ScriptAdapter {
         }
     }
 
-    autoSave() {
+    autoSave(note={}) {
         if (!this.isToSave) {
             this.isToSave = true;
             setTimeout(() => {
-                this.save();
+                this.save(note);
                 this.isToSave = false;
             }, 200);
         }
@@ -671,10 +671,14 @@ class ScriptAdapter {
             const clColor = line.getAttribute('sw-editor-color');
             const characterID = line.getAttribute('sw-editor-character-id');
 
+            let draft = window.ScriptDataStore.draft
+            const activeKeyName = Object.keys(draft).filter(d => draft[d].active)[0]
+            const note = window?.ScriptDataStore?.draft[activeKeyName]?.data[clID]?.note
+
             //create the line array
             data[clID] = {
                 id: clID, content: htmlText, type: lineType, color: clColor, others: {},
-                note: {text: '', authorID: '', authorName: '', date: '', color: ''}
+                note: note? note : {text: '', authorID: '', authorName: '', date: '', color: ''}
             }
 
             // Add others
@@ -711,9 +715,9 @@ class ScriptAdapter {
         return data;
     }
 
-    save() {
+    save(note) {
         // get the current script content on page
-        const getCurrentContent = this.getContent();
+        const getCurrentContent = this.getContent(note);
         // Store the previous draft content
         this.scriptDataStore.draft[this.currentDraftKey].data = getCurrentContent;
         // update the script data
