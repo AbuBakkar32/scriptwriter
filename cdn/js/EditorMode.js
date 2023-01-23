@@ -7,6 +7,9 @@ class EditorMode {
     currentLineList = {};
     // constants
     cons;
+    // attribute name
+    // attrName = `sw-editor-mode`;
+    // new db array
     dbArray = {};
     // later ids
     idList = [];
@@ -28,6 +31,7 @@ class EditorMode {
     // last edited line
     lastFocusEdit;
     inputFieldNumber;
+    hasChange;
 
     constructor(attrName) {
         this.attrName = attrName;
@@ -35,12 +39,24 @@ class EditorMode {
             list: `[${this.attrName}="list"]`,
             item: `[${this.attrName}="item"]`,
             line: `[${this.attrName}-type]`,
-            a: 'action', at: 'action-type', t: 'transition', tt: 'transition-type',
-            d: 'dialog', dt: 'dialog-type', pa: 'parent-article', pat: 'parent-article-type',
-            c: 'character', ct: 'character-type', sh: 'scene-heading', sht: 'scene-heading-type',
-            editType: `${this.attrName}-type`, editID: `${this.attrName}-id`,
-            editCharacterID: `${this.attrName}-character-id`, editColor: `${this.attrName}-color`,
-            ac: 'act', act: 'act-type',
+            a: 'action',
+            at: 'action-type',
+            t: 'transition',
+            tt: 'transition-type',
+            d: 'dialog',
+            dt: 'dialog-type',
+            pa: 'parent-article',
+            pat: 'parent-article-type',
+            c: 'character',
+            ct: 'character-type',
+            sh: 'scene-heading',
+            sht: 'scene-heading-type',
+            editType: `${this.attrName}-type`,
+            editID: `${this.attrName}-id`,
+            editCharacterID: `${this.attrName}-character-id`,
+            editColor: `${this.attrName}-color`,
+            ac: 'act',
+            act: 'act-type',
         };
         this.editorModeList = document.querySelector(this.cons.list);
         this.editorModeItem = document.querySelector(this.cons.item);
@@ -63,7 +79,7 @@ class EditorMode {
         this.anyWhereWrap = document.querySelector(`[sw-element-anywhere="wrap"]`);
         const pageNumber = document.querySelector(`[sw-page-number="item"]`);
         this.pageNumberClone = pageNumber.cloneNode(true);
-        pageNumber?.remove()
+        pageNumber?.remove();
         // icons dom
         const leftIcon = document.querySelector(`[sw-icon="left"]`);
         const rightIcon = document.querySelector(`[sw-icon="right"]`);
@@ -92,9 +108,17 @@ class EditorMode {
                     if (res.onePageWriting === 'true') {
                         this.watcherStatus = true;
                         this.watcherOnePage();
+                        setTimeout(() => {
+                            window.MapAndReactOnContent.mapreact();
+                        });
+                        ChangeAndSaveData(`[mapreact-data="outline-item"]`);
                     } else {
                         this.watcherStatus = true;
                         this.watcher();
+                        setTimeout(() => {
+                            window.MapAndReactOnContent.mapreact();
+                        });
+                        ChangeAndSaveData(`[mapreact-data="outline-item"]`);
                     }
                 });
 
@@ -106,60 +130,26 @@ class EditorMode {
                 this.removeBlankPage();
                 // update the element focus edit
                 this.updateLastFocusEdit();
+                setTimeout(() => {
+                    window.MapAndReactOnContent.mapreact();
+                });
                 // save content
                 window.ScriptAdapter.autoSave();
                 // arrange page number
                 this.calculatePageNumbers();
+                ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             } else {
                 this.watcherStatus = false;
                 this.watcher();
+                ChangeAndSaveData(`[mapreact-data="outline-item"]`);
             }
-            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length
+            this.textLength = this.editorModeList.innerText.replace(/\n/g, '').length;
+            ChangeAndSaveData(`[mapreact-data="outline-item"]`);
         });
 
         // calculate page number
         this.calculatePageNumbers();
     }
-
-    // updateCardList() {
-    //     setTimeout(() => {
-    //         let data = window.ScriptAdapter.scriptDataStore.outline;
-    //         data = {};
-    //         window.ScriptAdapter.scriptDataStore.outline = data;
-    //         window.ScriptAdapter.autoSave();
-    //         let listData = document.querySelectorAll(`[mapreact-data="outline-item"]`);
-    //         listData.forEach((card, index) => {
-    //             let id = card?.querySelector(`[outline-data="index"]`)?.innerHTML;
-    //             let title = card?.querySelector(`[outline-data="scene-title"]`)?.innerHTML;
-    //             let goal = card?.querySelector(`[outline-data="scene-goal"]`)?.innerHTML;
-    //             let emotional_value = card?.querySelector(`[outline-data="emotional-value"]`)?.innerHTML;
-    //             let page_no = card?.querySelector(`[outline-data="page"]`).innerHTML;
-    //             let item_title = card?.querySelector(`[outline-data="scene-item-title"]`)?.innerHTML;
-    //             let bgColor = card?.getAttribute("bg-value");
-    //             let scene_list = {};
-    //             card?.querySelectorAll(`[outline-data="scene-list"]`).forEach((scene, index) => {
-    //                 scene?.querySelectorAll(`[outline-data="scene-item"]`).forEach((item, index) => {
-    //                     let scene_item = {
-    //                         scene_item: item?.innerHTML
-    //                     };
-    //                     scene_list[index] = scene_item;
-    //                 });
-    //             });
-    //             let obj = {
-    //                 id: index,
-    //                 title: title,
-    //                 goal: goal,
-    //                 emotional_value: emotional_value,
-    //                 page_no: page_no,
-    //                 color: bgColor,
-    //                 item_title: item_title,
-    //                 scene_list: scene_list
-    //             }
-    //             data[index] = obj;
-    //         });
-    //         window.ScriptAdapter.scriptDataStore.outline["lock"] = false;
-    //     }, 200);
-    // }
 
     lineSignal(line = this.lineTemp) {
         line.addEventListener('click', (e) => {
@@ -206,8 +196,7 @@ class EditorMode {
         const lastLine = lineList[(lineList.length - 1)];
         if (lastLine) {
             const xid = lastLine.getAttribute(this.cons.editID);
-            if (xid) id += String(Number(xid.substr(1)) + 1);
-            else id += '0';
+            if (xid) id += String(Number(xid.substring(1)) + 1); else id += '0';
         } else id += '0';
 
         const lineIDList = [];
@@ -221,8 +210,7 @@ class EditorMode {
                 id = '0';
                 if (lastLine) {
                     const xid = lastLine.getAttribute(this.cons.editID);
-                    if (xid) id += String(Number(xid.substr(1)) + count);
-                    else id += String(count);
+                    if (xid) id += String(Number(xid.substring(1)) + count); else id += String(count);
                 } else id += String(count);
             } else break;
         }
@@ -326,7 +314,7 @@ class EditorMode {
 
                         // formate new line
                         this.formatContentLine(newCreatedElement);
-                        // this.handleContentLineNuetral(newCreatedElement);
+                        //this.handleContentLineNuetral(newCreatedElement);
                         newCreatedElement.setAttribute(this.cons.editID, newID);
                         //newCreatedElement.focus();
                         this.lineSignal(newCreatedElement);
@@ -387,7 +375,7 @@ class EditorMode {
             if (this.keyPressed !== 'Enter') return;
             this.rearrangePage(this.cons.item);
         }).then(() => {
-            if (this.keyPressed !== 'Enter') return;
+            //if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
             setTimeout(() => {
                 // trap to catch newly created line
@@ -398,6 +386,7 @@ class EditorMode {
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
+                        // console.log('target', target);
                         const newCreatedElement = duplicates[1]; // the newly created element
                         this.formatContentLine(target); // format previous line
                         // set color
@@ -469,14 +458,14 @@ class EditorMode {
                         // Add the new created id
                         this.idList.push(newID);
 
-                        /* setTimeout(() => {
+                        setTimeout(() => {
                             const mainEditor = newCreatedElement.parentElement.parentElement;
                             mainEditor.setAttribute('contenteditable', 'false');
                             // click on the script body
                             newCreatedElement.click();
                             newCreatedElement.focus();
                             mainEditor.setAttribute('contenteditable', 'true');
-                        }, 50); */
+                        }, 50);
 
                         break;
                     }
@@ -548,10 +537,9 @@ class EditorMode {
                             }
 
                             div.setAttribute(this.cons.editID, newID);
+
                             this.lineSignal(div);
-
                             div.innerText = text;
-
                             if (index === 0) {
                                 conl.insertAdjacentElement('afterend', div);
                                 conl.remove();
@@ -576,9 +564,57 @@ class EditorMode {
         return rangePromise;
     }
 
+    // START - Suggestion Function For on time character suggestion
+    onSuggestion(line) {
+        const slist = document.querySelector(`[sw-editor-suggetion="list"]`);
+        const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
+        let suggestion = new Set(data);
+        let list = [];
+        if (line.textContent !== '' && line.textContent === line.textContent.toUpperCase()) {
+            if (slist.classList.contains("hide")) slist.classList.remove("hide");
+        } else {
+            if (!slist.classList.contains("hide")) slist.classList.add("hide");
+        }
+        try {
+            suggestion.forEach((e) => {
+                if (e.name.match(line.innerText)) {
+                    list.push(e.name);
+                }
+            });
+        } catch (error) {
+        }
+        if (list.length <= 0) if (!slist.classList.contains("hide")) slist.classList.add("hide");
+
+        const listDiv = document.createElement('div');
+        listDiv.classList.add('suggestion-list');
+        listDiv.setAttribute('contenteditable', 'false');
+        listDiv.setAttribute('id', 'suggestion-list');
+
+        list.forEach((e) => {
+            const div = document.createElement('div');
+            div.classList.add('suggestion-item', 'hover');
+            div.setAttribute('contenteditable', 'false');
+            div.setAttribute('tabindex', '1');
+            div.textContent = e;
+            div.addEventListener('click', () => {
+                line.textContent = e;
+                listDiv.remove();
+                if (!slist.classList.contains("hide")) slist.classList.add("hide");
+                line.click();
+                line.click();
+                window.ScriptAdapter.autoSave();
+            })
+            listDiv.append(div);
+        });
+        slist.append(listDiv)
+    }
+
+// END - Suggestion Function For on time character suggestion
+
     updateLastFocusEdit() {
         if (this.lastFocusEdit && this.lastFocusEdit.innerHTML) {
             const getReactPosID = this.lastFocusEdit.getAttribute('react-pos');
+            this.onSuggestion(this.lastFocusEdit);
             if (!getReactPosID) return;
             const allReacters = document.querySelectorAll(`[react-pos="${getReactPosID}"]`);
             allReacters.forEach((rect) => {
@@ -595,14 +631,9 @@ class EditorMode {
     }
 
     formatContentLine(newLine) {
-        let getId = newLine.getAttribute("sw-editor-character-id")
-        if(newLine.getAttribute("sw-editor-character-id") === getId){
-            newLine.setAttribute("sw-editor-character-id", getId+1)
-        }
         let type = newLine.getAttribute(this.cons.editType);
         if (type === '') type = 'action';
         newLine.setAttribute(this.cons.editType, type);
-
         // get all element with sw-focused attribute
         const focusedElements = document.querySelectorAll('[sw-focused]');
         // remove all sw-focused attribute
@@ -610,6 +641,9 @@ class EditorMode {
             e.removeAttribute('sw-focused');
         });
         newLine.setAttribute("sw-focused", "edit")
+
+        const line = this.handleContentLineNuetral(newLine, type);
+        if (this.handleSceneHeadingType(line)) ; else if (this.handleCharater(line)) ; else if (this.handleParentArticle(line)) ; else if (this.handleDialog(line)) ; else if (this.handleTransition(line)) ; else if (this.handleActType(line)) ;
     }
 
     handleActType(line, direct = false) {
@@ -619,7 +653,7 @@ class EditorMode {
             return;
         }
         let verify = false;
-        if (line.innerText.toLowerCase().startsWith('int.') || line.innerText.toLowerCase().startsWith('ext.')) {
+        if (line.innerText.toLowerCase().startsWith('act.') || line.innerText.toLowerCase().startsWith('act')) {
             line.classList.replace(this.cons.at, this.cons.act);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.ac);
@@ -630,7 +664,7 @@ class EditorMode {
     }
 
     handleSceneHeadingType(line, direct = false) {
-        // for direct formatting of content
+        // for direct formatting of content line
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.sht);
             line.setAttribute(this.cons.editType, this.cons.sh);
@@ -689,8 +723,7 @@ class EditorMode {
         const num = '0123456789';
         const lineText = line.innerText;
         const transitionNames = ['fade in:', 'cut to:', 'back to:', 'fade out:'];
-        if (lineText && lineText.split('').length >= 3 && lineText.toUpperCase() === lineText &&
-            !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
+        if (lineText && lineText.split('').length >= 3 && !lineText.toLowerCase().startsWith('act') && lineText.toUpperCase() === lineText && !num.includes(lineText[0]) && !transitionNames.includes(lineText.toLowerCase())) {
             line.classList.replace(this.cons.at, this.cons.ct);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.c);
@@ -728,6 +761,7 @@ class EditorMode {
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
             line.setAttribute(this.cons.editType, this.cons.pa);
+            // line.innerText = '('+line.innerText+')';
             return;
         }
         // Checker if action on script content line execute successfully
@@ -754,22 +788,9 @@ class EditorMode {
         line.classList.remove(this.cons.at);
         line.classList.remove(this.cons.act);
         //line.classList.add(this.cons.at);
-        if (type === 'action') line.classList.add(this.cons.at);
-        else if (type === 'dialog') line.classList.add(this.cons.dt);
-        else if (type === 'character') line.classList.add(this.cons.ct);
-        else if (type === 'parent-article') line.classList.add(this.cons.pat);
-        else if (type === 'transition') line.classList.add(this.cons.tt);
-        else if (type === 'scene-heading') line.classList.add(this.cons.sht);
-        else if (type === 'act') line.classList.add(this.cons.act);
+        if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
-        //line.setAttribute(this.cons.editType, this.cons.a);
-        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a);
-        else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d);
-        else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c);
-        else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa);
-        else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t);
-        else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh);
-        else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
+        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
         return line;
     }
 
@@ -856,8 +877,7 @@ class EditorMode {
                     while (true) {
                         if (currentScrollHeight > this.pageHeight /* || page.childElementCount < 45 */) {
                             const firstOfNextPage = nextPage.firstElementChild;
-                            if (firstOfNextPage) page.insertAdjacentElement('beforeend', firstOfNextPage);
-                            else break;
+                            if (firstOfNextPage) page.insertAdjacentElement('beforeend', firstOfNextPage); else break;
                         } else break;
                     }
                 }

@@ -209,26 +209,35 @@
                 focused: '[sw-focused="edit"]',
                 selectedBtn: '[sw-btn-selected="true"]',
                 btnSelectAttr: "sw-btn-selected",
-                btnAttr: "sw-btn"
+                btnAttr: "sw-btn",
             }, this.swPageListTemp = document.querySelector(this.cons.list), this.swPageTemp = document.querySelector(this.cons.item)?.cloneNode(!0), this.lineTemp = document.querySelector(this.cons.line)?.cloneNode(!0), this.newlyCreatedLine = document.querySelector(this.cons.line), this.boldBtn = document.querySelectorAll('[sw-btn="bold"]'), this.italicBtn = document.querySelectorAll('[sw-btn="italic"]'), this.underlineBtn = document.querySelectorAll('[sw-btn="underline"]'), this.penPaintBtn = document.querySelectorAll('[sw-btn="penPaint"]'), this.textColorBtn = document.querySelectorAll('[sw-btn="textColor"]'), this.voiceRecordBtn = document.querySelectorAll('[sw-btn="voiceRecord"]'), this.audioPlayReaderBtn = document.querySelectorAll('[sw-btn="audioPlayReader"]'), this.downloadBtn = document.querySelectorAll('[sw-btn="download"]'), this.shareBtn = document.querySelectorAll('[sw-btn="share"]'), this.saveBtn = document.querySelectorAll('[sw-btn="save"]'), this.listener(), this.shortcutMenu = new h, this.textToSpeech = new c, this.speechToText = new l
         }
 
         listener() {
+            setTimeout(() => {
+                // window.ScriptAdapter.scriptDataStore.outline = {};
+                // window.ScriptAdapter.autoSave();
+                if (window.ClientSetting.getData.accountType === 'free') {
+                    this.sideBarHideAndShow();
+                }
+            }, 100)
             this.boldBtn.forEach(t => {
                 t.addEventListener("click", () => this.emis(t, "bold"))
-            }),
-                this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))),
-                this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))),
-                this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))),
-                this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))),
-                this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))),
-                this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))),
-                this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))),
-                this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))),
-                this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))),
-                this.totalNumberOfPage()
+            }), this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))), this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))), this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))), this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))), this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))), this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))), this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))), this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))), this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))), this.totalNumberOfPage()
         }
 
+        sideBarHideAndShow() {
+            const cutBtn = document.querySelector('[sw-top-menu="shortcut-btn"]');
+            const closeBtn = document.querySelector('[sw-top-menu="hide-btn"]');
+            const containerBtn = document.querySelectorAll('[sw-select-item="container"]')[2];
+            const wrapBtn = document.querySelector('[sw-top-menu="shortcut-wrap"]');
+            cutBtn.addEventListener('click', () => {
+                closeBtn.classList.contains('hide') ? closeBtn.classList.remove('hide') : closeBtn.classList.add('hide');
+                containerBtn.classList.contains('hidden') ? containerBtn.classList.remove('hidden') : containerBtn.classList.add('hidden');
+                cutBtn.classList.contains('hide') ? cutBtn.classList.remove('hide') : cutBtn.classList.add('hide');
+                wrapBtn.classList.contains('hidden') ? wrapBtn.classList.remove('hidden') : wrapBtn.classList.add('hidden');
+            });
+        }
 
         emis(t, e) {
             let s = document.querySelector(this.cons.selectedBtn);

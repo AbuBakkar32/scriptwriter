@@ -91,7 +91,7 @@ class MapAndReactOnContent {
                 // get the meta type
                 const metaType = mainTarget.getAttribute('sw-editor-type');
                 if (document.querySelectorAll(`[sw-select-item="set"]`).length > 3) {
-                    // position to set the name of the type of content line
+                    // postion to set the name of the type of content line
                     const typeNamePos = document.querySelector(`[sw-select-item="set"]`);
                     if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action';
                     else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog';
@@ -108,7 +108,7 @@ class MapAndReactOnContent {
     }
 
     geneateUniqueID() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        return Date.now().toString(36) + Math.random().toString(36).substring(2);
     }
 
     structureGuideHandle(contentStore = []) {
@@ -117,7 +117,7 @@ class MapAndReactOnContent {
             el.remove()
         });
 
-        // List of scenes and their text lenght
+        // List of scenes and their text length
         const scenesCals = {scenes: [], highestLenght: 0};
 
         const scenesTextLength = [];
@@ -132,7 +132,8 @@ class MapAndReactOnContent {
 
                 for (let i = pos + 1; i < this.contentStore.length; i++) {
                     const tem = this.contentStore[i];
-                    if (tem.type === 'scene-heading') break; else sceneTextLength += tem.content.innerText.length;
+                    if (tem.type === 'scene-heading') break;
+                    else sceneTextLength += tem.content.innerText.length;
                 }
                 scenesCals.scenes.push({element: item.content, textLength: sceneTextLength});
 
@@ -158,6 +159,7 @@ class MapAndReactOnContent {
         this.rsStructureList.appendChild(pageStructureWrap);
 
         const highestTextLenght = scenesCals.highestLenght;
+
         scenesCals.scenes.forEach((scene) => {
             const pageTextPercentage = scene.textLength / highestTextLenght * 100;
             // get the width size of the text in the script body content
@@ -214,7 +216,7 @@ class MapAndReactOnContent {
          * //the other key is an optional key that is only available for charater type, and is used to store charater script body 
          * element of the same value.
          *  }
-         */
+         **/
         //Clear previous stored contents
         this.contentStore = [];
 
@@ -241,9 +243,9 @@ class MapAndReactOnContent {
             uidCount += 1;
             const el = lineList[index];
             const mainElement = el;
-            const getType = el.getAttribute(this.cons.editType); // return either action or dialog or parathentical or scene-heading etc.
+            const getType = el.getAttribute(this.cons.editType); // return either action or dialog or parenthetical or scene-heading etc.
             const scriptBodyElement = el;
-            let uid = uidCount; //this.geneateUniqueID();
+            let uid = uidCount; //this.generateUniqueID();
             const ind = count;
             // script body id
             const sbID = el.getAttribute(this.cons.editID);
@@ -261,7 +263,8 @@ class MapAndReactOnContent {
 
                     }
                 }
-                if (readyID[cid]) uid = readyID[cid].uid; else readyID[cid] = {uid: uid, cid: cid};
+                if (readyID[cid]) uid = readyID[cid].uid;
+                else readyID[cid] = {uid: uid, cid: cid};
                 // set the map react id on script body element
                 scriptBodyElement.setAttribute('react-pos', uid);
                 const cat = {
@@ -284,14 +287,8 @@ class MapAndReactOnContent {
                 // set the map react id on script body element
                 scriptBodyElement.setAttribute('react-pos', uid);
                 const cat = {
-                    main: mainElement,
-                    type: getType,
-                    content: scriptBodyElement,
-                    id: uid,
-                    index: ind,
-                    sbID: sbID,
-                    color: sbColor,
-                    pageNumber: pageNumber
+                    main: mainElement, type: getType, content: scriptBodyElement, id: uid, index: ind,
+                    sbID: sbID, color: sbColor, pageNumber: pageNumber
                 };
                 this.contentStore.push(cat);
                 // Increase the count
@@ -301,12 +298,16 @@ class MapAndReactOnContent {
             //Append data to the DataForGraph Store
             if (getType === 'character') {
                 this.dataForGraph.push({
-                    type: 'character', name: scriptBodyElement.innerText, index: dataForGraphCount
+                    type: 'character',
+                    name: scriptBodyElement.innerText,
+                    index: dataForGraphCount
                 });
                 dataForGraphCount += 1;
             } else if (getType === 'scene-heading') {
                 this.dataForGraph.push({
-                    type: 'scene-heading', name: scriptBodyElement.innerText, index: dataForGraphCount
+                    type: 'scene-heading',
+                    name: scriptBodyElement.innerText,
+                    index: dataForGraphCount
                 });
                 dataForGraphCount += 1;
             }
@@ -320,7 +321,8 @@ class MapAndReactOnContent {
                 const mrID = ele.getAttribute('react-pos');
                 const reactSet = document.querySelectorAll(`[react-pos="${mrID}"]`);
                 reactSet.forEach((it) => {
-                    if (ele != it) it.innerText = ele.innerText; else {
+                    if (ele != it) it.innerText = ele.innerText;
+                    else {
                         const isLine = it.hasAttribute(this.cons.editType);// closest(`[sw-data="content-line"]`);
                         if (isLine) {
                             const clID = it.getAttribute(this.cons.editID);
@@ -346,7 +348,7 @@ class MapAndReactOnContent {
                     const characterID = characterIDElement.getAttribute('rs-character-id');
                     if (characterID) window.CharacterHandle.update(characterID);
                 } else if (ele.hasAttribute(this.cons.editCharacterID)) {
-                    if (ele.getAttribute(this.cons.editType) != 'character') return;
+                    if (ele.getAttribute(this.cons.editType) !== 'character') return;
                     const getCharacterID = ele.getAttribute(this.cons.editCharacterID)
                     if (getCharacterID) window.CharacterHandle.update(getCharacterID);
                 }
@@ -363,7 +365,7 @@ class MapAndReactOnContent {
         controlSwitch.forEach((stw) => {
             // List of content line type
             const typeList = [...stw.children];
-            // Add click listener event that will trigger the chnage of the selected content
+            // Add click listener event that will trigger the change of the selected content
             typeList.forEach((typ) => {
                 typ.addEventListener('click', () => {
                     const targetFocused = document.querySelector(this.cons.focused);
@@ -371,7 +373,7 @@ class MapAndReactOnContent {
                         resolve(1)
                     });
                     targetFocusedPromise.then(() => {
-                        if (typ.innerText.toLowerCase().startsWith('action') && targetFocused) this.actionType(targetFocused);
+                        if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('s') && targetFocused) this.sceneHeadingType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('p') && targetFocused) this.parentArticleType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('c') && targetFocused) this.characterType(targetFocused);
@@ -380,7 +382,6 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().endsWith('t') && targetFocused) this.actType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
-                        // id of the content line
                         const clID = targetFocused.getAttribute(this.cons.editID);
                         /** Watcher reaction */
                         window.Watcher.changeAttribute(clID);
@@ -398,12 +399,11 @@ class MapAndReactOnContent {
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
         window.EditorMode.handleContentLineNuetral(line, 'act');
+        // set line into the act
+        window.EditorMode.handleActType(line);
     }
 
     sceneHeadingType(line) {
-        //to Clear the outline of the focused element
-        // window.ScriptAdapter.scriptDataStore.outline = {}
-        // window.ScriptAdapter.autoSave();
         // get the content line meta-type // function name
         let metaType = '';
         let funcName = 'scene-heading';
@@ -423,11 +423,6 @@ class MapAndReactOnContent {
     }
 
     actionType(line) {
-        // set sw-editor-type="action" to the line
-        //line.setAttribute('sw-editor-type', 'action');
-        //line.setAttribute('sw-editor-type-helper', 'action');
-        //swEditorTypeChangingFromDropdown = true;
-        //this.modifyClassNameOfContentLine(line, 'action');
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'action'};
         // if function name is same as metaType then end the function
@@ -436,6 +431,8 @@ class MapAndReactOnContent {
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
         window.EditorMode.handleContentLineNuetral(line, 'action');
+        // set line type
+        window.EditorMode.handleActType(line);
     }
 
     dialogeType(line) {
@@ -447,19 +444,22 @@ class MapAndReactOnContent {
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
         window.EditorMode.handleContentLineNuetral(line, 'dialog');
-        window.EditorMode.handleDialog(line); // set line type
+        // set line type
+        window.EditorMode.handleDialog(line);
     }
 
     parentArticleType(line) {
         // get the content line meta-type // function name
         const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'parent-article'};
         // if function name is same as metaType then end the function
+        line.innerText = '(' + line.innerText + ')';
         if (funcName === metaType) return;
         // clear character id
         window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
         // reset line to action
         window.EditorMode.handleContentLineNuetral(line, 'parent-article');
-        window.EditorMode.handleParentArticle(line) // set line type
+        // set line type
+        window.EditorMode.handleParentArticle(line)
     }
 
     characterType(line) {
@@ -500,7 +500,7 @@ class MapAndReactOnContent {
     }
 
     clearCharacterIdOnContentLine(line) {
-        const characterIDValue = line.getAttribute(this.cons.editCharacterID);
+        const characterIDValue = line?.getAttribute(this.cons?.editCharacterID);
         if (!characterIDValue) return;
         line.setAttribute(this.cons.editCharacterID, '');
     }
@@ -537,7 +537,8 @@ class MapAndReactOnContent {
                 let characterAppearedScene = '';
                 for (let i = pos + 1; i < this.dataForGraph.length; i++) {
                     const tem = this.dataForGraph[i];
-                    if ((tem.type === 'character') /* && !characterAppearedScene.includes(tem.name) */) characterAppearedScene += tem.name + ', '; else if (tem.type === 'scene-heading') break;
+                    if ((tem.type === 'character') /* && !characterAppearedScene.includes(tem.name) */) characterAppearedScene += tem.name + ', ';
+                    else if (tem.type === 'scene-heading') break;
                 }
 
                 // Append character
@@ -561,7 +562,9 @@ class MapAndReactOnContent {
                 sceneItem.forEach((nam) => {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
-                newTable.push([count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name, newSetNames)]);
+                newTable.push([
+                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name, newSetNames)]
+                );
                 count += 1;
             });
             this.graphTemplateFour(newTable);
@@ -591,11 +594,16 @@ class MapAndReactOnContent {
         canvas.height = item11.offsetHeight;
 
         const outline = window.ScriptDataStore.outline;
-        let outlineLength = Object.keys(outline).length;
-        // check if a key 'lock' exist in outline
-        if (outline['lock']) {
-            outlineLength -= 1;
-        }
+        let lengthList = []
+        Object.keys(outline).forEach((key) => {
+            try {
+                if (!outline[key].title.startsWith('ACT')) {
+                    lengthList.push(outline[key]);
+                }
+            } catch (e) {
+            }
+        });
+        let outlineLength = lengthList.length + 1;
 
         let xPart = item11.offsetWidth / outlineLength
         let xValue = xPart + 20;
@@ -609,11 +617,9 @@ class MapAndReactOnContent {
         // start at 20,0
         if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
         else ctx.moveTo(20, 100);
-        
 
-        // loop outline
-        Object.keys(outline).forEach((key, index) => {
-            const item = outline[key];
+        lengthList.forEach((key, index) => {
+            const item = lengthList[index];
             const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
             // if emotional value is 0 then y value is 100
             // if emotional value is 10 then y value is 0
@@ -628,7 +634,7 @@ class MapAndReactOnContent {
             } else {
                 xValue = xValue + xPart;
             }
-        });
+        })
 
         if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11.offsetWidth - 10, 100)
         else ctx.lineTo(item11.offsetWidth, 100)
@@ -637,8 +643,8 @@ class MapAndReactOnContent {
         xPart = item11.offsetWidth / outlineLength
         xValue = xPart + 20;
         // draw small circle on the line
-        Object.keys(outline).forEach((key, index) => {
-            const item = outline[key];
+        lengthList.forEach((key, index) => {
+            const item = lengthList[index];
             const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
 
             let yValue = 100 - (emotionalValue * 10);
@@ -654,16 +660,15 @@ class MapAndReactOnContent {
             } else {
                 xValue = xValue + xPart;
             }
-        });
+        })
 
         ctx.beginPath();
         if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
         else ctx.arc(20, 100, 5, 0, 2 * Math.PI);
         if (qs === '[sw-graph="item-22"]') ctx.arc(item11.offsetWidth - 10, 100, 5, 0, 2 * Math.PI);
-        else ctx.arc(item11.offsetWidth-3, 100, 5, 0, 2 * Math.PI);
+        else ctx.arc(item11.offsetWidth - 3, 100, 5, 0, 2 * Math.PI);
         ctx.fillStyle = 'red';
         ctx.fill();
-
 
         // append canvas to the item11 element
         item11.appendChild(canvas);
@@ -778,7 +783,7 @@ class MapAndReactOnContent {
         // remove all child nodes
         while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
         const allAct = actDropdownLiTag.cloneNode(true);
-        allAct.innerText = 'All Act';
+        allAct.innerText = 'All Act'.toUpperCase();
         allAct.setAttribute('data-act-id', 'all');
         allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
         actDropdown.appendChild(allAct);
@@ -793,7 +798,7 @@ class MapAndReactOnContent {
             for (const [key, value] of Object?.entries(data)) {
                 if (value.type === 'act') {
                     const liTag = actDropdownLiTag.cloneNode(true);
-                    liTag.innerText = value.content;
+                    liTag.innerText = value.content.toUpperCase();
                     liTag.setAttribute('data-act-id', key);
                     liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
                     actDropdown.appendChild(liTag);
@@ -827,7 +832,6 @@ class MapAndReactOnContent {
             }
         }
         ;
-
         this.specificLineList = newLineList;
         this.specificLineListStatus = true;
         this.mapreact();

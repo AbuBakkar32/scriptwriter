@@ -16,18 +16,26 @@ class ScriptAdapter {
     // save script indicator
     isToSave = false;
 
+    keyList = [];
+
     constructor() {
+        setTimeout(() => {
+            window.MapAndReactOnContent.mapreact();
+        });
+
         // Get current draft: capture all draft key
-        const allLoadedDraftKeys = Object.keys(this.scriptDataStore.draft);
-        for (let index = 0; index < allLoadedDraftKeys.length; index++) {
-            const draft = this.scriptDataStore.draft[allLoadedDraftKeys[index]];
-            if (draft.active === 'true') {
-                this.currentDraftKey = allLoadedDraftKeys[index];
-                break
+        if (this.scriptDataStore?.draft) {
+            const allLoadedDraftKeys = Object.keys(this.scriptDataStore?.draft);
+            for (let index = 0; index < allLoadedDraftKeys.length; index++) {
+                const draft = this.scriptDataStore?.draft[allLoadedDraftKeys[index]];
+                if (draft.active === 'true') {
+                    this.currentDraftKey = allLoadedDraftKeys[index];
+                    break
+                }
             }
+            // Activate Draft List
+            this.draftList();
         }
-        // Activate Draft List
-        this.draftList();
     }
 
     autoSave() {
@@ -36,7 +44,7 @@ class ScriptAdapter {
             setTimeout(() => {
                 this.save();
                 this.isToSave = false;
-            }, 700);
+            }, 200);
         }
         ;
     }
@@ -110,7 +118,6 @@ class ScriptAdapter {
     initContent() {
         // set the current draft content on page
         this.renderDraftContent(this.currentDraftKey);
-
         // Set the script title
         document.querySelector(`[sw-data-type="title"]`).innerText = this.scriptDataStore.title;
         document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', () => {
@@ -263,43 +270,39 @@ class ScriptAdapter {
         // Render the script comment on right sider bar
         window.NoteHandle?.renderer(lineData);
         // Set the particular script line html content to the clone template
-        line.innerHTML = lineData.content;
+        line.innerHTML = lineData?.content;
         // Set the type of script line to the content-line element
-        line.setAttribute('sw-editor-type', lineData.type);
+        line.setAttribute('sw-editor-type', lineData?.type);
         // Set the id
-        line.setAttribute('sw-editor-id', lineData.id);
+        line.setAttribute('sw-editor-id', lineData?.id);
         // Set the color
-        line.setAttribute('sw-editor-color', lineData.color);
+        line.setAttribute('sw-editor-color', lineData?.color);
 
         // If character type of content line, then set the charater id
-        if (lineData.type === 'character') {
-            try{
+        if (lineData?.type === 'character') {
+            try {
                 window.CharacterHandle.lineValidator(line);
-            }catch (e) {
+            } catch (e) {
                 console.log(e);
             }
-            line.setAttribute('sw-editor-character-id', lineData.others.cID);
         }
-
         // format the line text
-        if (lineData.type === 'action') ;
-        else if (lineData.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
-        else if (lineData.type === 'dialog') window.EditorMode.handleDialog(line, true);
-        else if (lineData.type === 'character') window.EditorMode.handleCharater(line, true);
-        else if (lineData.type === 'transition') window.EditorMode.handleTransition(line, true);
-        else if (lineData.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
-        else if (lineData.type === 'act') window.EditorMode.handleActType(line, true);
+        if (lineData?.type === 'action') ;
+        else if (lineData?.type === 'scene-heading') window.EditorMode.handleSceneHeadingType(line, true);
+        else if (lineData?.type === 'dialog') window.EditorMode.handleDialog(line, true);
+        else if (lineData?.type === 'character') window.EditorMode.handleCharater(line, true);
+        else if (lineData?.type === 'transition') window.EditorMode.handleTransition(line, true);
+        else if (lineData?.type === 'parent-article') window.EditorMode.handleParentArticle(line, true);
+        else if (lineData?.type === 'act') window.EditorMode.handleActType(line, true);
 
         window.EditorMode.lineSignal(line);
     }
 
     async renderDraftContent(draftKey, callback = () => {
     }, skipObserver = false) {
-
-        const startTime = performance.now();
         /** Await Starts*/
-        window.Watcher.bothAwait();
-
+        const isPro = localStorage.getItem('userData');
+        window.Watcher.bothAwait()
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
@@ -310,11 +313,42 @@ class ScriptAdapter {
             window.Watcher.bothAwait(true, 'Rendering script text on page...');
             // clear all script comment in the right sider bar
             await window.NoteHandle?.clear();
-            const draft = this.scriptDataStore.draft[draftKey];
+            let draft = this.scriptDataStore.draft[draftKey];
+            let draftDataKeys;
+            // delete unrefined object from the draft
+            if (draft.data.length > 0) {
+                draft = draft.data.filter((line) => {
+                    return line.type !== 'undefined';
+                });
+            }
+            // Get the draft data keys
             if (draft) {
-                // get the keys in the draft data or each content-line
-                const draftDataKeys = Object.keys(draft.data);
-
+                // Get the draft data values
+                if (isPro.toLowerCase() === 'pro') {
+                    const data = Object.values(this.scriptDataStore?.outline ? this.scriptDataStore?.outline : {});
+                    if (data.length > 0) {
+                        data.forEach((item) => {
+                            if (item.title) {
+                                if (!this.keyList.includes(item.sbID)) {
+                                    this.keyList.push(item.sbID);
+                                }
+                                const scene = Object.values(item.sceneListId);
+                                if (scene.length > 0) {
+                                    scene.forEach((item) => {
+                                        if (!this.keyList.includes(item.sbID)) {
+                                            this.keyList.push(item);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        draftDataKeys = this.keyList;
+                    } else {
+                        draftDataKeys = Object.keys(draft.data)
+                    }
+                } else {
+                    draftDataKeys = Object.keys(draft.data)
+                }
                 // EditorFuncs.js elements
                 const pageList = this.editorFuncs.swPageListTemp;
 
@@ -322,7 +356,6 @@ class ScriptAdapter {
                 [...pageList.children].forEach((page) => {
                     page.remove()
                 });
-
                 // Create New Page for content
                 let pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
                 // Append current page to it Page List
@@ -333,37 +366,38 @@ class ScriptAdapter {
                 });
                 // Create a new content line
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
-
                 // Kick of render
                 let count = 0;
                 for (let index = 0; index < draftDataKeys.length; index++) {
                     const clDetial = draft.data[draftDataKeys[index]];
-                    // Clone content line template
-                    newLine = this.editorFuncs.lineTemp.cloneNode(true);
-                    // render the content line data to DOM
-                    this.renderContentLine(newLine, clDetial)
+                    if (clDetial) {
+                        // Clone content line template
+                        newLine = this.editorFuncs.lineTemp.cloneNode(true);
+                        // render the content line data to DOM
+                        this.renderContentLine(newLine, clDetial)
 
-                    // Check if page still maintain it size before rendering the new content-line
-                    if (pageClone.scrollHeight > this.editorFuncs.swPageHeight) {
-                        //the last content-line in the page
-                        const lastContentLine = pageClone.lastElementChild;
-                        // create new page
-                        pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
-                        pageList.append(pageClone);
-                        //Remove previous children or content-line from new page
-                        [...pageClone.children].forEach((cl) => {
-                            cl.remove()
-                        });
-                        // Append last content first on new page
-                        pageClone.append(lastContentLine);
-                        // Append content-line to current page
-                        pageClone.append(newLine);
-                    } else {
-                        // Append content-line to current page
-                        pageClone.append(newLine);
+                        // Check if page still maintain it size before rendering the new content-line
+                        if (pageClone.scrollHeight > this.editorFuncs.swPageHeight) {
+                            //the last content-line in the page
+                            const lastContentLine = pageClone.lastElementChild;
+                            // create new page
+                            pageClone = this.editorFuncs.swPageTemp.cloneNode(true);
+                            pageList.append(pageClone);
+                            //Remove previous children or content-line from new page
+                            [...pageClone.children].forEach((cl) => {
+                                cl.remove()
+                            });
+                            // Append last content first on new page
+                            pageClone.append(lastContentLine);
+                            // Append content-line to current page
+                            pageClone.append(newLine);
+                        } else {
+                            // Append content-line to current page
+                            pageClone.append(newLine);
+                        }
+                        // Update count
+                        count += 1;
                     }
-                    // Update count
-                    count += 1;
                 }
 
                 //Append page if not appended to it Page List
@@ -380,7 +414,7 @@ class ScriptAdapter {
             this.saveCommentAndNote();
             // Event listener to manage open and closing of all comment
             this.handleCommentOpeningAndClosing();
-            // EditorFuncs.js method: Refresh the total number of pages avaliable.
+            // EditorFuncs.js method: Refresh the total number of pages available.
             await this.editorFuncs.totalNumberOfPage();
         }).then(async () => {
             /** Await Point */
@@ -399,10 +433,9 @@ class ScriptAdapter {
             window.Watcher.reset(0, totalPage, totalLine, false);
         }).then(async () => {
             /** Await Point */
-            //window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
-            // Map react
+            window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
             // if(!skipObserver) window.MapAndReactOnContent.mapreact();
-            //await window.MapAndReactOnContent.mapreact();
+            await window.MapAndReactOnContent.mapreact();
         }).then(async () => {
             /** Await Ends*/
             await window.Watcher.bothAwait(false);
@@ -486,7 +519,7 @@ class ScriptAdapter {
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('text', text);
         formData.append('content-line-index', index);
-        formData.append('draftID', draft); //Ex. draft1 
+        formData.append('draftID', draft); //Ex. draft1
         formData.append('date', date);
         formData.append('type', type); //note or comment
         if (type === 'note') formData.append('color', color); //set color if note type
@@ -656,7 +689,6 @@ class ScriptAdapter {
                 data[clID].note = piece.note;
             }
         });
-
         return data;
     }
 
@@ -686,6 +718,8 @@ class ScriptAdapter {
         this.scriptDataStore.draft[this.currentDraftKey].data = getCurrentContent;
         // update the script data
         this.scriptDataStore.data = getCurrentContent;
+        //outline Object
+        // this.scriptDataStore.outline = {'abu': 'Bakkar'};
         // Set title
         this.scriptDataStore.title = document.querySelector(`[sw-data-type="title"]`).innerText;
         // Save location

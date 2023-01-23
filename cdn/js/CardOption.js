@@ -24,7 +24,7 @@ class CardOption {
         this.bg = window.BackgroundColor.bg;
 
         // Background colors
-        //this.bgValueList = window.BackgroundColor.bgValueList;
+        this.bgValueList = window.BackgroundColor.bgValueList;
 
         // list of cards wrap
         this.cardList = document.querySelectorAll(this.cardVar.cardWrap);
@@ -186,7 +186,6 @@ class CardOption {
         colorList.forEach((color) => {
             if (color.getAttribute(this.cardVar.bgValue)) {
                 color.addEventListener('click', ()=> {
-                    //console.log(color.getAttribute(this.cardVar.bgValue));
                     // Get the current background color
                     const theCurrentBgValue = colorOption?.querySelector(`[${this.cardVar.bgValue}]`)?.getAttribute(this.cardVar.bgValue);
                     const currentSelectedColor = color.getAttribute(this.cardVar.bgValue); // get the selected background color
