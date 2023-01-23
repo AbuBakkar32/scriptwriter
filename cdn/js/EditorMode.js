@@ -314,9 +314,9 @@ class EditorMode {
 
                         // formate new line
                         this.formatContentLine(newCreatedElement);
-                        //this.handleContentLineNuetral(newCreatedElement);
+                        this.handleContentLineNuetral(newCreatedElement);
                         newCreatedElement.setAttribute(this.cons.editID, newID);
-                        //newCreatedElement.focus();
+                        newCreatedElement.focus();
                         this.lineSignal(newCreatedElement);
                         // remove the duplicated id
                         this.idList.pop(x)
@@ -386,13 +386,11 @@ class EditorMode {
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
                         const target = duplicates[0]; // previous line
-                        // console.log('target', target);
                         const newCreatedElement = duplicates[1]; // the newly created element
                         this.formatContentLine(target); // format previous line
                         // set color
                         const color = window.BackgroundColor.randomBg();
                         newCreatedElement.setAttribute(this.cons.editColor, color);
-
                         newCreatedElement.textContent = "";
 
                         setTimeout(() => {
@@ -406,7 +404,6 @@ class EditorMode {
                                 myId = String(Number(myId) + 1);
                                 // add leading zero
                                 sw_editor_id = '0' + myId;
-
                             }
 
                             const commentIcon = '<img onclick="showNoteContainer(this)" style="width: 25px; cursor: pointer; transform: scaleX(-1);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABMklEQVRoge3ZQUrDQBiG4afiuisXYjfiATyF7lt3Ip7DGxXcufcYXqCCiuAqF2hd2JASEk0icfrjvBDCJAN5v8wM/MwQnEmtPcMFjhO4dOEdj3hrenmFAps9vwos6vInQeR3Q8zgYBvgEtOmYdlTpphTBThN5zKYI6oA9cUcgQlVgLDkAKk57NF3jSVeR3IpmeFGx3XZJ8ASt0OMBjDxFeJH/tUUKof1aSSXknNcd+3cJ0DnYf1Lwk+hHCA1OUBqcoDU5FpoJHIt1ESuhcYg/BTKAVJTBtgktRjGhirAKqHIUD52G2E3d3dZBAlR2G7s0nzAMd/e2xb4XcvzJla479H/O9Z4wYOWA46udP1Tzzj7zYfGIrQ8weUJLk9weYLLE1ye4PIElye4PMHliXkovr98AnUlCYg7xE0PAAAAAElFTkSuQmCC">'
@@ -445,13 +442,13 @@ class EditorMode {
                                     abs.remove();
                                 }
                             });
-                        }, 1000);
+                        }, 100);
 
                         // formate new line
                         this.formatContentLine(newCreatedElement);
-                        // this.handleContentLineNuetral(newCreatedElement);
+                        this.handleContentLineNuetral(newCreatedElement);
                         newCreatedElement.setAttribute(this.cons.editID, newID);
-                        //newCreatedElement.focus();
+                        newCreatedElement.focus();
                         this.lineSignal(newCreatedElement);
                         // remove the duplicated id
                         this.idList.pop(x)
@@ -466,7 +463,6 @@ class EditorMode {
                             newCreatedElement.focus();
                             mainEditor.setAttribute('contenteditable', 'true');
                         }, 50);
-
                         break;
                     }
                 }
