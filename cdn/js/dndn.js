@@ -1,5 +1,4 @@
 let selector = 'drag-sort-enable-2';
-
 function enableDragSort(listClass) {
     setTimeout(() => {
         const sortableLists = document.getElementsByClassName(listClass);
@@ -20,7 +19,6 @@ function enableDragItem(item) {
     if (item.classList.contains('relative')) {
         item.setAttribute('draggable', true);
     }
-    item.style.cursor = 'grab';
     item.ondrag = handleDrag;
     item.ondragend = handleDrop;
 }
@@ -31,11 +29,9 @@ function handleDrag(item) {
     selectedItem.classList.add('drag-sort-active');
     let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
     if (list === swapItem.parentNode) {
-        item.target.style.cursor = 'grabbing';
         swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
         list.insertBefore(selectedItem, swapItem);
     }
-    item.target.style.cursor = 'grab';
 }
 
 function saveChangedCardListPinboard(swData) {
@@ -194,6 +190,6 @@ function handleDrop(item) {
                 }
             });
         })
-    }, 1000);
+    }, 100);
     enableDragSort(selector);
 })();
