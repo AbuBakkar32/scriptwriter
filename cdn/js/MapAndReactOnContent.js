@@ -597,13 +597,26 @@ class MapAndReactOnContent {
         let lengthList = []
         Object.keys(outline).forEach((key) => {
             try {
-                if (!outline[key].title.startsWith('ACT')) {
+                if (this.specificLineListStatus){
+                    for (let i = 0; i < this.specificLineList.length; i++) {
+                        const line = this.specificLineList[i];
+                        // check if line has a attribute sw-editor-type="scene-heading"
+                        if (line.getAttribute('sw-editor-type') === 'scene-heading') {
+                            const innerText = line.innerText;
+                            if (innerText.toUpperCase() === outline[key].title.toUpperCase()) {
+                                lengthList.push(outline[key]);
+                                break;
+                            }
+                        }
+                    }
+                } else if (!outline[key].title.startsWith('ACT')) {
                     lengthList.push(outline[key]);
                 }
             } catch (e) {
             }
         });
         let outlineLength = lengthList.length + 1;
+        console.log(outlineLength);
 
         let xPart = item11.offsetWidth / outlineLength
         let xValue = xPart + 20;
