@@ -686,11 +686,11 @@ class ScriptAdapter {
 
             if (lineType === 'character') data[clID].others = {cid: characterID};
             else if (lineType === 'scene-heading') {
-                if (piece?.others?.ev) data[clID].others = piece.others;
+                if (piece?.others?.ev) data[clID].others = piece?.others;
                 else data[clID].others = {ev: '0', scenegoal: ''};
             } else if (piece) {
-                data[clID].others = piece.others;
-                data[clID].note = piece.note;
+                data[clID].others = piece?.others;
+                data[clID].note = piece?.note;
             }
         });
         return data;
