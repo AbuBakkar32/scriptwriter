@@ -287,6 +287,7 @@ class ClientSetting {
         .fill-current-icon {fill: gray !important;}
         .content-color {color: black !important;}
         .fill-color {color: black !important;}
+        .right-text {color: black !important;}
          svg.ang-color {fill: black !important;}
         .fill-current {fill: white !important;}
         .script-feature-menu {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
