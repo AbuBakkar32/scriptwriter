@@ -29,6 +29,8 @@ class MapAndReactOnContent {
 
     specificLineList = []
     specificLineListStatus = false;
+    specificActLineList = {};
+    specificActLineListStatus = false;
 
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
@@ -296,7 +298,14 @@ class MapAndReactOnContent {
             }
 
             //Append data to the DataForGraph Store
-            if (getType === 'character') {
+            if (getType === 'act') {
+                this.dataForGraph.push({
+                    type: 'act',
+                    name: scriptBodyElement.innerText,
+                    index: dataForGraphCount
+                });
+                dataForGraphCount += 1;
+            } else if (getType === 'character') {
                 this.dataForGraph.push({
                     type: 'character',
                     name: scriptBodyElement.innerText,
@@ -593,23 +602,17 @@ class MapAndReactOnContent {
         canvas.width = item11.offsetWidth;
         canvas.height = item11.offsetHeight;
 
-        const outline = window.ScriptDataStore.outline;
+        let outline
+        if (this.specificActLineListStatus) {
+            outline = this.specificActLineList;
+        } else {
+            outline = window.ScriptAdapter.scriptDataStore.outline;
+        }
+        
         let lengthList = []
         Object.keys(outline).forEach((key) => {
             try {
-                if (this.specificLineListStatus){
-                    for (let i = 0; i < this.specificLineList.length; i++) {
-                        const line = this.specificLineList[i];
-                        // check if line has a attribute sw-editor-type="scene-heading"
-                        if (line.getAttribute('sw-editor-type') === 'scene-heading') {
-                            const innerText = line.innerText;
-                            if (innerText.toUpperCase() === outline[key].title.toUpperCase()) {
-                                lengthList.push(outline[key]);
-                                break;
-                            }
-                        }
-                    }
-                } else if (!outline[key].title.startsWith('ACT')) {
+                if (!outline[key].title.startsWith('ACT')) {
                     lengthList.push(outline[key]);
                 }
             } catch (e) {
@@ -821,31 +824,56 @@ class MapAndReactOnContent {
 
     modifyGraphTemplateOne(e) {
         let actId = e.target.getAttribute('data-act-id');
+        const actText = e.target.innerText;
         if (actId === 'all') {
             this.specificLineListStatus = false;
             this.specificLineList = [];
+            this.specificActLineList = {}
+            this.specificActLineListStatus = false;
             this.mapreact();
             return;
         }
         const lineList = document.querySelectorAll(this.cons.line);
         let newLineList = [];
+        let elementActFound = false;
         for (let i = 0; i < lineList.length; i++) {
             let it = lineList[i];
-            let swEditorId = it.getAttribute('sw-editor-id');
-            // make integer 
-            swEditorId = parseInt(swEditorId);
-            actId = parseInt(actId);
-            if (swEditorId >= actId) {
-                if (swEditorId !== actId && it.getAttribute('sw-editor-type') === 'act') {
-                    // break the loop
+            const itsInnerText = it.innerText;
+            if (itsInnerText.toUpperCase().startsWith('ACT.') && itsInnerText.toUpperCase() === actText.toUpperCase()) {
+                elementActFound = true;
+                continue;
+            }
+            if (elementActFound) {
+                if (itsInnerText.toUpperCase().startsWith('ACT.')) {
                     break;
                 }
                 newLineList.push(it);
             }
+        };
+
+        let actFound = false;
+        let newOutline = {};
+        const outline = window.ScriptAdapter.scriptDataStore.outline; // object
+        for (const [key, value] of Object.entries(outline)) {
+            // check if value.title starts with ACT. and then check if it is equal to actText
+            if (value.title.startsWith('ACT.') && value.title === actText.toUpperCase()) {
+                actFound = true;
+                continue;
+            }
+            if (actFound) {
+                if (value.title.startsWith('ACT.')) {
+                    break;
+                }
+                newOutline[key] = value;
+            }
         }
-        ;
+
         this.specificLineList = newLineList;
         this.specificLineListStatus = true;
+
+        this.specificActLineList = newOutline;
+        this.specificActLineListStatus = true;
+
         this.mapreact();
     }
 }
