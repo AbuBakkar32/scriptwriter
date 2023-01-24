@@ -38,7 +38,7 @@ class ScriptAdapter {
         }
     }
 
-    autoSave(note={}) {
+    autoSave(note = {}) {
         if (!this.isToSave) {
             this.isToSave = true;
             setTimeout(() => {
@@ -678,7 +678,7 @@ class ScriptAdapter {
             //create the line array
             data[clID] = {
                 id: clID, content: htmlText, type: lineType, color: clColor, others: {},
-                note: note? note : {text: '', authorID: '', authorName: '', date: '', color: ''}
+                note: note ? note : {text: '', authorID: '', authorName: '', date: '', color: ''}
             }
 
             // Add others

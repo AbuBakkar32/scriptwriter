@@ -191,7 +191,6 @@ class Watcher {
             this.attributeChanged = false;
             state = true; 
         }
-
         return state;
     }
 

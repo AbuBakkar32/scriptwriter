@@ -345,7 +345,7 @@ async function slider() {
     }, 100);
 
     slider.oninput = function () {
-        waterMarkDisplayOpacity = this.value / 100;
+        this.waterMarkDisplayOpacity = this.value / 100;
         opacity.style.opacity = slider.value / 100;
     }
 }

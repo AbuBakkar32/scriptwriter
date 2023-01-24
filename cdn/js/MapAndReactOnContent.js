@@ -616,7 +616,6 @@ class MapAndReactOnContent {
             }
         });
         let outlineLength = lengthList.length + 1;
-        console.log(outlineLength);
 
         let xPart = item11.offsetWidth / outlineLength
         let xValue = xPart + 20;

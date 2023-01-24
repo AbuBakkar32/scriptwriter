@@ -1,4 +1,5 @@
 let selector = 'drag-sort-enable-2';
+
 function enableDragSort(listClass) {
     setTimeout(() => {
         const sortableLists = document.getElementsByClassName(listClass);
@@ -156,9 +157,7 @@ function saveChangedCardList(swData) {
                 }
             });
         });
-    } catch (e) {
-        console.error(e);
-    }
+    } catch (e) {}
 }
 
 function handleDrop(item) {

@@ -88,6 +88,11 @@ class EditorMode {
         leftIcon?.remove();
         rightIcon?.remove();
 
+        // save right sidebar outline content
+        document.querySelector(`[mapreact-data="rs-outline-list"]`).addEventListener('input', async (e) => {
+            window.ScriptAdapter.autoSave();
+        });
+
         this.editorModeList.addEventListener('input', async (e) => {
             // if adding note, do not add text to the page
             const target = e.target;
