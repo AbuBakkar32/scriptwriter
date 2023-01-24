@@ -374,12 +374,14 @@ class OutlineHandle {
                 }, true, 'new action line ' + quickID());
                 sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
             }).then(() => {
-                this.updateDB();
                 enableDragSort('drag-sort-enable-outline');
                 window.MapAndReactOnContent.mapreact();
                 window.MapAndReactOnContent.mapContents();
             }).then(() => {
                 window.Watcher.mainPageAwait(false);
+                this.updateDB();
+                enableDragSort('drag-sort-enable-outline');
+                window.MapAndReactOnContent.mapreact();
                 window.Watcher.conditionState();
                 this.mainPageChanges = true;
             });
