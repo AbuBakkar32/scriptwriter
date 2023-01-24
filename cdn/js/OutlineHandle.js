@@ -365,7 +365,6 @@ class OutlineHandle {
                 const lastLineID = lastLineElement?.getAttribute(this.vars?.idAttrName);
                 // Get the content line element of the last line ID
                 const lastLineContentElement = document.querySelector(this.vars?.editorID.replace('%s', lastLineID));
-                // window.EditorFuncs
                 // new scene heading content line
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
                 const sceneHeadingContentLine = window.EditorFuncs.createNewLine(lastLineContentElement, headingFunc, true, 'INT. New Scene ' + quickID());
@@ -373,16 +372,15 @@ class OutlineHandle {
                 // new action content line
                 const actionContentLine = window.EditorFuncs.createNewLine(sceneHeadingContentLine, (b) => {
                 }, true, 'new action line ' + quickID());
-                //sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
-
+                sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
             }).then(() => {
-                window.MapAndReactOnContent.mapreact();
-            }).then(() => {
-                window.Watcher.mainPageAwait(false);
-                window.Watcher.conditionState();
                 this.updateDB();
                 enableDragSort('drag-sort-enable-outline');
                 window.MapAndReactOnContent.mapreact();
+                window.MapAndReactOnContent.mapContents();
+            }).then(() => {
+                window.Watcher.mainPageAwait(false);
+                window.Watcher.conditionState();
                 this.mainPageChanges = true;
             });
         });

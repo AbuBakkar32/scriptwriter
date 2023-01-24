@@ -271,14 +271,24 @@ class ClientSetting {
         .bg-four{ background-color: rgb(36 35 35 / 91%) !important; color: white!important; }
         .bg-three { background-color: rgb(0 0 0 / 93%) !important; color: white !important; }
         svg { fill: white !important; }
-        li > svg { fill: black!important;}
-        span > svg { fill: black!important}
+        svg.fill-color { fill: black !important; }
+        .imgx100, .img40, .imgx75 { background-color: white !important; }
+        li > svg { fill: black !important;}
+        span > svg { fill: black !important}
         button > svg { fill: currentColor!important}
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
         .c-green { color: white!important;}
         .header-nav {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
-        .fill-current {fill: currentColor!important;}
+        .act-name {color: white!important;}
+        .text-grey-700 {color: white!important;}
+        .select-feature-menu {color: black !important;}
+        .select-feature-menu span>svg {fill: black !important;}
+        .fill-current-icon {fill: gray !important;}
+        .content-color {color: black !important;}
+        .fill-color {color: black !important;}
+         svg.ang-color {fill: black !important;}
+        .fill-current {fill: white !important;}
         .script-feature-menu {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
         .btn-jump { box-shadow: 0px 2px 4px rgb(225 230 225 / 90%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px rgb(54 57 90 / 20%);}
         `
@@ -335,7 +345,7 @@ async function slider() {
     }, 100);
 
     slider.oninput = function () {
-        waterMarkDisplayOpacity = this.value / 100;
+        this.waterMarkDisplayOpacity = this.value / 100;
         opacity.style.opacity = slider.value / 100;
     }
 }
