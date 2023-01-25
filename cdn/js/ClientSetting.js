@@ -293,6 +293,7 @@ class ClientSetting {
         .ft-size25, .ft-size20, .ft-size17 {color: white !important;}
         .bg-color {background-color: black !important;}
         .nav-dark-color {background-color: black !important;}
+        .com-color {color: black !important;}
         .script-feature-menu {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
         .btn-jump { box-shadow: 0px 2px 4px rgb(225 230 225 / 90%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px rgb(54 57 90 / 20%);}
         `
