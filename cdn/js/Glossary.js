@@ -114,7 +114,7 @@ class Glossary {
             // show angle down button
             angleDown.classList.remove('hide');
             // adjust the height of the body
-            body?.classList.add('h-25');
+            body?.classList.add('h-30');
             // remove the overflow on the body
             body?.classList.replace('overflow-y-auto', 'overflow-hidden');
             // hide angleUp
@@ -136,7 +136,7 @@ class Glossary {
             // show angle down button
             angleDown?.classList.remove('hide');
             // adjust the height of the body
-            body?.classList.add('h-25');
+            body?.classList.add('h-30');
             // remove the overflow on the body
             body?.classList.replace('overflow-y-auto', 'overflow-hidden');
             // hide angleUp
@@ -148,7 +148,7 @@ class Glossary {
             // show angle up button
             angleUp?.classList.remove('hide');
             // adjust the height of the body
-            body?.classList.remove('h-25');
+            body?.classList.remove('h-30');
             // add the overflow on the body
             body?.classList.replace('overflow-hidden', 'overflow-y-auto');
             // hide angleDown

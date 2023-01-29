@@ -115,11 +115,7 @@ class CharacterHandle {
             const mapreactID = window.MapAndReactOnContent.geneateUniqueID();
             const pos = document.querySelectorAll(this.vars.mainMrItem).length + 1;
             const dataset = {
-                name: newCharacterID.toUpperCase(),
-                id: mapreactID,
-                position: pos,
-                scenes: [],
-                cid: newCharacterID
+                name: newCharacterID.toUpperCase(), id: mapreactID, position: pos, scenes: [], cid: newCharacterID
             };
             this.characterRenderTemplate(dataset);
             this.activateMapReact(mapreactID)
@@ -409,8 +405,7 @@ class CharacterHandle {
         });
         // Possession will be
         const pos = (count / metaTypeCharacterList.length * 100).toFixed(0);
-        if (count) return pos + '%';
-        else return '0%';
+        if (count) return pos + '%'; else return '0%';
     }
 
     create(name = '') {
@@ -454,8 +449,7 @@ class CharacterHandle {
     update(uid, isAddId = '') {
         if (!window.ScriptDataStore.character[uid]) return;
         let idValue;
-        if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`);
-        else idValue = document.querySelector(`[character-idvalue="${uid}"]`);
+        if (isAddId) idValue = document.querySelector(`[character-idvalue="${isAddId}"]`); else idValue = document.querySelector(`[character-idvalue="${uid}"]`);
 
         if (!idValue) return;
         // Now target the particular main character item element
@@ -670,11 +664,7 @@ class CharacterHandle {
             }
             // Append character
             listOfCharacter.push({
-                name: nameC,
-                id: idC,
-                position: posC,
-                scenes: characterAppearedScenes,
-                cid: characterIDC
+                name: nameC, id: idC, position: posC, scenes: characterAppearedScenes, cid: characterIDC
             });
             count += 1;
         });
@@ -703,7 +693,7 @@ class CharacterHandle {
                                     window.scrollTo(0, line.offsetTop + line.parentElement.offsetTop);
                                     line.click();
                                     line.focus();
-                                }, 100);
+                                });
                             }
                         });
                     });
@@ -845,8 +835,7 @@ class CharacterHandle {
             if (lineWidth) {
                 lineWidth.style.maxWidth = cPossession;
                 lineWidth.style.width = cPossession;
-                if (cDB.color && lineWidth.classList.contains('bg-orange'))
-                    lineWidth.classList.replace('bg-orange', cDB.color);
+                if (cDB.color && lineWidth.classList.contains('bg-orange')) lineWidth.classList.replace('bg-orange', cDB.color);
             }
             ;
 
@@ -941,8 +930,7 @@ class CharacterHandle {
                 for (let index = 1; index <= 14; index++) {
                     const item = bodyMapItem.cloneNode(true);
                     item.querySelector('div').innerText = cDB['item' + index];
-                    if (index <= 8) bodyMapLeft.append(item);
-                    else bodyMapRight.append(item);
+                    if (index <= 8) bodyMapLeft.append(item); else bodyMapRight.append(item);
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
             }
@@ -1028,8 +1016,7 @@ class CharacterHandle {
         const mapReactIDListKeys = Object.keys(mapReactIDList);
         mapReactIDListKeys.forEach((key) => {
             const mrID = mapReactIDList[key];
-            if (key !== 'image') /* this.activateMapReact(mrID) */;
-            else this.activateMapReact(mrID, true);
+            if (key !== 'image') /* this.activateMapReact(mrID) */; else this.activateMapReact(mrID, true);
         });
     }
 
