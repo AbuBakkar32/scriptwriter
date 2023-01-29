@@ -77,7 +77,7 @@
                     <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>
                     </button>
-                    <div class="p-4 absolute hide" sw-recording="wrap" style="top: 60px; background-color: rgb(197 194 209 / 89%);" sw-clickPrevent="true" >
+                    <div class="p-4 absolute hide voice-color" sw-recording="wrap" style="top: 60px; border-radius:08px; background-color: rgb(197 194 209 / 89%);" sw-clickPrevent="true" >
                         <div class="just-row designinput" sw-recording="start-btn">
                             <button class="btn-jump mr-2">
                                 <svg  width="24" height="24" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.009 12.002c0-5.517 4.48-9.997 9.998-9.997s9.998 4.48 9.998 9.997c0 5.518-4.48 9.998-9.998 9.998s-9.998-4.48-9.998-9.998zm8.211-4.843c-.141-.108-.3-.157-.456-.157-.389 0-.755.306-.755.749v8.501c0 .445.367.75.755.75.157 0 .316-.05.457-.159 1.554-1.203 4.199-3.252 5.498-4.258.184-.142.29-.36.29-.592 0-.23-.107-.449-.291-.591z" fill-rule="nonzero"/></svg>
@@ -86,14 +86,14 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18.919 10.431c.24.292.258 1.004-.027 1.284-.252.246-.52.205-1.051.205v-1.71c.503 0 .864-.039 1.078.221zm-5.438.149c-.19.581-.188 2.651 0 3.217.216.654 1.067.654 1.283 0 .19-.569.19-2.639 0-3.217-.214-.659-1.067-.662-1.283 0zm10.519-3.551v9.941l-7.029 7.03h-9.942l-7.029-7.029v-9.942l7.029-7.029h9.941l7.03 7.029zm-17.09 4.866c-1-.433-1.457-.478-1.457-1.142 0-.793.885-.792 1.119-.437.094.145.141.35.141.618h1.088v-.157c0-.268-.044-.498-.131-.689-.286-.633-.918-.823-1.61-.823-.541 0-.966.137-1.275.41-.661.583-.729 2.082.354 2.669.644.35 1.419.396 1.61.91.072.195.107.636-.158.851-.3.244-.837.227-1.066-.067-.162-.206-.149-.533-.149-.795h-1.136c0 .538.017 1.025.414 1.425.553.559 2.118.556 2.812.012.707-.557.861-2.163-.556-2.785zm4.93-2.52h-3.591v.929h1.229v4.693h1.134v-4.693h1.229v-.929zm3.879.709c-.135-.257-.327-.458-.58-.602-.508-.292-1.522-.292-2.031 0-.252.145-.444.345-.578.602-.435.835-.438 3.367 0 4.205.134.257.326.454.578.591.509.276 1.523.275 2.031 0 .253-.137.445-.333.58-.591.435-.838.434-3.37 0-4.205zm2.971-.709h-1.983v5.623h1.134v-2.244c.638 0 .939.021 1.338-.103 1.509-.466 1.509-3.276-.489-3.276z"/></svg>
                             </button>
                         </div>
-                        <div>Status: <span sw-recording="status">Not active</span></div>
+                        <div class="status">Status: <span sw-recording="status">Not active</span></div>
                     </div>
                 </li>
                 <li class="flex items-center h-full mr-2 relative" sw-btn="audioPlayReader">
                     <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1 13h-1v-1h1v1zm22-1h-1v1h1v-1zm-20-1h-1v3h1v-3zm18 0h-1v3h1v-3zm-14 0h-1v3h1v-3zm10-1h-1v5h1v-5zm-12 0h-1v5h1v-5zm14-1h-1v7h1v-7zm-10 0h-1v7h1v-7zm2-2h-1v10h1v-10zm4 0h-1v10h1v-10zm-2-2h-1v14h1v-14z"/></svg>
                     </button>
-                    <div class="p-4 absolute hide bg-light-gray top60" sw-audio="wrap" sw-clickPrevent="true" >
+                    <div class="p-4 absolute hide bg-light-gray top60" style="border-radius:08px;" sw-audio="wrap" sw-clickPrevent="true" >
                         <!-- Text to speech controller-->
                         <div class="just-row designinput mb-4">
                             <button class="btn-jump mr-2" sw-audio="start-btn">
@@ -109,20 +109,20 @@
                         <!--Background Audio selection-->
                         <div class="relative" sw-select-item="container">
                             <div class="just-row justify-between item-center designinput p-8">
-                                <div class="cus-pointer" sw-select-item="set">Select Background Audio</div>
+                                <div class="cus-pointer audio-text" sw-select-item="set">Select Background Audio</div>
                                 <div class="mr-2">
                                     <svg class="size16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path d="M7,8a1,1,0,0,1-.71-.29l-6-6A1,1,0,0,1,1.71.29L7,5.59,12.29.29a1,1,0,1,1,1.42,1.42l-6,6A1,1,0,0,1,7,8Z"></path></svg>
                                 </div>
                             </div>
-                            <div class="mt-1 hidden col absolute z-100 bg-light-gray w-100 scrollby8" sw-select-item="get">
-                                <div sw-audio-src="" sw-audio="audio-item" class="hover-cursor p-4 my-1 designinput">Select Background Audio</div>
+                            <div class="mt-1 hidden col absolute z-100 bg-light-gray w-100 scrollby8" style="border-radius: 08px;" sw-select-item="get">
+                                <div sw-audio-src="" sw-audio="audio-item" class="hover-cursor p-4 my-1 designinput audio-text">Select Background Audio</div>
                                 {% for audio in AudioStore %}
-                                <div sw-audio-src="../../cdn/staticfiles/{{audio.fileName}}" sw-audio="audio-item" class="hover-cursor p-4 my-1 designinput">{{audio.name}}</div>
+                                <div sw-audio-src="../../cdn/staticfiles/{{audio.fileName}}" sw-audio="audio-item" class="hover-cursor p-4 my-1 designinput audio-text">{{audio.name}}</div>
                                 {% endfor %}
                             </div>
                         </div>
                         <!--Background Audio Player-->
-                        <audio controls class="mb-8" sw-audio="audio-player">
+                        <audio controls class="mb-8" sw-audio="audio-player" style="margin-top: 8px;">
                             <source src="" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
