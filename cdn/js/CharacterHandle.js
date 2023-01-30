@@ -688,11 +688,14 @@ class CharacterHandle {
                         const pageWrap = document.querySelector(`[sw-editor="list"]`);
                         const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`);
                         contentLineList.forEach((line) => {
+                            const editorPage = line.parentElement.parentElement;
+                            editorPage.setAttribute('contenteditable', 'false');
                             if (line.innerText.trim() === name.trim()) {
                                 setTimeout(() => {
                                     window.scrollTo(0, line.offsetTop + line.parentElement.offsetTop);
-                                    line.click();
                                     line.focus();
+                                    line.click();
+                                    editorPage.setAttribute('contenteditable', 'true');
                                 });
                             }
                         });
