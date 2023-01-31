@@ -48,7 +48,7 @@
         speakWords(t) {
             if (!this.speech) return;
             let e = new SpeechSynthesisUtterance;
-            e.volume = 1, e.rate = .7, e.pitch = 1.5, e.text = t, e.lang = "en-GB", this.speech.speak(e)
+            e.volume = 1, e.rate = 1, e.pitch = 1, e.text = t, e.lang = "en", this.speech.speak(e)
         }
     };
     var l = class {
