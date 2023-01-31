@@ -43,7 +43,8 @@ class ClientSetting {
         const loadSettings = this.loadSetting();
         loadSettings.then(res => {
             this.getData = res;
-            localStorage.setItem('userData', this.getData.accountType);
+            window.localStorage.setItem('userData', this.getData.accountType);
+            window.localStorage.setItem('data', JSON.stringify(this.getData));
             // Set night mode status
             setTimeout(() => {
                 if (res.nightMode) {
@@ -280,11 +281,11 @@ class ClientSetting {
         .doping { color: black!important;}
         .c-green { color: white!important;}
         .header-nav {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
-        .act-name {color: white!important;}
+        .act-name, .select-color {color: white !important;}
         .text-grey-700, .status, .audio-text {color: white !important;}
         .select-feature-menu {color: black !important;}
         .select-feature-menu span>svg {fill: black !important;}
-        .fill-current-icon {fill: gray !important;}
+        .fill-current-icon, .site-color {fill: gray !important;}
         .content-color {color: black !important;}
         .fill-color {color: black !important;}
         .right-text {color: black !important;}
@@ -293,7 +294,7 @@ class ClientSetting {
         .ft-size25, .ft-size20, .ft-size17 {color: white !important;}
         .bg-color {background-color: black !important;}
         .nav-dark-color {background-color: black !important;}
-        .com-color {color: black !important;}
+        .com-color, .ml-40 {color: black !important;}
         .profile-info {color: black !important;}
         .top60, .scrollby8, .voice-color {background-color: darkslateblue !important;}
         .script-feature-menu {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
