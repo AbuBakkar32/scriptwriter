@@ -43,11 +43,7 @@ class NoteHandle {
             noteBody.innerText = data.note[i]?.description;
 
             // update bg-color
-            let bg_color = 'yellow';
-            data.note[i]['bg_color'] ? bg_color = data.note[i]['bg_color'] : bg_color = 'yellow';
-            bg_color.includes('green') ? bg_color = 'green' : null
-            bg_color.includes('blue') ? bg_color = 'blue' : null
-            noteBody.parentElement.classList.replace('bg-yellow', 'bg-' + bg_color);
+            noteBody.parentElement.classList.add(window.BackgroundColor.randomBg());
 
             // set author name
             const authorName = note.querySelector(this.vars.name);
@@ -61,15 +57,13 @@ class NoteHandle {
             const authorID = note.querySelector(this.vars.authorId);
             authorID.innerText = '1'// data.note.authorID;
 
-            const nameLogo = data.note[i].authorName ? data.note[i].authorName[0].toUpperCase() + data.note[i].authorName.split(' ')[1][0].toUpperCase() : 'O';
+            const nameLogo = data?.note[i].authorName ? data?.note[i].authorName[0].toUpperCase() + data?.note[i].authorName.split(' ').length > 1 ? data?.note[i].authorName.split(' ')[1][0].toUpperCase() : data?.note[i].authorName.slice(0, 2).toUpperCase() : 'O';
+
             //set name logo
             const authorNameLogo = note.querySelector(this.vars.nameLogo);
             authorNameLogo.innerText = nameLogo;
 
-            //set color
-            const color = note.querySelector(this.vars.color);
-            //color.innerText = data.note.color;
-
+            //append note into the list
             this.noteList.append(note);
         }
     }

@@ -21,6 +21,7 @@ class ScriptAdapter {
     constructor() {
         setTimeout(() => {
             window.MapAndReactOnContent.mapreact();
+            // console.log(this.scriptDataStore.data['01'].note)
         });
 
         // Get current draft: capture all draft key
