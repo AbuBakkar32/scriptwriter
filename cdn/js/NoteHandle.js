@@ -30,10 +30,8 @@ class NoteHandle {
         if (!data?.note[0]) return;
 
         for (let i = 0; i < data?.note?.length; i++) {
-
             // Set Note
             const note = this.item.cloneNode(true);
-
             // Set note body
             const noteTitle = note.querySelector(this.vars.title);
             noteTitle.innerText = data.note[i]?.title;
