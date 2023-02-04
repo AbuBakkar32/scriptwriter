@@ -34,7 +34,7 @@ class AdminLogin(object):
                 if admin.exists():
                     datasuit = arrayDBData(admin, "App")
                     if str(password) == datasuit['password']:
-                        f = App.objects.get(username=str(datasuit['email']))
+                        f = App.objects.get(username=str(datasuit['username']))
                         visitor_ip = str(request.META.get(
                             'CSRF_COOKIE'))  # for ip-address #(request.META.get('HTTP_X_FORWARDED_FOR')).split(',')[0]
                         f.season = str(visitor_ip)
