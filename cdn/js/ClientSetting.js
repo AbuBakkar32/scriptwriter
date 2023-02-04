@@ -139,7 +139,8 @@ class ClientSetting {
         var time = d.toLocaleTimeString();
         try {
             document.getElementById("time").innerHTML = time + " " + date;
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     //settingPageListener
