@@ -111,7 +111,7 @@
                             {% include 'script-work-template.html'%}
 
                             <!--Big card section-->
-                            <div class="mt-88 mx-8">
+                            <div class="mt-88 mx-8 p-10">
                                 <h5 class="mb-16 font-sans-alt uppercase font-semibold tracking-wide text-grey-500 text-xs">
                                     Notes</h5>
                                 <div class="mb-32 row mxx-8" data-marketing="">
@@ -140,11 +140,11 @@
 {% else %}
 <!-- Modal HTML -->
 <div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-login">
+    <div class="modal-login">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Sign In</h4>
-                <button type="button" class="close"><a href="/signup">Create an account</a></button>
+                <button type="button" class="close" style="padding: 0px; margin-right: -60px"><a href="/signup" style="font-size: 13px;">Create an account</a></button>
             </div>
             <div class="modal-body">
                 <form id="mainform" class="main-form" action="/login" method="post">
@@ -162,7 +162,7 @@
                                autocomplete="current-password" name="password" placeholder="Password"
                                required="required">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group justify-center d-flex">
                         <input type="submit" class="btn btn-primary btn-width" value="Login">
                     </div>
 
