@@ -8,11 +8,13 @@
 
   #new_user {
     background-color: #ffffff;
-    margin: 100px auto;
     font-family: Raleway;
     padding: 50px;
     width: 50%;
-    min-width: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   h3 {
@@ -82,8 +84,15 @@
 
   .log a{
     color: #04AA6D;
-    font-size: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 1.0;
   }
+
   .log a:hover{
     color: #04AA6D;
+  }
+
+  .reg-button{
+    border-radius: 07px;
   }

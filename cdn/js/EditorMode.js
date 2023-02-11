@@ -198,31 +198,30 @@ class EditorMode {
     }
 
     generateID() {
-        let id = '0';
         const lineList = document.querySelectorAll(this.cons.line);
-        const lastLine = lineList[(lineList.length - 1)];
-        if (lastLine) {
-            const xid = lastLine.getAttribute(this.cons.editID);
-            if (xid) id += String(Number(xid.substring(1)) + 1); else id += '0';
-        } else id += '0';
-
         const lineIDList = [];
-        document.querySelectorAll(this.cons.line).forEach((i) => {
+
+        // Add the line IDs to lineIDList
+        lineList.forEach((i) => {
             lineIDList.push(i.getAttribute(this.cons.editID));
         });
-        let count = 0;
-        while (true) {
-            count += 1;
-            if (lineIDList.includes(id)) {
-                id = '0';
-                if (lastLine) {
-                    const xid = lastLine.getAttribute(this.cons.editID);
-                    if (xid) id += String(Number(xid.substring(1)) + count); else id += String(count);
-                } else id += String(count);
-            } else break;
+
+        // Get the last line
+        const lastLine = lineList[(lineList.length - 1)];
+
+        // Get the next id to be used
+        let nextId = lastLine ?
+            (Number(lastLine.getAttribute(this.cons.editID).substring(1)) + 1) :
+            0;
+
+        // Check if the id is already in use, if so increment it
+        while (lineIDList.includes(`0${nextId}`)) {
+            nextId++;
         }
-        return id;
+
+        return `0${nextId}`;
     }
+
 
     watcherOnePage() {
         // if writing script, remove the note
@@ -253,8 +252,8 @@ class EditorMode {
             if (!this.watcherStatus) return;
             setTimeout(() => {
                 // trap to catch newly created line
-                for (let i = 0; i < this.idList.length; i++) {
-                    const x = this.idList[i]; // might be the duplicated id
+                for (const element of this.idList) {
+                    const x = element; // might be the duplicated id
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
                         const newID = this.generateID(); // Check if its a another new line created
@@ -382,12 +381,11 @@ class EditorMode {
             if (this.keyPressed !== 'Enter') return;
             this.rearrangePage(this.cons.item);
         }).then(() => {
-            //if (this.keyPressed !== 'Enter') return;
             if (!this.watcherStatus) return;
             setTimeout(() => {
                 // trap to catch newly created line
-                for (let i = 0; i < this.idList.length; i++) {
-                    const x = this.idList[i]; // might be the duplicated id
+                for (const element of this.idList) {
+                    const x = element; // might be the duplicated id
                     //const lenth = this.idList.filter( d => d === x ).length;
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
@@ -445,7 +443,7 @@ class EditorMode {
                                 // remove from next sibling
                                 const abs = document.getElementById(`sw-editor-id-${sw_editor_id}`);
                                 const is_show = abs.classList.contains('show');
-                                if (event.relatedTarget.id != `sw-editor-id-${sw_editor_id}` && !is_show) {
+                                if (event.relatedTarget.id !== `sw-editor-id-${sw_editor_id}` && !is_show) {
                                     abs.remove();
                                 }
                             });
@@ -490,7 +488,7 @@ class EditorMode {
             this.watcherStatus = true;
             await this.calculatePageNumbers();
             window.ScriptAdapter.autoSave();
-            if (this.keyPressed != '') window.MapAndReactOnContent.mapreact();
+            if (this.keyPressed !== '') window.MapAndReactOnContent.mapreact();
             this.keyPressed = '';
 
             // update the element focus edit
@@ -573,11 +571,13 @@ class EditorMode {
         const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
         let suggestion = new Set(data);
         let list = [];
-        if (line.textContent !== '' && line.textContent === line.textContent.toUpperCase()) {
-            if (slist.classList.contains("hide")) slist.classList.remove("hide");
+
+        if (line.textContent !== '' && line.textContent.toUpperCase() === line.textContent) {
+            slist.classList.remove("hide");
         } else {
-            if (!slist.classList.contains("hide")) slist.classList.add("hide");
+            slist.classList.add("hide");
         }
+
         try {
             suggestion.forEach((e) => {
                 if (e.name.match(line.innerText)) {
@@ -585,8 +585,12 @@ class EditorMode {
                 }
             });
         } catch (error) {
+            // Handle error
         }
-        if (list.length <= 0) if (!slist.classList.contains("hide")) slist.classList.add("hide");
+
+        if (list.length === 0) {
+            slist.classList.add("hide");
+        }
 
         const listDiv = document.createElement('div');
         listDiv.classList.add('suggestion-list');
@@ -602,15 +606,16 @@ class EditorMode {
             div.addEventListener('click', () => {
                 line.textContent = e;
                 listDiv.remove();
-                if (!slist.classList.contains("hide")) slist.classList.add("hide");
+                slist.classList.add("hide");
                 line.click();
                 line.click();
                 window.ScriptAdapter.autoSave();
-            })
+            });
             listDiv.append(div);
         });
-        slist.append(listDiv)
+        slist.append(listDiv);
     }
+
 
 // END - Suggestion Function For on time character suggestion
 
@@ -764,7 +769,6 @@ class EditorMode {
         if (direct) {
             line.classList.replace(this.cons.at, this.cons.pat);
             line.setAttribute(this.cons.editType, this.cons.pa);
-            // line.innerText = '('+line.innerText+')';
             return;
         }
         // Checker if action on script content line execute successfully
@@ -790,7 +794,6 @@ class EditorMode {
         line.classList.remove(this.cons.tt);
         line.classList.remove(this.cons.at);
         line.classList.remove(this.cons.act);
-        //line.classList.add(this.cons.at);
         if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act);
         line.setAttribute(this.cons.editType, '');
         if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
@@ -799,57 +802,15 @@ class EditorMode {
 
     rearrangePage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);
-        // get total number of pages
-        const tnp = allPage.length;
-        //
-        for (let index = 0; index < tnp; index++) {
-            const page = allPage[index]; // The Page
-            //Get the page scroll height
-            const currentScrollHeight = page.scrollHeight;
-            // Condition for new page
-            if (currentScrollHeight > this.pageHeight) {
-                // Check if the page has a sibling. If no sibling then create a new page, else append last content-line to the sibling
+        const totalPages = allPage.length;
+        for (let index = 0; index < totalPages; index++) {
+            const page = allPage[index];
+            if (this.isPageOverflowing(page)) {
                 const nextPage = page.nextElementSibling;
-                //the last content-line in the page
-                const lastContentLine = page.lastElementChild;
                 if (nextPage) {
-                    // will be append as the first content-line in this nextpage
-                    if (lastContentLine) nextPage.insertAdjacentElement('afterbegin', lastContentLine);
-
-                    if (page.scrollHeight > this.pageHeight) {
-                        while (true) {
-                            if (page.scrollHeight > this.pageHeight) {
-                                nextPage.insertAdjacentElement('afterbegin', page.lastElementChild);
-                            } else break;
-                        }
-                    }
+                    this.moveContentToSibling(page, nextPage);
                 } else {
-                    let newPage = this.itemTemp.cloneNode(true);//Remove all previous children from the new page
-                    [...newPage.children].forEach((cl) => {
-                        cl.remove()
-                    });
-                    // Append new page to Page List
-                    this.editorModeList.append(newPage);
-
-                    while (true) {
-                        if (page.scrollHeight > this.pageHeight) {
-                            if (newPage.scrollHeight <= this.pageHeight) {
-                                // Append the last content-line to the new page
-                                newPage.insertAdjacentElement('afterbegin', page.lastElementChild)
-                            } else {
-                                page.append(newPage.firstElementChild);
-                                const latestPage = this.itemTemp.cloneNode(true);
-                                //Remove all previous children from the new page
-                                [...latestPage.children].forEach((cl) => {
-                                    cl.remove()
-                                });
-                                // Append new page to Page List
-                                newPage.insertAdjacentElement('beforebegin', latestPage);
-                                latestPage.insertAdjacentElement('afterbegin', page.lastElementChild)
-                                newPage = latestPage;
-                            }
-                        } else break;
-                    }
+                    this.createNewPage(page);
                 }
             }
         }
@@ -858,35 +819,68 @@ class EditorMode {
         this.removeBlankPage();
     }
 
+    isPageOverflowing(page) {
+        return page.scrollHeight > this.pageHeight;
+    }
+
+    moveContentToSibling(page, nextPage) {
+        const lastContentLine = page.lastElementChild;
+        if (lastContentLine) {
+            nextPage.insertAdjacentElement('afterbegin', lastContentLine);
+        }
+        while (this.isPageOverflowing(page)) {
+            nextPage.insertAdjacentElement('afterbegin', page.lastElementChild);
+        }
+    }
+
+    createNewPage(page) {
+        let newPage = this.itemTemp.cloneNode(true);
+        [...newPage.children].forEach((cl) => {
+            cl.remove()
+        });
+        this.editorModeList.append(newPage);
+        while (this.isPageOverflowing(page)) {
+            if (this.isPageOverflowing(newPage)) {
+                this.createNewPageBefore(page, newPage);
+            } else {
+                newPage.insertAdjacentElement('afterbegin', page.lastElementChild);
+            }
+        }
+    }
+
+    createNewPageBefore(page, newPage) {
+        page.append(newPage.firstElementChild);
+        const latestPage = this.itemTemp.cloneNode(true);
+        [...latestPage.children].forEach((cl) => {
+            cl.remove()
+        });
+        newPage.insertAdjacentElement('beforebegin', latestPage);
+        latestPage.insertAdjacentElement('afterbegin', page.lastElementChild)
+    }
+
+
     rearrangePageBack(pageAttr = this.cons.item) {
-        const allPage = document.querySelectorAll(pageAttr); // [sw-editor="item"]
-        // get total number of pages
-        const tnp = allPage.length;
+        const allPages = document.querySelectorAll(pageAttr);
+        const totalPages = allPages.length;
 
-        for (let index = 0; index < tnp; index++) {
-            const page = allPage[index]; // The Page
-
-            // Condition for new page
-            //Get the page scroll height
+        for (let i = 0; i < totalPages; i++) {
+            const page = allPages[i];
             const currentScrollHeight = page.scrollHeight;
 
-            if (currentScrollHeight > this.pageHeight /* || page.childElementCount < 45 */) {
-                // Check if the page has a sibling. If no sibling then end func., else append first content-line of the sibling to the page
+            if (currentScrollHeight > this.pageHeight) {
                 const nextPage = page.nextElementSibling;
                 if (nextPage) {
-                    const firstContentLine = nextPage.firstElementChild; //the first content-line in the nextpage
-                    // will be append as the first content-line in this nextpage
-                    if (firstContentLine) page.insertAdjacentElement('beforeend', firstContentLine);
-                    while (true) {
-                        if (currentScrollHeight > this.pageHeight /* || page.childElementCount < 45 */) {
-                            const firstOfNextPage = nextPage.firstElementChild;
-                            if (firstOfNextPage) page.insertAdjacentElement('beforeend', firstOfNextPage); else break;
-                        } else break;
+                    let firstContentLine = nextPage.firstElementChild;
+                    while (firstContentLine) {
+                        page.insertAdjacentElement('beforeend', firstContentLine);
+                        if (page.scrollHeight <= this.pageHeight) break;
+                        firstContentLine = nextPage.firstElementChild;
                     }
                 }
             }
         }
     }
+
 
     removeBlankPage(pageAttr = this.cons.item) {
         const allPage = document.querySelectorAll(pageAttr);

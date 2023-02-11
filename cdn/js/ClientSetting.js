@@ -103,7 +103,7 @@ class ClientSetting {
                     } else {
                         this.displayName.classList.add("hidden");
                     }
-                    var opacityValue = document.querySelector('.opacity-range');
+                    let opacityValue = document.querySelector('.opacity-range');
                     this.displayName.innerHTML = res.waterMarkDisplayText;
                     opacityValue.style.opacity = res.waterMarkDisplayOpacity;
                 } catch (e) {
@@ -112,8 +112,8 @@ class ClientSetting {
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
             loadScript.then(res => {
-                for (let i = 0; i < res.length; i++) {
-                    setInterval(this.downloadScript, timeOut, res[i]);
+                for (const element of res) {
+                    setInterval(this.downloadScript, timeOut, element);
                 }
             });
             this.listener();
@@ -134,9 +134,9 @@ class ClientSetting {
 
     //Set the date time into the dashboard
     showTimeDate() {
-        var d = new Date();
-        var date = d.toLocaleDateString();
-        var time = d.toLocaleTimeString();
+        let d = new Date();
+        let date = d.toLocaleDateString();
+        let time = d.toLocaleTimeString();
         try {
             document.getElementById("time").innerHTML = time + " " + date;
         } catch (e) {
@@ -347,8 +347,8 @@ class ClientSetting {
 
 /* A function that is used to change the value of the slider. */
 async function slider() {
-    var slider = document.querySelector('#myRange');
-    var opacity;
+    let slider = document.querySelector('#myRange');
+    let opacity;
     setTimeout(() => {
         opacity = document.querySelector('.opacity-range');
     }, 100);

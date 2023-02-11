@@ -53,8 +53,8 @@ function saveChangedCardListPinboard(swData) {
     let dataList1 = Object.keys(data).map((key) => data[key]);
     dataList1.sort((a, b) => a.unique_id - b.unique_id);
     data = {}
-    for (let i = 0; i < dataList1.length; i++) {
-        data[dataList1[i].id] = dataList1[i];
+    for (const element of dataList1) {
+        data[element.id] = element;
     }
     window.ScriptAdapter.scriptDataStore.pinboard = data;
     window.ScriptAdapter.autoSave();
