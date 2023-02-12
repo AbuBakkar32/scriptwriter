@@ -366,12 +366,14 @@ class OutlineHandle {
                 // Get the content line element of the last line ID
                 const lastLineContentElement = document.querySelector(this.vars?.editorID.replace('%s', lastLineID));
                 // new scene heading content line
+                const outline = Object.values(window.ScriptAdapter.scriptDataStore.outline);
+                const outlineLength = outline.length-1;
                 const headingFunc = window.MapAndReactOnContent.sceneHeadingType;
-                const sceneHeadingContentLine = window.EditorFuncs.createNewLine(lastLineContentElement, headingFunc, true, 'INT. New Scene ' + quickID());
+                const sceneHeadingContentLine = window.EditorFuncs.createNewLine(lastLineContentElement, headingFunc, true, 'INT. New Scene ' + outlineLength.toString());
 
                 // new action content line
                 const actionContentLine = window.EditorFuncs.createNewLine(sceneHeadingContentLine, (b) => {
-                }, true, 'new action line ' + quickID());
+                }, true, 'New Action Line For Scene Number ' + outlineLength.toString());
                 sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
             }).then(() => {
                 enableDragSort('drag-sort-enable-outline');

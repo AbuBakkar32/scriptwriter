@@ -78,40 +78,22 @@
                                 <div class="flex justify-center p-32 mxx-8 bg-two">
                                     <input class="text-grey-700 col-8 truncate text-left p-2 input"
                                            sw-glossary="search-bar" placeholder="Search Screenwriter terms ...">
-                                    <div class="bg-black mx-8 p-8 hover:shadow-md cus-pointer c-white btn-jump"
-                                         sw-glossary="search-btn">Search
+                                    <div class="bg-black p-10 cus-pointer c-white" style="padding: 0px 55px; letter-spacing: 2px; "
+                                         sw-glossary="search-btn"><p style="margin-top: 3px">SEARCH</p>
                                     </div>
                                 </div>
-                                <div class="col-12 bg-four mxx-8">
-
-                                    <div class="col-12 col-by94-lg p-32 m-8 font-sans-alt text-grey-700"
-                                         sw-glossary="list">
+                                <div class="col-12 bg-four mxx-8 bg-white shadow">
+                                    <div class="col-12 col-by94-lg p-32 font-sans-alt text-grey-700"
+                                         sw-glossary="list" style="padding-left: 100px">
                                         {% if Glossary %}
                                         {% for glos in Glossary %}
                                         <div class="mb-16 p-4 relative" sw-glossary="item">
-                                            <div class="ft-size16 input uppercase bold" sw-glossary="title">
+                                            <div class="ft-size16 input uppercase fw-500 c-black" style="letter-spacing: 2px" sw-glossary="title">
                                                 {{glos.title|safe}}
                                             </div>
-                                            <div class="p-8 mb-8 input overflow-y-auto ft-initial break-space"
+                                            <div class="p-6 input pt-8 c-black overflow-y-auto ft-initial break-space"
                                                  sw-glossary="body">{{glos.body|safe}}
                                             </div>
-
-                                            <div class="flex justify-between">
-                                                <!--Arrow up and Arrow down-->
-                                                <span class="col font-sans-alt text-grey-700 text-cursive flex end">
-                                                            <!--Down-->
-                                                            <svg class="fill-current size24 cus-pointer"
-                                                                 sw-glossary="angle-down-btn"
-                                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path
-                                                                    d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
-                                                            <!--Up-->
-                                                            <svg class="fill-current size24 cus-pointer"
-                                                                 sw-glossary="angle-up-btn"
-                                                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path
-                                                                    d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg>
-                                                        </span>
-                                            </div>
-
                                             <hr class="bg-five m-2 p-1"/>
                                         </div>
                                         {% endfor %}
@@ -119,11 +101,6 @@
                                     </div>
                                 </div>
                             </div>
-
-<!--                            <div class="doping">-->
-<!--                                <div class="col-12 bg-three mx-8 my-8 py-24 rounded-lg shadow hover:shadow-md transition-fast-out"></div>-->
-<!--                            </div>-->
-
                         </div>
 
                         <!--Footer ending-->
