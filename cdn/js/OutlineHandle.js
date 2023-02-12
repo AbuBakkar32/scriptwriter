@@ -373,7 +373,7 @@ class OutlineHandle {
 
                 // new action content line
                 const actionContentLine = window.EditorFuncs.createNewLine(sceneHeadingContentLine, (b) => {
-                }, true, 'New Action Line For Scene Number ' + outlineLength.toString());
+                }, true, 'New Action Line For Scene Numberconst ' + outlineLength.toString());
                 sceneHeadingContentLine.insertAdjacentElement('afterend', actionContentLine);
             }).then(() => {
                 enableDragSort('drag-sort-enable-outline');

@@ -1524,3 +1524,12 @@ span.drag-sort-active {
     padding-left: 5px;
     font-weight: bold;
 }
+
+.bg-gradient {
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(201deg, rgba(255, 255, 255, 1) 58%, rgba(92, 245, 207, 1) 71%, rgba(17, 167, 176, 1) 79%);
+    background: -webkit-linear-gradient(201deg, rgba(255, 255, 255, 1) 58%, rgba(92, 245, 207, 1) 71%, rgba(17, 167, 176, 1) 79%);
+    background: linear-gradient(201deg, rgba(255, 255, 255, 1) 58%, rgba(92, 245, 207, 1) 71%, rgba(17, 167, 176, 1) 79%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#11a7b0", GradientType=1);
+}
+
