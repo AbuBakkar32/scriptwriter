@@ -352,7 +352,7 @@ class OutlineHandle {
     add(item = document.querySelector(this.vars.mainMrItem)) {
         const ask = confirm(`Do you want to add a new Scene?`);
         if (!ask) return;
-        window.Watcher.mainPageAwait();
+        // window.Watcher.mainPageAwait();
         setTimeout(() => {
             const addOutlinePromise = new Promise((resolve, reject) => {
                 resolve(1)
@@ -394,7 +394,7 @@ class OutlineHandle {
         const ask = confirm(`Do you want to delete this Scene?\nThis action is not revertable`);
         if (!ask) return;
 
-        window.Watcher.mainPageAwait();
+        // window.Watcher.mainPageAwait();
         setTimeout(() => {
             const deleteOutlinePromise = new Promise((resolve, reject) => {
                 resolve(0)

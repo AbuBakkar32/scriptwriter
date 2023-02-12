@@ -21,7 +21,6 @@ class ScriptAdapter {
     constructor() {
         setTimeout(() => {
             window.MapAndReactOnContent.mapreact();
-            // console.log(this.scriptDataStore.data['01'].note)
         });
 
         // Get current draft: capture all draft key
@@ -228,10 +227,8 @@ class ScriptAdapter {
         // Set Name
         newDraft.querySelector(`[sw-draft="item-text"]`).textContent = draftName;
         if(data.nightMode === 'true'){
-            console.log('true',data.nightMode)
             newDraft.style.color = "white";
         }else{
-            console.log('false',data.nightMode)
             newDraft.style.color = "black";
         }
         // Append the newly created draft to list
@@ -315,7 +312,7 @@ class ScriptAdapter {
     }, skipObserver = false) {
         /** Await Starts*/
         const isPro = localStorage.getItem('userData');
-        window.Watcher.bothAwait()
+        // window.Watcher.bothAwait()
         // Disable page mutation
         //window.MapAndReactOnContent.pageMutationStatus = false;
         const renderDraftContentPromise = new Promise((resolve, reject) => {
@@ -323,7 +320,7 @@ class ScriptAdapter {
         });
         renderDraftContentPromise.then(async () => {
             /** Await Point */
-            window.Watcher.bothAwait(true, 'Rendering script text on page...');
+            // window.Watcher.bothAwait(true, 'Rendering script text on page...');
             // clear all script comment in the right sider bar
             await window.NoteHandle?.clear();
             let draft = this.scriptDataStore.draft[draftKey];
@@ -381,8 +378,8 @@ class ScriptAdapter {
                 let newLine = this.editorFuncs.lineTemp.cloneNode(true)
                 // Kick of render
                 let count = 0;
-                for (let index = 0; index < draftDataKeys.length; index++) {
-                    const clDetial = draft.data[draftDataKeys[index]];
+                for (const element of draftDataKeys) {
+                    const clDetial = draft.data[element];
                     if (clDetial) {
                         // Clone content line template
                         newLine = this.editorFuncs.lineTemp.cloneNode(true);
@@ -422,7 +419,7 @@ class ScriptAdapter {
             }
         }).then(async () => {
             /** Await Point */
-            window.Watcher.bothAwait(true, 'loading comments and calculating pages...');
+            // window.Watcher.bothAwait(true, 'loading comments and calculating pages...');
             // Help author be able to save comment and note
             this.saveCommentAndNote();
             // Event listener to manage open and closing of all comment
@@ -431,12 +428,12 @@ class ScriptAdapter {
             await this.editorFuncs.totalNumberOfPage();
         }).then(async () => {
             /** Await Point */
-            window.Watcher.bothAwait(true, 'Re-arranging pages...');
+            // window.Watcher.bothAwait(true, 'Re-arranging pages...');
             // EditorFuncs.js method: Make sure page is arrange
             await window.EditorMode.rearrangePage();
         }).then(() => {
             /** Await Point */
-            window.Watcher.bothAwait(true, 'Activating Watcher on page...');
+            // window.Watcher.bothAwait(true, 'Activating Watcher on page...');
             const pageWrap = document.querySelector(`[sw-editor="list"]`);
             const pageList = pageWrap.querySelectorAll(`[sw-editor="item"]`);
             const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`);
@@ -446,7 +443,7 @@ class ScriptAdapter {
             window.Watcher.reset(0, totalPage, totalLine, false);
         }).then(async () => {
             /** Await Point */
-            window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
+            // window.Watcher.bothAwait(true, 'Mapping and linking of script text on page...');
             // if(!skipObserver) window.MapAndReactOnContent.mapreact();
             await window.MapAndReactOnContent.mapreact();
         }).then(async () => {
