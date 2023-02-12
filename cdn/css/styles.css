@@ -295,15 +295,62 @@ html, body {
     width: 100%
 }
 
+.footer-text {
+        position: fixed;
+        width: 69%;
+        bottom: 0;
+        height: 5%;
+    }
+
 @media (min-width: 640px) {
     .stl-container {
         max-width: 640px
+    }
+
+    .footer-text {
+        position: fixed;
+        width: 69%;
+        bottom: 0;
+        height: 5%;
     }
 }
 
 @media (min-width: 768px) {
     .stl-container {
         max-width: 768px
+    }
+
+    .footer-text {
+        position: fixed;
+        width: 69%;
+        bottom: 0;
+        height: 5%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .stl-container {
+        max-width: 1024px
+    }
+
+    .footer-text {
+        position: fixed;
+        width: 90%;
+        bottom: 0;
+        height: 5%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .stl-container {
+        max-width: 1280px
+    }
+
+    .footer-text {
+        position: fixed;
+        width: 90%;
+        bottom: 0;
+        height: 5%;
     }
 }
 
@@ -313,19 +360,6 @@ html, body {
     left: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
-}
-
-
-@media (min-width: 1024px) {
-    .stl-container {
-        max-width: 1024px
-    }
-}
-
-@media (min-width: 1280px) {
-    .stl-container {
-        max-width: 1280px
-    }
 }
 
 .stl-display-large {
@@ -1455,7 +1489,7 @@ input:disabled ~ .stl-toggle {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #04AA6D;
+    background: #0FAB91;
     cursor: pointer;
 }
 
@@ -1463,7 +1497,7 @@ input:disabled ~ .stl-toggle {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #04AA6D;
+    background: #0FAB91;
     cursor: pointer;
 }
 

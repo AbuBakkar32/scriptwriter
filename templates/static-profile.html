@@ -16,7 +16,6 @@
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="../../cdn/js/jquery-weekdays.js"></script>
     <link href="../../cdn/css/jquery-weekdays.css" rel="stylesheet"/>
-
 </head>
 
 <body class="relative bg-x-gradient-grey-200-grey-200-50-white-100" data-controller="app">
@@ -64,17 +63,19 @@
                                             </div>
                                             <div class="col-12 col-by47-lg m-4 ">
                                                 <label>Email Address: </label>
-                                                <input type="email" class="profile-info text-grey-700 truncate text-left p-4 w-100 rem-h2-5"
+                                                <input type="email"
+                                                       class="profile-info text-grey-700 truncate text-left p-4 w-100 rem-h2-5"
                                                        name="email" placeholder="Email Address" value="{{email}}">
                                             </div>
                                             <div class="col-12 col-by47-lg m-4">
                                                 <label>Password: </label>
-                                                <input type="password" class="profile-info text-grey-700 truncate text-left p-4 w-100 rem-h2-5"
+                                                <input type="password"
+                                                       class="profile-info text-grey-700 truncate text-left p-4 w-100 rem-h2-5"
                                                        name="password" placeholder="Password" value="{{password}}">
                                             </div>
                                         </div>
                                         <div class="flex justify-end col-12 col-by94-lg my-16 mxx-8">
-                                            <button class="bg-evergreen btn-jump c-white p-8 shadow hover:shadow-md transition-fast-out brd-r1rm">
+                                            <button class="bg-evergreen c-white p-8 shadow hover:shadow-md brd-r1rm">
                                                 Update Information
                                             </button>
                                         </div>
@@ -88,7 +89,8 @@
                                         </div>
                                         <div class="flex justify-end col-12 col-by94-lg my-16 mxx-40"
                                              style="margin-right: 70px">
-                                            <button class="bg-evergreen btn-jump c-white p-8 shadow hover:shadow-md transition-fast-out brd-r1rm" sw-update-form="week-alert">
+                                            <button class="bg-evergreen c-white p-8 shadow hover:shadow-md brd-r1rm"
+                                                    sw-update-form="week-alert">
                                                 Set Reminder
                                             </button>
                                         </div>
@@ -128,6 +130,7 @@
 
 <script src="../../cdn/js/app.js"></script>
 <script src="../../cdn/js/CardOption.js"></script>
+<script type="text/javascript" src="../../cdn/js/jquery-weekdays.js"></script>
 <script>
     var weekdays = [];
     $(function () {

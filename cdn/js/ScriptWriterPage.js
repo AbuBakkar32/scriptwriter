@@ -105,7 +105,7 @@ class ScriptWriterPage {
         this.mainPageBtn?.addEventListener('click', () => { 
             this.hideOrShowPageExcept('main');
             this.hideOrShowHeaderExcept('header1');
-            window.Watcher.mainPageAwait();
+            // window.Watcher.mainPageAwait();
             setTimeout(async() => {
                 await window.MapAndReactOnContent.structureGuideHandle();
                 // Rearrange pages if need be
@@ -153,7 +153,7 @@ class ScriptWriterPage {
     }
 
     awaitTrigger() {
-        window.Watcher.mainPageAwait();
+        // window.Watcher.mainPageAwait();
         setTimeout(async() => {
             await window.MapAndReactOnContent?.mapreact();
             await window.Watcher.mainPageAwait(false);
