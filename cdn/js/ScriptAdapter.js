@@ -148,11 +148,8 @@ class ScriptAdapter {
                 if (prevSelectedDraft) {
                     // Remove the select indicator
                     prevSelectedDraft.classList.remove('select-feature-draft');
-                    prevSelectedDraft.classList.add('select-color');
                     // Add it to the current draft item option
                     draftItem.classList.add('select-feature-draft');
-                    draftItem.removeAttribute('style');
-                    if(draftItem.classList.contains('select-color')) draftItem.classList.remove('select-color');
                 } else {
                     draftItem.classList.add('select-feature-draft');
                 }
@@ -208,8 +205,6 @@ class ScriptAdapter {
         //Draft Name or text
         let draftName = 'Draft 1';
         const allText = [];
-        const clientData = window.localStorage.getItem('data');
-        const data = clientData ? JSON.parse(clientData) : {};
         [...document.querySelector(`[sw-draft="list"]`).children].forEach((eleItem) => {
             const getItemText = eleItem.querySelector(`[sw-draft="item-text"]`).textContent;
             allText.push(getItemText);
@@ -226,11 +221,6 @@ class ScriptAdapter {
         const newDraft = this.draftItemOption.cloneNode(true);
         // Set Name
         newDraft.querySelector(`[sw-draft="item-text"]`).textContent = draftName;
-        if(data.nightMode === 'true'){
-            newDraft.style.color = "white";
-        }else{
-            newDraft.style.color = "black";
-        }
         // Append the newly created draft to list
         draftItem.insertAdjacentElement('afterend', newDraft);
         // Add to event
