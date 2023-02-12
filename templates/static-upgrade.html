@@ -1,119 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Upgrade</title>
-        <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
-        <meta content="ie=edge" http-equiv="X-UA-Compatible">
-        <meta content="#ffffff" name="msapplication-TileColor">
-        <meta content="#ffffff" name="theme-color">
-        <!--<link href="img.ico" rel="shortcut icon">-->
-        <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
-        <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
-        <link rel="stylesheet" media="screen" href="../../cdn/css/styles.css">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Upgrade</title>
+    <link href="../../cdn/dashboard/css/main-85223400.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta content="#ffffff" name="msapplication-TileColor">
+    <meta content="#ffffff" name="theme-color">
+    <!--<link href="img.ico" rel="shortcut icon">-->
+    <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/styles.css">
 
 
-    </head>
+</head>
 
-    <body class="relative bg-four" data-controller="app">
-        <div class="flex flex-col min-h-screen text-base font-sans">
+<body class="relative bg-four" data-controller="app">
+<div class="flex flex-col min-h-screen text-base font-sans bg-gradient">
 
-            <!--============ Header =========-->
-            {% include 'header-template4.html' %}
+    <!--============ Header =========-->
+    {% include 'header-template4.html' %}
 
-            <div class="flex-1 mx-auto w-full">
-                <div class="flex h-full">
+    <div class="flex-1 mx-auto w-full">
+        <div class="flex h-full">
 
-                    <!--Sider Bar At left side (without features list or characters)-->
-                    {% include 'aside-template2.html' %}
+            <!--Sider Bar At left side (without features list or characters)-->
+            {% include 'aside-template2.html' %}
 
-                    <div class="w-full lg:rem-ml-15">
-                        <div class="flex md:px-56">
-                            <!--============MAIN BODY=========-->
-                            <main class="w-full min-h-full">
-                                <!--Page heading-->
-                                <div class="mb-24 px-16 flex justify-between">
-                                    <div class="flex-rts">
-                                        <div class="font-sans-alt font-semibold tracking-wide ft-size25">Plans & Pricing</div>
+            <div class="w-full lg:rem-ml-15">
+                <div class="flex md:px-56">
+                    <!--============MAIN BODY=========-->
+                    <main class="w-full min-h-full">
+                        <!--Page heading-->
+                        <div class="mb-24 px-16 flex justify-between">
+                            <div class="flex-rts">
+                                <div class="font-sans-alt font-semibold tracking-wide ft-size25">Plans & Pricing</div>
+                            </div>
+
+                            <div class="flex-rts text-grey-500">
+                                <div class="">
+                                    <div class="font-sans-alt font-semibold mb-8" style="text-align: center">Any
+                                        question?
                                     </div>
-
-                                    <div class="flex-rts text-grey-500">
-                                        <div class="">
-                                            <div class="font-sans-alt font-semibold mb-8">Any question?</div>
-                                            <button class="btn-jump bg-evergreen font-sans-alt font-semibold c-white p-8 shadow hover:shadow-md transition-fast-out">
-                                                Contact Support
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <button class="bg-evergreen rounded font-sans-alt font-semibold c-white p-8 shadow">
+                                        Contact Support
+                                    </button>
                                 </div>
+                            </div>
+                        </div>
 
-                                
-                                <div class=" text-grey-1000 leading-normal">
-                                    <div class="col-12">
-                                        <div class="col-12 col-10-lg col-8-xl mlmr-auto">
-                                            <div class="row mxx-8 font-sans-alt font-semibold c-black fw-400">
-                                                <!--Monthly Plan-->
-                                                <div class="col-12 col-5-sm col-5-md col-5-lg col-5-xl">
-                                                    <div class="flex-cnt mb-16">
-                                                        <div>
-                                                            <div class="tracking-wide ft-size25">Monthly</div>
-                                                            <div class="c-green">(Save 70%)</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-12-lg col-11-xl p-8 m-4 shadow-darker hover:shadow-md transition-fast-out box-raise">
-                                                        <div class="pb-32">
-                                                            <div class="ft-size16 text-center bold c-green ft-size20 mb-24">Basic</div>
-                                                            <div class="ft-size16 text-center mb-24"><span class="bold ft-size20">FREE</span></div>
-                                                            <div class="ft-size16 text-center mb-16">Scriptwriting Page</div>
-                                                            <div class="ft-size16 text-center mb-16">Characters (Basic)</div>
-                                                            <div class="ft-size16 text-center mb-16">Location</div>
-                                                            <div class="ft-size16 text-center mb-16">Story Docs</div>
-                                                            <div class="ft-size16 text-center mb-16">Glossary</div>
-                                                            <!-- <div class="flex-cnt">
-                                                                <button class="btn-jump bg-evergreen font-sans-alt font-semibold c-white p-8 shadow hover:shadow-md transition-fast-out w-70">
-                                                                    Start
-                                                                </button>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
+
+                        <div class=" text-grey-1000 leading-normal">
+                            <div class="col-12">
+                                <div class="col-12 col-10-lg col-8-xl mlmr-auto">
+                                    <div class="row mxx-8 font-sans-alt font-semibold c-black fw-400">
+                                        <!--Monthly Plan-->
+                                        <div class="col-12 col-5-sm col-5-md col-5-lg col-5-xl">
+                                            <div class="flex-cnt mb-16">
+                                                <div>
+                                                    <div class="tracking-wide ft-size25">Monthly</div>
+                                                    <div class="c-green">(Save 70%)</div>
                                                 </div>
+                                            </div>
+                                            <div class="col-12 col-12-lg col-11-xl p-8 m-4 shadow bg-white rounded" style="margin-top: 45px">
+                                                <div class="pb-32">
+                                                    <div class="ft-size16 text-center bold c-green ft-size20 mb-24">
+                                                        Basic
+                                                    </div>
+                                                    <div class="ft-size16 text-center mb-24"><span
+                                                            class="bold ft-size20">FREE</span></div>
+                                                    <div class="ft-size16 text-center mb-16">Scriptwriting Page</div>
+                                                    <div class="ft-size16 text-center mb-16">Characters (Basic)</div>
+                                                    <div class="ft-size16 text-center mb-16">Location</div>
+                                                    <div class="ft-size16 text-center mb-16">Story Docs</div>
+                                                    <div class="ft-size16 text-center mb-16">Glossary</div>
+<!--                                                    <div class="flex-cnt">-->
+<!--                                                        <button class="bg-evergreen font-sans-alt font-semibold c-white p-8 shadow w-70">-->
+<!--                                                            Start-->
+<!--                                                        </button>-->
+<!--                                                    </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                <!--Toggle button-->
-                                                <div class="col-12 col-1-sm col-1-md col-1-lg m-16">
-                                                    <div class="flex-cnt">
-                                                        <div>
-                                                            <label class="toggle">
-                                                                <div class="toggle__wrapper">
-                                                                    {% if accountType != 'pro' %}
-                                                                    <input class="toggle-input" type="checkbox" sw-payment="switch">
-                                                                    {% else %}
-                                                                    <input class="toggle-input" type="checkbox" sw-payment="switch" disabled checked>
-                                                                    {% endif %}
-                                                                    <div class="toggle__bg">
-                                                                        <div class="toggle__sphere">
-                                                                            <div class="toggle__sphere-bg"></div>
-                                                                            <div class="toggle__sphere-overlay"></div>
-                                                                        </div>
-                                                                    </div>
+                                        <!--Toggle button-->
+                                        <div class="col-12 col-1-sm col-1-md col-1-lg m-16">
+                                            <div class="flex-cnt">
+                                                <div>
+                                                    <label class="toggle">
+                                                        <div class="toggle__wrapper">
+                                                            {% if accountType != 'pro' %}
+                                                            <input class="toggle-input" type="checkbox"
+                                                                   sw-payment="switch">
+                                                            <div class="toggle__bg">
+                                                                <div class="toggle__sphere">
+                                                                    <div class="toggle__sphere-bg"></div>
+                                                                    <div class="toggle__sphere-overlay"></div>
                                                                 </div>
-                                                            </label>
+                                                            </div>
+                                                            {% else %}
+                                                            <span></span>
+                                                            {% endif %}
                                                         </div>
-                                                    </div>
+                                                    </label>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <!--Yearly Plan-->
-                                                <div class="col-12 col-5-sm col-5-md col-5-lg col-5-xl">
-                                                    <div class="flex-cnt mb-16">
-                                                        <div>
-                                                            <div class="tracking-wide ft-size25">Yearly</div>
-                                                            <div class="c-green">(Save 90%)</div>
-                                                        </div>
+                                        <!--Yearly Plan-->
+                                        <div class="col-12 col-5-sm col-5-md col-5-lg col-5-xl">
+                                            <div class="flex-cnt mb-16">
+                                                <div>
+                                                    <div class="tracking-wide ft-size25">Yearly</div>
+                                                    <div class="c-green">(Save 90%)</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-12-lg col-11-xl p-8 m-4 shadow bg-white rounded" style="margin-top: 45px">
+                                                <div class="pb-32">
+                                                    <div class="ft-size16 text-center bold c-green ft-size20 mb-24">
+                                                        Pro
                                                     </div>
-                                                    <div class="col-12 col-12-lg col-11-xl p-8 m-4 shadow-darker hover:shadow-md transition-fast-out box-raise">
-                                                        <div class="pb-32">
-                                                            <div class="ft-size16 text-center bold c-green ft-size20 mb-24">Pro</div>
-                                                            <div class="ft-size16 text-center mb-24">
+                                                    <div class="ft-size16 text-center mb-24">
                                                                 <span class="bold ft-size20">
                                                                     {% if subscriptionMode == 'month' %}
                                                                     £<span sw-payment="amount">15</span>
@@ -123,57 +131,58 @@
                                                                     GBP/<span sw-payment="plan">Yearly</span>
                                                                     {% endif %}
                                                                 </span>
-                                                            </div>
-                                                            <div class="ft-size16 text-center mb-16">Advice From Writers</div>
-                                                            <div class="ft-size16 text-center mb-16">Scriptwriting Page</div>
-                                                            <div class="ft-size16 text-center mb-16">Pro Writing Tools</div>
-                                                            <div class="ft-size16 text-center mb-16">Outlines</div>
-                                                            <div class="ft-size16 text-center mb-16">Characters (Pro)</div>
-                                                            <div class="ft-size16 text-center mb-16">Characters Body Map</div>
-                                                            <div class="ft-size16 text-center mb-16">Location</div>
-                                                            <div class="ft-size16 text-center mb-16">Story Docs</div>
-                                                            <div class="ft-size16 text-center mb-16">Glossary</div>
-                                                            {% if accountType != 'pro' %}
-                                                            <div class="flex-cnt">
-                                                                <button sw-payment="btn" class="btn-jump bg-evergreen font-sans-alt font-semibold c-white p-8 shadow hover:shadow-md transition-fast-out w-70">
-                                                                    Start
-                                                                </button>
-                                                            </div>
-                                                            {% endif %}
-                                                        </div>
                                                     </div>
+                                                    <div class="ft-size16 text-center mb-16">Advice From Writers</div>
+                                                    <div class="ft-size16 text-center mb-16">Scriptwriting Page</div>
+                                                    <div class="ft-size16 text-center mb-16">Pro Writing Tools</div>
+                                                    <div class="ft-size16 text-center mb-16">Outlines</div>
+                                                    <div class="ft-size16 text-center mb-16">Characters (Pro)</div>
+                                                    <div class="ft-size16 text-center mb-16">Characters Body Map</div>
+                                                    <div class="ft-size16 text-center mb-16">Location</div>
+                                                    <div class="ft-size16 text-center mb-16">Story Docs</div>
+                                                    <div class="ft-size16 text-center mb-16">Glossary</div>
+                                                    {% if accountType != 'pro' %}
+                                                    <div class="flex-cnt">
+                                                        <button sw-payment="btn"
+                                                                class="bg-evergreen rounded hover:shadow-md  font-sans-alt font-semibold c-white p-8 shadow w-70">
+                                                            Start
+                                                        </button>
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-
-                                            
-                                        </div> 
+                                        </div>
                                     </div>
-                                </div> 
 
-                                <!--Footer ending-->
-                                <footer class="mt-48 text-center text-grey-700 text-sm">
-                                    <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
-                                </footer>    
-                            </main>
 
-                            <!--============Right side bar=========-->
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                
-                    <!--Settings-->
-                    {% include 'settings-template.html'%}
 
+                        <!--Footer ending-->
+                        <footer class="mt-48 text-center text-grey-700 text-sm">
+                            <p>© Scriptovate - <a href="#" class="text-nebula-600 underline">Privacy Policy </a></p>
+                        </footer>
+                    </main>
+
+                    <!--============Right side bar=========-->
                 </div>
             </div>
-        
-        </div>    
 
-        <script src="../../cdn/js/app.js"></script>
-        <script src="../../cdn/js/CardOption.js"></script>
+            <!--Settings-->
+            {% include 'settings-template.html'%}
 
-        {% if accountType != 'pro' %}
-        <script src="https://js.stripe.com/v3/"></script>
-        <script src="../../cdn/customjs/payment.js"></script>
-        {% endif %}
-    </body>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../cdn/js/app.js"></script>
+<script src="../../cdn/js/CardOption.js"></script>
+
+{% if accountType != 'pro' %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="../../cdn/customjs/payment.js"></script>
+{% endif %}
+</body>
 </html>
