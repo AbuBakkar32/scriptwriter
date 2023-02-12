@@ -37,7 +37,7 @@
                                 <svg class="size16 block h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 8"><path d="M7,8a1,1,0,0,1-.71-.29l-6-6A1,1,0,0,1,1.71.29L7,5.59,12.29.29a1,1,0,1,1,1.42,1.42l-6,6A1,1,0,0,1,7,8Z"></path></svg>
                             </div>
                         </div>
-                        <ul class="mt-8 py-8 px-16 hidden bg-three absolute top60" sw-select-item="get" sw-changer="content-line-type">
+                        <ul class="mt-8 py-8 px-16 hidden absolute top60" style="background: white; color: black" sw-select-item="get" sw-changer="content-line-type">
                             <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Action</li>
                             <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Scene Heading</li>
                             <li class="p-8 cus-pointer hover:text-nebula-600 text-grey-700">Character</li>
@@ -53,28 +53,28 @@
             <!--Icons for document editing-->
             <ul class="h-full uppercase leading-tight text-sm font-semibold tracking-wide lg:flex flex hidden" sw-top-menu="tools-wrap">
                 <li class="flex items-center h-full mr-2" sw-btn="bold" title="bold">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.287 11.121c1.588-1.121 2.713-3.018 2.713-5.093 0-2.946-1.918-5.951-7.093-6.028h-11.907v2.042c1.996 0 3 .751 3 2.683v14.667c0 1.689-.558 2.608-3 2.608v2h11.123c6.334 0 8.877-3.599 8.877-7.038 0-2.538-1.417-4.67-3.713-5.841zm-8.287-8.121h2.094c2.357 0 4.126 1.063 4.126 3.375 0 2.035-1.452 3.625-3.513 3.625h-2.707v-7zm2.701 18h-2.701v-8h2.781c2.26.024 3.927 1.636 3.927 3.667 0 2.008-1.226 4.333-4.007 4.333z"/></svg>
                     </button>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="italic" title="italic">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.565 20.827c-.361.732-.068 1.173.655 1.173h1.78v2h-9v-2h.897c1.356 0 1.673-.916 2.157-1.773l8.349-16.89c.403-.852-.149-1.337-.855-1.337h-1.548v-2h9v2h-.84c-1.169 0-1.596.646-2.06 1.516l-8.535 17.311z"/></svg>
                     </button>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="underline" title="underline">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 24h-16v-2h16v2zm-5-24v1.973c1.619 0 2 .926 2 1.497v9.056c0 2.822-2.161 4.507-5 4.507s-5-1.685-5-4.507v-9.056c0-.571.381-1.497 2-1.497v-1.973h-7v1.973c1.66 0 2 .575 2 1.497v8.828c0 5.175 3.096 7.702 8 7.702 4.899 0 8-2.527 8-7.702v-8.828c0-.922.34-1.497 2-1.497v-1.973h-7z"/></svg>
                     </button>
                 </li>
                 <li class="grid al-cont-c mr-2" sw-btn="penPaint" title="Highlight">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.333 8.701l-7.837 4.262s-1.339 5.254-3.497 8.604l2.419 2.433c3.314-2.133 8.604-3.511 8.604-3.511l4.263-7.837-3.952-3.951zm-1.664 10.091c-1.241.365-3.64 1.131-5.915 2.207l1.806-1.806c.348-.349.8-.569 1.288-.63.647-.081 1.113-.63 1.113-1.263 0-.703-.569-1.275-1.275-1.275-.637 0-1.183.471-1.263 1.113-.06.487-.281.94-.629 1.288l-1.779 1.779c1.072-2.274 1.825-4.652 2.184-5.891l5.778-3.143 1.838 1.837-3.146 5.784zm2.345-12.252s2.148-3.969 3.475-6.54l8.511 8.511c-2.582 1.321-6.556 3.459-6.556 3.459l-5.43-5.43z"/></svg>
                     </button>
                     <input type="color" render-color="highlight" class="color-btn cus-pointer" value="#c8d185"/>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="voiceRecord" title="voice record">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c1.103 0 2 .897 2 2v7c0 1.103-.897 2-2 2s-2-.897-2-2v-7c0-1.103.897-2 2-2zm0-2c-2.209 0-4 1.791-4 4v7c0 2.209 1.791 4 4 4s4-1.791 4-4v-7c0-2.209-1.791-4-4-4zm8 9v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>
                     </button>
                     <div class="p-4 absolute hide voice-color" sw-recording="wrap" style="top: 60px; border-radius:08px; background-color: rgb(197 194 209 / 89%);" sw-clickPrevent="true" >
@@ -90,7 +90,7 @@
                     </div>
                 </li>
                 <li class="flex items-center h-full mr-2 relative" sw-btn="audioPlayReader">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M1 13h-1v-1h1v1zm22-1h-1v1h1v-1zm-20-1h-1v3h1v-3zm18 0h-1v3h1v-3zm-14 0h-1v3h1v-3zm10-1h-1v5h1v-5zm-12 0h-1v5h1v-5zm14-1h-1v7h1v-7zm-10 0h-1v7h1v-7zm2-2h-1v10h1v-10zm4 0h-1v10h1v-10zm-2-2h-1v14h1v-14z"/></svg>
                     </button>
                     <div class="p-4 absolute hide bg-light-gray top60" style="border-radius:08px;" sw-audio="wrap" sw-clickPrevent="true" >
@@ -129,12 +129,12 @@
                     </div>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="download" title="download">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
                     </button>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="share" title="share">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 7c2.761 0 5 2.239 5 5s-2.239 5-5 5-5-2.239-5-5 2.239-5 5-5zm11.122 12.065c-.073.301-.122.611-.122.935 0 2.209 1.791 4 4 4s4-1.791 4-4-1.791-4-4-4c-1.165 0-2.204.506-2.935 1.301l-5.488-2.927c-.23.636-.549 1.229-.943 1.764l5.488 2.927zm7.878-15.065c0-2.209-1.791-4-4-4s-4 1.791-4 4c0 .324.049.634.122.935l-5.488 2.927c.395.535.713 1.127.943 1.764l5.488-2.927c.731.795 1.77 1.301 2.935 1.301 2.209 0 4-1.791 4-4z"/></svg>
                     </button>
 
@@ -160,7 +160,7 @@
                     </div>
                 </li>
                 <li class="flex items-center h-full mr-2" sw-btn="save" title="Save">
-                    <button class="header-item hover:text-nebula-500 flex items-center transition-fast-out" >
+                    <button class="hover:text-nebula-500 flex items-center transition-fast-out" >
                         <svg class="size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.003 3h2.997v5h-2.997v-5zm8.997 1v20h-24v-24h20l4 4zm-19 5h14v-7h-14v7zm16 4h-18v9h18v-9z"/></svg>
                     </button>
                 </li>
@@ -274,9 +274,9 @@
             </button>
         </nav>
         <!-- Close Icon shortcut-->
-        <button class="fill-current xl:d-hidden z-100 bg-three p-4 hide" sw-top-menu="hide-btn">
+        <button class="fill-current xl:d-hidden z-100 p-4 hide" sw-top-menu="hide-btn">
             <div class="flex-center mb-4">
-                <svg class="block h-full size20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                <svg class="block h-full size20" style="fill:gray;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
                     <path d="M8.41,7l5.3-5.29A1,1,0,1,0,12.29.29L7,5.59,1.71.29A1,1,0,0,0,.29,1.71L5.59,7,.29,12.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L7,8.41l5.29,5.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path>
                 </svg>
             </div>
@@ -286,7 +286,7 @@
         </button>
 
         <!-- button for opening the feature section-->
-        <button class="fill-current xl:d-hidden z-100 bg-three p-8" sw-shortcut="btn" sw-top-menu="shortcut-btn">
+        <button class="fill-current xl:d-hidden z-100 p-8" sw-shortcut="btn" sw-top-menu="shortcut-btn">
             <div class="flex-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="block h-full size24" viewBox="0 0 24 24"><path d="M24 18h-4v-14h-14v-4h-2v4h-4v2h4v14h14v4h2v-4h4v-2zm-18 0v-12h12v12h-12zm9-3l-2.293-2.293-3 3-1.414-1.414 3-3-2.293-2.293h6v6z"/></svg>
             </div>

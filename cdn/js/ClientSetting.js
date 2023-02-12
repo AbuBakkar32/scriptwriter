@@ -281,7 +281,6 @@ class ClientSetting {
         button > svg { fill: currentColor!important}
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
-        .header-nav {background-image: linear-gradient(90deg,#00000e,#000000 100%,#fff 0);}
         .act-name, .select-color {color: white !important;}
         .status, .audio-text {color: white !important;}
         .select-feature-menu {color: black !important;}
@@ -297,7 +296,6 @@ class ClientSetting {
         .nav-dark-color {background-color: black !important;}
         .com-color, .ml-40 {color: black !important;}
         .profile-info {color: black !important;}
-        .top60, .scrollby8, .voice-color {background-color: darkslateblue !important;}
         .btn-jump { box-shadow: 0px 2px 4px rgb(225 230 225 / 90%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px rgb(54 57 90 / 20%);}
         `
     }
