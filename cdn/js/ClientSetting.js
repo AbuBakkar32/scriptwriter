@@ -289,16 +289,19 @@ class ClientSetting {
         .select-feature-menu {color: black !important;}
         .select-feature-menu span>svg {fill: black !important;}
         .fill-current-icon, .site-color {fill: gray !important;}
-        .content-color {color: black !important;}
+        .content-color {color: gray !important;}
+        div[rs-outline="item"] {color: gray !important;}
         .fill-color {color: black !important;}
-        .right-text {color: black !important;}
-         svg.ang-color {fill: black !important;}
+         svg.ang-color, .ang-color {fill: black !important;}
+         .st0 {fill: white !important;}
+         .c-black {fill: gray !important;}
          svg.size24 {fill: gray !important;}
         .fill-current {fill: white !important;}
         .bg-color {background-color: #242326 !important;}
         div[sw-structure="color"] {background-color: #242326 !important;}
         .nav-dark-color {background-color: #242326 !important;}
-         div[outline-data="menu"] {background-color: white !important;}
+         div[outline-data="menu"] {background-color: #242326 !important;}
+         div[outline-data="delete-option"] {fill: white !important; margin-left: 3px;}
          svg[outline-data="add"], svg[outline-data="lock"], svg[outline-data="unlock"] {fill: white !important;}
         .com-color, .ml-40 {color: black !important;}
         .profile-info {color: black !important;}
