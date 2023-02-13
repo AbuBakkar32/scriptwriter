@@ -717,7 +717,7 @@ class MapAndReactOnContent {
                 height: 400,
                 legend: 'none',
                 pieSliceText: 'label',
-                title: '', //pieStartAngle: 50,
+                title: '',
                 pieHole: 0.4,
                 pieSliceTextStyle: {
                     color: 'black'
@@ -727,8 +727,8 @@ class MapAndReactOnContent {
                     stroke: 'none' // Change the vartical line color
                 },
                 pieSliceBorderColor: '#952aff',
-                slices: {0: {color: '#952aff'}, 1: {color: '#fed59a'}, 3: {color: '#ffe6e9'}} //Customize bgcolor for each data space
-                //tooltip: { trigger: 'selection'} //trigger: selection => makes the tip display when click on the stroke.
+                slices: {0: {color: '#952aff'}, 1: {color: '#fed59a'}, 3: {color: '#ffe6e9'}}, //Customize bgcolor for each data space
+                // tooltip: { trigger: 'selection'} //trigger: selection => makes the tip display when click on the stroke.
             };
             const chart = new google.visualization.PieChart(document.querySelector(`[sw-graph="item-3"]`));
             chart.draw(data, options);

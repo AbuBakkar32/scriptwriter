@@ -271,18 +271,21 @@ class ClientSetting {
         .white-image {display: block !important}
         .black-image {display: none!important}
         .bg-four{ background-color: rgb(36 35 35 / 91%) !important; color: white !important; }
-        .bg-three { background-color: #242326 !important; color: white !important; }
-        svg { fill: white !important; }
+        .bg-three { background-color: #242326 !important; color: white !important; fill: white !important; }
         .bg-fill { background-color: #242326 !important; color: white !important; }
         svg.fill-color { fill: black !important; }
         .imgx100, .img40, .imgx75 { background-color: white !important; }
         li > svg { fill: black !important;}
+        div[sw-glossary="item"], div[sw-page-number="item"] {color: white !important;}
+        div[sw-card-option="option-wrap"] {fill: white !important;}
         span > svg { fill: black !important}
+        .structure{color: white !important;}
+        .social-logo { fill: white !important;}
         button > svg { fill: currentColor!important}
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
         .act-name, .select-color {color: white !important;}
-        .status, .audio-text {color: white !important;}
+         div[sw-share="wrap"],  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
         .select-feature-menu {color: black !important;}
         .select-feature-menu span>svg {fill: black !important;}
         .fill-current-icon, .site-color {fill: gray !important;}
@@ -292,8 +295,11 @@ class ClientSetting {
          svg.ang-color {fill: black !important;}
          svg.size24 {fill: gray !important;}
         .fill-current {fill: white !important;}
-        .bg-color {background-color: black !important;}
-        .nav-dark-color {background-color: black !important;}
+        .bg-color {background-color: #242326 !important;}
+        div[sw-structure="color"] {background-color: #242326 !important;}
+        .nav-dark-color {background-color: #242326 !important;}
+         div[outline-data="menu"] {background-color: white !important;}
+         svg[outline-data="add"], svg[outline-data="lock"], svg[outline-data="unlock"] {fill: white !important;}
         .com-color, .ml-40 {color: black !important;}
         .profile-info {color: black !important;}
         .btn-jump { box-shadow: 0px 2px 4px rgb(225 230 225 / 90%), 0px 7px 13px -3px rgb(45 35 66 / 30%), inset 0px -3px 0px rgb(54 57 90 / 20%);}
