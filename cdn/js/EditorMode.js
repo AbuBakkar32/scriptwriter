@@ -30,6 +30,8 @@ class EditorMode {
     totalNewLine = 0;
     // last edited line
     lastFocusEdit;
+    waterMarkTemp;
+    waterMarkText;
     inputFieldNumber;
     hasChange;
 
@@ -79,6 +81,8 @@ class EditorMode {
         this.anyWhereWrap = document.querySelector(`[sw-element-anywhere="wrap"]`);
         const pageNumber = document.querySelector(`[sw-page-number="item"]`);
         this.pageNumberClone = pageNumber.cloneNode(true);
+        const waterMark = document.querySelector(".water-marks");
+        this.waterMarkTemp = waterMark.cloneNode(true);
         pageNumber?.remove();
         // icons dom
         const leftIcon = document.querySelector(`[sw-icon="left"]`);
@@ -87,6 +91,9 @@ class EditorMode {
         this.rightIconClone = rightIcon?.cloneNode(true);
         leftIcon?.remove();
         rightIcon?.remove();
+        //store WaterMark text
+        const getWaterMarkText = window.localStorage.getItem('data');
+        this.waterMarkText = JSON.parse(getWaterMarkText);
 
         // save right sidebar outline content
         try {
@@ -181,6 +188,9 @@ class EditorMode {
         const pageList = [...this.editorModeList.children];
         // list of existing page numbers
         const prevPageNumbers = document.querySelectorAll(`[sw-page-number="item"]`);
+        const prevWaterMarks = document.querySelectorAll(".water-marks");
+        // remove all existing waterMark from dom
+        prevWaterMarks.forEach(e => e.remove());
         // remove all existing page numbers from dom
         prevPageNumbers.forEach(e => e.remove());
         // add new page numbers
@@ -188,10 +198,15 @@ class EditorMode {
         pageList.forEach((page) => {
             let pageTop = page.offsetTop + 55;
             const newPageNumber = this.pageNumberClone.cloneNode(true);
+            const newWaterMark = this.waterMarkTemp.cloneNode(true);
+            // set top
+            newWaterMark.style.top = String(pageTop) + 'px';
+            newWaterMark.textContent = this.waterMarkText.waterMarkDisplayText;
             // set top
             newPageNumber.style.top = String(pageTop) + 'px';
             newPageNumber.textContent = String(count) + '.';
             this.anyWhereWrap.append(newPageNumber);
+            this.anyWhereWrap.append(newWaterMark);
             // increase count
             count += 1;
         });

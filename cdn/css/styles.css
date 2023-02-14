@@ -1567,3 +1567,18 @@ span.drag-sort-active {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#11a7b0", GradientType=1);
 }
 
+.water-marks{
+    /*45deg rotate text*/
+    -webkit-transform: rotate(-53deg);
+    -moz-transform: rotate(-53deg);
+    -ms-transform: rotate(-53deg);
+    -o-transform: rotate(-53deg);
+    transform: rotate(-53deg);
+    letter-spacing: 2px;
+    z-index: 1;
+    margin-left: 16%;
+    font-size: 86px;
+    font-family: fantasy;
+    font-style: italic;
+    margin-top: 430px;
+}
