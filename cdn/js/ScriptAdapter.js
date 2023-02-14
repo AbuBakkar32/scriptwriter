@@ -26,10 +26,10 @@ class ScriptAdapter {
         // Get current draft: capture all draft key
         if (this.scriptDataStore?.draft) {
             const allLoadedDraftKeys = Object.keys(this.scriptDataStore?.draft);
-            for (let index = 0; index < allLoadedDraftKeys.length; index++) {
-                const draft = this.scriptDataStore?.draft[allLoadedDraftKeys[index]];
+            for (const element of allLoadedDraftKeys) {
+                const draft = this.scriptDataStore?.draft[element];
                 if (draft.active === 'true') {
-                    this.currentDraftKey = allLoadedDraftKeys[index];
+                    this.currentDraftKey = element;
                     break
                 }
             }
@@ -82,8 +82,8 @@ class ScriptAdapter {
         // Get current draft: capture all draft key
         const allLoadedDraftKeys = Object.keys(this.scriptDataStore.draft);
         // First set the active draft before setting other draft.
-        for (let index = 0; index < allLoadedDraftKeys.length; index++) {
-            const draft = this.scriptDataStore.draft[allLoadedDraftKeys[index]];
+        for (const element of allLoadedDraftKeys) {
+            const draft = this.scriptDataStore.draft[element];
             if (draft.active === 'true') {
                 // create the draft option element
                 const newDraftOption = this.draftItemOption.cloneNode(true);

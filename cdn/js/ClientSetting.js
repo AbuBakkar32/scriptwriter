@@ -99,12 +99,12 @@ class ClientSetting {
                 try {
                     this.displayName = document.querySelectorAll(".water-marks");
                     if (this.waterMarkStatus) {
-                        this.displayName.forEach(element => {element.classList.remove("hidden");});
+                        this.displayName.forEach((element) => {element.classList.remove("hidden");});
                     } else {
-                        this.displayName.forEach(element => {element.classList.add("hidden");});
+                        this.displayName.forEach((element) => {element.classList.add("hidden");});
                     }
                     const opacityValue = document.querySelectorAll('.opacity-range');
-                    opacityValue.forEach(element => {element.style.opacity = res.waterMarkDisplayOpacity;});
+                    opacityValue.forEach((element) => {element.style.opacity = res.waterMarkDisplayOpacity;});
                 } catch (e) {
                 }
             }, 100);
@@ -358,12 +358,12 @@ async function slider() {
     let slider = document.querySelector('#myRange');
     let opacity;
     setTimeout(() => {
-        opacity = document.querySelector('.opacity-range');
+        opacity = document.querySelectorAll('.opacity-range');
     }, 100);
 
     slider.oninput = function () {
         this.waterMarkDisplayOpacity = this.value / 100;
-        opacity.style.opacity = slider.value / 100;
+        opacity.forEach((item) => {item.style.opacity = slider.value / 100;});
     }
 }
 
