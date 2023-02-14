@@ -242,6 +242,16 @@ div[sw-page-number]{font-family:"Courier Prime";}
 }
 .relative {position: relative;}
 .absolute {position: absolute;}
+.pad42 {padding: 6px 2rem;}
+.pad42:hover{
+    color: black;
+    font-weight: 600;
+    transition: background-color 500ms linear;
+    border-radius: 20px;
+}
+[sw-select-item="set"]{
+    font-weight: 600;
+}
 .index-1 {z-index: 1;}
 .text-up{
     font-weight:600;
