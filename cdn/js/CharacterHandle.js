@@ -229,7 +229,6 @@ class CharacterHandle {
         const imageBtn = item.querySelector(this.vars.imageBtn);
         const imageAll = item.querySelectorAll(this.vars.image);
         const rsImage = this.rsCharacterListTemp.querySelector(`[rs-character-id="${cid}"]`)?.closest(this.vars.rsMrItem)?.querySelector(this.vars.rsImage);
-
         /** Event Listeners for charater on Main Character Page */
         item?.addEventListener('click', () => {
             if (bodyMap) {
@@ -293,7 +292,7 @@ class CharacterHandle {
         fillBodyMapBtn?.addEventListener('click', (e) => {
             e.stopImmediatePropagation();
             e.stopPropagation();
-            alert('work in progress for filling random data');
+            this.autoGenerateBodyInputFields(cid);
         });
 
         commentOptionBtn?.addEventListener('click', (e) => {
@@ -334,6 +333,41 @@ class CharacterHandle {
             e.stopPropagation();
             imageBtn.click();
         })
+    }
+
+    autoSentenceMaking() {
+        // Define arrays of possible words
+        const adjectives = ['brave', 'clever', 'daring', 'fierce', 'loyal', 'wise'];
+        const nouns = ['warrior', 'wizard', 'princess', 'knight', 'dragon', 'sorcerer'];
+        const verbs = ['defeats', 'conquers', 'protects', 'rescues', 'vanquishes', 'saves'];
+        const objects = ['the kingdom', 'the treasure', 'the damsel', 'the village', 'the land', 'the realm'];
+
+        // Generate a random sentence
+        const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const noun = nouns[Math.floor(Math.random() * nouns.length)];
+        const verb = verbs[Math.floor(Math.random() * verbs.length)];
+        const object = objects[Math.floor(Math.random() * objects.length)];
+        const sentence = `${adjective} ${noun} ${verb} ${object}`;
+        return sentence;
+    }
+
+    autoGenerateBodyInputFields(cid) {
+        const idValue = document.querySelector(`[character-idvalue="${cid}"]`);
+        if (!idValue) return;
+        // Now target the particular main character item element
+        const character = idValue.closest(this.vars.mainMrItem);
+        if (!character) return;
+        // List of character Properties or item
+        const itemList = character.querySelectorAll(this.vars.bodyMapItem);
+        // List of character Properties or item
+        itemList.forEach((item) => {
+            // find inside the item div
+            const div = item.querySelector('div');
+            if (div.innerText === '' || div.innerText === 'Nill') {
+                div.innerText = this.autoSentenceMaking();
+            }
+        });
+        this.update(cid)
     }
 
     uploadImage(item = document.querySelector(this.vars.mainMrItem)) {
@@ -442,7 +476,6 @@ class CharacterHandle {
             item13: 'Nill',
             item14: 'Nill',
         }
-
         return uid;
     }
 
