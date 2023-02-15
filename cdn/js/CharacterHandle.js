@@ -966,7 +966,14 @@ class CharacterHandle {
                 for (let index = 1; index <= 14; index++) {
                     const item = bodyMapItem.cloneNode(true);
                     item.querySelector('div').innerText = cDB['item' + index];
-                    if (index <= 8) bodyMapLeft.append(item); else bodyMapRight.append(item);
+                    if (index <= 8) {
+                        if (index === 1) {
+                            // item.style.marginLeft = '200px';
+                        }
+                        bodyMapLeft.append(item);
+                    } else {
+                        bodyMapRight.append(item);
+                    }
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
                 }
             }
