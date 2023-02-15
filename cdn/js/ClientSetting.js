@@ -287,7 +287,7 @@ class ClientSetting {
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
         .act-name, .select-color {color: white !important;}
-        div[sw-share="wrap"]  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
+        div[sw-share="wrap"] a  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
         .select-feature-menu {color: black !important;}
         .select-feature-menu span>svg {fill: black !important;}
         .fill-current-icon, .site-color {fill: gray !important;}
