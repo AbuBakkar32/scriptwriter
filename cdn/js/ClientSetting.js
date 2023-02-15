@@ -97,15 +97,14 @@ class ClientSetting {
 
             setTimeout(() => {
                 try {
-                    this.displayName = document.querySelector(".water-marks");
+                    this.displayName = document.querySelectorAll(".water-marks");
                     if (this.waterMarkStatus) {
-                        this.displayName.classList.remove("hidden");
+                        this.displayName.forEach((element) => {element.classList.remove("hidden");});
                     } else {
-                        this.displayName.classList.add("hidden");
+                        this.displayName.forEach((element) => {element.classList.add("hidden");});
                     }
-                    let opacityValue = document.querySelector('.opacity-range');
-                    this.displayName.innerHTML = res.waterMarkDisplayText;
-                    opacityValue.style.opacity = res.waterMarkDisplayOpacity;
+                    const opacityValue = document.querySelectorAll('.opacity-range');
+                    opacityValue.forEach((element) => {element.style.opacity = res.waterMarkDisplayOpacity;});
                 } catch (e) {
                 }
             }, 100);
@@ -161,10 +160,11 @@ class ClientSetting {
             try {
                 if (this.nightModeStatus) {
                     this.darkModeStyleElement.innerText = this.darkModeStyle();
-                    this.displayName.style.color = "white";
+                    this.displayName.forEach(element => {element.style.color = "white";});
+                    // this.displayName.style.color = "white";
                 } else {
                     this.darkModeStyleElement.innerText = "";
-                    this.displayName.style.color = "black";
+                    this.displayName.forEach(element => {element.style.color = "black";});
                 }
             } catch (e) {
 
@@ -184,10 +184,12 @@ class ClientSetting {
                 setTimeout(() => {
                     this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
                     this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
+                    this.displayName = document.querySelectorAll(".water-marks");
 
                     for (let i = 1; i < this.searchWrapperElements.length; i++) {
                         this.searchWrapperElements[i].remove();
                         this.searchPageNumber[i].remove();
+                        this.displayName[i].remove();
                     }
                 }, 100)
             }
@@ -204,9 +206,9 @@ class ClientSetting {
             try {
                 this.waterMarkStatus = this.waterMarkInput.checked;
                 if (this.waterMarkStatus) {
-                    this.displayName.classList.remove("hidden");
+                    this.displayName.forEach(element => {element.classList.remove("hidden");});
                 } else {
-                    this.displayName.classList.add("hidden");
+                    this.displayName.forEach(element => {element.classList.add("hidden");});
                 }
             } catch (e) {
             }
@@ -233,7 +235,7 @@ class ClientSetting {
         this.display.addEventListener('keyup', (event) => {
             // Update the status
             try {
-                this.displayName.innerHTML = this.display.value;
+                this.displayName.forEach(element => {element.innerHTML = this.display.value});
             } catch (e) {
 
             }
@@ -285,7 +287,7 @@ class ClientSetting {
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
         .act-name, .select-color {color: white !important;}
-        div[sw-share="wrap"]  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
+        div[sw-share="wrap"] a  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
         .select-feature-menu {color: black !important;}
         .select-feature-menu span>svg {fill: black !important;}
         .fill-current-icon, .site-color {fill: gray !important;}
@@ -356,12 +358,12 @@ async function slider() {
     let slider = document.querySelector('#myRange');
     let opacity;
     setTimeout(() => {
-        opacity = document.querySelector('.opacity-range');
+        opacity = document.querySelectorAll('.opacity-range');
     }, 100);
 
     slider.oninput = function () {
         this.waterMarkDisplayOpacity = this.value / 100;
-        opacity.style.opacity = slider.value / 100;
+        opacity.forEach((item) => {item.style.opacity = slider.value / 100;});
     }
 }
 
