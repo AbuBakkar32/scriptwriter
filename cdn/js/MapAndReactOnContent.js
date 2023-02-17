@@ -31,6 +31,12 @@ class MapAndReactOnContent {
     specificLineListStatus = false;
     specificActLineList = {};
     specificActLineListStatus = false;
+    title1;
+    title2;
+    lineGraph;
+    maskGraph;
+    candleStick1;
+    candleStick2;
 
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
@@ -64,9 +70,24 @@ class MapAndReactOnContent {
         this.rsStructureOption = document.querySelector(`[sw-data="structure-option"]`).cloneNode(true);
         this.rsStructureItem = document.querySelector(`[sw-data="structure-item"]`).cloneNode(true);
         this.rsStructureItemArrow = document.querySelector(`[sw-data="structure-item-arrow"]`).cloneNode(true);
+        // START - For Toggle Button
+        this.title1 = document.querySelector(`[sw-graph="item-11"]`)
+        this.title2 = document.querySelector(`[sw-graph="item-22"]`)
+        this.lineGraph = document.querySelector(`[structure="line-chart"]`)
+        this.maskGraph = document.querySelector(`[structure="mask-chart"]`)
         // script writer content page list wrapper
         this.swPageTemp = document.querySelector(this.cons.list);
+        this.lineGraph.addEventListener('click', () => {
+            if (this.title1.classList.contains('hide') && this.title2.classList.contains('hide')) {
+                this.title1.classList.remove('hide')
+                this.title2.classList.remove('hide')
+            } else {
+                this.title1.classList.add('hide')
+                this.title2.classList.add('hide')
+            }
+        });
 
+        // END - For Toggle Button
         // Delete the dummy templates of structure guide in right sider bar
         [...this.rsStructureList.children].forEach((el) => {
             el.remove()
@@ -607,7 +628,7 @@ class MapAndReactOnContent {
         } else {
             outline = window.ScriptAdapter.scriptDataStore.outline;
         }
-        
+
         let lengthList = []
         Object.keys(outline).forEach((key) => {
             try {
@@ -747,7 +768,6 @@ class MapAndReactOnContent {
             // A column for custom tooltip content
             data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
             data.addRows([...tableData]);
-
             // Configure the hAxis ticks
             const zeros = [];
             tableData.forEach((it) => {
@@ -781,6 +801,7 @@ class MapAndReactOnContent {
                 chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
             };
 
+
             const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
             chart.draw(data, options);
 
@@ -788,6 +809,72 @@ class MapAndReactOnContent {
             options.width = graph2Width;
             chart1.draw(data, options);
         }
+        // START - Toggle Hide and Show the candlestick graph
+        this.candleStick1 = document.querySelector(`[sw-graph="item-1"]`)
+        this.candleStick2 = document.querySelector(`[sw-graph="item-2"]`)
+
+        this.maskGraph.addEventListener('click', () => {
+            if (this.candleStick1.classList.contains('graph') && this.candleStick2.classList.contains('graph')) {
+                this.candleStick1.classList.remove('graph')
+                this.candleStick2.classList.remove('graph')
+                this.graphTemplateFour(tableData)
+                console.log('show')
+            } else {
+                this.candleStick1.classList.add('graph')
+                this.candleStick2.classList.add('graph')
+                console.log('hide')
+                const data = new google.visualization.DataTable();
+                data.addColumn('number', 'Y');
+                data.addColumn('number', 'S');
+                data.addColumn('number', 't');
+                data.addColumn('number', 'p');
+                data.addColumn('number', 'q');
+                data.addRows([]);
+                // A column for custom tooltip content
+                data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
+
+                // Configure the hAxis ticks
+                const zeros = [];
+                tableData.forEach((it) => {
+                    zeros.push(0)
+                });
+
+                let graph1Width = 1200;
+                let graph2Width = 500;
+                if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
+                if (window.innerWidth < graph2Width) graph2Width = window.innerWidth - 20;
+
+
+                const options = {
+                    width: graph1Width, tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
+                    legend: 'none', //colors: ["transparent", "white"],
+                    bar: {groupWidth: '1%'}, // Remove space between bars.
+                    backgroundColor: {
+                        fill: 'none', // Change the background color.
+                        stroke: 'none' // Change the vartical line color
+                    }, candlestick: {
+                        fallingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}, // red: Applying color to the line bar
+                        risingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}   // green:
+                    }, vAxis: {ticks: [0]}, //To hide all the horizontal lines.
+                    hAxis: {
+                        ticks: [...zeros, tableData.length + 1],
+                        baseline: tableData.length + 1,
+                        gridlines: {color: '#000', minSpacing: 20}
+                    }, /* baseline: is the last vertical line bar.
+                ticks: represent the border of each vertical bar.(each data in the google.visualization.arrayToDataTable is represented
+                    in the tick list by it index number or 0 to make it hidden)*/
+                    chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
+                };
+
+                const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
+                chart.draw(data, options);
+
+                const chart1 = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-2"]`));
+                options.width = graph2Width;
+                chart1.draw(data, options);
+            }
+        });
+        // END - Toggle Hide and Show the candlestick graph
         google.charts.setOnLoadCallback(drawCandleChart);
     }
 
@@ -848,7 +935,8 @@ class MapAndReactOnContent {
                 }
                 newLineList.push(it);
             }
-        };
+        }
+        ;
 
         let actFound = false;
         let newOutline = {};
