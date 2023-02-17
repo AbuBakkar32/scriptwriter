@@ -20,8 +20,19 @@ class ScriptAdapter {
 
     constructor() {
         setTimeout(() => {
-            window.MapAndReactOnContent.mapreact();
-        });
+                window.MapAndReactOnContent.mapreact();
+                const title = document.querySelector(`[structure="title"]`);
+                const data_title = window.ScriptAdapter.scriptDataStore.title
+                if (title) {
+                    if (data_title === '' || data_title === undefined || data_title === null) {
+                        title.innerText = window.ScriptAdapter.scriptDataStore.id;
+                    }else{
+                        title.innerText = data_title;
+                    }
+                }
+            }
+        )
+        ;
 
         // Get current draft: capture all draft key
         if (this.scriptDataStore?.draft) {
@@ -423,7 +434,7 @@ class ScriptAdapter {
             await window.EditorMode.rearrangePage();
         }).then(() => {
             /** Await Point */
-            // window.Watcher.bothAwait(true, 'Activating Watcher on page...');
+                // window.Watcher.bothAwait(true, 'Activating Watcher on page...');
             const pageWrap = document.querySelector(`[sw-editor="list"]`);
             const pageList = pageWrap.querySelectorAll(`[sw-editor="item"]`);
             const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`);
@@ -749,6 +760,12 @@ class ScriptAdapter {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    window.ScriptAdapter = new ScriptAdapter();
-})
+document
+    .addEventListener(
+        "DOMContentLoaded"
+        ,
+
+        function () {
+            window.ScriptAdapter = new ScriptAdapter();
+        }
+    )

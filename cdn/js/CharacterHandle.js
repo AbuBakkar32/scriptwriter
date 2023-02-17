@@ -587,60 +587,60 @@ class CharacterHandle {
                 const index = getEleId(item, bodyItems) + 1;
                 if (index === 1) {
                     item.style.top = (height / 20) - 10 + 'px';
-                    line.style.width = (width * 1.15) + 15 + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 6}px)`
+                    line.style.width = (width - 44.551125) + 'px';
+                    line.style.transform = `translateX(${(width - 382.246125)}px)`
                 } else if (index === 2) {
                     item.style.top = (height / 20) * 2.8 + 'px';
-                    line.style.width = (width * 1.15) + 20 + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 6}px)`
+                    line.style.width = (width - 105.551125) + 'px';
+                    line.style.transform = `translateX(${(width - 382.246125)}px)`
                 } else if (index === 3) {
                     item.style.top = (height / 20) * 5.5 + 'px';
-                    line.style.width = (width + 4) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 5}px)`
+                    line.style.width = (width - 78.000125) + 'px';
+                    line.style.transform = `translateX(${(width - 378.246125)}px)`
                 } else if (index === 4) {
                     item.style.top = (height / 20) * 7.5 + 'px';
-                    line.style.width = (width - 25) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 6}px)`
+                    line.style.width = (width - 119.000125) + 'px';
+                    line.style.transform = `translateX(${(width - 378.246125)}px)`
                 } else if (index === 5) {
                     item.style.top = (height / 20) * 11 + 'px';
-                    line.style.width = (width - 85) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 5}px)`
+                    line.style.width = (width - 12.000125) + 'px';
+                    line.style.transform = `translateX(${(width - 379.246125)}px)`
                 } else if (index === 6) {
                     item.style.top = (height / 20) * 13.5 + 'px';
-                    line.style.width = (width + 37) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 5}px)`
+                    line.style.width = (width + 2.999875) + 'px';
+                    line.style.transform = `translateX(${(width - 379.246125)}px)`
                 } else if (index === 7) {
                     item.style.top = (height / 20) * 16.5 + 'px';
-                    line.style.width = (width + 28) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 5}px)`
+                    line.style.width = (width - 57.000125) + 'px';
+                    line.style.transform = `translateX(${(width - 376.246125)}px)`
                 } else if (index === 8) {
                     item.style.top = (height / 20) * 19 + 'px';
-                    line.style.width = (width + 36) + 'px';
-                    line.style.transform = `translateX(${(width / 4) - 6}px)`
+                    line.style.width = (width - 92.000125) + 'px';
+                    line.style.transform = `translateX(${(width - 376.246125)}px)`
                 } else if (index === 9) {
                     item.style.top = (height / 20) + 10 + 'px';
-                    line.style.width = (width / 2) - 48 + 'px';
-                    line.style.transform = `translateX(-${(width / 2) - 44}px)`
+                    line.style.width = (width - 206.328125) + 'px';
+                    line.style.transform = `translateX(${(width - 561.492125)}px)`
                 } else if (index === 10) {
                     item.style.top = (height / 20) * 3.6 + 'px';
-                    line.style.width = (width / 2.3) - 72 + 'px';
-                    line.style.transform = `translateX(-${(width / 2.3) - 68}px)`
+                    line.style.width = (width - 236.011125) + 'px';
+                    line.style.transform = `translateX(${(width - 534.645125)}px)`
                 } else if (index === 11) {
                     item.style.top = (height / 20) * 7 + 'px';
-                    line.style.width = (width / 2.7) - 77 + 'px';
-                    line.style.transform = `translateX(-${(width / 2.7) - 74}px)`
+                    line.style.width = (width - 225.539925) + 'px';
+                    line.style.transform = `translateX(${(width - 547.116325)}px)`
                 } else if (index === 12) {
                     item.style.top = (height / 20) * 12.5 + 'px';
-                    line.style.width = (width / 2.3) - 60 + 'px';
-                    line.style.transform = `translateX(-${(width / 2.3) - 57}px)`
+                    line.style.width = (width - 196.011125) + 'px';
+                    line.style.transform = `translateX(${(width - 573.645125)}px)`
                 } else if (index === 13) {
                     item.style.top = (height / 20) * 15 + 'px';
-                    line.style.width = (width / 2.35) - 61 + 'px';
-                    line.style.transform = `translateX(-${(width / 2.35) - 58}px)`
+                    line.style.width = (width - 227.678125) + 'px';
+                    line.style.transform = `translateX(${(width - 548.978125)}px)`
                 } else if (index === 14) {
                     item.style.top = (height / 20) * 17.5 + 'px';
-                    line.style.width = (width / 2.4) - 53 + 'px';
-                    line.style.transform = `translateX(-${(width / 2.4) - 49}px)`
+                    line.style.width = (width - 236.191125) + 'px';
+                    line.style.transform = `translateX(${(width - 539.465125)}px)`
                 }
             })
         })
@@ -967,11 +967,22 @@ class CharacterHandle {
                     const item = bodyMapItem.cloneNode(true);
                     item.querySelector('div').innerText = cDB['item' + index];
                     if (index <= 8) {
-                        if (index === 1) {
-                            // item.style.marginLeft = '200px';
-                        }
+                        if (index === 1) {item.style.marginLeft = '200px';}
+                        else if (index === 2) {item.style.marginLeft = '250px';}
+                        else if (index === 3) {item.style.marginLeft = '168px';}
+                        else if (index === 4) {item.style.marginLeft = '184px';}
+                        else if (index === 5) {item.style.marginLeft = '60px';}
+                        else if (index === 6) {item.style.marginLeft = '120px';}
+                        else if (index === 7) {item.style.marginLeft = '172px';}
+                        else if (index === 8) {item.style.marginLeft = '200px';}
                         bodyMapLeft.append(item);
-                    } else {
+                    } else if(index >= 9) {
+                        if (index === 9) {item.style.marginLeft = '-10px';}
+                        else if (index === 10) {item.style.marginLeft = '20px';}
+                        else if (index === 11) {item.style.marginLeft = '53px';}
+                        else if (index === 12) {item.style.marginLeft = '40px';}
+                        else if (index === 13) {item.style.marginLeft = '22px';}
+                        else if (index === 14) {item.style.marginLeft = '5px';}
                         bodyMapRight.append(item);
                     }
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);

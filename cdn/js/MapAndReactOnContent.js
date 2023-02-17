@@ -64,7 +64,6 @@ class MapAndReactOnContent {
         this.rsStructureOption = document.querySelector(`[sw-data="structure-option"]`).cloneNode(true);
         this.rsStructureItem = document.querySelector(`[sw-data="structure-item"]`).cloneNode(true);
         this.rsStructureItemArrow = document.querySelector(`[sw-data="structure-item-arrow"]`).cloneNode(true);
-
         // script writer content page list wrapper
         this.swPageTemp = document.querySelector(this.cons.list);
 
@@ -332,7 +331,7 @@ class MapAndReactOnContent {
                 reactSet.forEach((it) => {
                     if (ele != it) it.innerText = ele.innerText;
                     else {
-                        const isLine = it.hasAttribute(this.cons.editType);// closest(`[sw-data="content-line"]`);
+                        const isLine = it.hasAttribute(this.cons.editType);
                         if (isLine) {
                             const clID = it.getAttribute(this.cons.editID);
                             /** Watcher reaction */
