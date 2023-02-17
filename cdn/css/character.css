@@ -8,9 +8,9 @@
 .transition-type {padding: 0px; margin-bottom: 10px; text-align: end; text-transform: uppercase;}
 /* Character Styles */
 .character-min-img {width: 100%;}
-.character-max-img {width: 400px; height: 500px;}
+.character-max-img {width: 320px; height: 500px;}
 
-.character-part-label {padding: 4px; background-color: rgb(126, 167, 213); margin: -4px;}
+.character-part-label {padding: 4px; margin: -4px;}
 
 /* page number, icon placement */
 div[sw-page-number] { margin-left: 85%;}
@@ -132,6 +132,13 @@ div[sw-editor-type] {font-size: initial; line-height: 1.2;}
 @media (max-width: 380px){ 
     .character-min-img {width: 100%;}
 }
+
+.text-element {
+  position: absolute;
+  right: 0;
+  max-width: 500px;
+}
+
   
 /*   @media screen {
     .page::after {
