@@ -254,10 +254,11 @@
                                     <!--Body map item must be 8 here-->
                                     <div class="flex space-between absolute character-part-label"
                                          character-data="body-map-item" style="border-radius: 5px">
-                                        <div class="input" style="max-width: 300px; background-color: #E9F4F5;" contenteditable="true"
+                                        <div class="input bg-body" style="max-width: 300px; background-color: #E9F4F5; z-index: 99999" contenteditable="true"
                                              data-placeholder="Type here..">the second item
                                         </div>
-                                        <span class="p-2 bg-black h-1 absolute"></span>
+                                        <span onmouseover="deleteBody" class="p-1 bg-black h-1 absolute" style="background: #46A6AF; margin-top: 10px"></span>
+                                        <span>Delete</span>
                                     </div>
                                 </div>
 
@@ -272,10 +273,10 @@
                                     <!--Body map item must be 6 here-->
                                     <div class="flex space-between absolute character-part-label"
                                          character-data="body-map-item">
-                                        <div class="input" style="max-width: 300px; margin-left: 50px;"
+                                        <div class="input bg-body" style="max-width: 300px; margin-left: 50px; z-index: 99999"
                                              contenteditable="true" data-placeholder="Type here..">the third item
                                         </div>
-                                        <span class="p-2 bg-black h-1 absolute"></span>
+                                        <span class="p-1 bg-black h-1 absolute" style="background: #46A6AF; margin-top: 10px"></span>
                                     </div>
                                 </div>
                             </div>
