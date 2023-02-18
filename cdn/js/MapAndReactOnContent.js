@@ -862,7 +862,6 @@ class MapAndReactOnContent {
                 options.width = graph2Width;
                 chart1.draw(data, options);
                 this.hide = true;
-                console.log(this.hide)
             } else if (this.hide) {
                 const data = new google.visualization.DataTable();
                 data.addColumn('number', 'Y');
@@ -906,14 +905,13 @@ class MapAndReactOnContent {
                     in the tick list by it index number or 0 to make it hidden)*/
                     chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
                 };
-                this.hide = false;
                 const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
                 chart.draw(data, options);
 
                 const chart1 = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-2"]`));
                 options.width = graph2Width;
                 chart1.draw(data, options);
-                console.log(this.hide)
+                this.hide = false;
             }
         });
         // END - Toggle Hide and Show the candlestick graph
