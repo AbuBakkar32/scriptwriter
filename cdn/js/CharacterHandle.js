@@ -35,6 +35,7 @@ class CharacterHandle {
             image: `[${this.attrName}="image"]`,
             name: `[${this.attrName}="name"]`,
             archetype: `[${this.attrName}="archetype"]`,
+            archeTypeSelect: `[${this.attrName}="archeTypeSelect"]`,
             lineWidth: `[${this.attrName}="line-width"]`,
             possession: `[${this.attrName}="possession"]`,
             need: `[${this.attrName}="need"]`,
@@ -228,6 +229,8 @@ class CharacterHandle {
         const characterMainContent = item.querySelector(this.vars.content);
         const imageBtn = item.querySelector(this.vars.imageBtn);
         const imageAll = item.querySelectorAll(this.vars.image);
+        const archeTypeSelect = item.querySelector(this.vars.archeTypeSelect);
+
         const rsImage = this.rsCharacterListTemp.querySelector(`[rs-character-id="${cid}"]`)?.closest(this.vars.rsMrItem)?.querySelector(this.vars.rsImage);
         /** Event Listeners for charater on Main Character Page */
         item?.addEventListener('click', () => {
@@ -254,6 +257,18 @@ class CharacterHandle {
             if (cid) setTimeout(() => {
                 this.update(cid)
             }, 20);
+        });
+
+        //dropdown menu click event
+        archeTypeSelect?.addEventListener('change', (e) => {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            const selectedValue = archeTypeSelect?.value;
+            if (cid) {
+                window.ScriptDataStore.character[cid].archetypeSelect = selectedValue;
+                window.ScriptAdapter.autoSave();
+            }
+            console.log(window.ScriptDataStore.character[cid])
         });
 
         /** Event Listener for closing the main charater content */
@@ -448,6 +463,7 @@ class CharacterHandle {
             id: uid,
             name: name || uid,
             archetype: '',
+            archetypeSelect: '',
             possession: '0%',
             need: '',
             want: '',
@@ -490,9 +506,9 @@ class CharacterHandle {
         if (!character) return;
         // List of character Properties or item
         const itemList = character.querySelectorAll(this.vars.bodyMapItem);
-        //window.ScriptDataStore.character[uid].id = uid;
         if (!isAddId) window.ScriptDataStore.character[uid].name = character.querySelector(this.vars.name)?.innerText || '';
         window.ScriptDataStore.character[uid].archetype = character.querySelector(this.vars.archetype)?.innerText || '';
+        window.ScriptDataStore.character[uid].archetypeSelect = window.ScriptDataStore?.character[uid]?.archetypeSelect || '';
         if (!isAddId) window.ScriptDataStore.character[uid].possession = character.querySelector(this.vars.possession)?.innerText || '0%';
         window.ScriptDataStore.character[uid].need = character.querySelector(this.vars.need)?.innerText || '';
         window.ScriptDataStore.character[uid].want = character.querySelector(this.vars.want)?.innerText || '';
@@ -765,6 +781,7 @@ class CharacterHandle {
         // Capture new mapreact ids for activation
         const mapReactIDList = {
             name: '',
+            archetypeSelect: '',
             need: '',
             trait: '',
             want: '',
@@ -806,6 +823,18 @@ class CharacterHandle {
                 need.setAttribute(this.rpAttr, id + '1');
                 mapReactIDList.need = id + '1';
             });
+            /** Update Character ArchetypeSelect Element*/
+            const archetypeSelect = template.querySelector(this.vars.archeTypeSelect);
+            archetypeSelect.querySelectorAll('option').forEach((option) => {
+                if(option.innerText.toUpperCase().trim() === cDB.archetypeSelect.toUpperCase().trim()){
+                    option.selected = true;
+                }
+            });
+            // if (archetypeSelect) {
+            //     archetypeSelect.textContent = cDB.archetypeSelect;
+            //     archetypeSelect.setAttribute(this.rpAttr, id);
+            //     mapReactIDList.archetypeSelect = id + '6'
+            // }
 
             /** Update character Archetype Element*/
             const archetype = template.querySelector(this.vars.archetype);
@@ -813,8 +842,7 @@ class CharacterHandle {
                 archetype.textContent = cDB.archetype;
                 archetype.setAttribute(this.rpAttr, id + '2');
                 mapReactIDList.archetype = id + '2'
-            }
-            ;
+            };
 
             /** Update character Trait Element*/
             const trait = template.querySelector(this.vars.trait);
@@ -967,22 +995,38 @@ class CharacterHandle {
                     const item = bodyMapItem.cloneNode(true);
                     item.querySelector('div').innerText = cDB['item' + index];
                     if (index <= 8) {
-                        if (index === 1) {item.style.marginLeft = '200px';}
-                        else if (index === 2) {item.style.marginLeft = '250px';}
-                        else if (index === 3) {item.style.marginLeft = '168px';}
-                        else if (index === 4) {item.style.marginLeft = '184px';}
-                        else if (index === 5) {item.style.marginLeft = '60px';}
-                        else if (index === 6) {item.style.marginLeft = '120px';}
-                        else if (index === 7) {item.style.marginLeft = '172px';}
-                        else if (index === 8) {item.style.marginLeft = '200px';}
+                        if (index === 1) {
+                            item.style.marginLeft = '200px';
+                        } else if (index === 2) {
+                            item.style.marginLeft = '250px';
+                        } else if (index === 3) {
+                            item.style.marginLeft = '168px';
+                        } else if (index === 4) {
+                            item.style.marginLeft = '184px';
+                        } else if (index === 5) {
+                            item.style.marginLeft = '60px';
+                        } else if (index === 6) {
+                            item.style.marginLeft = '120px';
+                        } else if (index === 7) {
+                            item.style.marginLeft = '172px';
+                        } else if (index === 8) {
+                            item.style.marginLeft = '200px';
+                        }
                         bodyMapLeft.append(item);
-                    } else if(index >= 9) {
-                        if (index === 9) {item.style.marginLeft = '-10px';}
-                        else if (index === 10) {item.style.marginLeft = '20px';}
-                        else if (index === 11) {item.style.marginLeft = '53px';}
-                        else if (index === 12) {item.style.marginLeft = '40px';}
-                        else if (index === 13) {item.style.marginLeft = '22px';}
-                        else if (index === 14) {item.style.marginLeft = '5px';}
+                    } else if (index >= 9) {
+                        if (index === 9) {
+                            item.style.marginLeft = '-10px';
+                        } else if (index === 10) {
+                            item.style.marginLeft = '20px';
+                        } else if (index === 11) {
+                            item.style.marginLeft = '53px';
+                        } else if (index === 12) {
+                            item.style.marginLeft = '40px';
+                        } else if (index === 13) {
+                            item.style.marginLeft = '22px';
+                        } else if (index === 14) {
+                            item.style.marginLeft = '5px';
+                        }
                         bodyMapRight.append(item);
                     }
                     item.setAttribute(this.rpAttr, mapReactIDList['item' + index]);
@@ -1078,8 +1122,8 @@ class CharacterHandle {
         let validity = false;
         let cid = '';
         //Loop through content store to find out is character name already exist.
-        for (let index = 0; index < this.contentStore.length; index++) {
-            const data = this.contentStore[index];
+        for (const element of this.contentStore) {
+            const data = element;
             if (data.type === 'character' && data.content.innerText === name) {
                 validity = true;
                 cid = data.index;
@@ -1095,8 +1139,8 @@ class CharacterHandle {
         const keys = Object.keys(window.ScriptDataStore.character);
 
         //Loop through character store to find out is character name already exist.
-        for (let index = 0; index < keys.length; index++) {
-            const key = keys[index];
+        for (const element of keys) {
+            const key = element;
             const character = window.ScriptDataStore.character[key];
             if (character.name === name) {
                 validity = true;

@@ -283,6 +283,7 @@ class ClientSetting {
         span > svg { fill: black !important}
         .structure{color: white !important;}
         .social-logo { fill: white !important;}
+        .icon-gray { fill: gray !important;}
         button > svg { fill: currentColor!important}
         .script-feature-menu0 { background-color: rgb(35 34 34) !important; color: white; }
         .doping { color: black!important;}
