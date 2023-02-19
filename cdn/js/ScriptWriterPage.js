@@ -23,6 +23,7 @@ class ScriptWriterPage {
     rightSiderBar;
     // Close button for main menu
     mainMenuCloseBtn;
+
     constructor() {
         //Pages
         this.mainPage = document.querySelector(`[sw-page="main"]`);
@@ -73,7 +74,7 @@ class ScriptWriterPage {
 
         if (exceptMe === 'main' && this.mainPage) this.mainPage.style.display = '';
         if (exceptMe === 'character' && this.characterPage) this.characterPage.style.display = '';
-        if (exceptMe === 'location'  && this.locationPage) this.locationPage.style.display = '';
+        if (exceptMe === 'location' && this.locationPage) this.locationPage.style.display = '';
         if (exceptMe === 'outline' && this.outlinePage) this.outlinePage.style.display = '';
         if (exceptMe === 'pinBoard' && this.pinBoardPage) this.pinBoardPage.style.display = '';
         if (exceptMe === 'storyDocs' && this.storyDocsPage) this.storyDocsPage.style.display = '';
@@ -84,34 +85,48 @@ class ScriptWriterPage {
         if (exceptMe === 'structure') {
             document.querySelector('body').classList.add('bg-structure-page');
             document.querySelector('body').classList.remove('bg-x-gradient-grey-200-grey-200-50-white-100');
-        }
-        else {
+        } else {
             document.querySelector('body').classList.remove('bg-structure-page');
             document.querySelector('body').classList.add('bg-x-gradient-grey-200-grey-200-50-white-100');
         }
     }
 
     hideOrShowHeaderExcept(exceptMe) {
-        if (exceptMe !== 'header1') {this.headerTemplate1.style.display = 'none'; }
-        if (exceptMe !== 'header2') {this.headerTemplate2.style.display = 'none';}
-        if (exceptMe !== 'header3') {this.headerTemplate3.style.display = 'none';}
-        if (exceptMe === 'header1') {this.headerTemplate1.style.display = ''; this.rightSiderBar.style.display = '';}
-        if (exceptMe === 'header2') {this.headerTemplate2.style.display = ''; this.rightSiderBar.style.display = 'none';}
-        if (exceptMe === 'header3') {this.headerTemplate3.style.display = ''; this.rightSiderBar.style.display = 'none';}
+        if (exceptMe !== 'header1') {
+            this.headerTemplate1.style.display = 'none';
+        }
+        if (exceptMe !== 'header2') {
+            this.headerTemplate2.style.display = 'none';
+        }
+        if (exceptMe !== 'header3') {
+            this.headerTemplate3.style.display = 'none';
+        }
+        if (exceptMe === 'header1') {
+            this.headerTemplate1.style.display = '';
+            this.rightSiderBar.style.display = '';
+        }
+        if (exceptMe === 'header2') {
+            this.headerTemplate2.style.display = '';
+            this.rightSiderBar.style.display = 'none';
+        }
+        if (exceptMe === 'header3') {
+            this.headerTemplate3.style.display = '';
+            this.rightSiderBar.style.display = 'none';
+        }
     }
 
-    listener(){
+    listener() {
         //Click event for the various buttons
-        this.mainPageBtn?.addEventListener('click', () => { 
+        this.mainPageBtn?.addEventListener('click', () => {
             this.hideOrShowPageExcept('main');
             this.hideOrShowHeaderExcept('header1');
             // window.Watcher.mainPageAwait();
-            setTimeout(async() => {
+            setTimeout(async () => {
                 await window.MapAndReactOnContent.structureGuideHandle();
                 // Rearrange pages if need be
                 await window.EditorMode.rearrangePage();
                 await window.Watcher.mainPageAwait(false);
-            },1);
+            }, 1);
         });
 
         this.characterPageBtn?.addEventListener('click', () => {
@@ -154,13 +169,13 @@ class ScriptWriterPage {
 
     awaitTrigger() {
         // window.Watcher.mainPageAwait();
-        setTimeout(async() => {
+        setTimeout(async () => {
             await window.MapAndReactOnContent?.mapreact();
             await window.Watcher.mainPageAwait(false);
         }, 1);
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
     window.ScriptWriterPage = new ScriptWriterPage();
 });
