@@ -635,11 +635,11 @@ class CharacterHandle {
                     line.style.transform = `translateX(${(width - 376.246125)}px)`
                 } else if (index === 9) {
                     item.style.top = (height / 20) + 10 + 'px';
-                    line.style.width = (width - 206.328125) + 'px';
+                    line.style.width = (width - 214.328125) + 'px';
                     line.style.transform = `translateX(${(width - 561.492125)}px)`
                 } else if (index === 10) {
                     item.style.top = (height / 20) * 3.6 + 'px';
-                    line.style.width = (width - 236.011125) + 'px';
+                    line.style.width = (width - 244.011125) + 'px';
                     line.style.transform = `translateX(${(width - 534.645125)}px)`
                 } else if (index === 11) {
                     item.style.top = (height / 20) * 7 + 'px';
@@ -647,7 +647,7 @@ class CharacterHandle {
                     line.style.transform = `translateX(${(width - 547.116325)}px)`
                 } else if (index === 12) {
                     item.style.top = (height / 20) * 12.5 + 'px';
-                    line.style.width = (width - 196.011125) + 'px';
+                    line.style.width = (width - 204.011125) + 'px';
                     line.style.transform = `translateX(${(width - 573.645125)}px)`
                 } else if (index === 13) {
                     item.style.top = (height / 20) * 15 + 'px';
@@ -826,10 +826,11 @@ class CharacterHandle {
             /** Update Character ArchetypeSelect Element*/
             const archetypeSelect = template.querySelector(this.vars.archeTypeSelect);
             archetypeSelect.querySelectorAll('option').forEach((option) => {
-                if(option.innerText.toUpperCase().trim() === cDB.archetypeSelect.toUpperCase().trim()){
+                if(option.innerText === cDB.archetypeSelect){
                     option.selected = true;
                 }
             });
+
             // if (archetypeSelect) {
             //     archetypeSelect.textContent = cDB.archetypeSelect;
             //     archetypeSelect.setAttribute(this.rpAttr, id);

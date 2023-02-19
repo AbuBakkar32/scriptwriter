@@ -291,6 +291,7 @@ class ClientSetting {
         div[sw-share="wrap"] a  {fill: white !important; background-color: #242323 !important; opacity: 0.9 !important;}
         .select-feature-menu {color: black !important;}
         .bg-body {background-color: #242326 !important; color: #E9F4F5 !important;}
+        .bg-dropdown {background-color: #242326 !important;}
         .select-feature-menu span>svg {fill: black !important;}
         .fill-current-icon, .site-color {fill: gray !important;}
         .content-color {color: gray !important;}
