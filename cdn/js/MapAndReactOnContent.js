@@ -131,20 +131,6 @@ class MapAndReactOnContent {
         this.changeTypeOfContentLine();
     }
 
-    sideBarMenu() {
-        const menu = document.querySelector(`[side-menu="item"]`);
-        menu.querySelectorAll('li').forEach((element) => {
-            console.log(element)
-            element.querySelector('span').addEventListener('click', () => {
-                menu.querySelectorAll('li').forEach((element) => {
-                    element.classList.remove('active');
-                });
-                element.classList.add('active');
-                console.log("clicked")
-            });
-        });
-    }
-
     geneateUniqueID() {
         return Date.now().toString(36) + Math.random().toString(36).substring(2);
     }
@@ -418,7 +404,6 @@ class MapAndReactOnContent {
                         resolve(1)
                     });
                     targetFocusedPromise.then(() => {
-                        console.log(targetFocused)
                         if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('s') && targetFocused) this.sceneHeadingType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('p') && targetFocused) this.parentArticleType(targetFocused);
@@ -429,7 +414,6 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().startsWith('he') && targetFocused) this.headingType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
-                        console.log(targetFocused)
                         const clID = targetFocused.getAttribute(this.cons.editID);
                         /** Watcher reaction */
                         window.Watcher.changeAttribute(clID);
