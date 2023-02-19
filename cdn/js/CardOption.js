@@ -594,7 +594,21 @@ class CardOption {
     }
 }
 
+// function sideBarMenu() {
+//     const menu = document.querySelector(`[side-menu="item"]`);
+//     menu.querySelectorAll('li').forEach((element) => {
+//         element.querySelector('span').addEventListener('click', () => {
+//             menu.querySelectorAll('li').forEach((element) => {
+//                 element.classList.remove('active');
+//             });
+//             element.classList.add('active');
+//             console.log("clicked");
+//         });
+//     });
+// }
+
 document.addEventListener("DOMContentLoaded", function(){
     window.CardOption = new CardOption();
+    // sideBarMenu();
 })
 

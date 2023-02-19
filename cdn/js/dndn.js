@@ -157,7 +157,8 @@ function saveChangedCardList(swData) {
                 }
             });
         });
-    } catch (e) {}
+    } catch (e) {
+    }
 }
 
 function handleDrop(item) {

@@ -59,6 +59,8 @@ class EditorMode {
             editColor: `${this.attrName}-color`,
             ac: 'act',
             act: 'act-type',
+            he: 'heading',
+            het: 'heading-type',
         };
         this.editorModeList = document.querySelector(this.cons.list);
         this.editorModeItem = document.querySelector(this.cons.item);
@@ -667,7 +669,7 @@ class EditorMode {
         newLine.setAttribute("sw-focused", "edit")
 
         const line = this.handleContentLineNuetral(newLine, type);
-        if (this.handleSceneHeadingType(line)) ; else if (this.handleCharater(line)) ; else if (this.handleParentArticle(line)) ; else if (this.handleDialog(line)) ; else if (this.handleTransition(line)) ; else if (this.handleActType(line)) ;
+        if (this.handleSceneHeadingType(line)) ; else if (this.handleCharater(line)) ; else if (this.handleParentArticle(line)) ; else if (this.handleDialog(line)) ; else if (this.handleTransition(line)) ; else if (this.handleActType(line)) ; else if (this.handleHeadingType(line)) ;
     }
 
     handleActType(line, direct = false) {
@@ -679,6 +681,23 @@ class EditorMode {
         let verify = false;
         if (line.innerText.toLowerCase().startsWith('act.') || line.innerText.toLowerCase().startsWith('act')) {
             line.classList.replace(this.cons.at, this.cons.act);
+            // Add content Line signature
+            line.setAttribute(this.cons.editType, this.cons.ac);
+            // confirm checker
+            verify = true;
+        }
+        return verify;
+    }
+
+    handleHeadingType(line, direct = false) {
+        if (direct) {
+            line.classList.replace(this.cons.he, this.cons.het);
+            line.setAttribute(this.cons.editType, this.cons.ac);
+            return;
+        }
+        let verify = false;
+        if (line.innerText.toLowerCase().startsWith('head')) {
+            line.classList.replace(this.cons.he, this.cons.het);
             // Add content Line signature
             line.setAttribute(this.cons.editType, this.cons.ac);
             // confirm checker
@@ -810,9 +829,10 @@ class EditorMode {
         line.classList.remove(this.cons.tt);
         line.classList.remove(this.cons.at);
         line.classList.remove(this.cons.act);
-        if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act);
+        line.classList.remove(this.cons.het);
+        if (type === 'action') line.classList.add(this.cons.at); else if (type === 'dialog') line.classList.add(this.cons.dt); else if (type === 'character') line.classList.add(this.cons.ct); else if (type === 'parent-article') line.classList.add(this.cons.pat); else if (type === 'transition') line.classList.add(this.cons.tt); else if (type === 'scene-heading') line.classList.add(this.cons.sht); else if (type === 'act') line.classList.add(this.cons.act); else if (type === 'heading') line.classList.add(this.cons.het);
         line.setAttribute(this.cons.editType, '');
-        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac);
+        if (type === 'action') line.setAttribute(this.cons.editType, this.cons.a); else if (type === 'dialog') line.setAttribute(this.cons.editType, this.cons.d); else if (type === 'character') line.setAttribute(this.cons.editType, this.cons.c); else if (type === 'parent-article') line.setAttribute(this.cons.editType, this.cons.pa); else if (type === 'transition') line.setAttribute(this.cons.editType, this.cons.t); else if (type === 'scene-heading') line.setAttribute(this.cons.editType, this.cons.sh); else if (type === 'act') line.setAttribute(this.cons.editType, this.cons.ac); else if (type === 'heading') line.setAttribute(this.cons.editType, this.cons.he);
         return line;
     }
 

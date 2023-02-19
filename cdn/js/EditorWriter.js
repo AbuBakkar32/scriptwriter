@@ -40,6 +40,7 @@ class EditorWriter {
         this.editorItem = document.querySelector(this.cons.item);
         this.itemTemp = this.editorItem.cloneNode(true);
         const lineTemp = document.querySelector(this.cons.line);
+        // window.EditorMode.lineSignal(lineTemp);
         this.lineTemp = lineTemp.cloneNode(true);
         // current text length
         const totalText = this.editorList.innerText;

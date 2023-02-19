@@ -114,7 +114,7 @@ class MapAndReactOnContent {
                 // get the meta type
                 const metaType = mainTarget.getAttribute('sw-editor-type');
                 if (document.querySelectorAll(`[sw-select-item="set"]`).length > 3) {
-                    // postion to set the name of the type of content line
+                    // position to set the name of the type of content line
                     const typeNamePos = document.querySelector(`[sw-select-item="set"]`);
                     if (metaType === 'action' && typeNamePos) typeNamePos.textContent = 'Action';
                     else if (metaType === 'dialog' && typeNamePos) typeNamePos.textContent = 'Dialog';
@@ -123,11 +123,26 @@ class MapAndReactOnContent {
                     else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character';
                     else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
                     else if (metaType === 'act' && typeNamePos) typeNamePos.textContent = 'Act';
+                    else if (metaType === 'heading' && typeNamePos) typeNamePos.textContent = 'Heading';
                 }
             }
         });
         //Function that can change any type of content line
         this.changeTypeOfContentLine();
+    }
+
+    sideBarMenu() {
+        const menu = document.querySelector(`[side-menu="item"]`);
+        menu.querySelectorAll('li').forEach((element) => {
+            console.log(element)
+            element.querySelector('span').addEventListener('click', () => {
+                menu.querySelectorAll('li').forEach((element) => {
+                    element.classList.remove('active');
+                });
+                element.classList.add('active');
+                console.log("clicked")
+            });
+        });
     }
 
     geneateUniqueID() {
@@ -262,9 +277,9 @@ class MapAndReactOnContent {
         const pagePackList = document.querySelectorAll(this.cons.item);
         // ready cid
         let readyID = {};
-        for (let index = 0; index < lineList.length; index++) {
+        for (const element of lineList) {
             uidCount += 1;
-            const el = lineList[index];
+            const el = element;
             const mainElement = el;
             const getType = el.getAttribute(this.cons.editType); // return either action or dialog or parenthetical or scene-heading etc.
             const scriptBodyElement = el;
@@ -403,6 +418,7 @@ class MapAndReactOnContent {
                         resolve(1)
                     });
                     targetFocusedPromise.then(() => {
+                        console.log(targetFocused)
                         if (typ.innerText.toLowerCase().startsWith('a') && targetFocused) this.actionType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('s') && targetFocused) this.sceneHeadingType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('p') && targetFocused) this.parentArticleType(targetFocused);
@@ -410,8 +426,10 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().startsWith('d') && targetFocused) this.dialogeType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('t') && targetFocused) this.transitionType(targetFocused);
                         else if (typ.innerText.toLowerCase().endsWith('t') && targetFocused) this.actType(targetFocused)
+                        else if (typ.innerText.toLowerCase().startsWith('he') && targetFocused) this.headingType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
+                        console.log(targetFocused)
                         const clID = targetFocused.getAttribute(this.cons.editID);
                         /** Watcher reaction */
                         window.Watcher.changeAttribute(clID);
@@ -431,6 +449,19 @@ class MapAndReactOnContent {
         window.EditorMode.handleContentLineNuetral(line, 'act');
         // set line into the act
         window.EditorMode.handleActType(line);
+    }
+
+    headingType(line) {
+        console.log(line);
+        const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'heading'};
+        // if function name is same as metaType then end the function
+        if (funcName === metaType) return;
+        // clear character id
+        window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
+        // reset line to action
+        window.EditorMode.handleContentLineNuetral(line, 'heading');
+        // set line into the act
+        window.EditorMode.handleHeadingType(line);
     }
 
     sceneHeadingType(line) {
