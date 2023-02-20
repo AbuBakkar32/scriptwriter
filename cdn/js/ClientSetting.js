@@ -390,7 +390,9 @@ async function slider() {
     }
 }
 
-window.ClientSetting = new ClientSetting();
-slider();
-
+/* A function that is used to change the value of the slider. */
+document.addEventListener("DOMContentLoaded", function () {
+    window.ClientSetting = new ClientSetting();
+    slider().then(r => r);
+});
 
