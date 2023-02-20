@@ -140,8 +140,8 @@ class EditorWriter {
             if (!this.watcherStatus) return;
             setTimeout(()=>{
                 // trap to catch newly created line
-                for (let i = 0; i < this.idList.length; i++) {
-                    const x = this.idList[i]; // might be the duplicated id
+                for (const element of this.idList) {
+                    const x = element; // might be the duplicated id
                     //const length = this.idList.filter( d => d === x ).length;
                     const duplicates = document.querySelectorAll(`[${this.cons.editID}="${x}"]`);
                     if (duplicates.length > 1) {
