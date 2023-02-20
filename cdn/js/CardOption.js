@@ -57,15 +57,10 @@ class CardOption {
         this.getAllRecentScript();
     }
 
-    getAllRecentScript() {
+   async getAllRecentScript() {
         const list = document.querySelectorAll(`[recent-script="wrap"]`);
-        let listPromise = new Promise((resolve, reject) => {
-            resolve(1)
-        });
-        listPromise.then(() => {
-            list.forEach((item, index) => {
-                item.innerHTML = "Script-" + (index + 1);
-            });
+        list.forEach((item, index) => {
+            item.innerHTML = "Script-" + (index + 1);
         });
     }
 
