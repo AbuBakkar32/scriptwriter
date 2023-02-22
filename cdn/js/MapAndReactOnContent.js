@@ -123,7 +123,7 @@ class MapAndReactOnContent {
                     else if (metaType === 'character' && typeNamePos) typeNamePos.textContent = 'Character';
                     else if (metaType === 'transition' && typeNamePos) typeNamePos.textContent = 'Transition';
                     else if (metaType === 'act' && typeNamePos) typeNamePos.textContent = 'Act';
-                    else if (metaType === 'heading' && typeNamePos) typeNamePos.textContent = 'Heading';
+                    // else if (metaType === 'heading' && typeNamePos) typeNamePos.textContent = 'Heading';
                 }
             }
         });
@@ -411,7 +411,7 @@ class MapAndReactOnContent {
                         else if (typ.innerText.toLowerCase().startsWith('d') && targetFocused) this.dialogeType(targetFocused);
                         else if (typ.innerText.toLowerCase().startsWith('t') && targetFocused) this.transitionType(targetFocused);
                         else if (typ.innerText.toLowerCase().endsWith('t') && targetFocused) this.actType(targetFocused)
-                        else if (typ.innerText.toLowerCase().startsWith('he') && targetFocused) this.headingType(targetFocused)
+                        // else if (typ.innerText.toLowerCase().startsWith('he') && targetFocused) this.headingType(targetFocused)
                     }).then(() => {
                         if (!targetFocused) return;
                         const clID = targetFocused.getAttribute(this.cons.editID);
@@ -435,18 +435,18 @@ class MapAndReactOnContent {
         window.EditorMode.handleActType(line);
     }
 
-    headingType(line) {
-        console.log(line);
-        const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'heading'};
-        // if function name is same as metaType then end the function
-        if (funcName === metaType) return;
-        // clear character id
-        window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
-        // reset line to action
-        window.EditorMode.handleContentLineNuetral(line, 'heading');
-        // set line into the act
-        window.EditorMode.handleHeadingType(line);
-    }
+    // headingType(line) {
+    //     console.log(line);
+    //     const {metaType, funcName} = {metaType: line.getAttribute(this.cons.editType), funcName: 'heading'};
+    //     // if function name is same as metaType then end the function
+    //     if (funcName === metaType) return;
+    //     // clear character id
+    //     window.MapAndReactOnContent.clearCharacterIdOnContentLine(line)
+    //     // reset line to action
+    //     window.EditorMode.handleContentLineNuetral(line, 'heading');
+    //     // set line into the act
+    //     window.EditorMode.handleHeadingType(line);
+    // }
 
     sceneHeadingType(line) {
         // get the content line meta-type // function name
