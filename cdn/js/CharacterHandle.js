@@ -718,7 +718,7 @@ class CharacterHandle {
             count += 1;
         });
         // Render character data to template
-        listOfCharacter.forEach(charater => this.characterRenderTemplate(charater));
+        listOfCharacter.forEach(character => this.characterRenderTemplate(character));
     }
 
     SceneHeadingLocator() {
