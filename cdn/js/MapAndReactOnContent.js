@@ -774,7 +774,6 @@ class MapAndReactOnContent {
 
     graphTemplateFour(tableData) {
         // format for tableData parameter: [[1, 28, 28, -38, -38, '<b>one<b>']]
-        console.table(tableData);
         const drawCandleChart = () => {
             const data = new google.visualization.DataTable();
             data.addColumn('number', 'Y');
