@@ -265,10 +265,9 @@ class CharacterHandle {
             e.stopPropagation();
             const selectedValue = archeTypeSelect?.value;
             if (cid) {
-                window.ScriptDataStore.character[cid].archetypeSelect = selectedValue;
+                window.ScriptDataStore.character[cid].archetypeSelect = selectedValue.trim();
                 window.ScriptAdapter.autoSave();
             }
-            console.log(window.ScriptDataStore.character[cid])
         });
 
         /** Event Listener for closing the main charater content */
@@ -860,19 +859,14 @@ class CharacterHandle {
                 need.setAttribute(this.rpAttr, id + '1');
                 mapReactIDList.need = id + '1';
             });
+
             /** Update Character ArchetypeSelect Element*/
             const archetypeSelect = template.querySelector(this.vars.archeTypeSelect);
             archetypeSelect.querySelectorAll('option').forEach((option) => {
-                if (option.innerText === cDB.archetypeSelect) {
+                if (option.innerText.trim() === cDB.archetypeSelect.trim()) {
                     option.selected = true;
                 }
             });
-
-            // if (archetypeSelect) {
-            //     archetypeSelect.textContent = cDB.archetypeSelect;
-            //     archetypeSelect.setAttribute(this.rpAttr, id);
-            //     mapReactIDList.archetypeSelect = id + '6'
-            // }
 
             /** Update character Archetype Element*/
             const archetype = template.querySelector(this.vars.archetype);
