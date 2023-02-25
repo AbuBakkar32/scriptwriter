@@ -215,15 +215,24 @@
 
         listener() {
             setTimeout(() => {
-                // window.ScriptAdapter.scriptDataStore.outline = {};
-                // window.ScriptAdapter.autoSave();
-                if (window.ClientSetting.getData.accountType === 'free') {
+                const getAccType = window.localStorage.getItem('data');
+                let accType = JSON.parse(getAccType);
+                if (accType.accountType === 'free') {
                     this.sideBarHideAndShow();
                 }
             }, 100)
-            this.boldBtn.forEach(t => {
-                t.addEventListener("click", () => this.emis(t, "bold"))
-            }), this.italicBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "italic"))), this.underlineBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "underline"))), this.downloadBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "download"))), this.saveBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "save"))), this.shareBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "share"))), this.penPaintBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "highlight"))), this.textColorBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "color"))), this.renderColorAttr(), this.voiceRecordBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "voiceRecord"))), this.audioPlayReaderBtn.forEach(t => t.addEventListener("click", () => this.emis(t, "audioPlayReader"))), this.totalNumberOfPage()
+            this.boldBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "bold")));
+            this.italicBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "italic")));
+            this.underlineBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "underline")));
+            this.downloadBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "download")));
+            this.saveBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "save")));
+            this.shareBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "share")));
+            this.penPaintBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "highlight")));
+            this.textColorBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "color")));
+            this.renderColorAttr();
+            this.voiceRecordBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "voiceRecord")));
+            this.audioPlayReaderBtn.forEach(button => button.addEventListener("click", () => this.emis(button, "audioPlayReader")));
+            this.totalNumberOfPage();
         }
 
         sideBarHideAndShow() {

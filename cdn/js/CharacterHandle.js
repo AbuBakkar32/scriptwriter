@@ -265,10 +265,9 @@ class CharacterHandle {
             e.stopPropagation();
             const selectedValue = archeTypeSelect?.value;
             if (cid) {
-                window.ScriptDataStore.character[cid].archetypeSelect = selectedValue;
+                window.ScriptDataStore.character[cid].archetypeSelect = selectedValue.trim();
                 window.ScriptAdapter.autoSave();
             }
-            console.log(window.ScriptDataStore.character[cid])
         });
 
         /** Event Listener for closing the main charater content */
@@ -600,60 +599,97 @@ class CharacterHandle {
             bodyItems.forEach((item) => {
                 const line = item.querySelector('span');
                 const text = item.querySelector('div');
+                const p = item.querySelector('p');
+                const leftSvg = `<svg class="crossIcon" width="15px" height="22px" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" stroke="#000000">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                   stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M16 8L8 16M8.00001 8L16 16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                          stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </g>
+                            </svg>`
+                const rightSvg = `<svg class="crossIcon" style="position: absolute;width: 200%;margin-top: 4px;" width="10px" height="15px" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" stroke="#000000">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                   stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M16 8L8 16M8.00001 8L16 16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                          stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </g>
+                            </svg>`
                 const index = getEleId(item, bodyItems) + 1;
                 if (index === 1) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) - 10 + 'px';
                     line.style.width = (width - 44.551125) + 'px';
                     line.style.transform = `translateX(${(width - 382.246125)}px)`
                 } else if (index === 2) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 2.8 + 'px';
                     line.style.width = (width - 105.551125) + 'px';
                     line.style.transform = `translateX(${(width - 382.246125)}px)`
                 } else if (index === 3) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 5.5 + 'px';
                     line.style.width = (width - 78.000125) + 'px';
                     line.style.transform = `translateX(${(width - 378.246125)}px)`
                 } else if (index === 4) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 7.5 + 'px';
                     line.style.width = (width - 119.000125) + 'px';
                     line.style.transform = `translateX(${(width - 378.246125)}px)`
                 } else if (index === 5) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 11 + 'px';
                     line.style.width = (width - 12.000125) + 'px';
                     line.style.transform = `translateX(${(width - 379.246125)}px)`
                 } else if (index === 6) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 13.5 + 'px';
                     line.style.width = (width + 2.999875) + 'px';
                     line.style.transform = `translateX(${(width - 379.246125)}px)`
                 } else if (index === 7) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 16.5 + 'px';
                     line.style.width = (width - 57.000125) + 'px';
                     line.style.transform = `translateX(${(width - 376.246125)}px)`
                 } else if (index === 8) {
+                    p.innerHTML = leftSvg;
                     item.style.top = (height / 20) * 19 + 'px';
                     line.style.width = (width - 92.000125) + 'px';
                     line.style.transform = `translateX(${(width - 376.246125)}px)`
                 } else if (index === 9) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) + 10 + 'px';
                     line.style.width = (width - 214.328125) + 'px';
                     line.style.transform = `translateX(${(width - 561.492125)}px)`
                 } else if (index === 10) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) * 3.6 + 'px';
                     line.style.width = (width - 244.011125) + 'px';
                     line.style.transform = `translateX(${(width - 534.645125)}px)`
                 } else if (index === 11) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) * 7 + 'px';
                     line.style.width = (width - 225.539925) + 'px';
                     line.style.transform = `translateX(${(width - 547.116325)}px)`
                 } else if (index === 12) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) * 12.5 + 'px';
                     line.style.width = (width - 204.011125) + 'px';
                     line.style.transform = `translateX(${(width - 573.645125)}px)`
                 } else if (index === 13) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) * 15 + 'px';
                     line.style.width = (width - 227.678125) + 'px';
                     line.style.transform = `translateX(${(width - 548.978125)}px)`
                 } else if (index === 14) {
+                    p.innerHTML = rightSvg;
                     item.style.top = (height / 20) * 17.5 + 'px';
                     line.style.width = (width - 236.191125) + 'px';
                     line.style.transform = `translateX(${(width - 539.465125)}px)`
@@ -823,19 +859,14 @@ class CharacterHandle {
                 need.setAttribute(this.rpAttr, id + '1');
                 mapReactIDList.need = id + '1';
             });
+
             /** Update Character ArchetypeSelect Element*/
             const archetypeSelect = template.querySelector(this.vars.archeTypeSelect);
             archetypeSelect.querySelectorAll('option').forEach((option) => {
-                if(option.innerText === cDB.archetypeSelect){
+                if (option.innerText.trim() === cDB.archetypeSelect.trim()) {
                     option.selected = true;
                 }
             });
-
-            // if (archetypeSelect) {
-            //     archetypeSelect.textContent = cDB.archetypeSelect;
-            //     archetypeSelect.setAttribute(this.rpAttr, id);
-            //     mapReactIDList.archetypeSelect = id + '6'
-            // }
 
             /** Update character Archetype Element*/
             const archetype = template.querySelector(this.vars.archetype);
@@ -843,7 +874,8 @@ class CharacterHandle {
                 archetype.textContent = cDB.archetype;
                 archetype.setAttribute(this.rpAttr, id + '2');
                 mapReactIDList.archetype = id + '2'
-            };
+            }
+            ;
 
             /** Update character Trait Element*/
             const trait = template.querySelector(this.vars.trait);
@@ -1152,6 +1184,25 @@ class CharacterHandle {
         return {valid: validity, id: cid};
     }
 
+}
+
+function emptyTextField(thisElement) {
+    const p = thisElement.querySelector('p');
+    p.style.cursor = "pointer";
+    if (p.classList.contains('hide')) {
+        p.classList.remove('hide');
+    }
+    p.addEventListener('click', function () {
+        thisElement.querySelector('div').focus();
+        thisElement.querySelector('div').click();
+        thisElement.querySelector('div').innerText = '';
+        this.classList.add('hide');
+    });
+    thisElement.addEventListener('mouseout', function () {
+        if (!p.classList.contains('hide')) {
+            p.classList.add('hide');
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
