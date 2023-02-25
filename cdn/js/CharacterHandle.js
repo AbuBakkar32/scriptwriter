@@ -874,8 +874,7 @@ class CharacterHandle {
                 archetype.textContent = cDB.archetype;
                 archetype.setAttribute(this.rpAttr, id + '2');
                 mapReactIDList.archetype = id + '2'
-            }
-            ;
+            };
 
             /** Update character Trait Element*/
             const trait = template.querySelector(this.vars.trait);
