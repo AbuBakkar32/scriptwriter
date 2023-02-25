@@ -292,6 +292,7 @@ class ClientSetting {
         .bg-three { background-color: #242326 !important; color: white !important; fill: white !important; }
         .bg-fill { background-color: #242326 !important; color: white !important; }
         svg.fill-color { fill: black !important; }
+        .crossIcon { fill: white !important; }
         .imgx100, .img40, .imgx75 { background-color: white !important; }
         li > svg { fill: black !important;}
         div[sw-glossary="item"], div[sw-page-number="item"] {color: white !important;}
