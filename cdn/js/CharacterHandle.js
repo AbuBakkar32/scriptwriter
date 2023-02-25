@@ -1209,7 +1209,6 @@ function emptyTextField(thisElement) {
             p.classList.add('hide');
         }
     });
-    window.ScriptAdapter.autoSave();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
