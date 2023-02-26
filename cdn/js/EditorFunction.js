@@ -359,27 +359,70 @@
                 document.querySelectorAll(`[sw-editor="item"]`).forEach(t => {
                     t.style.boxShadow = "none"
                 })
-                const file = window.location.pathname.split("/");
-                const fileName = file[file.length - 1]
-                var HTML_Width = document.querySelector(".html-content").offsetWidth - 750;
-                var HTML_Height = document.querySelector(".html-content").offsetHeight - 500;
-                var top_left_margin = 15;
-                var PDF_Width = HTML_Width + (top_left_margin * 2);
-                var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-                var canvas_image_width = HTML_Width;
-                var canvas_image_height = HTML_Height;
-                var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-                html2canvas(document.querySelector(".html-content")).then(function (canvas) {
-                    var imgData = canvas.toDataURL("image/jpeg", 1.0);
-                    var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-                    pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-                    for (var i = 1; i <= totalPDFPages; i++) {
-                        pdf.addPage(PDF_Width, PDF_Height);
-                        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-                    }
-                    pdf.save(fileName + ".pdf");
+                const list = document.querySelectorAll(`[sw-editor="item"]`);
+                const pdf = new jsPDF();
+
+                list.forEach((item) => {
+                    const list = item.querySelectorAll(`div`);
+                    list.forEach((item, i) => {
+                        let value;
+                        if (i === 0) {
+                            value = 20;
+                        } else {
+                            value = 20 + (i * 10);
+                        }
+                        if (item.getAttribute('sw-editor-type') === 'act') {
+                            // Get the width of the page
+                            const pageWidth = pdf.internal.pageSize.width;
+                            // Calculate the position for center-aligned text
+                            const textWidth = pdf.getStringUnitWidth(item.innerText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                            const textOffset = (pageWidth - textWidth) / 2;
+                            pdf.setFont("helvetica", "bold");
+                            pdf.text(item.innerText, textOffset, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'scene-heading') {
+                            // Add the left-aligned text to the PDF
+                            pdf.setFont("helvetica", "bold");
+                            pdf.text(item.innerText, 10, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'character') {
+                            // Get the width of the page
+                            const pageWidth = pdf.internal.pageSize.width;
+                            // Calculate the position for center-aligned text
+                            const textWidth = pdf.getStringUnitWidth(item.innerText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                            const textOffset = (pageWidth - textWidth) / 2;
+                            pdf.text(item.innerText, textOffset, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'dialog') {
+                            // Get the width of the page
+                            const pageWidth = pdf.internal.pageSize.width;
+                            // Calculate the position for center-aligned text
+                            const textWidth = pdf.getStringUnitWidth(item.innerText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                            const textOffset = (pageWidth - textWidth) / 2;
+                            pdf.text(item.innerText, textOffset, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'transition') {
+                            // Get the width of the page
+                            const pageWidth = pdf.internal.pageSize.width;
+                            // Calculate the position for right-aligned text
+                            var textWidth = pdf.getStringUnitWidth(item.innerText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                            var textOffset = pageWidth - textWidth - 10;
+                            // Add the right-aligned text to the PDF
+                            pdf.text(item.innerText, textOffset, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'action') {
+                            // Add the left-aligned text to the PDF
+                            pdf.text(item.innerText, 10, value);
+                        } else if (item.getAttribute('sw-editor-type') === 'parent-article') {
+                            // Get the width of the page
+                            const pageWidth = pdf.internal.pageSize.width;
+                            // Calculate the position for center-aligned text
+                            const textWidth = pdf.getStringUnitWidth(item.innerText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                            const textOffset = (pageWidth - textWidth) / 2;
+                            pdf.text(item.innerText, textOffset, value);
+                        }
+                    });
+                    pdf.addPage();
                 });
+
+                // Save the PDF
+                pdf.save('document.pdf');
             }
         }
 
