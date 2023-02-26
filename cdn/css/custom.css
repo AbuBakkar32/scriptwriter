@@ -579,8 +579,8 @@ div[sw-page-number] {
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 .col {
@@ -1076,16 +1076,16 @@ div[sw-page-number] {
 
     .col-by47-lg {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 47%;
-        flex: 0 0 47%;
-        max-width: 47%;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 48%;
     }
 
     .col-by94-lg {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 94%;
-        flex: 0 0 94%;
-        max-width: 94%;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 99%;
     }
 
     .col-by54-lg {

@@ -282,7 +282,7 @@ class ScriptProject(object):
                 # Set title on pdf
                 if title:
                     pdf.set_font(fontFamily, size=19, style='B')
-                    pdf.multi_cell(200, 30, txt=title, align='C')
+                    pdf.multi_cell(200, 24, txt=title, align='C')
 
                 # Set all other content 
                 for key in getScriptKeys:
@@ -299,12 +299,19 @@ class ScriptProject(object):
                         }
                     """
                     scriptLine = scriptData[key]
+                    # set watermark on pdf for every page 45 degree
+
+                    # pdf.set_font(fontFamily, size=50, style='B')
+                    # pdf.set_text_color(200, 200, 200)
+                    # pdf.multi_cell(200, 30, txt='CONFIDENTIAL', align='C')
+                    # pdf.rotate(45)
+
                     # Add the content base
                     if scriptLine['type'] == "scene-heading":
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='B', size=13)
-                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
+                            pdf.multi_cell(200, 8, txt=soup.get_text().upper(), align='L')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -312,7 +319,7 @@ class ScriptProject(object):
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='B', size=14)
-                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
+                            pdf.multi_cell(200, 10, txt=soup.get_text().upper(), align='C')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -320,7 +327,7 @@ class ScriptProject(object):
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='', size=13)
-                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='C')
+                            pdf.multi_cell(200, 8, txt=soup.get_text(), align='C')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -328,7 +335,7 @@ class ScriptProject(object):
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='', size=12)
-                            pdf.multi_cell(120, 6, txt=soup.get_text(), align='C')
+                            pdf.multi_cell(190, 8, txt=soup.get_text(), align='C')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -336,7 +343,7 @@ class ScriptProject(object):
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='', size=12)
-                            pdf.multi_cell(180, 6, txt=soup.get_text(), align='C')
+                            pdf.multi_cell(180, 8, txt=soup.get_text(), align='C')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -344,7 +351,7 @@ class ScriptProject(object):
                         try:
                             soup = BeautifulSoup(scriptLine['content'])
                             pdf.set_font(fontFamily, style='B', size=12)
-                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='R')
+                            pdf.multi_cell(190, 10, txt=soup.get_text().upper(), align='R')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
@@ -352,7 +359,7 @@ class ScriptProject(object):
                         soup = BeautifulSoup(scriptLine['content'])
                         pdf.set_font(fontFamily, style='', size=12)
                         try:
-                            pdf.multi_cell(200, 6, txt=soup.get_text(), align='L')
+                            pdf.multi_cell(200, 8, txt=soup.get_text(), align='L')
                         except KeyError:
                             return JsonResponse({'result': 'failed', 'message': 'Failed to Find the body'})
 
