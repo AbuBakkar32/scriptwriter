@@ -17,7 +17,7 @@
                         <div class="w-1 p-1 bg-black absolute" style="transform: rotate(0deg); height: 60vh"></div>
                     </div>
 
-                    <div class="col overflow-y-auto" style="height: 60vh;" sw-data="structure-list">
+                    <div class="col overflow-y-auto scroll" style="height: 60vh;" sw-data="structure-list">
                         <div class="col-12" sw-data="structure-option">
                             <div class="flex cus-pointer relative" sw-data="structure-item">
                                 <div class="flex-wrap-center col">
@@ -47,7 +47,7 @@
 
                 {% if SubscriptionType == 'pro' %}
                 <div class="hidden" sw-section="pin-board">
-                    <div class="drag-sort-enable-2 mt-8 script-feature-menu0 overflow-y-auto"
+                    <div class="drag-sort-enable-2 mt-8 script-feature-menu0 overflow-y-auto scroll"
                          sw-data="pin-board-list" style="height: 60vh;">
                         <div class="box col my-16 rounded-lg shadow hover:shadow-md transition-fast-out overflow-hidden relative bg-yellow rem-h10"
                              sw-data="pin-board-item" bg-value="bg-yellow">
@@ -62,7 +62,7 @@
                                 </span>
                             </div>
 
-                            <div class="col text-grey-700 mx-8 py-8 content-color overflow-y-auto rem-h7 input break-space"
+                            <div class="col text-grey-700 mx-8 py-8 content-color overflow-y-auto scroll rem-h7 input break-space"
                                  sw-card-option="body" contenteditable="true" data-placeholder="content here"></div>
 
                             <span class="hide" sw-card-option="card-id"></span>
@@ -147,7 +147,7 @@
                 {% endif %}
 
                 <div class="hidden" sw-section="character">
-                    <div class="mt-8 script-feature-menu0 overflow-y-auto" mapreact-data="rs-character-list"
+                    <div class="mt-8 script-feature-menu0 overflow-y-auto scroll" mapreact-data="rs-character-list"
                          style="height: 60vh;">
                         <div class="mt-16 px-16 mb-16 shadow hover:shadow-md brd-r3 relative"
                              mapreact-data="rs-character-item" sw-action="showable-part">
@@ -200,7 +200,7 @@
 
                 {% if SubscriptionType == 'pro' %}
                 <div class="hidden" sw-section="outline">
-                    <div class="mt-8 script-feature-menu0 overflow-y-auto" mapreact-data="rs-outline-list"
+                    <div class="mt-8 script-feature-menu0 overflow-y-auto scroll" mapreact-data="rs-outline-list"
                          style="height: 60vh;">
                         <div class="mt-16 mb-16" mapreact-data="rs-outline-item" sw-action="showable-part"
                              rs-outline-id="">
@@ -214,7 +214,7 @@
                                 <p rs-outline="title" contenteditable="true"
                                    class="py-8 px-2 font-sans-alt text-grey-500 text-center">INT. KITCHEN - CONTINUE</p>
                                 <div rs-outline="list"
-                                     class="col font-sans-alt text-grey-700 m-8 overflow-y-auto rem-h7 text-cursive hidden"
+                                     class="col font-sans-alt text-grey-700 m-8 overflow-y-auto scroll rem-h7 text-cursive hidden"
                                      sw-action="hideable-part">
                                     <p rs-outline="item" class="py-8 px-2 right-text" contenteditable="true">hello i am george leo.
                                         a task of the developer can be challenging and frustrating sometimes.
@@ -240,13 +240,13 @@
                 {% endif %}
 
                 <div class="hidden" sw-section="note">
-                    <div class="mt-8 script-feature-menu0 overflow-y-auto" sw-note-handle="rs-list"
+                    <div class="mt-8 script-feature-menu0 overflow-y-auto scroll" sw-note-handle="rs-list"
                          style="height: 60vh;">
 
                         <div class="mt-16 mb-16" sw-note-handle="rs-item">
                             <div class="col rounded-lg shadow hover:shadow-md transition-fast-out overflow-hidden relative bg-yellow">
                                 <p class="p-8 text-grey-500 bold" sw-note-handle="rs-title">Note 1</p>
-                                <div class="col text-grey-600 m-8 overflow-y-auto rem-h7"
+                                <div class="col text-grey-600 m-8 overflow-y-auto scroll rem-h7"
                                      sw-note-handle="rs-body"></div>
                                 <div class="py-8 m-8 ft-size11 c-black">
                                     {% comment %} <span class="rounded-circle bg-yellow p-8 mr-8">GW</span>George
