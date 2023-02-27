@@ -446,18 +446,18 @@
                                 case "transition":
                                     let textOffsett = pageWidth - textWidth - rightMargin;
                                     const lineHeight = pdf.getLineHeightFactor() * pdf.internal.getFontSize();
-                                    let values = lineHeight + 20;
+                                    // let values = lineHeight + 20;
                                     console.log(this.dialogueTextBreak)
                                     // check if dialog text has broken into multiple lines
                                     if (this.dialogueTextBreak.length > 1) {
                                         // set the value to the last line of dialog text
-                                        values = (this.dialogueTextBreak.length * lineHeight) + 20;
+                                        value = value + 10;
                                     }
 
                                     pdf.setFontSize(12);
                                     pdf.setFont("times", "normal");
                                     pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, textOffsett, values);
+                                    pdf.text(item.innerText, textOffsett, value);
                                     pdf.setFont("times", "normal");
                                     pdf.setLineHeightFactor(1);
                                     this.dialogueTextBreak = [];
