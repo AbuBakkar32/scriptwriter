@@ -358,7 +358,7 @@
                 }
 
                 // START --- Create a PDF file from the editor content
-                createPDF(list, pdf, watermark) {
+                createPDF(list, pdf) {
                     let pageNumber = 1;
                     list.forEach((item) => {
                         let value;
@@ -499,12 +499,20 @@
 
                 addWaterMark(pdf, watermark) {
                     let totalPages = pdf.internal.getNumberOfPages();
+                    const pageWidth = pdf.internal.pageSize.width;
+                    const textWidth =
+                        pdf.getStringUnitWidth(watermark) *
+                        pdf.internal.getFontSize() /
+                        pdf.internal.scaleFactor;
+                    const leftMargin = 20;
+                    const rightMargin = 20;
+                    const textOffset = (pageWidth - textWidth - leftMargin - rightMargin) / 2;
 
                     for (let i = 1; i <= totalPages; i++) {
                         pdf.setPage(i);
-                        //doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
-                        pdf.setTextColor(150);
-                        pdf.text(50, pdf.internal.pageSize.height - 30, watermark);
+                        pdf.setTextColor(160);
+                        pdf.setFontSize(50);
+                        pdf.text(watermark, textOffset, pdf.internal.pageSize.height - 125, {angle: 45}, null);
                     }
 
                     return pdf;
@@ -512,13 +520,18 @@
 
                 download() {
                     const rest = confirm("Do you want to download your content");
-
+                    // Get watermark text from local storage
+                    const data = localStorage.getItem("data");
+                    const parseData = JSON.parse(data);
                     if (rest) {
                         const list = document.querySelectorAll(`[sw-editor="item"]`);
                         const pdf = new jsPDF();
-                        const watermark = "CONFIDENTIAL";
-                        this.createPDF(list, pdf, watermark);
-                        this.addWaterMark(pdf, watermark)
+                        this.createPDF(list, pdf);
+                        if (parseData?.waterMarkStatus === "true") {
+                            if (parseData?.waterMarkDisplayText !== "") {
+                                this.addWaterMark(pdf, parseData?.waterMarkDisplayText)
+                            }
+                        }
                         // Save the PDF
                         pdf.save("document.pdf");
                     }

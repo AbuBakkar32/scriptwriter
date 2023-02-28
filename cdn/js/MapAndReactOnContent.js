@@ -32,7 +32,6 @@ class MapAndReactOnContent {
     specificActLineList = {};
     specificActLineListStatus = false;
     title1;
-    title2;
     lineGraph;
     maskGraph;
     candleStick1;
@@ -73,18 +72,15 @@ class MapAndReactOnContent {
         this.rsStructureItemArrow = document.querySelector(`[sw-data="structure-item-arrow"]`).cloneNode(true);
         // START - For Toggle Button
         this.title1 = document.querySelector(`[sw-graph="item-11"]`)
-        this.title2 = document.querySelector(`[sw-graph="item-22"]`)
         this.lineGraph = document.querySelector(`[structure="line-chart"]`)
         this.maskGraph = document.querySelector(`[structure="mask-chart"]`)
         // script writer content page list wrapper
         this.swPageTemp = document.querySelector(this.cons.list);
         this.lineGraph.addEventListener('click', () => {
-            if (this.title1.classList.contains('hide') && this.title2.classList.contains('hide')) {
+            if (this.title1.classList.contains('hide')) {
                 this.title1.classList.remove('hide')
-                this.title2.classList.remove('hide')
             } else {
                 this.title1.classList.add('hide')
-                this.title2.classList.add('hide')
             }
         });
 
@@ -614,9 +610,6 @@ class MapAndReactOnContent {
             });
             this.graphTemplateFour(newTable);
             this.graphTemplateOne(`[sw-graph="item-11"]`);
-            setTimeout(() => {
-                this.graphTemplateOne(`[sw-graph="item-22"]`);
-            }, 100);
         }
     }
 
@@ -725,22 +718,6 @@ class MapAndReactOnContent {
         item11.appendChild(canvas);
     }
 
-    graphTemplateTwo() { // Line graph chart
-        const drawLineChart = () => {
-            let data = google.visualization.arrayToDataTable([['Year', 'Sales', 'Expenses'], ['2004', 1000, 400], ['2005', 1170, 460], ['2006', 660, 1120], ['2007', 1030, 540]]);
-
-            let options = {
-                title: 'Company Performance', curveType: 'function', legend: {position: 'bottom'}
-            };
-
-            let chart = new google.visualization.LineChart(document.querySelector(`[sw-graph="item-2"]`));
-
-            chart.draw(data, options);
-        }
-        google.charts.load('current', {'packages': ['corechart']});
-        google.charts.setOnLoadCallback(drawLineChart);
-    }
-
     //Pie Chart Graph
     graphTemplateThree(charactersPossession) {
         // format for charactersPossession parameter: [['German',  5.85]]
@@ -791,21 +768,19 @@ class MapAndReactOnContent {
             });
 
             let graph1Width = 1200;
-            let graph2Width = 500;
             if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
-            if (window.innerWidth < graph2Width) graph2Width = window.innerWidth - 20;
-
 
             const options = {
                 width: graph1Width, tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
-                legend: 'none', //colors: ["transparent", "white"],
-                bar: {groupWidth: '1%'}, // Remove space between bars.
+                legend: 'none',
+                colors: ["transparent", "white"],
+                bar: {groupWidth: '2%'}, // Remove space between bars.
                 backgroundColor: {
                     fill: 'none', // Change the background color.
-                    stroke: 'none' // Change the vartical line color
+                    stroke: 'none' // Change the vertical line color
                 }, candlestick: {
                     fallingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}, // red: Applying color to the line bar
-                    risingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}   // green:
+                    //risingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}   // green:
                 }, vAxis: {ticks: [0]}, //To hide all the horizontal lines.
                 hAxis: {
                     ticks: [...zeros, tableData.length + 1],
@@ -819,10 +794,6 @@ class MapAndReactOnContent {
 
             const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
             chart.draw(data, options);
-
-            const chart1 = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-2"]`));
-            options.width = graph2Width;
-            chart1.draw(data, options);
         }
         google.charts.setOnLoadCallback(drawCandleChart);
     }
