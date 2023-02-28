@@ -188,6 +188,8 @@
 
                 dialogueTextBreak = [];
 
+                count = 0;
+
                 constructor() {
                     this.attrName = "sw-editor", this.cons = {
                         list: `[${this.attrName}="list"]`,
@@ -355,19 +357,19 @@
                     e.classList.contains("hide") ? e?.classList.remove("hide") : e?.classList.add("hide")
                 }
 
-
+                // START --- Create a PDF file from the editor content
                 createPDF(list, pdf, watermark) {
                     let pageNumber = 1;
                     list.forEach((item) => {
+                        let value;
+                        this.count = 0;
                         const list = item.querySelectorAll(`div`);
                         list.forEach((item, i) => {
-                            let value;
                             if (i === 0) {
                                 value = 20;
                             } else {
-                                value = 20 + i * 10;
+                                value = (20 + (i * 10) + this.count);
                             }
-
                             const swEditorType = item.getAttribute("sw-editor-type");
                             const pageWidth = pdf.internal.pageSize.width;
                             const textWidth =
@@ -380,97 +382,133 @@
 
                             switch (swEditorType) {
                                 case "act":
-                                    pdf.setFontSize(14);
-                                    pdf.setFont("times", "bold", "italic");
-                                    pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, textOffset, value);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1);
+                                    this.actType(pdf, item, textOffset, value);
                                     break;
                                 case "scene-heading":
-                                    pdf.setFontSize(12);
-                                    pdf.setFont("times", "bold");
-                                    pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, leftMargin, value);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1);
+                                    this.sceneHeadingType(pdf, item, leftMargin, value);
                                     break;
                                 case "character":
-                                    pdf.setFontSize(12);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, textOffset, value);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1); // set line height factor
+                                    this.characterType(pdf, item, textOffset, value);
                                     break;
                                 case "dialog":
-                                    pdf.setFontSize(12);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setTextColor(0, 0, 0);
-
-                                    const maxLineLength = 100; // set the maximum length of a line
-                                    const lines = pdf.splitTextToSize(item.innerText, pageWidth - leftMargin - rightMargin);
-                                    let lineIndex = 0;
-                                    while (lineIndex < lines.length) {
-                                        if (lines[lineIndex].length > maxLineLength) {
-                                            const subLines = pdf.splitTextToSize(lines[lineIndex], maxLineLength);
-                                            for (const element of subLines) {
-                                                this.dialogueTextBreak.push(element);
-                                            }
-                                        } else {
-                                            this.dialogueTextBreak.push(lines[lineIndex]);
-                                        }
-                                        lineIndex++;
-                                    }
-
-                                    let dialogueYPosition = value;
-                                    for (const element of this.dialogueTextBreak) {
-                                        const dialogueLine = element;
-                                        const dialogueLineOffset = (pageWidth - pdf.getStringUnitWidth(dialogueLine) * pdf.internal.getFontSize() / pdf.internal.scaleFactor) / 2;
-                                        pdf.text(dialogueLine, dialogueLineOffset, dialogueYPosition);
-                                        dialogueYPosition += 5;
-                                    }
-
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1); // set line height factor
+                                    this.dialogType(pdf, item, pageWidth, leftMargin, rightMargin, value);
                                     break;
                                 case "action":
+                                    this.actionType(pdf, item, leftMargin, value);
+                                    break;
                                 case "parent-article":
-                                    pdf.setFontSize(12);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, textOffset, value);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1);
+                                    this.parentArticleType(pdf, item, textOffset, value);
                                     break;
                                 case "transition":
-                                    let textOffsett = pageWidth - textWidth - rightMargin;
-                                    const lineHeight = pdf.getLineHeightFactor() * pdf.internal.getFontSize();
-                                    // let values = lineHeight + 20;
-                                    console.log(this.dialogueTextBreak)
-                                    // check if dialog text has broken into multiple lines
-                                    if (this.dialogueTextBreak.length > 1) {
-                                        // set the value to the last line of dialog text
-                                        value = value + 10;
-                                    }
-
-                                    pdf.setFontSize(12);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setTextColor(0, 0, 0);
-                                    pdf.text(item.innerText, textOffsett, value);
-                                    pdf.setFont("times", "normal");
-                                    pdf.setLineHeightFactor(1);
-                                    this.dialogueTextBreak = [];
+                                    this.transitionType(pdf, item, value, pageWidth, textWidth, rightMargin);
                                     break;
                             }
                         });
                         pdf.text(`Page ${pageNumber}`, 10, 10);
-                        pdf.addPage();
                         pageNumber++;
+                        pdf.addPage();
                     });
                     pdf.deletePage(pdf.internal.getNumberOfPages()); // remove the last extra page
                 }
 
+                actType(pdf, item, textOffset, value) {
+                    pdf.setFontSize(14);
+                    pdf.setFont("times", "bold", "italic");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, textOffset, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                sceneHeadingType(pdf, item, leftMargin, value) {
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "bold");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, leftMargin, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                characterType(pdf, item, textOffset, value) {
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "normal");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, textOffset, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                dialogType(pdf, item, pageWidth, leftMargin, rightMargin, value) {
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "normal");
+                    pdf.setTextColor(0, 0, 0);
+
+                    const maxLineLength = 90; // set the maximum length of a line
+                    const lines = pdf.splitTextToSize(item.innerText.trim(), pageWidth - leftMargin - rightMargin);
+                    let lineIndex = 0;
+                    while (lineIndex < lines.length) {
+                        if (lines[lineIndex].length > maxLineLength) {
+                            const subLines = pdf.splitTextToSize(lines[lineIndex].trim(), maxLineLength);
+                            for (const element of subLines) {
+                                this.dialogueTextBreak.push(element);
+                            }
+                        } else {
+                            this.dialogueTextBreak.push(lines[lineIndex]);
+                        }
+                        lineIndex++;
+                    }
+
+                    let dialogueYPosition = value;
+                    for (const element of this.dialogueTextBreak) {
+                        const dialogueLine = element;
+                        const dialogueLineOffset = (pageWidth - pdf.getStringUnitWidth(dialogueLine) * pdf.internal.getFontSize() / pdf.internal.scaleFactor) / 2;
+                        pdf.text(dialogueLine, dialogueLineOffset, dialogueYPosition, {align: "justify"});
+                        dialogueYPosition += 5;
+                    }
+                    pdf.setFont("times", "normal");
+                    if (this.dialogueTextBreak.length > 1) {
+                        for (const element of this.dialogueTextBreak) {
+                            value = value + 3;
+                            this.count = this.count + 3
+                        }
+                    }
+                    this.dialogueTextBreak = [];
+                }
+
+                actionType(pdf, item, leftMargin, value) {
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "bold");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, leftMargin, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                parentArticleType(pdf, item, textOffset, value) {
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "normal");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, textOffset, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                transitionType(pdf, item, value, pageWidth, textWidth, rightMargin) {
+                    let textOffsett = pageWidth - textWidth - rightMargin;
+                    pdf.setFontSize(12);
+                    pdf.setFont("times", "normal");
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(item.innerText, textOffsett, value);
+                    pdf.setFont("times", "normal");
+                }
+
+                addWaterMark(pdf, watermark) {
+                    let totalPages = pdf.internal.getNumberOfPages();
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        //doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
+                        pdf.setTextColor(150);
+                        pdf.text(50, pdf.internal.pageSize.height - 30, watermark);
+                    }
+
+                    return pdf;
+                }
 
                 download() {
                     const rest = confirm("Do you want to download your content");
@@ -480,63 +518,13 @@
                         const pdf = new jsPDF();
                         const watermark = "CONFIDENTIAL";
                         this.createPDF(list, pdf, watermark);
+                        this.addWaterMark(pdf, watermark)
                         // Save the PDF
                         pdf.save("document.pdf");
                     }
                 }
 
-
-                // download() {
-                //     let rest = confirm("Do you want to download your content");
-                //     if (rest) {
-                //         const list = document.querySelectorAll(`[sw-editor="item"]`);
-                //         const pdf = new jsPDF();
-                //
-                //         list.forEach((item) => {
-                //             const list = item.querySelectorAll(`div`);
-                //             list.forEach((item, i) => {
-                //                 let value;
-                //                 if (i === 0) {
-                //                     value = 20;
-                //                 } else {
-                //                     value = 20 + (i * 10);
-                //                 }
-                //                 if (item.getAttribute('sw-editor-type') === 'act') {
-                //                     pdf.setFontSize(12);
-                //                     pdf.setFontStyle('bold');
-                //                     pdf.text(item.innerText, value, {align: "center"});
-                //                 } else if (item.getAttribute('sw-editor-type') === 'scene-heading') {
-                //                     pdf.setFontSize(10);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, 10, value);
-                //                 } else if (item.getAttribute('sw-editor-type') === 'character') {
-                //                     pdf.setFontSize(10);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, value, {align: "center"});
-                //                 } else if (item.getAttribute('sw-editor-type') === 'dialog') {
-                //                     pdf.setFontSize(8);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, value, {align: "center"});
-                //                 } else if (item.getAttribute('sw-editor-type') === 'transition') {
-                //                     pdf.setFontSize(12);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, value, {align: "right"});
-                //                 } else if (item.getAttribute('sw-editor-type') === 'action') {
-                //                     pdf.setFontSize(8);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, 10, value);
-                //                 } else if (item.getAttribute('sw-editor-type') === 'parent-article') {
-                //                     pdf.setFontSize(8);
-                //                     pdf.setFontStyle('normal');
-                //                     pdf.text(item.innerText, value, {align: "center"});
-                //                 }
-                //             });
-                //             pdf.addPage();
-                //         });
-                //         pdf.save("document.pdf");
-                //     }
-                // }
-
+                // END --- Create a PDF file from the editor content
 
                 share(t) {
                     let e = t?.querySelector('[sw-share="wrap"]');
