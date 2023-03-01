@@ -1378,6 +1378,18 @@ div:focus {
     cursor: pointer;
 }
 
+.side-hovers li:hover {
+    background-color: #E9E9EB;
+    color: black !important;
+    font-weight: 700 !important;
+}
+
+.side-hover:hover {
+    background-color: #fcfcfc;
+    color: black;
+    font-weight: 700;
+}
+
 /* contenteditable placeholder */
 [contenteditable]:empty:before {
     content: attr(data-placeholder);
