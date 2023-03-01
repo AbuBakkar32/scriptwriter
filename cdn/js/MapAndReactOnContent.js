@@ -604,7 +604,7 @@ class MapAndReactOnContent {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
                 newTable.push([
-                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name, newSetNames)]
+                    count, noOfCharacters*5, noOfCharacters*5, -noOfCharacters*5, -60, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
                 );
                 count += 1;
             });
@@ -761,6 +761,7 @@ class MapAndReactOnContent {
             // A column for custom tooltip content
             data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
             data.addRows([...tableData]);
+            console.log(data)
             // Configure the hAxis ticks
             const zeros = [];
             tableData.forEach((it) => {
@@ -768,27 +769,27 @@ class MapAndReactOnContent {
             });
 
             let graph1Width = 1200;
-            if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
+            if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 40;
 
             const options = {
-                width: graph1Width, tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
+                width: graph1Width,
+                tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
                 legend: 'none',
-                colors: ["transparent", "white"],
+                // colors: ["transparent", "white"],
                 bar: {groupWidth: '2%'}, // Remove space between bars.
                 backgroundColor: {
                     fill: 'none', // Change the background color.
                     stroke: 'none' // Change the vertical line color
-                }, candlestick: {
-                    fallingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}, // red: Applying color to the line bar
-                    //risingColor: {stroke: '#ffffff', strokeWidth: 10, fill: '#ffffff'}   // green:
-                }, vAxis: {ticks: [0]}, //To hide all the horizontal lines.
+                },
+                candlestick: {
+                    fallingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}, // red: Applying color to the line bar
+                    risingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}   // green:
+                }, vAxis: {ticks: []}, //To hide all the horizontal lines.
                 hAxis: {
                     ticks: [...zeros, tableData.length + 1],
                     baseline: tableData.length + 1,
                     gridlines: {color: '#000', minSpacing: 30}
-                }, /* baseline: is the last vertical line bar.
-                ticks: represent the border of each vertical bar.(each data in the google.visualization.arrayToDataTable is represented
-                    in the tick list by it index number or 0 to make it hidden)*/
+                },
                 chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
             };
 

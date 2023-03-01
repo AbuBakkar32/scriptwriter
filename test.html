@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../cdn/dashboard/css/extension.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/custom.css">
+    <link rel="stylesheet" media="screen" href="../../cdn/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js" integrity="sha512-/61YeH7JgZcmDFNWBjC51id6b/cPbzZxP9mk1wyysu+sFRnYmeVTv1fTOeOKm7IFjpAySFCSi5tlGCxs0WJOSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../../cdn/js/script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- Example HTML for the right-click menu and left sidebar -->
+<div id="right-click-menu" style="display:none">
+    <ul id="add-menu-section">
+        <li><a href="#" onclick="addMenuItem('Outline')">Outline</a></li>
+        <li><a href="#" onclick="addMenuItem('Pin Board')">Pin Board</a></li>
+        <li><a href="#" onclick="addMenuItem('Characters')">Characters</a></li>
+        <li><a href="#" onclick="addMenuItem('Location')">Location</a></li>
+        <li><a href="#" onclick="addMenuItem('Structure')">Structure</a></li>
+        <li><a href="#" onclick="addMenuItem('Story Docs')">Story Docs</a></li>
+    </ul>
+</div>
+
+<div id="left-sidebar">
+    <ul id="selected-items"></ul>
+</div>
+<script>
+    // Show the right-click menu when the user right-clicks
+    document.addEventListener('contextmenu', event => {
+        event.preventDefault();
+        const menu = document.getElementById('right-click-menu');
+        menu.style.top = `${event.pageY}px`;
+        menu.style.left = `${event.pageX}px`;
+        menu.style.display = 'block';
+    });
+
+    // Hide the right-click menu when the user clicks anywhere else
+    document.addEventListener('click', event => {
+        const menu = document.getElementById('right-click-menu');
+        menu.style.display = 'none';
+    });
+
+    // Add a new menu item to the left sidebar when the user clicks on a menu item
+    function addMenuItem(itemName) {
+        const menu = document.getElementById('selected-items');
+        const newItem = document.createElement('li');
+        newItem.innerText = itemName;
+        menu.appendChild(newItem);
+    }
+
+    // Remove a menu item from the left sidebar when the user right-clicks on it
+    document.addEventListener('contextmenu', event => {
+        event.preventDefault();
+        const selectedItem = event.target;
+        if (selectedItem.parentElement.id === 'selected-items') {
+            selectedItem.remove();
+        }
+    });
+</script>
+</body>
+</html>
