@@ -607,7 +607,7 @@ class MapAndReactOnContent {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
                 newTable.push([
-                    count, noOfCharacters*5, noOfCharacters*5, -noOfCharacters*5, -60, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
+                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
                 );
                 count += 1;
             });
@@ -618,10 +618,17 @@ class MapAndReactOnContent {
 
     graphTipDOMTemplate(sceneHeading, characterNames) {
         return `
-        <div class="p-8 text-cursive bg-four">
-            <b>${sceneHeading}</b><br>
-            <span>${characterNames}</span>
-        </div>`
+        <div style="position: absolute; top: 220px; min-width: 150px; left: 20px;">
+            <div style="position: relative;">
+                <div class="p-8 text-cursive bg-four">
+                    <b>${sceneHeading}</b><br>
+                    <span>${characterNames}</span>
+                </div>
+                <div style="position: absolute; bottom: 100%; width: 2px; height: 110px; background-color: white; pointer-events: none;">
+                </div>
+            </div>
+        </div>
+        `
     }
 
     graphTemplateOne(qs) { //Line Chart graph
@@ -811,7 +818,6 @@ class MapAndReactOnContent {
             // A column for custom tooltip content
             data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
             data.addRows([...tableData]);
-            console.log(data)
             // Configure the hAxis ticks
             const zeros = [];
             tableData.forEach((it) => {
