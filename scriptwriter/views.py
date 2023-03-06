@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# from django.shortcuts import render
-# from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-# from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 
 from scriptwriter.Component.AdminAccessApp import AdminAccessApp
