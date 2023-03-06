@@ -123,7 +123,7 @@ class Client(models.Model):
     fullName = models.CharField(max_length=200)  # 0
     email = models.TextField(default="")  # 1
     password = models.TextField(default="")  # 2
-    country = models.TextField(default="")  # 3
+    country = models.TextField(default="England", null=True)  # 3
     userID = models.TextField(default="")  # 4
     emailVerification = models.TextField(default="")  # 5 true | false
     emailVerificationValue = models.TextField(default="")  # 6
