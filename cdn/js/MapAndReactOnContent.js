@@ -38,6 +38,9 @@ class MapAndReactOnContent {
     candleStick2;
     hide = true;
 
+    // ACT Structure
+    actStructure = null;
+
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
         this.cons = {
@@ -604,7 +607,7 @@ class MapAndReactOnContent {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
                 newTable.push([
-                    count, noOfCharacters*5, noOfCharacters*5, -noOfCharacters*5, -60, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
+                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
                 );
                 count += 1;
             });
@@ -615,20 +618,29 @@ class MapAndReactOnContent {
 
     graphTipDOMTemplate(sceneHeading, characterNames) {
         return `
-        <div class="p-8 text-cursive bg-four">
-            <b>${sceneHeading}</b><br>
-            <span>${characterNames}</span>
-        </div>`
+        <div style="position: absolute; top: 220px; min-width: 150px; left: 20px;">
+            <div style="position: relative;">
+                <div class="p-8 text-cursive bg-four">
+                    <b>${sceneHeading}</b><br>
+                    <span>${characterNames}</span>
+                </div>
+                <div style="position: absolute; bottom: 100%; width: 2px; height: 110px; background-color: white; pointer-events: none;">
+                </div>
+            </div>
+        </div>
+        `
     }
 
     graphTemplateOne(qs) { //Line Chart graph
         const item11 = document.querySelector(qs);
+        let item11OffsetWidth = 1200;
+        if (window.innerWidth < item11OffsetWidth) item11OffsetWidth = window.innerWidth - 20;
         // while item11 has child node remove it
         while (item11.firstChild) item11.removeChild(item11.firstChild);
         // create a canvas element
         const canvas = document.createElement('canvas');
         // set canvas width and height full width and height of the item11 element and append it to the item11 element
-        canvas.width = item11.offsetWidth;
+        canvas.width = item11OffsetWidth;
         canvas.height = item11.offsetHeight;
 
         let outline
@@ -649,7 +661,7 @@ class MapAndReactOnContent {
         });
         let outlineLength = lengthList.length + 1;
 
-        let xPart = item11.offsetWidth / outlineLength
+        let xPart = item11OffsetWidth / outlineLength
         let xValue = xPart + 20;
 
         // create a new chart
@@ -680,11 +692,11 @@ class MapAndReactOnContent {
             }
         })
 
-        if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11.offsetWidth - 10, 100)
-        else ctx.lineTo(item11.offsetWidth, 100)
+        if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11OffsetWidth - 10, 100)
+        else ctx.lineTo(item11OffsetWidth, 100)
         ctx.stroke();
 
-        xPart = item11.offsetWidth / outlineLength
+        xPart = item11OffsetWidth / outlineLength
         xValue = xPart + 20;
         // draw small circle on the line
         lengthList.forEach((key, index) => {
@@ -709,13 +721,58 @@ class MapAndReactOnContent {
         ctx.beginPath();
         if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
         else ctx.arc(20, 100, 5, 0, 2 * Math.PI);
-        if (qs === '[sw-graph="item-22"]') ctx.arc(item11.offsetWidth - 10, 100, 5, 0, 2 * Math.PI);
-        else ctx.arc(item11.offsetWidth - 3, 100, 5, 0, 2 * Math.PI);
+        if (qs === '[sw-graph="item-22"]') ctx.arc(item11OffsetWidth - 10, 100, 5, 0, 2 * Math.PI);
+        else ctx.arc(item11OffsetWidth - 3, 100, 5, 0, 2 * Math.PI);
         ctx.fillStyle = 'red';
         ctx.fill();
 
         // append canvas to the item11 element
         item11.appendChild(canvas);
+
+
+        // Adding ACT
+        function drawYAxiStraightLine(ctx, xValue) {
+            ctx.beginPath();
+            ctx.moveTo(xValue, 0);
+            ctx.lineTo(xValue, 200);
+            ctx.stroke();
+        }
+        if (this.actStructure === '3'){
+            // divide the item11 element into 3 parts with a y-axix straight line
+            // first part width is 25%
+            // second part width is 50%
+            // third part width is 25%
+            const width25 = item11OffsetWidth * 0.25;
+            const width50 = item11OffsetWidth * 0.5;
+            const width75 = item11OffsetWidth * 0.75;
+
+            // draw a y-axix straight line
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            drawYAxiStraightLine(ctx, width25);
+            drawYAxiStraightLine(ctx, width75);
+        }
+        else if (this.actStructure === '5'){
+            // divide the item11 element into 5 parts with a y-axix straight line
+            // first part width is 20%
+            // second part width is 20%
+            // third part width is 20%
+            // fourth part width is 20%
+            // fifth part width is 20%
+            const width20 = item11OffsetWidth * 0.2;
+            const width40 = item11OffsetWidth * 0.4;
+            const width60 = item11OffsetWidth * 0.6;
+            const width80 = item11OffsetWidth * 0.8;
+
+            // draw a y-axix straight line
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            drawYAxiStraightLine(ctx, width20);
+            drawYAxiStraightLine(ctx, width40);
+            drawYAxiStraightLine(ctx, width60);
+            drawYAxiStraightLine(ctx, width80);
+        }
+
     }
 
     //Pie Chart Graph
@@ -761,7 +818,6 @@ class MapAndReactOnContent {
             // A column for custom tooltip content
             data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
             data.addRows([...tableData]);
-            console.log(data)
             // Configure the hAxis ticks
             const zeros = [];
             tableData.forEach((it) => {
@@ -769,7 +825,7 @@ class MapAndReactOnContent {
             });
 
             let graph1Width = 1200;
-            if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 40;
+            if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
 
             const options = {
                 width: graph1Width,
@@ -801,86 +857,15 @@ class MapAndReactOnContent {
 
     renderActDropdown() {
         const actDropdown = document.getElementById('act-dropdown');
-        const actDropdownLiTag = actDropdown.firstElementChild.cloneNode(true);
-        // remove all child nodes
-        while (actDropdown.hasChildNodes()) actDropdown.removeChild(actDropdown.lastChild);
-        const allAct = actDropdownLiTag.cloneNode(true);
-        allAct.innerText = 'All Act'.toUpperCase();
-        allAct.setAttribute('data-act-id', 'all');
-        allAct.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
-        actDropdown.appendChild(allAct);
-        let data = {};
-        try {
-            data = window?.ScriptDataStore?.data
-        } catch (e) {
-            data = {};
-        }
-        // loop this object to get key and value
-        if (data) {
-            for (const [key, value] of Object?.entries(data)) {
-                if (value.type === 'act') {
-                    const liTag = actDropdownLiTag.cloneNode(true);
-                    liTag.innerText = value.content.toUpperCase();
-                    liTag.setAttribute('data-act-id', key);
-                    liTag.addEventListener('click', (e) => this.modifyGraphTemplateOne(e));
-                    actDropdown.appendChild(liTag);
-                }
-            }
-        }
+        const actDropdownLi = actDropdown.querySelectorAll('li');
+        actDropdownLi.forEach((it) => {
+            it.addEventListener('click', this.modifyGraphTemplateOne.bind(this));
+        })
     }
 
     modifyGraphTemplateOne(e) {
-        let actId = e.target.getAttribute('data-act-id');
-        const actText = e.target.innerText;
-        if (actId === 'all') {
-            this.specificLineListStatus = false;
-            this.specificLineList = [];
-            this.specificActLineList = {}
-            this.specificActLineListStatus = false;
-            this.mapreact();
-            return;
-        }
-        const lineList = document.querySelectorAll(this.cons.line);
-        let newLineList = [];
-        let elementActFound = false;
-        for (const element of lineList) {
-            let it = element;
-            const itsInnerText = it.innerText;
-            if (itsInnerText.toUpperCase().startsWith('ACT.') && itsInnerText.toUpperCase() === actText.toUpperCase()) {
-                elementActFound = true;
-                continue;
-            }
-            if (elementActFound) {
-                if (itsInnerText.toUpperCase().startsWith('ACT.')) {
-                    break;
-                }
-                newLineList.push(it);
-            }
-        }
-        ;
-
-        let actFound = false;
-        let newOutline = {};
-        const outline = window.ScriptAdapter.scriptDataStore.outline; // object
-        for (const [key, value] of Object.entries(outline)) {
-            // check if value.title starts with ACT. and then check if it is equal to actText
-            if (value.title.startsWith('ACT.') && value.title === actText.toUpperCase()) {
-                actFound = true;
-                continue;
-            }
-            if (actFound) {
-                if (value.title.startsWith('ACT.')) {
-                    break;
-                }
-                newOutline[key] = value;
-            }
-        }
-
-        this.specificLineList = newLineList;
-        this.specificLineListStatus = true;
-
-        this.specificActLineList = newOutline;
-        this.specificActLineListStatus = true;
+        const structure = e.target.getAttribute('data-structure');
+        this.actStructure = structure;
 
         this.mapreact();
     }
