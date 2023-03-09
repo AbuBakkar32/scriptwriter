@@ -30,7 +30,7 @@ class ScriptWriterSection {
         //Hide other section
         this.hideOrShowSectionExcept('structure');
         window.MapAndReactOnContent?.mapreact();
-        this.rightClikMenu();
+        this.rightClickMenu();
         // Initializer
         this.listener();
     }
@@ -97,7 +97,7 @@ class ScriptWriterSection {
         });
     }
 
-    rightClikMenu() {
+    rightClickMenu() {
         const leftBar = document.querySelector('.side-bar-right-click');
         const contextMenu = document.querySelector('#right-click-menu');
         const addBtn = contextMenu.querySelectorAll('div')[0];
