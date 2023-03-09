@@ -30,7 +30,7 @@ class ScriptWriterSection {
         //Hide other section
         this.hideOrShowSectionExcept('structure');
         window.MapAndReactOnContent?.mapreact();
-
+        this.rightClikMenu();
         // Initializer
         this.listener();
     }
@@ -96,6 +96,122 @@ class ScriptWriterSection {
             }, 1);
         });
     }
+
+    rightClikMenu() {
+        const leftBar = document.querySelector('.side-bar-right-click');
+        const contextMenu = document.querySelector('#right-click-menu');
+        const addBtn = contextMenu.querySelectorAll('div')[0];
+        const removeBtn = contextMenu.querySelectorAll('div')[3];
+        const rightClickMenu = document.querySelector('#left-sidebar');
+        const removeRightMenu = document.querySelector('#remove-left-sidebar');
+        const mainMenu = document.querySelector(`[sw-data="select"]`).querySelectorAll('li');
+        setTimeout(() => {
+            const dataList = Object.values(window.ScriptAdapter.scriptDataStore.sectionList);
+            this.renderSideMenuBarSection(removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu);
+        }, 1);
+        document.addEventListener('click', () => {
+            if (!contextMenu.classList.contains('hide')) {
+                contextMenu.classList.add('hide')
+            }
+            if (!rightClickMenu.classList.contains('hide')) {
+                rightClickMenu.classList.add('hide')
+            }
+            if (!removeRightMenu.classList.contains('hide')) {
+                removeRightMenu.classList.add('hide')
+            }
+        });
+        leftBar.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            contextMenu.style.marginTop = `${event.pageY - 222}px`;
+            rightClickMenu.style.marginTop = `${event.pageY - 222}px`;
+            removeRightMenu.style.marginTop = `${event.pageY - 222}px`;
+            contextMenu.classList.contains('hide') ? contextMenu.classList.remove('hide') : contextMenu.classList.add('hide');
+        });
+        addBtn.addEventListener('mouseover', () => {
+            if (rightClickMenu.classList.contains('hide')) {
+                rightClickMenu.classList.remove('hide')
+                removeRightMenu.classList.add('hide');
+            }
+        })
+    }
+
+    renderSideMenuBarSection(removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu) {
+        const removeLi = document.querySelector('#remove-left-sidebar').querySelectorAll('li')
+        const addLi = rightClickMenu.querySelectorAll('li');
+
+        if (dataList.length === 0) {
+            removeBtn.style.cursor = 'not-allowed';
+            removeBtn.style.opacity = '0.5';
+        } else {
+            removeBtn.addEventListener('mouseover', () => {
+                if (!rightClickMenu.classList.contains('hide')) {
+                    rightClickMenu.classList.add('hide');
+                }
+                if (removeRightMenu.classList.contains('hide')) {
+                    removeRightMenu.classList.remove('hide');
+                }
+            })
+        }
+        this.mainMenuSection(mainMenu, dataList);
+        this.addSection(addLi, dataList);
+        this.removeSection(removeLi, dataList);
+    }
+
+    mainMenuSection(mainMenu, dataList) {
+        for (let i = 1; i < mainMenu.length; i++) {
+            if (!dataList.includes(mainMenu[i].innerText.trim())) {
+                mainMenu[i].classList.add('hide');
+            }
+        }
+    }
+
+    addSection(selector, dataList) {
+        if (selector.length > 0) {
+            selector.forEach(li => {
+                if (dataList.includes(li.innerText.trim())) {
+                    li.classList.add('hide');
+                }
+            })
+        }
+    }
+
+    removeSection(selector, dataList) {
+        if (selector.length > 0) {
+            selector.forEach(li => {
+                if (!dataList.includes(li.innerText.trim())) {
+                    li.classList.add('hide');
+                }
+            })
+        }
+    }
+}
+
+function addMenuItem(item) {
+    setTimeout(() => {
+        const dataList = Object.values(window.ScriptAdapter?.scriptDataStore?.sectionList);
+        if (!dataList || dataList.length === 0) {
+            window.ScriptAdapter.scriptDataStore.sectionList = [item];
+            window.ScriptAdapter?.autoSave();
+        }
+        if (dataList.length > 0 && !dataList.includes(item)) {
+            window.ScriptAdapter.scriptDataStore.sectionList = [...dataList, item];
+        }
+        window.ScriptAdapter?.autoSave();
+    }, 1);
+}
+
+function removeMenuItem(item) {
+    setTimeout(() => {
+        const dataList = Object.values(window.ScriptAdapter?.scriptDataStore?.sectionList);
+        if (dataList.length > 0 && dataList.includes(item)) {
+            const index = dataList.indexOf(item);
+            dataList.splice(index, 1);
+            window.ScriptAdapter.scriptDataStore.sectionList = [...dataList];
+        }
+        window.ScriptAdapter?.autoSave();
+    }, 1);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
