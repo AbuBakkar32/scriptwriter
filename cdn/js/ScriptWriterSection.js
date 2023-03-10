@@ -106,8 +106,13 @@ class ScriptWriterSection {
         const removeRightMenu = document.querySelector('#remove-left-sidebar');
         const mainMenu = document.querySelector(`[sw-data="select"]`).querySelectorAll('li');
         setTimeout(() => {
-            const dataList = Object.values(window.ScriptAdapter.scriptDataStore.sectionList);
-            this.renderSideMenuBarSection(removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu);
+            let dataList;
+            try {
+                dataList = Object.values(window.ScriptAdapter.scriptDataStore.sectionList);
+            } catch (e) {
+                dataList = [];
+            }
+            this.renderSideMenuBarSection(addBtn, removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu);
         }, 1);
         document.addEventListener('click', () => {
             if (!contextMenu.classList.contains('hide')) {
@@ -129,34 +134,25 @@ class ScriptWriterSection {
             removeRightMenu.style.marginTop = `${event.pageY - 222}px`;
             contextMenu.classList.contains('hide') ? contextMenu.classList.remove('hide') : contextMenu.classList.add('hide');
         });
-        addBtn.addEventListener('mouseover', () => {
-            if (rightClickMenu.classList.contains('hide')) {
-                rightClickMenu.classList.remove('hide')
-                removeRightMenu.classList.add('hide');
-            }
-        })
     }
 
-    renderSideMenuBarSection(removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu) {
-        const removeLi = document.querySelector('#remove-left-sidebar').querySelectorAll('li')
-        const addLi = rightClickMenu.querySelectorAll('li');
+    renderSideMenuBarSection(addBtn, removeBtn, dataList, rightClickMenu, removeRightMenu, mainMenu) {
+        const addLi = Array.from(rightClickMenu.querySelectorAll('li'));
+        const removeLi = Array.from(removeRightMenu.querySelectorAll('li'));
 
-        if (dataList.length === 0) {
-            removeBtn.style.cursor = 'not-allowed';
-            removeBtn.style.opacity = '0.5';
-        } else {
-            removeBtn.addEventListener('mouseover', () => {
-                if (!rightClickMenu.classList.contains('hide')) {
-                    rightClickMenu.classList.add('hide');
-                }
-                if (removeRightMenu.classList.contains('hide')) {
-                    removeRightMenu.classList.remove('hide');
-                }
-            })
-        }
         this.mainMenuSection(mainMenu, dataList);
         this.addSection(addLi, dataList);
         this.removeSection(removeLi, dataList);
+
+        addBtn.addEventListener('mouseover', () => {
+            rightClickMenu.classList.toggle('hide', dataList.length === 6);
+            removeRightMenu.classList.add('hide');
+        });
+
+        removeBtn.addEventListener('mouseover', () => {
+            rightClickMenu.classList.add('hide');
+            removeRightMenu.classList.toggle('hide', dataList.length === 0);
+        });
     }
 
     mainMenuSection(mainMenu, dataList) {
@@ -167,51 +163,79 @@ class ScriptWriterSection {
         }
     }
 
-    addSection(selector, dataList) {
-        if (selector.length > 0) {
-            selector.forEach(li => {
-                if (dataList.includes(li.innerText.trim())) {
-                    li.classList.add('hide');
-                }
-            })
-        }
+    addSection(addLi, dataList) {
+        addLi.forEach(li => {
+            if (dataList.includes(li.innerText.trim())) {
+                li.classList.add('hide');
+            }
+        });
     }
 
-    removeSection(selector, dataList) {
-        if (selector.length > 0) {
-            selector.forEach(li => {
-                if (!dataList.includes(li.innerText.trim())) {
-                    li.classList.add('hide');
-                }
-            })
-        }
+    removeSection(removeLi, dataList) {
+        removeLi.forEach(li => {
+            if (!dataList.includes(li.innerText.trim())) {
+                li.classList.add('hide');
+            }
+        });
     }
 }
 
 function addMenuItem(item) {
-    setTimeout(() => {
-        const dataList = Object.values(window.ScriptAdapter?.scriptDataStore?.sectionList);
-        if (!dataList || dataList.length === 0) {
-            window.ScriptAdapter.scriptDataStore.sectionList = [item];
-            window.ScriptAdapter?.autoSave();
-        }
-        if (dataList.length > 0 && !dataList.includes(item)) {
-            window.ScriptAdapter.scriptDataStore.sectionList = [...dataList, item];
-        }
+    const {sectionList} = window.ScriptAdapter.scriptDataStore;
+    const dataList = Array.isArray(sectionList) ? sectionList : [];
+    if (!dataList.includes(item)) {
+        window.ScriptAdapter.scriptDataStore.sectionList = [...dataList, item];
         window.ScriptAdapter?.autoSave();
+    }
+    setTimeout(() => {
+        window.ScriptWriterSection.rightClickMenu();
     }, 1);
+
+    const data = Object.values(window.ScriptAdapter.scriptDataStore.sectionList);
+    const li = document.querySelector(`[sw-data="select"]`).querySelectorAll('li');
+    const removeRightMenu = document.querySelector('#remove-left-sidebar');
+    for (let i = 1; i < li.length; i++) {
+        if (!data.includes(li[i].innerText.trim())) {
+            li[i].classList.add('hide');
+        } else {
+            li[i].classList.remove('hide');
+        }
+    }
+
+    const removeLi = Array.from(removeRightMenu.querySelectorAll('li'));
+    removeLi.forEach(li => {
+        if (!data.includes(li.innerText.trim())) {
+            li.classList.add('hide');
+        } else {
+            li.classList.remove('hide');
+        }
+    });
+
 }
 
 function removeMenuItem(item) {
-    setTimeout(() => {
-        const dataList = Object.values(window.ScriptAdapter?.scriptDataStore?.sectionList);
-        if (dataList.length > 0 && dataList.includes(item)) {
-            const index = dataList.indexOf(item);
-            dataList.splice(index, 1);
-            window.ScriptAdapter.scriptDataStore.sectionList = [...dataList];
-        }
+    const {sectionList} = window.ScriptAdapter.scriptDataStore;
+    const dataList = Array.isArray(sectionList) ? sectionList : [];
+    const itemIndex = dataList.indexOf(item);
+    if (itemIndex > -1) {
+        dataList.splice(itemIndex, 1);
+        window.ScriptAdapter.scriptDataStore.sectionList = dataList;
         window.ScriptAdapter?.autoSave();
+    }
+    setTimeout(() => {
+        window.ScriptWriterSection.rightClickMenu();
     }, 1);
+
+    const data = Object.values(window.ScriptAdapter.scriptDataStore.sectionList);
+    const rightClickMenu = document.querySelector('#left-sidebar');
+    const addLi = Array.from(rightClickMenu.querySelectorAll('li'));
+    addLi.forEach(li => {
+        if (data.includes(li.innerText.trim())) {
+            li.classList.add('hide');
+        } else {
+            li.classList.remove('hide');
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
