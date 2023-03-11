@@ -585,29 +585,18 @@ class EditorMode {
 
     // START - Suggestion Function For on time character suggestion
     onSuggestion(line) {
-        const slist = document.querySelector(`[sw-editor-suggetion="list"]`);
-        const data = Object.values(window.ScriptAdapter.scriptDataStore.character);
-        let suggestion = new Set(data);
-        let list = [];
+        const slist = document.querySelector('[sw-editor-suggetion="list"]');
+        const characters = Object.values(window.ScriptAdapter.scriptDataStore.character);
+        const suggestionList = characters.filter((character) => character.name.match(line.innerText)).map((character) => character.name);
 
         if (line.textContent !== '' && line.textContent.toUpperCase() === line.textContent) {
-            slist.classList.remove("hide");
+            slist.classList.remove('hide');
         } else {
-            slist.classList.add("hide");
+            slist.classList.add('hide');
         }
 
-        try {
-            suggestion.forEach((e) => {
-                if (e.name.match(line.innerText)) {
-                    list.push(e.name);
-                }
-            });
-        } catch (error) {
-            // Handle error
-        }
-
-        if (list.length === 0) {
-            slist.classList.add("hide");
+        if (suggestionList.length === 0) {
+            slist.classList.add('hide');
         }
 
         const listDiv = document.createElement('div');
@@ -615,22 +604,24 @@ class EditorMode {
         listDiv.setAttribute('contenteditable', 'false');
         listDiv.setAttribute('id', 'suggestion-list');
 
-        list.forEach((e) => {
+        suggestionList.forEach((suggestion) => {
             const div = document.createElement('div');
-            div.classList.add('suggestion-item', 'hover');
+            div.classList.add('suggestion-item');
             div.setAttribute('contenteditable', 'false');
             div.setAttribute('tabindex', '1');
-            div.textContent = e;
+            div.textContent = suggestion;
             div.addEventListener('click', () => {
-                line.textContent = e;
+                line.textContent = suggestion;
                 listDiv.remove();
-                slist.classList.add("hide");
+                slist.classList.add('hide');
                 line.click();
                 line.click();
                 window.ScriptAdapter.autoSave();
             });
             listDiv.append(div);
         });
+
+        slist.innerHTML = '';
         slist.append(listDiv);
     }
 
