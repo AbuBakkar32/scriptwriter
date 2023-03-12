@@ -39,7 +39,9 @@ class MapAndReactOnContent {
     hide = true;
 
     // ACT Structure
-    actStructure = null;
+    actStructure = '3';
+    showActLine = true;
+    showLineChart = true;
 
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
@@ -80,11 +82,8 @@ class MapAndReactOnContent {
         // script writer content page list wrapper
         this.swPageTemp = document.querySelector(this.cons.list);
         this.lineGraph.addEventListener('click', () => {
-            if (this.title1.classList.contains('hide')) {
-                this.title1.classList.remove('hide')
-            } else {
-                this.title1.classList.add('hide')
-            }
+            this.showLineChart = !this.showLineChart;
+            this.graphTemplateOne('[sw-graph="item-11"]');
         });
 
         // END - For Toggle Button
@@ -670,107 +669,110 @@ class MapAndReactOnContent {
         ctx.strokeStyle = 'red';
         // make the line 5 pixels wide
         ctx.lineWidth = 3;
-        // start at 20,0
-        if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
-        else ctx.moveTo(20, 100);
+        
+        if (this.showLineChart) {
+            if (qs === '[sw-graph="item-22"]') ctx.moveTo(30, 100);
+            else ctx.moveTo(20, 100);
 
-        lengthList.forEach((key, index) => {
-            const item = lengthList[index];
-            const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
-            // if emotional value is 0 then y value is 100
-            // if emotional value is 10 then y value is 0
-            // if emotional value is -10 then y value is 200
-            let yValue = 100 - (emotionalValue * 10);
-            if (yValue > 195) yValue = 195;
-            if (yValue < 5) yValue = 5;
-            ctx.lineTo(xValue, yValue);
+            lengthList.forEach((key, index) => {
+                const item = lengthList[index];
+                const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
+                // if emotional value is 0 then y value is 100
+                // if emotional value is 10 then y value is 0
+                // if emotional value is -10 then y value is 200
+                let yValue = 100 - (emotionalValue * 10);
+                if (yValue > 195) yValue = 195;
+                if (yValue < 5) yValue = 5;
+                ctx.lineTo(xValue, yValue);
 
-            if (index !== 0) {
-                xValue = xValue + xPart - (20 / index) / 2 + 2;
-            } else {
-                xValue = xValue + xPart;
-            }
-        })
+                if (index !== 0) {
+                    xValue = xValue + xPart - (20 / index) / 2 + 2;
+                } else {
+                    xValue = xValue + xPart;
+                }
+            })
 
-        if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11OffsetWidth - 10, 100)
-        else ctx.lineTo(item11OffsetWidth, 100)
-        ctx.stroke();
+            if (qs === '[sw-graph="item-22"]') ctx.lineTo(item11OffsetWidth - 10, 100)
+            else ctx.lineTo(item11OffsetWidth, 100)
+            ctx.stroke();
 
-        xPart = item11OffsetWidth / outlineLength
-        xValue = xPart + 20;
-        // draw small circle on the line
-        lengthList.forEach((key, index) => {
-            const item = lengthList[index];
-            const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
+            xPart = item11OffsetWidth / outlineLength
+            xValue = xPart + 20;
+            // draw small circle on the line
+            lengthList.forEach((key, index) => {
+                const item = lengthList[index];
+                const emotionalValue = parseInt(item.emotional_value); // emotional value can be -10 to 10
 
-            let yValue = 100 - (emotionalValue * 10);
-            if (yValue > 195) yValue = 195;
-            if (yValue < 5) yValue = 5;
+                let yValue = 100 - (emotionalValue * 10);
+                if (yValue > 195) yValue = 195;
+                if (yValue < 5) yValue = 5;
+                ctx.beginPath();
+                ctx.arc(xValue, yValue, 5, 0, 2 * Math.PI);
+                ctx.fillStyle = 'red';
+                ctx.fill();
+
+                if (index !== 0) {
+                    xValue = xValue + xPart - (20 / index) / 2 + 2;
+                } else {
+                    xValue = xValue + xPart;
+                }
+            })
+
             ctx.beginPath();
-            ctx.arc(xValue, yValue, 5, 0, 2 * Math.PI);
+            if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
+            else ctx.arc(20, 100, 5, 0, 2 * Math.PI);
+            if (qs === '[sw-graph="item-22"]') ctx.arc(item11OffsetWidth - 10, 100, 5, 0, 2 * Math.PI);
+            else ctx.arc(item11OffsetWidth - 3, 100, 5, 0, 2 * Math.PI);
             ctx.fillStyle = 'red';
             ctx.fill();
-
-            if (index !== 0) {
-                xValue = xValue + xPart - (20 / index) / 2 + 2;
-            } else {
-                xValue = xValue + xPart;
-            }
-        })
-
-        ctx.beginPath();
-        if (qs === '[sw-graph="item-22"]') ctx.arc(30, 100, 5, 0, 2 * Math.PI);
-        else ctx.arc(20, 100, 5, 0, 2 * Math.PI);
-        if (qs === '[sw-graph="item-22"]') ctx.arc(item11OffsetWidth - 10, 100, 5, 0, 2 * Math.PI);
-        else ctx.arc(item11OffsetWidth - 3, 100, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = 'red';
-        ctx.fill();
+        }
 
         // append canvas to the item11 element
         item11.appendChild(canvas);
 
+        if (this.showActLine) {
+            // Adding ACT
+            function drawYAxiStraightLine(ctx, xValue) {
+                ctx.beginPath();
+                ctx.moveTo(xValue, 0);
+                ctx.lineTo(xValue, 200);
+                ctx.stroke();
+            }
+            if (this.actStructure === '3'){
+                // divide the item11 element into 3 parts with a y-axix straight line
+                // first part width is 25%
+                // second part width is 50%
+                // third part width is 25%
+                const width25 = item11OffsetWidth * 0.25;
+                const width50 = item11OffsetWidth * 0.5;
+                const width75 = item11OffsetWidth * 0.75;
 
-        // Adding ACT
-        function drawYAxiStraightLine(ctx, xValue) {
-            ctx.beginPath();
-            ctx.moveTo(xValue, 0);
-            ctx.lineTo(xValue, 200);
-            ctx.stroke();
-        }
-        if (this.actStructure === '3'){
-            // divide the item11 element into 3 parts with a y-axix straight line
-            // first part width is 25%
-            // second part width is 50%
-            // third part width is 25%
-            const width25 = item11OffsetWidth * 0.25;
-            const width50 = item11OffsetWidth * 0.5;
-            const width75 = item11OffsetWidth * 0.75;
+                // draw a y-axix straight line
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                drawYAxiStraightLine(ctx, width25);
+                drawYAxiStraightLine(ctx, width75);
+            }
+            else if (this.actStructure === '5'){
+                // divide the item11 element into 5 parts with a y-axix straight line
+                // first part width is 20%
+                // second part width is 20%
+                // third part width is 20%
+                // fourth part width is 20%
+                // fifth part width is 20%
+                const width20 = item11OffsetWidth * 0.2;
+                const width40 = item11OffsetWidth * 0.4;
+                const width60 = item11OffsetWidth * 0.6;
+                const width80 = item11OffsetWidth * 0.8;
 
-            // draw a y-axix straight line
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
-            drawYAxiStraightLine(ctx, width25);
-            drawYAxiStraightLine(ctx, width75);
-        }
-        else if (this.actStructure === '5'){
-            // divide the item11 element into 5 parts with a y-axix straight line
-            // first part width is 20%
-            // second part width is 20%
-            // third part width is 20%
-            // fourth part width is 20%
-            // fifth part width is 20%
-            const width20 = item11OffsetWidth * 0.2;
-            const width40 = item11OffsetWidth * 0.4;
-            const width60 = item11OffsetWidth * 0.6;
-            const width80 = item11OffsetWidth * 0.8;
-
-            // draw a y-axix straight line
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 2;
-            drawYAxiStraightLine(ctx, width20);
-            drawYAxiStraightLine(ctx, width40);
-            drawYAxiStraightLine(ctx, width60);
-            drawYAxiStraightLine(ctx, width80);
+                // draw a y-axix straight line
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                drawYAxiStraightLine(ctx, width20);
+                drawYAxiStraightLine(ctx, width40);
+                drawYAxiStraightLine(ctx, width60);
+                drawYAxiStraightLine(ctx, width80);
+            }
         }
 
     }
