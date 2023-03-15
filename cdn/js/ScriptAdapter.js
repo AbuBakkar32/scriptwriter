@@ -61,13 +61,13 @@ class ScriptAdapter {
     }
 
     draftList() {
-        // Initilize draft and it content on page finish loading
+        // Initialize draft and it content on page finish loading
         this.initDraft();
 
-        // Initilize other script content on page finish loading
+        // Initialize other script content on page finish loading
         this.initContent();
 
-        // Draft list containter
+        // Draft list container
         const draftListWrapper = document.querySelector(`[sw-draft="list"]`);
 
         // Add click event to it.
