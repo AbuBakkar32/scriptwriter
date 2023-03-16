@@ -76,7 +76,7 @@ class ScriptAdapter {
             e.stopPropagation();
         });
 
-        //draft items
+        // draft items
         [...draftListWrapper.children].forEach((draftItem) => {
             this.draftItemEventListeners(draftItem);
         });
@@ -85,8 +85,7 @@ class ScriptAdapter {
     initDraft() {
         // Draft list container
         const draftListWrapper = document.querySelector(`[sw-draft="list"]`);
-        //Delete dummy draft te
-        // plate
+        // Delete dummy draft template
         [...draftListWrapper.children].forEach((draftOption) => {
             draftOption.remove()
         });
@@ -118,7 +117,7 @@ class ScriptAdapter {
             }
         });
 
-        /* Render Draft content on page Loaded */
+        // Render Draft content on page Loaded
         // Get current active draft option element and make it selected
         [...draftListWrapper.children].forEach((draftOpt) => {
             const draftKey = draftOpt.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
@@ -132,7 +131,6 @@ class ScriptAdapter {
         // Set the script title
         document.querySelector(`[sw-data-type="title"]`).innerText = this.scriptDataStore.title;
         document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', () => {
-            // automatic save
             this.autoSave()
         });
 
@@ -152,7 +150,7 @@ class ScriptAdapter {
             // Prevent defualt
             e.stopImmediatePropagation();
             e.stopPropagation();
-            //Add selection indicator select-feature-draft
+            // Add selection indicator select-feature-draft
             if (!draftItem.classList.contains('select-feature-draft')) {
                 // Previous selected draft
                 const prevSelectedDraft = draftItem.parentElement.querySelector('.select-feature-draft');
@@ -173,7 +171,7 @@ class ScriptAdapter {
             this.scriptDataStore.draft[this.currentDraftKey].data = getCurrentContent;
             this.scriptDataStore.draft[this.currentDraftKey].active = 'false';
 
-            //get the current selected draft key
+            // get the current selected draft key
             const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
             // Set current draft to active
             this.scriptDataStore.draft[draftKey].active = 'true';
