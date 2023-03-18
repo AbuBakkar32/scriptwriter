@@ -366,9 +366,9 @@
                         const list = item.querySelectorAll(`div`);
                         list.forEach((item, i) => {
                             if (i === 0) {
-                                value = 20;
+                                value = 35;
                             } else {
-                                value = (20 + (i * 10) + this.count);
+                                value = (35 + (i * 10) + this.count);
                             }
                             const swEditorType = item.getAttribute("sw-editor-type");
                             const pageWidth = pdf.internal.pageSize.width;
@@ -413,31 +413,31 @@
 
                 actType(pdf, item, textOffset, value) {
                     pdf.setFontSize(14);
-                    pdf.setFont("times", "bold", "italic");
+                    pdf.setFont("courier", "bold", "italic");
                     pdf.setTextColor(0, 0, 0);
                     pdf.text(item.innerText, textOffset, value);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                 }
 
                 sceneHeadingType(pdf, item, leftMargin, value) {
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "bold");
+                    pdf.setFont("courier", "bold");
                     pdf.setTextColor(0, 0, 0);
                     pdf.text(item.innerText, leftMargin, value);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                 }
 
                 characterType(pdf, item, textOffset, value) {
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text(item.innerText, textOffset, value);
-                    pdf.setFont("times", "normal");
+                    pdf.text(item.innerText, textOffset, value-5);
+                    pdf.setFont("courier", "normal");
                 }
 
                 dialogType(pdf, item, pageWidth, leftMargin, rightMargin, value) {
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                     pdf.setTextColor(0, 0, 0);
 
                     const maxLineLength = 90; // set the maximum length of a line
@@ -455,14 +455,14 @@
                         lineIndex++;
                     }
 
-                    let dialogueYPosition = value;
+                    let dialogueYPosition = value-8;
                     for (const element of this.dialogueTextBreak) {
                         const dialogueLine = element;
                         const dialogueLineOffset = (pageWidth - pdf.getStringUnitWidth(dialogueLine) * pdf.internal.getFontSize() / pdf.internal.scaleFactor) / 2;
                         pdf.text(dialogueLine, dialogueLineOffset, dialogueYPosition, {align: "justify"});
                         dialogueYPosition += 5;
                     }
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                     if (this.dialogueTextBreak.length > 1) {
                         for (const element of this.dialogueTextBreak) {
                             value = value + 3;
@@ -474,27 +474,27 @@
 
                 actionType(pdf, item, leftMargin, value) {
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "bold");
+                    pdf.setFont("courier", "bold");
                     pdf.setTextColor(0, 0, 0);
                     pdf.text(item.innerText, leftMargin, value);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                 }
 
                 parentArticleType(pdf, item, textOffset, value) {
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text(item.innerText, textOffset, value);
-                    pdf.setFont("times", "normal");
+                    pdf.text(item.innerText, textOffset, value-5);
+                    pdf.setFont("courier", "normal");
                 }
 
                 transitionType(pdf, item, value, pageWidth, textWidth, rightMargin) {
                     let textOffsett = pageWidth - textWidth - rightMargin;
                     pdf.setFontSize(12);
-                    pdf.setFont("times", "normal");
+                    pdf.setFont("courier", "normal");
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text(item.innerText, textOffsett, value);
-                    pdf.setFont("times", "normal");
+                    pdf.text(item.innerText, textOffsett, value-10);
+                    pdf.setFont("courier", "normal");
                 }
 
                 addWaterMark(pdf, watermark) {
