@@ -61,13 +61,13 @@ class ScriptAdapter {
     }
 
     draftList() {
-        // Initilize draft and it content on page finish loading
+        // Initialize draft and it content on page finish loading
         this.initDraft();
 
-        // Initilize other script content on page finish loading
+        // Initialize other script content on page finish loading
         this.initContent();
 
-        // Draft list containter
+        // Draft list container
         const draftListWrapper = document.querySelector(`[sw-draft="list"]`);
 
         // Add click event to it.
@@ -76,7 +76,7 @@ class ScriptAdapter {
             e.stopPropagation();
         });
 
-        //draft items
+        // draft items
         [...draftListWrapper.children].forEach((draftItem) => {
             this.draftItemEventListeners(draftItem);
         });
@@ -85,8 +85,7 @@ class ScriptAdapter {
     initDraft() {
         // Draft list container
         const draftListWrapper = document.querySelector(`[sw-draft="list"]`);
-        //Delete dummy draft te
-        // plate
+        // Delete dummy draft template
         [...draftListWrapper.children].forEach((draftOption) => {
             draftOption.remove()
         });
@@ -118,7 +117,7 @@ class ScriptAdapter {
             }
         });
 
-        /* Render Draft content on page Loaded */
+        // Render Draft content on page Loaded
         // Get current active draft option element and make it selected
         [...draftListWrapper.children].forEach((draftOpt) => {
             const draftKey = draftOpt.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
@@ -132,7 +131,6 @@ class ScriptAdapter {
         // Set the script title
         document.querySelector(`[sw-data-type="title"]`).innerText = this.scriptDataStore.title;
         document.querySelector(`[sw-data-type="title"]`).addEventListener('keyup', () => {
-            // automatic save
             this.autoSave()
         });
 
@@ -152,7 +150,7 @@ class ScriptAdapter {
             // Prevent defualt
             e.stopImmediatePropagation();
             e.stopPropagation();
-            //Add selection indicator select-feature-draft
+            // Add selection indicator select-feature-draft
             if (!draftItem.classList.contains('select-feature-draft')) {
                 // Previous selected draft
                 const prevSelectedDraft = draftItem.parentElement.querySelector('.select-feature-draft');
@@ -173,7 +171,7 @@ class ScriptAdapter {
             this.scriptDataStore.draft[this.currentDraftKey].data = getCurrentContent;
             this.scriptDataStore.draft[this.currentDraftKey].active = 'false';
 
-            //get the current selected draft key
+            // get the current selected draft key
             const draftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
             // Set current draft to active
             this.scriptDataStore.draft[draftKey].active = 'true';
@@ -238,7 +236,6 @@ class ScriptAdapter {
         this.draftItemEventListeners(newDraft);
 
         //Load Content of the previous draft and store on new draft
-        //...
         // Get previous and new draft keys
         const prevDraftKey = draftItem.querySelector(`[sw-draft="item-text"]`).textContent.toLowerCase().replace(' ', '');
         const newDraftKey = draftName.toLowerCase().replace(' ', '');
@@ -434,7 +431,7 @@ class ScriptAdapter {
             await window.EditorMode.rearrangePage();
         }).then(() => {
             /** Await Point */
-                // window.Watcher.bothAwait(true, 'Activating Watcher on page...');
+            // window.Watcher.bothAwait(true, 'Activating Watcher on page...');
             const pageWrap = document.querySelector(`[sw-editor="list"]`);
             const pageList = pageWrap.querySelectorAll(`[sw-editor="item"]`);
             const contentLineList = pageWrap.querySelectorAll(`[sw-editor-type]`);
@@ -457,12 +454,12 @@ class ScriptAdapter {
     }
 
     saveCommentAndNote() {
-        //To form this kind of date formate: 29th July, 2021
+        // To form this kind of date formate: 29th July, 2021
         const myDate = new Date();
         const year = myDate.getFullYear(); //2022
-        //myDate.getMonth() //1
+        // myDate.getMonth() //1
         const day = myDate.getDate(); //16
-        //myDate // Wed Feb 16 2022 19:52:26 GMT+0100 (West Africa Standard Time)
+        // myDate // Wed Feb 16 2022 19:52:26 GMT+0100 (West Africa Standard Time)
         // Get month Name
         const monthName = String(myDate).split(' ')[1];
         const todayDate = day + ' ' + monthName + ', ' + year;
@@ -530,9 +527,9 @@ class ScriptAdapter {
         formData.append('csrfmiddlewaretoken', crsftokenValue);
         formData.append('text', text);
         formData.append('content-line-index', index);
-        formData.append('draftID', draft); //Ex. draft1
+        formData.append('draftID', draft);
         formData.append('date', date);
-        formData.append('type', type); //note or comment
+        formData.append('type', type);
         if (type === 'note') formData.append('color', color); //set color if note type
 
         // Send the data to store
