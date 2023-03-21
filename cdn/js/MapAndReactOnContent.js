@@ -42,6 +42,7 @@ class MapAndReactOnContent {
     actStructure = '3';
     showActLine = true;
     showLineChart = true;
+    showCandleChart = true;
 
     constructor(attrName = "sw-editor") {
         this.attrName = attrName;
@@ -83,8 +84,13 @@ class MapAndReactOnContent {
         this.swPageTemp = document.querySelector(this.cons.list);
         this.lineGraph.addEventListener('click', () => {
             this.showLineChart = !this.showLineChart;
-            this.graphTemplateOne('[sw-graph="item-11"]');
+            if (this.showLineChart) this.graphTemplateOne('[sw-graph="item-11"]');
         });
+        this.maskGraph.addEventListener('click', () => {
+            this.showCandleChart = !this.showCandleChart;
+            this.graphRenderer();
+        });
+
 
         // END - For Toggle Button
         // Delete the dummy templates of structure guide in right sider bar
@@ -605,9 +611,15 @@ class MapAndReactOnContent {
                 sceneItem.forEach((nam) => {
                     if (!newSetNames.includes(nam)) newSetNames += nam + ' ';
                 });
-                newTable.push([
-                    count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
-                );
+                if (this.showCandleChart){
+                    newTable.push([
+                        count, noOfCharacters, noOfCharacters, -noOfCharacters, -noOfCharacters, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
+                    );
+                } else {
+                    newTable.push([
+                        0,0,0,-0,-0, this.graphTipDOMTemplate(itm.name.toUpperCase(), newSetNames)]
+                    );
+                }
                 count += 1;
             });
             this.graphTemplateFour(newTable);
@@ -809,52 +821,100 @@ class MapAndReactOnContent {
     }
 
     graphTemplateFour(tableData) {
-        // format for tableData parameter: [[1, 28, 28, -38, -38, '<b>one<b>']]
-        const drawCandleChart = () => {
-            const data = new google.visualization.DataTable();
-            data.addColumn('number', 'Y');
-            data.addColumn('number', 'S');
-            data.addColumn('number', 't');
-            data.addColumn('number', 'p');
-            data.addColumn('number', 'q');
-            // A column for custom tooltip content
-            data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
-            data.addRows([...tableData]);
-            // Configure the hAxis ticks
-            const zeros = [];
-            tableData.forEach((it) => {
-                zeros.push(0)
-            });
+        if (this.showCandleChart) {
+            // format for tableData parameter: [[1, 28, 28, -38, -38, '<b>one<b>']]
+            const drawCandleChart = () => {
+                const data = new google.visualization.DataTable();
+                data.addColumn('number', 'Y');
+                data.addColumn('number', 'S');
+                data.addColumn('number', 't');
+                data.addColumn('number', 'p');
+                data.addColumn('number', 'q');
+                // A column for custom tooltip content
+                data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
+                data.addRows([...tableData]);
+                // Configure the hAxis ticks
+                const zeros = [];
+                tableData.forEach((it) => {
+                    zeros.push(0)
+                });
 
-            let graph1Width = 1200;
-            if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
+                let graph1Width = 1200;
+                if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
 
-            const options = {
-                width: graph1Width,
-                tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
-                legend: 'none',
-                // colors: ["transparent", "white"],
-                bar: {groupWidth: '2%'}, // Remove space between bars.
-                backgroundColor: {
-                    fill: 'none', // Change the background color.
-                    stroke: 'none' // Change the vertical line color
-                },
-                candlestick: {
-                    fallingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}, // red: Applying color to the line bar
-                    risingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}   // green:
-                }, vAxis: {ticks: []}, //To hide all the horizontal lines.
-                hAxis: {
-                    ticks: [...zeros, tableData.length + 1],
-                    baseline: tableData.length + 1,
-                    gridlines: {color: '#000', minSpacing: 30}
-                },
-                chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
-            };
+                const options = {
+                    width: graph1Width,
+                    tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
+                    legend: 'none',
+                    // colors: ["transparent", "white"],
+                    bar: {groupWidth: '2%'}, // Remove space between bars.
+                    backgroundColor: {
+                        fill: 'none', // Change the background color.
+                        stroke: 'none' // Change the vertical line color
+                    },
+                    candlestick: {
+                        fallingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}, // red: Applying color to the line bar
+                        risingColor: {stroke: '#ffffff', strokeWidth: 5, fill: '#ffffff'}   // green:
+                    }, vAxis: {ticks: []}, //To hide all the horizontal lines.
+                    hAxis: {
+                        ticks: [...zeros, tableData.length + 1],
+                        baseline: tableData.length + 1,
+                        gridlines: {color: '#000', minSpacing: 30}
+                    },
+                    chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
+                };
 
-            const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
-            chart.draw(data, options);
+                const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
+                chart.draw(data, options);
+            }
+            google.charts.setOnLoadCallback(drawCandleChart);
+        } else {
+            // show the chart, but there will be no data
+            const drawCandleChart = () => {
+                const data = new google.visualization.DataTable();
+                data.addColumn('number', 'Y');
+                data.addColumn('number', 'S');
+                data.addColumn('number', 't');
+                data.addColumn('number', 'p');
+                data.addColumn('number', 'q');
+                // A column for custom tooltip content
+                data.addColumn({type: 'string', role: 'tooltip', p: {html: true}});
+                data.addRows([[1, 0, 0, 0, 0, '<b><b>']]);
+                // Configure the hAxis ticks
+                const zeros = [0];
+
+                let graph1Width = 1200;
+                if (window.innerWidth < graph1Width) graph1Width = window.innerWidth - 20;
+
+                const options = {
+                    width: graph1Width,
+                    tooltip: {isHtml: true, ignoreBounds: true},//, trigger: 'selection'},
+                    legend: 'none',
+                    // colors: ["transparent", "white"],
+                    bar: {groupWidth: '0'}, // Remove space between bars.
+                    backgroundColor: {
+                        fill: 'none', // Change the background color.
+                        stroke: 'none' // Change the vertical line color
+                    },
+                    // add opacity to the candlestick
+                    candlestick: {
+                        fallingColor: {stroke: 'rgb(255, 255, 255, 0)', strokeWidth: 0, fill: 'rgb(255, 255, 255, 0)'}, // red: Applying color to the line bar
+                        risingColor: {stroke: 'rgb(255, 255, 255, 0)', strokeWidth: 0, fill: 'rgb(255, 255, 255, 0)'}   // green:
+                    }, vAxis: {ticks: []}, //To hide all the horizontal lines.
+                    hAxis: {
+                        ticks: [...zeros, 1],
+                        baseline: 1,
+                        gridlines: {color: '#000', minSpacing: 30}
+                    },
+                    chartArea: {left: 20, top: 0, width: '100%', height: '100%', stroke: '#fdc', strokeWidth: 5}
+                };
+
+                const chart = new google.visualization.CandlestickChart(document.querySelector(`[sw-graph="item-1"]`));
+                chart.draw(data, options);
+            }
+            google.charts.setOnLoadCallback(drawCandleChart);
         }
-        google.charts.setOnLoadCallback(drawCandleChart);
+
     }
 
     renderActDropdown() {
