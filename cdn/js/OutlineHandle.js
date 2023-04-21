@@ -560,6 +560,7 @@ class OutlineHandle {
                 outlineSceneTitle.classList.add('hide');
                 div.append(outlineSceneTitle);
 
+
                 // Add outline goal div
                 const outlineGoal = document.createElement('div');
                 outlineGoal.setAttribute('outline-data', "scene-goal");

@@ -203,13 +203,13 @@ class EditorMode {
             const newWaterMark = this.waterMarkTemp.cloneNode(true);
             // set top
             newWaterMark.style.top = String(pageTop) + 'px';
-            newWaterMark.style.opacity = this.waterMarkText.waterMarkDisplayOpacity;
-            newWaterMark.textContent = this.waterMarkText.waterMarkDisplayText;
+            // newWaterMark.style.opacity = this.waterMarkText.waterMarkDisplayOpacity;
+            // newWaterMark.textContent = this.waterMarkText.waterMarkDisplayText;
             // set top
             newPageNumber.style.top = String(pageTop) + 'px';
             newPageNumber.textContent = String(count) + '.';
             this.anyWhereWrap.append(newPageNumber);
-            this.anyWhereWrap.append(newWaterMark);
+            // this.anyWhereWrap.append(newWaterMark);
             // increase count
             count += 1;
         });
