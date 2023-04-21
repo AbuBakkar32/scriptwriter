@@ -19,6 +19,7 @@ class ScriptAdapter {
     keyList = [];
 
     constructor() {
+        console.log(this.scriptDataStor)
         setTimeout(() => {
                 window.MapAndReactOnContent.mapreact();
                 const title = document.querySelector(`[structure="title"]`);

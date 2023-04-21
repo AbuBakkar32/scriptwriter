@@ -91,29 +91,29 @@ class ClientSetting {
                 }
                 this.waterMarkStatus = this.waterMarkInput.checked;
             }
-            res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
+            // res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
 
-            setTimeout(() => {
-                try {
-                    this.displayName = document.querySelectorAll(".water-marks");
-                    if (this.waterMarkStatus) {
-                        this.displayName.forEach((element) => {
-                            element.classList.remove("hidden");
-                        });
-                    } else {
-                        this.displayName.forEach((element) => {
-                            element.classList.add("hidden");
-                        });
-                    }
-                    const opacityValue = document.querySelectorAll('.opacity-range');
-                    opacityValue.forEach((element) => {
-                        element.style.opacity = res.waterMarkDisplayOpacity;
-                    });
-                } catch (e) {
-                }
-            }, 100);
+            // setTimeout(() => {
+            //     try {
+            //         this.displayName = document.querySelectorAll(".water-marks");
+            //         if (this.waterMarkStatus) {
+            //             this.displayName.forEach((element) => {
+            //                 element.classList.remove("hidden");
+            //             });
+            //         } else {
+            //             this.displayName.forEach((element) => {
+            //                 element.classList.add("hidden");
+            //             });
+            //         }
+            //         const opacityValue = document.querySelectorAll('.opacity-range');
+            //         opacityValue.forEach((element) => {
+            //             element.style.opacity = res.waterMarkDisplayOpacity;
+            //         });
+            //     } catch (e) {
+            //     }
+            // }, 100);
             let timeOut = res.autoSaveTimeOut * 1000 * 60;
             const loadScript = this.loadScript(res.userID);
             loadScript.then(res => {
@@ -123,9 +123,9 @@ class ClientSetting {
             });
             this.listener();
             this.onePageWritingListener();
-            this.waterMarkListener();
-            this.displayListener();
-            this.opacityListener();
+            // this.waterMarkListener();
+            // this.displayListener();
+            // this.opacityListener();
             this.autoSaveListener();
             this.removeMultiplePages();
         });
@@ -151,7 +151,7 @@ class ClientSetting {
     //settingPageListener
     getCommomFields() {
         this.autoSaveTimeOut = this.autoSave.value;
-        this.waterMarkDisplayOpacity = this.opacity.value;
+        // this.waterMarkDisplayOpacity = this.opacity.value;
         this.waterMarkDisplayText = this.display.value;
     }
 
@@ -194,7 +194,7 @@ class ClientSetting {
                 setTimeout(() => {
                     this.searchWrapperElements = document.querySelectorAll(`[sw-editor="item"]`);
                     this.searchPageNumber = document.querySelectorAll(`[sw-page-number="item"]`);
-                    this.displayName = document.querySelectorAll(".water-marks");
+                    // this.displayName = document.querySelectorAll(".water-marks");
 
                     for (let i = 1; i < this.searchWrapperElements.length; i++) {
                         this.searchWrapperElements[i].remove();
@@ -211,25 +211,25 @@ class ClientSetting {
 
     /* Listening for a change Water Mark Mode */
     waterMarkListener() {
-        this.waterMarkInput.addEventListener('change', () => {
-            // Update the status
-            try {
-                this.waterMarkStatus = this.waterMarkInput.checked;
-                if (this.waterMarkStatus) {
-                    this.displayName.forEach(element => {
-                        element.classList.remove("hidden");
-                    });
-                } else {
-                    this.displayName.forEach(element => {
-                        element.classList.add("hidden");
-                    });
-                }
-            } catch (e) {
-            }
+        // this.waterMarkInput.addEventListener('change', () => {
+        //     // Update the status
+        //     try {
+        //         this.waterMarkStatus = this.waterMarkInput.checked;
+        //         if (this.waterMarkStatus) {
+        //             this.displayName.forEach(element => {
+        //                 element.classList.remove("hidden");
+        //             });
+        //         } else {
+        //             this.displayName.forEach(element => {
+        //                 element.classList.add("hidden");
+        //             });
+        //         }
+        //     } catch (e) {
+        //     }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
-        });
+        // });
     }
 
     /* Listening for a change in the opacity. */
@@ -248,13 +248,13 @@ class ClientSetting {
         //Display Input
         this.display.addEventListener('keyup', (event) => {
             // Update the status
-            try {
-                this.displayName.forEach(element => {
-                    element.innerHTML = this.display.value
-                });
-            } catch (e) {
-
-            }
+            // try {
+            //     this.displayName.forEach(element => {
+            //         element.innerHTML = this.display.value
+            //     });
+            // } catch (e) {
+            //
+            // }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
@@ -386,7 +386,7 @@ async function slider() {
     slider.oninput = function () {
         this.waterMarkDisplayOpacity = this.value / 100;
         opacity.forEach((item) => {
-            item.style.opacity = slider.value / 100;
+            // item.style.opacity = slider.value / 100;
         });
     }
 }
