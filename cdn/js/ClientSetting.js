@@ -91,7 +91,7 @@ class ClientSetting {
                 }
                 this.waterMarkStatus = this.waterMarkInput.checked;
             }
-            // res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
+            res.waterMarkDisplayOpacity ? this.opacity.value = res.waterMarkDisplayOpacity * 100 : this.opacity.value = 100;
             res.waterMarkDisplayText ? this.display.value = res.waterMarkDisplayText : this.display.value = "";
             res.autoSaveTimeOut ? this.autoSave.value = res.autoSaveTimeOut : this.autoSave.value = 5;
 
@@ -123,9 +123,9 @@ class ClientSetting {
             });
             this.listener();
             this.onePageWritingListener();
-            // this.waterMarkListener();
-            // this.displayListener();
-            // this.opacityListener();
+            this.waterMarkListener();
+            this.displayListener();
+            this.opacityListener();
             this.autoSaveListener();
             this.removeMultiplePages();
         });
@@ -211,25 +211,25 @@ class ClientSetting {
 
     /* Listening for a change Water Mark Mode */
     waterMarkListener() {
-        // this.waterMarkInput.addEventListener('change', () => {
-        //     // Update the status
-        //     try {
-        //         this.waterMarkStatus = this.waterMarkInput.checked;
-        //         if (this.waterMarkStatus) {
-        //             this.displayName.forEach(element => {
-        //                 element.classList.remove("hidden");
-        //             });
-        //         } else {
-        //             this.displayName.forEach(element => {
-        //                 element.classList.add("hidden");
-        //             });
-        //         }
-        //     } catch (e) {
-        //     }
+        this.waterMarkInput.addEventListener('change', () => {
+            // Update the status
+            try {
+                this.waterMarkStatus = this.waterMarkInput.checked;
+                // if (this.waterMarkStatus) {
+                //     this.displayName.forEach(element => {
+                //         element.classList.remove("hidden");
+                //     });
+                // } else {
+                //     this.displayName.forEach(element => {
+                //         element.classList.add("hidden");
+                //     });
+                // }
+            } catch (e) {
+            }
             this.getCommomFields();
             //Save Settings
             this.saveSetting();
-        // });
+        });
     }
 
     /* Listening for a change in the opacity. */
@@ -396,4 +396,3 @@ document.addEventListener("DOMContentLoaded", function () {
     window.ClientSetting = new ClientSetting();
     slider().then(r => r);
 });
-
