@@ -2,17 +2,15 @@
 """
 Created on Sun July 4 04:46:13 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
-Hamdling Client Login Access
+Abu Client Login Access
 """
 from django.shortcuts import redirect
 
 from .Assembler import (replaceTOHtmlCharacter, convertDBDataTOArray, render,
                         HttpResponseRedirect, Client, arrayDBData
                         )
-
-
 class ClientLogin(object):
     def __init__(self, request):
         # initialize
@@ -57,3 +55,5 @@ class ClientLogin(object):
                 return redirect("/client-home")
             else:
                 return render(request, "dashboard.html", self.content_context)
+
+
