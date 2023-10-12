@@ -2,7 +2,7 @@
 """
 Created on Fri May 28 02:26:52 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 For managing/processing Admin login access
 """
@@ -39,5 +39,3 @@ class AdminAccessApp(object):
                 f.save()
                 return render(request, "admin/login.html" , self.err_logout)
             else: return HttpResponseRedirect("/app-login")
-            
-        
