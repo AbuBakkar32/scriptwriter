@@ -2,7 +2,7 @@
 """
 Created on Tue July  4 04:21:24 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 The assembler of all component for evaluation and integration
 """
