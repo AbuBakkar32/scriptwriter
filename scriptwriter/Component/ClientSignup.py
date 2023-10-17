@@ -2,7 +2,7 @@
 """
 Created on Mon May 31 01:51:09 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Client SignUp functionality/Handler
 """
