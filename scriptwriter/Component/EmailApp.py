@@ -2,7 +2,7 @@
 """
 Created on Sat Mar 12 16:28:54 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Manage all email logic
 """
