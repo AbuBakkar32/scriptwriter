@@ -1,7 +1,7 @@
 """
 Created on Sun May 29 02:00:15 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Managing text to audio for users and background songs uploaded by admin
 """
