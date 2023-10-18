@@ -2,7 +2,7 @@
 """
 Created on Fri Mar  4 08:00:28 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 To manage all glossary logic
 """
