@@ -2,7 +2,7 @@
 """
 Created on Fri May 28 02:12:43 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 For managing and handling of I.D for the app
 """
