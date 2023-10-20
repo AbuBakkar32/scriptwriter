@@ -2,7 +2,7 @@
 """
 Created on Fri Jul 30 10:42:24 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Mr mailer: Handle email sending out
 """
