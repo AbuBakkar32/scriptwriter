@@ -37,7 +37,7 @@ silx==1.0.0
 six==1.16.0
 sqlparse==0.4.4
 stripe==4.0.2
-urllib3==1.26.8
+urllib3==1.26.18
 virtualenv==20.7.2
 fpdf==1.7.2
 bs4==0.0.1
