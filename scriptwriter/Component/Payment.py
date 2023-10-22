@@ -2,7 +2,7 @@
 """
 Created on Fri Mar 11 14:34:13 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Stripe integration and transaction
 
