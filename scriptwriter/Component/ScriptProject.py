@@ -2,7 +2,7 @@
 """
 Created on Fri Oct  1 15:06:44 2021
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 For managing all Script Project
 """
