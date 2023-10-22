@@ -2,7 +2,7 @@
 """
 Created on Sun Jan 16 15:43:15 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 Managing all script authors and their comments
 """
