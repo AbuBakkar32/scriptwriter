@@ -2,7 +2,7 @@
 """
 Created on Fri Mar  4 07:59:27 2022
 
-@author: George
+@author: Abu Bakkar Siddikk
 
 To manage all notepad logic
 """
